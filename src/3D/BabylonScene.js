@@ -48,7 +48,8 @@ class Scene3D extends Component {
     async componentDidMount() {
         this.SetupScene();
         this.SetupCamera();
-        //this.showDialog();
+        //this.inputElement.style.visibility = 'hidden';
+        this.inputElement.click();
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
@@ -137,7 +138,7 @@ class Scene3D extends Component {
     render() {
         return (
             <div>
-                <input type="file" onChange={(e) => this.showFile(e)}/>
+                <input ref={input => this.inputElement = input} type="file" onChange={(e) => this.showFile(e)}/>
                 <canvas
                     style={{width: window.innerWidth, height: window.innerHeight}}
                     ref={canvas => {
