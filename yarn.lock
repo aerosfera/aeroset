@@ -2401,6 +2401,11 @@ babylon@^6.18.0:
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
   integrity sha512-q/UEjfGJ2Cm3oKV71DJz9d25TPnq5rhBVL2Q4fA5wcC3jcrdn7+SssEybFIxwAvvP+YCsCYNKughoF33GxgycQ==
 
+babylonjs@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/babylonjs/-/babylonjs-4.1.0.tgz#a2d1d6765795e9d44f002831554d63d6275394bd"
+  integrity sha512-MnaH1BQIL+PYgqGaAvGVdP8yd7nM1j6sbQi/K/6+RlkHPxIETW2NbjqxiW7Sywgy7r3PwqWT/gxG4Bz95Z6/yA==
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -2877,6 +2882,11 @@ chokidar@^3.3.0:
     readdirp "~3.3.0"
   optionalDependencies:
     fsevents "~2.1.2"
+
+choose-files@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/choose-files/-/choose-files-1.0.2.tgz#c397c37a746b1981bb591dde8cd278a6b8e9614b"
+  integrity sha512-T1NyQWnLWirEd3ucKSU7NXbEhFPMpVHftlKVKtG3ga/ilqR7wmnI/8HI8D7eC7SxiQjhT9LAeOcfeqQ/O+TL5A==
 
 chownr@^1.1.1, chownr@^1.1.2:
   version "1.1.4"
