@@ -3,12 +3,6 @@ import * as BABYLON from 'babylonjs';
 import chooseFiles from 'choose-files';
 
 class Scene3D extends Component {
-    static foo = "foo";
-    static boo; //undefined
-
-    foo;
-
-
     constructor(props) {
         super(props);
         this.state = {useWireFrame: false, shouldAnimate: false};
@@ -23,7 +17,6 @@ class Scene3D extends Component {
     SetupCamera() {
         let camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 0, BABYLON.Vector3.Zero(), this.scene);
         camera.setPosition(new BABYLON.Vector3(0, 0, 20));
-
         camera.attachControl(this.canvas, true);
     }
 
@@ -39,7 +32,7 @@ class Scene3D extends Component {
                 array.push(value);
             });
 
-            this.setupPcs(array);
+            await this.setupPcs(array);
         };
         reader.readAsText(e.target.files[0])
     }
@@ -48,14 +41,52 @@ class Scene3D extends Component {
     async componentDidMount() {
         this.SetupScene();
         this.SetupCamera();
-        //this.inputElement.style.visibility = 'hidden';
-        this.inputElement.click();
+        this.showAxis(5);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
+        window.addEventListener("resize", function () {
+            this.engine.resize();
+        });
     }
 
-    setupPcs(array) {
+    showAxis(size) {
+        const makeTextPlane = function (text, color, size, scene) {
+            const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
+            dynamicTexture.hasAlpha = true;
+            dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color, "transparent", true);
+            const plane = new BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
+            plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
+            plane.material.backFaceCulling = false;
+            plane.material.specularColor = new BABYLON.Color3(0, 0, 0);
+            plane.material.diffuseTexture = dynamicTexture;
+            return plane;
+        };
+
+        const axisX = BABYLON.Mesh.CreateLines("axisX", [
+            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, 0.05 * size, 0),
+            new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
+        ], this.scene);
+        axisX.color = new BABYLON.Color3(1, 0, 0);
+        const xChar = makeTextPlane("X", "red", size / 10, this.scene);
+        xChar.position = new BABYLON.Vector3(0.9 * size, -0.05 * size, 0);
+        const axisY = BABYLON.Mesh.CreateLines("axisY", [
+            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(-0.05 * size, size * 0.95, 0),
+            new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(0.05 * size, size * 0.95, 0)
+        ], this.scene);
+        axisY.color = new BABYLON.Color3(0, 1, 0);
+        const yChar = makeTextPlane("Y", "green", size / 10, this.scene);
+        yChar.position = new BABYLON.Vector3(0, 0.9 * size, -0.05 * size);
+        const axisZ = BABYLON.Mesh.CreateLines("axisZ", [
+            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, -0.05 * size, size * 0.95),
+            new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, 0.05 * size, size * 0.95)
+        ], this.scene);
+        axisZ.color = new BABYLON.Color3(0, 0, 1);
+        const zChar = makeTextPlane("Z", "blue", size / 10, this.scene);
+        zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
+    };
+
+    async setupPcs(array) {
         let pcs = new BABYLON.PointsCloudSystem("pcs", 1, this.scene)
 
         const pMin = 0;//Math.min(...array.map(v => v[3]), 0);
@@ -129,7 +160,7 @@ class Scene3D extends Component {
             particle.color = new BABYLON.Color3(r / 255, g / 255, b / 255)
         }
         pcs.addPoints(array.length, myfunc);
-        pcs.buildMeshAsync();
+        await pcs.buildMeshAsync();
     }
 
     componentWillUnmount() {
