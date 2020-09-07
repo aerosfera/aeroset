@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as BABYLON from 'babylonjs';
-import chooseFiles from 'choose-files';
+import styled from 'styled-components';
 
 class Scene3D extends Component {
     constructor(props) {
