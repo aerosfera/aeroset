@@ -2,7 +2,7 @@
   "name": "mi-new-aeroset",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://NikitaSaytarov.github.io/new-aeroset-pwa",
+  "homepage": "https://aerosfera.github.io/aeroset/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
