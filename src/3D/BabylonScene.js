@@ -26,6 +26,15 @@ const theme = createMuiTheme({
 });
 
 class Scene3D extends Component {
+    filterXFromLimit;
+    filterXToLimit;
+
+    filterYFromLimit;
+    filterYToLimit;
+
+    filterZFromLimit;
+    filterZToLimit;
+
     constructor(props) {
         super(props);
         this.state = {useWireFrame: false, shouldAnimate: false};
@@ -110,7 +119,7 @@ class Scene3D extends Component {
     };
 
     async setupPcs(array) {
-        let pcs = new BABYLON.PointsCloudSystem("pcs", 1, this.scene)
+        let pcs = new BABYLON.PointsCloudSystem("pcs", 1, this.scene);
 
         const pMin = 0;//Math.min(...array.map(v => v[3]), 0);
         const pMax = 4;//Math.max(...array.map(v => v[3]), 5);
@@ -189,25 +198,89 @@ class Scene3D extends Component {
     componentWillUnmount() {
     }
 
+    handleChange(evt) {
+        const target = evt.target;
+        const inputType  = target.name;
+        const value = target.value;
+
+        if(inputType === "x-from"){
+            this.filterXFromLimit = value;
+        }
+        else if(inputType === "x-to"){
+            this.filterXToLimit = value;
+        }
+        else if(inputType === "y-from"){
+            this.filterYFromLimit = value;
+        }
+        else if(inputType === "y-to"){
+            this.filterYToLimit = value;
+        }
+        else if(inputType === "z-from"){
+            this.filterZFromLimit = value;
+        }
+        else if(inputType === "z-to"){
+            this.filterZToLimit = value;
+        }
+    }
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-            <div>
-                <input ref={input => this.inputElement = input} type="file" onChange={(e) => this.showFile(e)}/>
-                <canvas
-                    style={{width: window.innerWidth, height: window.innerHeight, position:"relative"}}
-                    ref={canvas => {
-                        if (canvas != null)
-                            this.canvas = canvas;
-                    }}
-                />
+                <div>
+                    <input ref={input => this.inputElement = input} type="file" onChange={(e) => this.showFile(e)}/>
+                    <canvas
+                        style={{width: window.innerWidth, height: window.innerHeight, position: "relative"}}
+                        ref={canvas => {
+                            if (canvas != null)
+                                this.canvas = canvas;
+                        }}
+                    />
                     <FiltersContainer>
                         <div>Axis filters:</div>
-                        <div>X:</div>
-                        <div>Y:</div>
-                        <div>Z:</div>
+                        <div>
+                            <div style={{display: "inline-block"}}>X: from</div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>
+                                <input style={{width: 60}} type="text" pattern="[0-9]*"
+                                       name={"x-from"}
+                                       onChange={this.handleChange.bind(this)}/>
+                            </div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>to</div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>
+                                <input style={{width: 60}}
+                                       name={"x-to"}
+                                       onChange={this.handleChange.bind(this)}/>
+                            </div>
+                        </div>
+                        <div>
+                            <div style={{display: "inline-block"}}>Y: from</div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>
+                                <input style={{width: 60}}
+                                       name={"y-from"}
+                                       onChange={this.handleChange.bind(this)}/>
+                            </div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>to</div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>
+                                <input style={{width: 60}}
+                                       name={"y-to"}
+                                       onChange={this.handleChange.bind(this)}/>
+                            </div>
+                        </div>
+                        <div>
+                            <div style={{display: "inline-block"}}>Z: from</div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>
+                                <input style={{width: 60}}
+                                       name={"z-from"}
+                                       onChange={this.handleChange.bind(this)}/>
+                            </div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>to</div>
+                            <div style={{display: "inline-block", marginLeft: 5}}>
+                                <input style={{width: 60}}
+                                       name={"z-to"}
+                                       onChange={this.handleChange.bind(this)}/>
+                            </div>
+                        </div>
                     </FiltersContainer>
-            </div>
+                </div>
             </MuiThemeProvider>
         )
     }
