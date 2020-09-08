@@ -1,6 +1,29 @@
 import React, {Component} from 'react';
 import * as BABYLON from 'babylonjs';
 import styled from 'styled-components';
+import Card from '@material-ui/core/Card';
+import {createMuiTheme} from '@material-ui/core/styles';
+import {
+    withStyles,
+    MuiThemeProvider
+} from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#3f50b5',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#f44336',
+            dark: '#ba000d',
+            contrastText: '#000',
+        },
+    },
+});
 
 class Scene3D extends Component {
     constructor(props) {
@@ -46,7 +69,7 @@ class Scene3D extends Component {
             this.scene.render();
         });
         window.addEventListener("resize", function () {
-            this.engine.resize();
+            //this.engine.resize();
         });
     }
 
@@ -168,18 +191,32 @@ class Scene3D extends Component {
 
     render() {
         return (
+            <MuiThemeProvider theme={theme}>
             <div>
                 <input ref={input => this.inputElement = input} type="file" onChange={(e) => this.showFile(e)}/>
                 <canvas
-                    style={{width: window.innerWidth, height: window.innerHeight}}
+                    style={{width: window.innerWidth, height: window.innerHeight, position:"relative"}}
                     ref={canvas => {
                         if (canvas != null)
                             this.canvas = canvas;
                     }}
                 />
+                    <FiltersContainer>
+                        <div>Axis filters:</div>
+                        <div>X:</div>
+                        <div>Y:</div>
+                        <div>Z:</div>
+                    </FiltersContainer>
             </div>
+            </MuiThemeProvider>
         )
     }
 }
+
+const FiltersContainer = styled(Card)`
+ padding: 4em;
+ background: ${theme.palette.background};
+ width: 300px; 
+ `;
 
 export default Scene3D;
