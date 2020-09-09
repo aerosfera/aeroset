@@ -26,18 +26,16 @@ const theme = createMuiTheme({
 });
 
 class Scene3D extends Component {
-    filterXFromLimit;
-    filterXToLimit;
-
-    filterYFromLimit;
-    filterYToLimit;
-
-    filterZFromLimit;
-    filterZToLimit;
-
     constructor(props) {
         super(props);
-        this.state = {useWireFrame: false, shouldAnimate: false};
+        this.state = {
+            filterXFromLimit: -10,
+            filterXToLimit: 10,
+            filterYFromLimit: -10,
+            filterYToLimit: 10,
+            filterZFromLimit: -10,
+            filterZToLimit: 10
+        };
     }
 
     SetupScene() {
@@ -64,7 +62,8 @@ class Scene3D extends Component {
                 array.push(value);
             });
 
-            await this.setupPcs(array);
+            this.pcsArray = array;
+            await this.setupPcs(this.pcsArray);
         };
         reader.readAsText(e.target.files[0])
     }
@@ -118,21 +117,45 @@ class Scene3D extends Component {
         zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
     };
 
-    async setupPcs(array) {
-        let pcs = new BABYLON.PointsCloudSystem("pcs", 1, this.scene);
+
+    async setupPcs() {
+        this.pcs = new BABYLON.PointsCloudSystem("pcs", 1, this.scene);
 
         const pMin = 0;//Math.min(...array.map(v => v[3]), 0);
         const pMax = 4;//Math.max(...array.map(v => v[3]), 5);
 
         const diff = pMax - pMin;
 
-        let myfunc = function (particle, i, s) {
-            let element = array[i];
+        const filteredArray = this.pcsArray.filter(e => {
+            const {x, y, z} = {
+                x: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
+                y: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
+                z: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
+            }
+
+            if (x == null || y == null || z == null)
+                return false;
+
+            if (this.state.filterXFromLimit > x || this.state.filterXToLimit < x)
+                return false;
+
+            if (this.state.filterYFromLimit > y || this.state.filterYToLimit < y)
+                return false;
+
+            if (this.state.filterZFromLimit > z || this.state.filterZToLimit < z)
+                return false;
+
+            return true;
+        });
+
+        let constructParticle = function (particle, i, _) {
+            let element = filteredArray[i];
             const coordinates = {
                 x: Number.parseFloat(element[0] ? element[0].replace(',', '.') : 0),
                 y: Number.parseFloat(element[1] ? element[1].replace(',', '.') : 0),
                 z: Number.parseFloat(element[2] ? element[2].replace(',', '.') : 0),
             }
+
             let p = element[3];
 
             function getColor(p, pMin, pMax) {
@@ -191,35 +214,92 @@ class Scene3D extends Component {
             particle.position = new BABYLON.Vector3(coordinates.x, coordinates.y, coordinates.z);
             particle.color = new BABYLON.Color3(r / 255, g / 255, b / 255)
         }
-        pcs.addPoints(array.length, myfunc);
-        await pcs.buildMeshAsync();
+        this.pcs.addPoints(filteredArray.length, constructParticle);
+        await this.pcs.buildMeshAsync();
     }
 
     componentWillUnmount() {
     }
 
-    handleChange(evt) {
-        const target = evt.target;
-        const inputType  = target.name;
+    handleChange(event) {
+        const target = event.target;
+        const inputType = target.name;
         const value = target.value;
 
-        if(inputType === "x-from"){
-            this.filterXFromLimit = value;
+        const constructNewFilteredPCS = () => {
+            if (this.pcs !== undefined) {
+                this.pcs.dispose();
+            }
+            this.setupPcs(this.pcsArray);
         }
-        else if(inputType === "x-to"){
-            this.filterXToLimit = value;
-        }
-        else if(inputType === "y-from"){
-            this.filterYFromLimit = value;
-        }
-        else if(inputType === "y-to"){
-            this.filterYToLimit = value;
-        }
-        else if(inputType === "z-from"){
-            this.filterZFromLimit = value;
-        }
-        else if(inputType === "z-to"){
-            this.filterZToLimit = value;
+
+        if (inputType === "x-from") {
+            this.setState(prevState => ({
+                filterXFromLimit: value,
+                filterXToLimit: prevState.filterXToLimit,
+                filterYFromLimit: prevState.filterYFromLimit,
+                filterYToLimit: prevState.filterYToLimit,
+                filterZFromLimit: prevState.filterZFromLimit,
+                filterZToLimit: prevState.filterZToLimit,
+            }), () => {
+                constructNewFilteredPCS();
+            });
+
+        } else if (inputType === "x-to") {
+            this.setState(prevState => ({
+                filterXFromLimit: prevState.filterXFromLimit,
+                filterXToLimit: value,
+                filterYFromLimit: prevState.filterYFromLimit,
+                filterYToLimit: prevState.filterYToLimit,
+                filterZFromLimit: prevState.filterZFromLimit,
+                filterZToLimit: prevState.filterZToLimit,
+            }), () => {
+                constructNewFilteredPCS();
+            });
+        } else if (inputType === "y-from") {
+            this.setState(prevState => ({
+                filterXFromLimit: prevState.filterXFromLimit,
+                filterXToLimit: prevState.filterXToLimit,
+                filterYFromLimit: value,
+                filterYToLimit: prevState.filterYToLimit,
+                filterZFromLimit: prevState.filterZFromLimit,
+                filterZToLimit: prevState.filterZToLimit,
+            }), () => {
+                constructNewFilteredPCS();
+            });
+        } else if (inputType === "y-to") {
+            this.setState(prevState => ({
+                filterXFromLimit: prevState.filterXFromLimit,
+                filterXToLimit: prevState.filterXToLimit,
+                filterYFromLimit: prevState.filterYFromLimit,
+                filterYToLimit: value,
+                filterZFromLimit: prevState.filterZFromLimit,
+                filterZToLimit: prevState.filterZToLimit,
+            }), () => {
+                constructNewFilteredPCS();
+            });
+        } else if (inputType === "z-from") {
+            this.setState(prevState => ({
+                filterXFromLimit: prevState.filterXFromLimit,
+                filterXToLimit: prevState.filterXToLimit,
+                filterYFromLimit: prevState.filterYFromLimit,
+                filterYToLimit: prevState.filterYToLimit,
+                filterZFromLimit: value,
+                filterZToLimit: prevState.filterZToLimit,
+            }), () => {
+                constructNewFilteredPCS();
+            });
+        } else if (inputType === "z-to") {
+            this.setState(prevState => ({
+                filterXFromLimit: prevState.filterXFromLimit,
+                filterXToLimit: prevState.filterXToLimit,
+                filterYFromLimit: prevState.filterYFromLimit,
+                filterYToLimit: prevState.filterYToLimit,
+                filterZFromLimit: prevState.filterZFromLimit,
+                filterZToLimit: value,
+            }), () => {
+                constructNewFilteredPCS();
+            });
         }
     }
 
@@ -240,14 +320,20 @@ class Scene3D extends Component {
                         <div>
                             <div style={{display: "inline-block"}}>X: from</div>
                             <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}} type="text" pattern="[0-9]*"
+                                <input style={{width: 60}}
+                                       step="0.1"
+                                       type="number"
                                        name={"x-from"}
+                                       value={this.state.filterXFromLimit}
                                        onChange={this.handleChange.bind(this)}/>
                             </div>
                             <div style={{display: "inline-block", marginLeft: 5}}>to</div>
                             <div style={{display: "inline-block", marginLeft: 5}}>
                                 <input style={{width: 60}}
+                                       step="0.1"
+                                       type="number"
                                        name={"x-to"}
+                                       value={this.state.filterXToLimit}
                                        onChange={this.handleChange.bind(this)}/>
                             </div>
                         </div>
@@ -255,13 +341,19 @@ class Scene3D extends Component {
                             <div style={{display: "inline-block"}}>Y: from</div>
                             <div style={{display: "inline-block", marginLeft: 5}}>
                                 <input style={{width: 60}}
+                                       pattern="^-?[0-9]\d*\.?\d*$"
+                                       type="number"
                                        name={"y-from"}
+                                       value={this.state.filterYFromLimit}
                                        onChange={this.handleChange.bind(this)}/>
                             </div>
                             <div style={{display: "inline-block", marginLeft: 5}}>to</div>
                             <div style={{display: "inline-block", marginLeft: 5}}>
                                 <input style={{width: 60}}
+                                       step="0.1"
+                                       type="number"
                                        name={"y-to"}
+                                       value={this.state.filterYToLimit}
                                        onChange={this.handleChange.bind(this)}/>
                             </div>
                         </div>
@@ -269,13 +361,19 @@ class Scene3D extends Component {
                             <div style={{display: "inline-block"}}>Z: from</div>
                             <div style={{display: "inline-block", marginLeft: 5}}>
                                 <input style={{width: 60}}
+                                       step="0.1"
+                                       type="number"
                                        name={"z-from"}
+                                       value={this.state.filterZFromLimit}
                                        onChange={this.handleChange.bind(this)}/>
                             </div>
                             <div style={{display: "inline-block", marginLeft: 5}}>to</div>
                             <div style={{display: "inline-block", marginLeft: 5}}>
                                 <input style={{width: 60}}
+                                       step="0.1"
+                                       type="number"
                                        name={"z-to"}
+                                       value={this.state.filterZToLimit}
                                        onChange={this.handleChange.bind(this)}/>
                             </div>
                         </div>
