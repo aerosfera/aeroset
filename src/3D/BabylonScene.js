@@ -7,6 +7,10 @@ import {
     withStyles,
     MuiThemeProvider
 } from "@material-ui/core/styles";
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const theme = createMuiTheme({
     palette: {
@@ -29,19 +33,19 @@ class Scene3D extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            filterXFromLimit: -10,
-            filterXToLimit: 10,
-            filterYFromLimit: -10,
-            filterYToLimit: 10,
-            filterZFromLimit: -10,
-            filterZToLimit: 10
+            filterXFromLimit: -5,
+            filterXToLimit: 5,
+            filterYFromLimit: -5,
+            filterYToLimit: 5,
+            filterZFromLimit: -5,
+            filterZToLimit: 5
         };
     }
 
     SetupScene() {
         this.engine = new BABYLON.Engine(this.canvas, true);
         this.scene = new BABYLON.Scene(this.engine);
-        this.scene.clearColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+        this.scene.clearColor = new BABYLON.Color3(27 / 255, 150 / 255, 243 / 255);
     }
 
     SetupCamera() {
@@ -230,7 +234,9 @@ class Scene3D extends Component {
             if (this.pcs !== undefined) {
                 this.pcs.dispose();
             }
-            this.setupPcs(this.pcsArray);
+
+            if (typeof this.pcsArray !== 'undefined' && this.pcsArray)
+                this.setupPcs(this.pcsArray);
         }
 
         if (inputType === "x-from") {
@@ -307,7 +313,6 @@ class Scene3D extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div>
-                    <input ref={input => this.inputElement = input} type="file" onChange={(e) => this.showFile(e)}/>
                     <canvas
                         style={{width: window.innerWidth, height: window.innerHeight, position: "relative"}}
                         ref={canvas => {
@@ -315,67 +320,109 @@ class Scene3D extends Component {
                                 this.canvas = canvas;
                         }}
                     />
-                    <FiltersContainer>
-                        <div>Axis filters:</div>
-                        <div>
-                            <div style={{display: "inline-block"}}>X: from</div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}}
-                                       step="0.1"
-                                       type="number"
-                                       name={"x-from"}
-                                       value={this.state.filterXFromLimit}
-                                       onChange={this.handleChange.bind(this)}/>
+                    <FiltersContainer style={{top: 20, left: 20}}>
+                        <Button
+                            disableElevation
+                            variant="outlined"
+                            startIcon={<CloudUploadIcon />}
+                            style={{marginBottom: 24}}
+                            component="label"
+                            color="primary">
+                            Upload File
+                            <input
+                                type="file"
+                                ref={input => this.inputElement = input}
+                                onChange={(e) => this.showFile(e)}
+                                style={{ display: "none" }}
+                            />
+                        </Button>
+                        <Typography variant="h5">FILTERS</Typography>
+                        <div style={{marginTop: 16}}>
+                                <TextField
+                                    id="outlined-number"
+                                    label="X FROM"
+                                    type="number"
+                                    name={"x-from"}
+                                    step="0.1"
+                                    value={this.state.filterXFromLimit}
+                                    onChange={this.handleChange.bind(this)}
+                                    style={{width: 100, height: 20}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="outlined"
+                                />
+                                <TextField
+                                    id="outlined-number"
+                                    label="X TO"
+                                    type="number"
+                                    name={"x-to"}
+                                    step="0.1"
+                                    value={this.state.filterXToLimit}
+                                    onChange={this.handleChange.bind(this)}
+                                    style={{width: 100, marginLeft: 24}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="outlined"/>
                             </div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>to</div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}}
-                                       step="0.1"
-                                       type="number"
-                                       name={"x-to"}
-                                       value={this.state.filterXToLimit}
-                                       onChange={this.handleChange.bind(this)}/>
-                            </div>
+                        <div style={{marginTop: 12}}>
+                            <TextField
+                                id="outlined-number"
+                                label="Y FROM"
+                                type="number"
+                                name={"y-from"}
+                                step="0.1"
+                                value={this.state.filterYFromLimit}
+                                onChange={this.handleChange.bind(this)}
+                                style={{width: 100, height: 20}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"
+                            />
+                            <TextField
+                                id="outlined-number"
+                                label="Y TO"
+                                type="number"
+                                name={"y-to"}
+                                step="0.1"
+                                value={this.state.filterYToLimit}
+                                onChange={this.handleChange.bind(this)}
+                                style={{width: 100, marginLeft: 24}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"/>
                         </div>
-                        <div>
-                            <div style={{display: "inline-block"}}>Y: from</div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}}
-                                       pattern="^-?[0-9]\d*\.?\d*$"
-                                       type="number"
-                                       name={"y-from"}
-                                       value={this.state.filterYFromLimit}
-                                       onChange={this.handleChange.bind(this)}/>
-                            </div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>to</div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}}
-                                       step="0.1"
-                                       type="number"
-                                       name={"y-to"}
-                                       value={this.state.filterYToLimit}
-                                       onChange={this.handleChange.bind(this)}/>
-                            </div>
-                        </div>
-                        <div>
-                            <div style={{display: "inline-block"}}>Z: from</div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}}
-                                       step="0.1"
-                                       type="number"
-                                       name={"z-from"}
-                                       value={this.state.filterZFromLimit}
-                                       onChange={this.handleChange.bind(this)}/>
-                            </div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>to</div>
-                            <div style={{display: "inline-block", marginLeft: 5}}>
-                                <input style={{width: 60}}
-                                       step="0.1"
-                                       type="number"
-                                       name={"z-to"}
-                                       value={this.state.filterZToLimit}
-                                       onChange={this.handleChange.bind(this)}/>
-                            </div>
+                        <div style={{marginTop: 12}}>
+                            <TextField
+                                id="outlined-number"
+                                label="Z FROM"
+                                type="number"
+                                name={"z-from"}
+                                step="0.1"
+                                value={this.state.filterZFromLimit}
+                                onChange={this.handleChange.bind(this)}
+                                style={{width: 100, height: 20}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"
+                            />
+                            <TextField
+                                id="outlined-number"
+                                label="Z TO"
+                                type="number"
+                                name={"z-to"}
+                                step="0.1"
+                                value={this.state.filterZToLimit}
+                                onChange={this.handleChange.bind(this)}
+                                style={{width: 100, marginLeft: 24}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"/>
                         </div>
                     </FiltersContainer>
                 </div>
@@ -387,7 +434,9 @@ class Scene3D extends Component {
 const FiltersContainer = styled(Card)`
  padding: 4em;
  background: ${theme.palette.background};
- width: 300px; 
+ width: 250px; 
+ height: 320px;
+ position: absolute;
  `;
 
 export default Scene3D;
