@@ -154,19 +154,15 @@ class Scene3D extends Component {
                 z: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
             }
 
-            if (x == null || y == null || z == null)
-                return false;
+            if ((x >= this.state.filterXFromLimit && x <= this.state.filterXToLimit)
+                &&
+                (y >= this.state.filterYFromLimit && y <= this.state.filterYToLimit)
+                &&
+                (z >= this.state.filterZFromLimit && z <= this.state.filterZToLimit)) {
+                return true;
+            }
 
-            if (this.state.filterXFromLimit > x || this.state.filterXToLimit < x)
-                return false;
-
-            if (this.state.filterYFromLimit > y || this.state.filterYToLimit < y)
-                return false;
-
-            if (this.state.filterZFromLimit > z || this.state.filterZToLimit < z)
-                return false;
-
-            return true;
+            return false;
         });
 
         let constructParticle = function (particle, i, _) {
