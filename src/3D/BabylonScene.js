@@ -121,9 +121,26 @@ class Scene3D extends Component {
         zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
     };
 
-
     async setupPcs() {
-        this.pcs = new BABYLON.PointsCloudSystem("pcs", 1, this.scene);
+        this.pcs = new BABYLON.PointsCloudSystem("pcs", this.scene);
+
+        // this.pcs.updateParticle = (p => {
+        //     const position = p.position;
+        //     const x = position.x;
+        //     const y = position.y;
+        //     const z = position.z;
+        //
+        //     if ((this.state.filterXFromLimit > x || this.state.filterXToLimit < x)
+        //         ||
+        //         (this.state.filterYFromLimit > y || this.state.filterYToLimit < y)
+        //         ||
+        //         (this.state.filterZFromLimit > z || this.state.filterZToLimit < z)) {
+        //
+        //         p.isVisible = false;
+        //     }
+        //     else
+        //         p.isVisible = true;
+        // });
 
         const pMin = 0;//Math.min(...array.map(v => v[3]), 0);
         const pMax = 4;//Math.max(...array.map(v => v[3]), 5);
@@ -230,13 +247,13 @@ class Scene3D extends Component {
         const inputType = target.name;
         const value = target.value;
 
-        const constructNewFilteredPCS = () => {
-            if (this.pcs !== undefined) {
-                this.pcs.dispose();
+        const constructNewFilteredPCS = async () => {
+             if (this.pcs !== undefined) {
+                 this.pcs.dispose();
             }
 
             if (typeof this.pcsArray !== 'undefined' && this.pcsArray)
-                this.setupPcs(this.pcsArray);
+                 await this.setupPcs(this.pcsArray);
         }
 
         if (inputType === "x-from") {
@@ -324,7 +341,7 @@ class Scene3D extends Component {
                         <Button
                             disableElevation
                             variant="outlined"
-                            startIcon={<CloudUploadIcon />}
+                            startIcon={<CloudUploadIcon/>}
                             style={{marginBottom: 24}}
                             component="label"
                             color="primary">
@@ -333,39 +350,45 @@ class Scene3D extends Component {
                                 type="file"
                                 ref={input => this.inputElement = input}
                                 onChange={(e) => this.showFile(e)}
-                                style={{ display: "none" }}
+                                style={{display: "none"}}
                             />
                         </Button>
                         <Typography variant="h5">FILTERS</Typography>
                         <div style={{marginTop: 16}}>
-                                <TextField
-                                    id="outlined-number"
-                                    label="X FROM"
-                                    type="number"
-                                    name={"x-from"}
-                                    step="0.1"
-                                    value={this.state.filterXFromLimit}
-                                    onChange={this.handleChange.bind(this)}
-                                    style={{width: 100, height: 20}}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    variant="outlined"
-                                />
-                                <TextField
-                                    id="outlined-number"
-                                    label="X TO"
-                                    type="number"
-                                    name={"x-to"}
-                                    step="0.1"
-                                    value={this.state.filterXToLimit}
-                                    onChange={this.handleChange.bind(this)}
-                                    style={{width: 100, marginLeft: 24}}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    variant="outlined"/>
-                            </div>
+                            <TextField
+                                id="outlined-number"
+                                label="X FROM"
+                                type="number"
+                                name={"x-from"}
+                                step="0.1"
+                                value={this.state.filterXFromLimit}
+                                onChange={this.handleChange.bind(this)}
+                                style={{width: 100, height: 20}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 0.1
+                                }}
+                                variant="outlined"
+                            />
+                            <TextField
+                                id="outlined-number"
+                                label="X TO"
+                                type="number"
+                                name={"x-to"}
+                                step="0.1"
+                                value={this.state.filterXToLimit}
+                                onChange={this.handleChange.bind(this)}
+                                style={{width: 100, marginLeft: 24}}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 0.1
+                                }}
+                                variant="outlined"/>
+                        </div>
                         <div style={{marginTop: 12}}>
                             <TextField
                                 id="outlined-number"
@@ -378,6 +401,9 @@ class Scene3D extends Component {
                                 style={{width: 100, height: 20}}
                                 InputLabelProps={{
                                     shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 0.1
                                 }}
                                 variant="outlined"
                             />
@@ -393,6 +419,9 @@ class Scene3D extends Component {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                inputProps={{
+                                    step: 0.1
+                                }}
                                 variant="outlined"/>
                         </div>
                         <div style={{marginTop: 12}}>
@@ -406,7 +435,10 @@ class Scene3D extends Component {
                                 onChange={this.handleChange.bind(this)}
                                 style={{width: 100, height: 20}}
                                 InputLabelProps={{
-                                    shrink: true,
+                                    shrink: true
+                                }}
+                                inputProps={{
+                                    step: 0.1
                                 }}
                                 variant="outlined"
                             />
@@ -421,6 +453,9 @@ class Scene3D extends Component {
                                 style={{width: 100, marginLeft: 24}}
                                 InputLabelProps={{
                                     shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 0.1
                                 }}
                                 variant="outlined"/>
                         </div>
