@@ -80,8 +80,8 @@ class Scene3D extends Component {
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
-        window.addEventListener("resize", function () {
-            //this.engine.resize();
+        window.addEventListener("resize", () => {
+            this.engine.resize();
         });
     }
 
@@ -248,12 +248,12 @@ class Scene3D extends Component {
         const value = target.value;
 
         const constructNewFilteredPCS = async () => {
-             if (this.pcs !== undefined) {
-                 this.pcs.dispose();
+            if (this.pcs !== undefined) {
+                this.pcs.dispose();
             }
 
             if (typeof this.pcsArray !== 'undefined' && this.pcsArray)
-                 await this.setupPcs(this.pcsArray);
+                await this.setupPcs(this.pcsArray);
         }
 
         if (inputType === "x-from") {
