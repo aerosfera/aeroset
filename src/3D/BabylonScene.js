@@ -150,8 +150,8 @@ class Scene3D extends Component {
         const filteredArray = this.pcsArray.filter(e => {
             const {x, y, z} = {
                 x: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
-                y: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
-                z: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
+                y: Number.parseFloat(e[1] ? e[1].replace(',', '.') : 0),
+                z: Number.parseFloat(e[2] ? e[2].replace(',', '.') : 0),
             }
 
             if ((x >= this.state.filterXFromLimit && x <= this.state.filterXToLimit)
