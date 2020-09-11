@@ -66,8 +66,15 @@ class Scene3D extends Component {
                 array.push(value);
             });
 
-            this.pcsArray = array;
-            await this.setupPcs(this.pcsArray);
+            this.points = array.map((e) => {
+                return {
+                    x: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
+                    y: Number.parseFloat(e[1] ? e[1].replace(',', '.') : 0),
+                    z: Number.parseFloat(e[2] ? e[2].replace(',', '.') : 0),
+                    p: Number.parseFloat(e[3] ? e[3].replace(',', '.') : 0)
+                }
+            });
+            await this.SetupPcs(this.points);
         };
         reader.readAsText(e.target.files[0])
     }
@@ -76,7 +83,7 @@ class Scene3D extends Component {
     async componentDidMount() {
         this.SetupScene();
         this.SetupCamera();
-        this.showAxis(5);
+        this.ShowAxis(5);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
@@ -85,7 +92,7 @@ class Scene3D extends Component {
         });
     }
 
-    showAxis(size) {
+    ShowAxis(size) {
         const makeTextPlane = function (text, color, size, scene) {
             const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
             dynamicTexture.hasAlpha = true;
@@ -121,38 +128,15 @@ class Scene3D extends Component {
         zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
     };
 
-    async setupPcs() {
-        this.pcs = new BABYLON.PointsCloudSystem("pcs", this.scene);
+    async SetupPcs(points) {
+        this.pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", this.scene);
 
-        // this.pcs.updateParticle = (p => {
-        //     const position = p.position;
-        //     const x = position.x;
-        //     const y = position.y;
-        //     const z = position.z;
-        //
-        //     if ((this.state.filterXFromLimit > x || this.state.filterXToLimit < x)
-        //         ||
-        //         (this.state.filterYFromLimit > y || this.state.filterYToLimit < y)
-        //         ||
-        //         (this.state.filterZFromLimit > z || this.state.filterZToLimit < z)) {
-        //
-        //         p.isVisible = false;
-        //     }
-        //     else
-        //         p.isVisible = true;
-        // });
+        const pMin = 0;//Math.min(...points.map(p => p.p), 0);
+        const pMax = 4;//Math.max(...points.map(p => p.p), 5);
+        const diffP = pMax - pMin;
 
-        const pMin = 0;//Math.min(...array.map(v => v[3]), 0);
-        const pMax = 4;//Math.max(...array.map(v => v[3]), 5);
-
-        const diff = pMax - pMin;
-
-        const filteredArray = this.pcsArray.filter(e => {
-            const {x, y, z} = {
-                x: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
-                y: Number.parseFloat(e[1] ? e[1].replace(',', '.') : 0),
-                z: Number.parseFloat(e[2] ? e[2].replace(',', '.') : 0),
-            }
+        const filteredPoints = points.filter(p => {
+            const {x, y, z} = p
 
             if ((x >= this.state.filterXFromLimit && x <= this.state.filterXToLimit)
                 &&
@@ -165,91 +149,63 @@ class Scene3D extends Component {
             return false;
         });
 
-        let constructParticle = function (particle, i, _) {
-            let element = filteredArray[i];
-            const coordinates = {
-                x: Number.parseFloat(element[0] ? element[0].replace(',', '.') : 0),
-                y: Number.parseFloat(element[1] ? element[1].replace(',', '.') : 0),
-                z: Number.parseFloat(element[2] ? element[2].replace(',', '.') : 0),
+        let constructParticle = (particle, i, _) => {
+            let point = filteredPoints[i];
+            const pPercent = ((point.p - pMin) / diffP) * 100;
+
+            let r;
+            let g;
+            let b;
+
+            if (pPercent <= 0) {
+                r = 0;
+                g = 0;
+                b = 0;
+            } else if (pPercent > 0 && pPercent <= 25) {
+                r = 255;
+                g = 0 - ((0 - 255) / (0 - 25)) * (0 - pPercent);
+                b = 0;
+            } else if (pPercent > 25 && pPercent <= 50) {
+                r = 255 - ((255 - 0) / (25 - 50)) * (25 - pPercent);
+                g = 255;
+                b = 0;
+            } else if (pPercent > 50 && pPercent <= 75) {
+                r = 0;
+                g = 255;
+                b = 0 - ((0 - 255) / (50 - 100)) * (50 - pPercent);
+            } else if (pPercent > 75 && pPercent <= 100) {
+                r = 0;
+                g = 255 - ((255 - 0) / (75 - 100)) * (75 - pPercent);
+                b = 255;
+            } else if (pPercent > 100) {
+                r = 0;
+                g = 0;
+                b = 0;
             }
 
-            let p = element[3];
-
-            function getColor(p, pMin, pMax) {
-
-                p = Number.parseFloat(p ? p.replace(',', '.') : 0);
-                const pPercent = ((p - pMin) / diff) * 100;
-
-                let r;
-                let g;
-                let b;
-
-                if (pPercent <= 0) {
-                    r = 0;
-                    g = 0;
-                    b = 0;
-                } else if (pPercent > 0 && pPercent <= 25) {
-                    r = 255;
-                    g = 0 - ((0 - 255) / (0 - 25)) * (0 - pPercent);
-                    b = 0;
-                } else if (pPercent > 25 && pPercent <= 50) {
-                    r = 255 - ((255 - 0) / (25 - 50)) * (25 - pPercent);
-                    g = 255;
-                    b = 0;
-                } else if (pPercent > 50 && pPercent <= 75) {
-                    r = 0;
-                    g = 255;
-                    b = 0 - ((0 - 255) / (50 - 100)) * (50 - pPercent);
-                } else if (pPercent > 75 && pPercent <= 100) {
-                    r = 0;
-                    g = 255 - ((255 - 0) / (75 - 100)) * (75 - pPercent);
-                    b = 255;
-                } else if (pPercent > 100) {
-                    r = 0;
-                    g = 0;
-                    b = 0;
-                }
-
-                return {r, g, b};
-            }
-
-            const {r, g, b} = getColor(p, pMin, pMax);
-
-            if (r > 255 || b > 255 || g > 255 || r < 0 || b < 0 || g < 0)
-                console.log(`p = ${p}; r = ${r}, r = ${g}, b = ${b}`);
-
-            if (r < 10 && g < 10 && b < 10)
-                console.log(`p = ${p}; r = ${r}, r = ${g}, b = ${b}`);
-
-            if (r === undefined || r === null || r === Number.NaN)
-                console.log(" r is bad!")
-            if (g === undefined || g === null || g === Number.NaN)
-                console.log(" g is bad!")
-            if (b === undefined || b === null || b === Number.NaN)
-                console.log(" b is bad!")
-
-            particle.position = new BABYLON.Vector3(coordinates.x, coordinates.y, coordinates.z);
+            particle.position = new BABYLON.Vector3(point.x, point.y, point.z);
             particle.color = new BABYLON.Color3(r / 255, g / 255, b / 255)
         }
-        this.pcs.addPoints(filteredArray.length, constructParticle);
-        await this.pcs.buildMeshAsync();
+
+        this.pointsCloudSystem.addPoints(filteredPoints.length, constructParticle);
+        await this.pointsCloudSystem.buildMeshAsync();
     }
 
     componentWillUnmount() {
     }
 
-    handleChange(event) {
+    InputOnChangeHandle(event) {
         const target = event.target;
         const inputType = target.name;
         const value = target.value;
 
         const constructNewFilteredPCS = async () => {
-            if (this.pcs !== undefined) {
-                this.pcs.dispose();
+            if (this.pointsCloudSystem !== undefined) {
+                this.pointsCloudSystem.dispose();
             }
 
-            if (typeof this.pcsArray !== 'undefined' && this.pcsArray)
-                await this.setupPcs(this.pcsArray);
+            if (typeof this.points !== 'undefined' && this.points)
+                await this.SetupPcs(this.points);
         }
 
         if (inputType === "x-from") {
@@ -358,7 +314,7 @@ class Scene3D extends Component {
                                 name={"x-from"}
                                 step="0.1"
                                 value={this.state.filterXFromLimit}
-                                onChange={this.handleChange.bind(this)}
+                                onChange={this.InputOnChangeHandle.bind(this)}
                                 style={{width: 100, height: 20}}
                                 InputLabelProps={{
                                     shrink: true,
@@ -375,7 +331,7 @@ class Scene3D extends Component {
                                 name={"x-to"}
                                 step="0.1"
                                 value={this.state.filterXToLimit}
-                                onChange={this.handleChange.bind(this)}
+                                onChange={this.InputOnChangeHandle.bind(this)}
                                 style={{width: 100, marginLeft: 24}}
                                 InputLabelProps={{
                                     shrink: true,
@@ -393,7 +349,7 @@ class Scene3D extends Component {
                                 name={"y-from"}
                                 step="0.1"
                                 value={this.state.filterYFromLimit}
-                                onChange={this.handleChange.bind(this)}
+                                onChange={this.InputOnChangeHandle.bind(this)}
                                 style={{width: 100, height: 20}}
                                 InputLabelProps={{
                                     shrink: true,
@@ -410,7 +366,7 @@ class Scene3D extends Component {
                                 name={"y-to"}
                                 step="0.1"
                                 value={this.state.filterYToLimit}
-                                onChange={this.handleChange.bind(this)}
+                                onChange={this.InputOnChangeHandle.bind(this)}
                                 style={{width: 100, marginLeft: 24}}
                                 InputLabelProps={{
                                     shrink: true,
@@ -428,7 +384,7 @@ class Scene3D extends Component {
                                 name={"z-from"}
                                 step="0.1"
                                 value={this.state.filterZFromLimit}
-                                onChange={this.handleChange.bind(this)}
+                                onChange={this.InputOnChangeHandle.bind(this)}
                                 style={{width: 100, height: 20}}
                                 InputLabelProps={{
                                     shrink: true
@@ -445,7 +401,7 @@ class Scene3D extends Component {
                                 name={"z-to"}
                                 step="0.1"
                                 value={this.state.filterZToLimit}
-                                onChange={this.handleChange.bind(this)}
+                                onChange={this.InputOnChangeHandle.bind(this)}
                                 style={{width: 100, marginLeft: 24}}
                                 InputLabelProps={{
                                     shrink: true,
