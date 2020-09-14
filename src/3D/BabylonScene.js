@@ -29,6 +29,37 @@ const theme = createMuiTheme({
     },
 });
 
+
+function CalculateMinMaxOfArray(array) {
+    const arrayLength = array.length;
+    const borderIncrement = 125000;
+    let arrayCounter = 0;
+    let lastBottomBorder = 0;
+    let lastTopBorder = borderIncrement;
+    let minValue = 0;
+    let maxValue = 0;
+
+    while (true) {
+        const arrayPart = array.slice(lastBottomBorder, lastTopBorder)
+
+        let min = Math.min(...arrayPart);
+        let max = Math.max(...arrayPart);
+
+        minValue = min < minValue ? min : minValue;
+        maxValue = max > maxValue ? max : maxValue;
+
+        lastBottomBorder += borderIncrement;
+        lastTopBorder += borderIncrement;
+        arrayCounter += arrayPart.length;
+
+        if (arrayCounter >= arrayLength)
+            break;
+    }
+
+    return {min: minValue, max: maxValue};
+}
+
+
 class Scene3D extends Component {
     constructor(props) {
         super(props);
@@ -71,9 +102,15 @@ class Scene3D extends Component {
                     x: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
                     y: Number.parseFloat(e[1] ? e[1].replace(',', '.') : 0),
                     z: Number.parseFloat(e[2] ? e[2].replace(',', '.') : 0),
-                    p: Number.parseFloat(e[3] ? e[3].replace(',', '.') : 0)
+                    p: new Number(e[3] ? e[3].replace(',', '.') : 0)
                 }
             });
+
+            const parameters = this.points.map(p => p.p);
+            const {max, min} = CalculateMinMaxOfArray(parameters);
+            this.parameterMin = min;
+            this.parameterMax = max;
+
             await this.SetupPcs(this.points);
         };
         reader.readAsText(e.target.files[0])
@@ -130,10 +167,7 @@ class Scene3D extends Component {
 
     async SetupPcs(points) {
         this.pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", this.scene);
-
-        const pMin = 0;//Math.min(...points.map(p => p.p), 0);
-        const pMax = 4;//Math.max(...points.map(p => p.p), 5);
-        const diffP = pMax - pMin;
+        const diffP = this.parameterMax - this.parameterMin;
 
         const filteredPoints = points.filter(p => {
             const {x, y, z} = p
@@ -151,7 +185,7 @@ class Scene3D extends Component {
 
         let constructParticle = (particle, i, _) => {
             let point = filteredPoints[i];
-            const pPercent = ((point.p - pMin) / diffP) * 100;
+            const pPercent = ((point.p - this.parameterMin) / diffP) * 100;
 
             let r;
             let g;
