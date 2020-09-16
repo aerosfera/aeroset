@@ -74,15 +74,17 @@ class Scene3D extends Component {
     }
 
     SetupScene() {
-        this.engine = new BABYLON.Engine(this.canvas, true);
+        const engine = new BABYLON.Engine(this.canvas, true);
         this.scene = new BABYLON.Scene(this.engine);
         this.scene.clearColor = new BABYLON.Color3(27 / 255, 150 / 255, 243 / 255);
+        this.engine = engine;
     }
 
     SetupCamera() {
-        let camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 0, BABYLON.Vector3.Zero(), this.scene);
-        camera.setPosition(new BABYLON.Vector3(0, 0, 20));
+        const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, 0, 150, BABYLON.Vector3.Zero(), this.scene);
+        //camera.setPosition(new BABYLON.Vector3(0, 0, 20));
         camera.attachControl(this.canvas, true);
+        this.camera = camera;
     }
 
     showFile = async (e) => {
@@ -120,6 +122,15 @@ class Scene3D extends Component {
     async componentDidMount() {
         this.SetupScene();
         this.SetupCamera();
+        addControls(this.scene, this.camera);
+
+        // let ground = BABYLON.Mesh.CreateGround("earth", 100, 50, 1, this.scene);
+        // const mat = new BABYLON.StandardMaterial("mat", this.scene);
+        // const tex = new BABYLON.Texture("textures/earth.jpg", this.scene);
+        // mat.diffuseTexture = tex;
+        // mat.specularColor = BABYLON.Color3.Black();
+        // ground.material = mat;
+
         this.ShowAxis(5);
         this.engine.runRenderLoop(() => {
             this.scene.render();
@@ -452,8 +463,210 @@ class Scene3D extends Component {
     }
 }
 
+/** Add map-like controls to an ArcRotate camera.
+ * @param {BABYLON.Scene} scene
+ * @param {module:babylonjs/Cameras/arcRotateCamera.ArcRotateCamera} camera
+ */
+function addControls(scene, camera) {
+
+    camera.inertia = 0.2;
+    camera.lowerRadiusLimit = 1;
+    camera.upperRadiusLimit = 350;
+    // camera.upperBetaLimit = Math.PI / 2 - 0.1;
+    camera.angularSensibilityX = camera.angularSensibilityY = 500;
+
+    const plane =
+        BABYLON.Plane.FromPositionAndNormal(BABYLON.Vector3.Zero(), BABYLON.Axis.Y);
+
+    const inertialPanning = BABYLON.Vector3.Zero();
+
+    /** @type {BABYLON.Vector3} */
+    let initialPos;
+    const panningFn = () => {
+        return ;
+        const pos = getPosition(scene, camera, plane);
+        panning(pos, initialPos, camera.inertia, inertialPanning);
+    };
+
+    const inertialPanningFn = () => {
+        if (inertialPanning.x !== 0 || inertialPanning.y !== 0 || inertialPanning.z !== 0) {
+            camera.target.addInPlace(inertialPanning);
+            inertialPanning.scaleInPlace(camera.inertia);
+            zeroIfClose(inertialPanning);
+        }
+    };
+
+    const wheelPrecisionFn = () => {
+        camera.wheelPrecision = 1 / camera.radius * 1000;
+    };
+
+    const zoomFn = (p,e) => {
+        const delta = zoomWheel(p,e,camera);
+        zooming(delta, scene, camera, plane, inertialPanning);
+    }
+
+    const prvScreenPos = BABYLON.Vector2.Zero();
+    const rotateFn = () => {
+        rotating(scene, camera, prvScreenPos);
+    };
+
+    const removeObservers = () => {
+        scene.onPointerObservable.removeCallback(panningFn);
+        scene.onPointerObservable.removeCallback(rotateFn);
+    }
+
+    scene.onPointerObservable.add((p, e) => {
+        removeObservers();
+        if (p.event.button === 0) {
+            initialPos = getPosition(scene, camera, plane);
+            scene.onPointerObservable.add(panningFn, BABYLON.PointerEventTypes.POINTERMOVE);
+        } else {
+            prvScreenPos.copyFromFloats(scene.pointerX, scene.pointerY);
+            scene.onPointerObservable.add(rotateFn, BABYLON.PointerEventTypes.POINTERMOVE);
+        }
+    }, BABYLON.PointerEventTypes.POINTERDOWN);
+
+    scene.onPointerObservable.add((p, e) => {
+        removeObservers();
+    }, BABYLON.PointerEventTypes.POINTERUP);
+
+    scene.onPointerObservable.add(zoomFn, BABYLON.PointerEventTypes.POINTERWHEEL);
+
+    scene.onBeforeRenderObservable.add(inertialPanningFn);
+    scene.onBeforeRenderObservable.add(wheelPrecisionFn);
+
+    // stop context menu showing on canvas right click
+    scene.getEngine().getRenderingCanvas().addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+    });
+}
+
+/** Get pos on plane.
+ * @param {BABYLON.Scene} scene
+ * @param {BABYLON.ArcRotateCamera} camera
+ * @param {BABYLON.Plane} plane
+ */
+function getPosition(scene, camera, plane) {
+    const ray = scene.createPickingRay(
+        scene.pointerX, scene.pointerY, BABYLON.Matrix.Identity(), camera, false);
+    const distance = ray.intersectsPlane(plane);
+
+    // not using this ray again, so modifying its vectors here is fine
+    return distance !== null ?
+        ray.origin.addInPlace(ray.direction.scaleInPlace(distance)) : null;
+}
+
+/** Return offsets for inertial panning given initial and current
+ * pointer positions.
+ * @param {BABYLON.Vector3} newPos
+ * @param {BABYLON.Vector3} initialPos
+ * @param {number} inertia
+ * @param {BABYLON.Vector3} ref
+ */
+function panning(newPos, initialPos, inertia, ref) {
+    const directionToZoomLocation = initialPos.subtract(newPos);
+    const panningX = directionToZoomLocation.x * (1-inertia);
+    const panningZ = directionToZoomLocation.z * (1-inertia);
+    ref.copyFromFloats(panningX, 0, panningZ);
+    return ref;
+};
+
+/** Get the wheel delta divided by the camera wheel precision.
+ * @param {BABYLON.PointerInfoPre} p
+ * @param {BABYLON.EventState} e
+ * @param {BABYLON.ArcRotateCamera} camera
+ */
+function zoomWheel(p, e, camera) {
+    const event = p.event;
+    event.preventDefault();
+    let delta = 0;
+    if (event.deltaY) {
+        delta = -event.deltaY;
+    } else if (event.wheelDelta) {
+        delta = event.wheelDelta;
+    } else if (event.detail) {
+        delta = -event.detail;
+    }
+    delta /= camera.wheelPrecision;
+    return delta;
+}
+
+/** Zoom to pointer position. Zoom amount determined by delta.
+ * @param {number} delta
+ * @param {BABYLON.Scene} scene
+ * @param {BABYLON.ArcRotateCamera} camera
+ * @param {BABYLON.Plane} plane
+ * @param {BABYLON.Vector3} ref
+ */
+function zooming(delta, scene, camera, plane, ref) {
+    // if (camera.radius - camera.lowerRadiusLimit < 1 && delta > 0) {
+    //     return;
+    // } else if (camera.upperRadiusLimit - camera.radius < 1 && delta < 0) {
+    //     return;
+    // }
+    const inertiaComp = 1 - camera.inertia;
+    if (camera.radius - (camera.inertialRadiusOffset + delta) / inertiaComp <
+        camera.lowerRadiusLimit) {
+        delta = (camera.radius - camera.lowerRadiusLimit) * inertiaComp - camera.inertialRadiusOffset;
+    } else if (camera.radius - (camera.inertialRadiusOffset + delta) / inertiaComp >
+        camera.upperRadiusLimit) {
+        delta = (camera.radius - camera.upperRadiusLimit) * inertiaComp - camera.inertialRadiusOffset;
+    }
+
+    const zoomDistance = delta / inertiaComp;
+    const ratio = zoomDistance / camera.radius;
+    const vec = getPosition(scene, camera, plane);
+
+    if(vec !== undefined && vec){
+        const directionToZoomLocation = vec.subtract(camera.target);
+        const offset = directionToZoomLocation.scale(ratio);
+        offset.scaleInPlace(inertiaComp);
+        ref.addInPlace(offset);
+    }
+    camera.inertialRadiusOffset += delta;
+}
+
+/** Rotate the camera
+ * @param {BABYLON.Scene} scene
+ * @param {BABYLON.Vector2} prvScreenPos
+ * @param {BABYLON.ArcRotateCamera} camera
+ */
+function rotating(scene, camera, prvScreenPos) {
+    const offsetX = scene.pointerX - prvScreenPos.x;
+    const offsetY = scene.pointerY - prvScreenPos.y;
+    prvScreenPos.copyFromFloats(scene.pointerX, scene.pointerY);
+    changeInertialAlphaBetaFromOffsets(offsetX, offsetY, camera);
+}
+
+/** Modifies the camera's inertial alpha and beta offsets.
+ * @param {number} offsetX
+ * @param {number} offsetY
+ * @param {BABYLON.ArcRotateCamera} camera
+ */
+function changeInertialAlphaBetaFromOffsets(offsetX, offsetY, camera) {
+    const alphaOffsetDelta = offsetX / camera.angularSensibilityX;
+    const betaOffsetDelta = offsetY / camera.angularSensibilityY;
+    camera.inertialAlphaOffset -= alphaOffsetDelta;
+    camera.inertialBetaOffset -= betaOffsetDelta;
+}
+
+/** Sets x y or z of passed in vector to zero if less than Epsilon.
+ * @param {BABYLON.Vector3} vec
+ */
+function zeroIfClose(vec) {
+    if (Math.abs(vec.x) < BABYLON.Epsilon) {
+        vec.x = 0;
+    }
+    if (Math.abs(vec.y) < BABYLON.Epsilon) {
+        vec.y = 0;
+    }
+    if (Math.abs(vec.z) < BABYLON.Epsilon) {
+        vec.z = 0;
+    }
+}
+
 const FiltersContainer = styled(Card)`
- padding: 4em;
+ padding: 1em;
  background: ${theme.palette.background};
  width: 250px; 
  height: 320px;
