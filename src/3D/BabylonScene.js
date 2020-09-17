@@ -81,10 +81,55 @@ class Scene3D extends Component {
     }
 
     SetupCamera() {
-        const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, 0, 150, BABYLON.Vector3.Zero(), this.scene);
-        //camera.setPosition(new BABYLON.Vector3(0, 0, 20));
-        camera.attachControl(this.canvas, true);
-        this.camera = camera;
+        // const camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, 0, 150, BABYLON.Vector3.Zero(), this.scene);
+        // //camera.setPosition(new BABYLON.Vector3(0, 0, 20));
+        // camera.attachControl(this.canvas, true);
+        // this.camera = camera;
+
+        this.camera = new BABYLON.ArcRotateCamera('Camera', 0, 0, -100, new BABYLON.Vector3(1, 2, -3), this.scene);
+        resetCameraZoom(this.camera, this.canvas);
+
+        //this.scene.createDefaultCameraOrLight(true);
+        this.scene.activeCamera.attachControl(this.canvas, false);
+        this.scene.activeCamera.alpha += Math.PI; // camera +180°
+
+        this.totalZoom = 0;
+        this.scene.onPointerObservable.add(({ event }) => {
+            const delta = (Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail || event.deltaY)))) * 0.9;
+            //const delta = (event.wheelDelta || -event.detail || event.deltaY) * 0.1;
+            if (delta > 0 && this.totalZoom < 14 || delta < 0) {
+                this.totalZoom += delta;
+                zoom2DView(this.camera, delta);
+            }
+            // this.totalZoom += delta;
+            //zoom2DView(this.camera, delta);
+        }, BABYLON.PointerEventTypes.POINTERWHEEL);
+
+        this.scene.onPointerObservable.add(() => {
+            zoomTarget = BABYLON.Vector3.Unproject(
+                new BABYLON.Vector3(this.scene.pointerX, this.scene.pointerY, 0),
+                this.engine.getRenderWidth(),
+                this.engine.getRenderHeight(),
+                this.camera.getWorldMatrix(),
+                this.camera.getViewMatrix(),
+                this.camera.getProjectionMatrix()
+            );
+        }, BABYLON.PointerEventTypes.POINTERMOVE);
+
+
+        // lock the camera's placement, zooming is done manually in orthographic mode.
+        // Locking this fixes strange issues with Hemispheric Light
+        this.camera.lowerRadiusLimit = this.camera.radius;
+        this.camera.upperRadiusLimit = this.camera.radius;
+
+        // This attaches the camera to the canvas
+        this.camera.attachControl(this.canvas, true, false, 0);
+        this.camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+
+
+        // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
+        light.intensity = 0.7;
     }
 
     showFile = async (e) => {
@@ -122,16 +167,9 @@ class Scene3D extends Component {
     async componentDidMount() {
         this.SetupScene();
         this.SetupCamera();
-        addControls(this.scene, this.camera);
+        //AddControls(this.scene, this.camera);
 
-        // let ground = BABYLON.Mesh.CreateGround("earth", 100, 50, 1, this.scene);
-        // const mat = new BABYLON.StandardMaterial("mat", this.scene);
-        // const tex = new BABYLON.Texture("textures/earth.jpg", this.scene);
-        // mat.diffuseTexture = tex;
-        // mat.specularColor = BABYLON.Color3.Black();
-        // ground.material = mat;
-
-        this.ShowAxis(5);
+                this.ShowAxis(5);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
@@ -330,8 +368,10 @@ class Scene3D extends Component {
                     <canvas
                         style={{width: window.innerWidth, height: window.innerHeight, position: "relative"}}
                         ref={canvas => {
-                            if (canvas != null)
+                            if (canvas != null){
                                 this.canvas = canvas;
+                            }
+
                         }}
                     />
                     <FiltersContainer style={{top: 20, left: 20}}>
@@ -467,7 +507,7 @@ class Scene3D extends Component {
  * @param {BABYLON.Scene} scene
  * @param {module:babylonjs/Cameras/arcRotateCamera.ArcRotateCamera} camera
  */
-function addControls(scene, camera) {
+function AddControls(scene, camera) {
 
     camera.inertia = 0.2;
     camera.lowerRadiusLimit = 1;
@@ -507,6 +547,7 @@ function addControls(scene, camera) {
 
     const prvScreenPos = BABYLON.Vector2.Zero();
     const rotateFn = () => {
+        return ;
         rotating(scene, camera, prvScreenPos);
     };
 
@@ -547,6 +588,7 @@ function addControls(scene, camera) {
  * @param {BABYLON.Plane} plane
  */
 function getPosition(scene, camera, plane) {
+    return null;
     const ray = scene.createPickingRay(
         scene.pointerX, scene.pointerY, BABYLON.Matrix.Identity(), camera, false);
     const distance = ray.intersectsPlane(plane);
@@ -579,14 +621,14 @@ function panning(newPos, initialPos, inertia, ref) {
 function zoomWheel(p, e, camera) {
     const event = p.event;
     event.preventDefault();
-    let delta = 0;
-    if (event.deltaY) {
-        delta = -event.deltaY;
-    } else if (event.wheelDelta) {
-        delta = event.wheelDelta;
-    } else if (event.detail) {
-        delta = -event.detail;
-    }
+    let delta = event.wheelDelta;
+    //if (event.deltaY) {
+    //    delta = -event.deltaY;
+    //} else if (event.wheelDelta) {
+    //    delta = event.wheelDelta;
+    //} else if (event.detail) {
+    //    delta = -event.detail;
+    //}
     delta /= camera.wheelPrecision;
     return delta;
 }
@@ -605,8 +647,7 @@ function zooming(delta, scene, camera, plane, ref) {
     //     return;
     // }
     const inertiaComp = 1 - camera.inertia;
-    if (camera.radius - (camera.inertialRadiusOffset + delta) / inertiaComp <
-        camera.lowerRadiusLimit) {
+    if (camera.radius - (camera.inertialRadiusOffset + delta) / inertiaComp < camera.lowerRadiusLimit) {
         delta = (camera.radius - camera.lowerRadiusLimit) * inertiaComp - camera.inertialRadiusOffset;
     } else if (camera.radius - (camera.inertialRadiusOffset + delta) / inertiaComp >
         camera.upperRadiusLimit) {
@@ -664,6 +705,60 @@ function zeroIfClose(vec) {
         vec.z = 0;
     }
 }
+
+
+const setTopBottomRatio = (camera,canvas) => {
+    const ratio = canvas.height / canvas.width;
+    camera.orthoTop = camera.orthoRight * ratio;
+    camera.orthoBottom = camera.orthoLeft * ratio;
+};
+let zoomTarget = null;
+const zoom2DView = async (camera, delta) => {
+    const zoomingOut = delta < 0;
+
+    if (zoomTarget) {
+        const totalX = Math.abs(camera.orthoLeft - camera.orthoRight);
+        const totalY = Math.abs(camera.orthoTop - camera.orthoBottom);
+
+        const aspectRatio = totalY / totalX;
+
+        {
+            const fromCoord = camera.orthoLeft - zoomTarget.x;
+            const ratio = fromCoord / totalX;
+            camera.orthoLeft -= ratio * delta;
+        }
+
+        {
+            const fromCoord = camera.orthoRight - zoomTarget.x;
+            const ratio = fromCoord / totalX;
+            camera.orthoRight -= ratio * delta;
+        }
+
+        {
+            const fromCoord = camera.orthoTop - zoomTarget.y;
+            const ratio = fromCoord / totalY;
+            camera.orthoTop -= ratio * delta * aspectRatio;
+        }
+
+        {
+            const fromCoord = camera.orthoBottom - zoomTarget.y;
+            const ratio = fromCoord / totalY;
+            camera.orthoBottom -= ratio * delta * aspectRatio;
+        }
+
+        // decrease pan sensitivity the closer the zoom level.
+        camera.panningSensibility = 6250 / Math.abs(totalX / 2);
+    }
+};
+
+const resetCameraZoom = (camera, canvas) => {
+    camera.setPosition(new BABYLON.Vector3(0, 0, -100));
+    camera.target = new BABYLON.Vector3(0, 0, 0);
+    camera.orthoLeft = -8;
+    camera.orthoRight = 8;
+
+    setTopBottomRatio(camera,canvas);
+};
 
 const FiltersContainer = styled(Card)`
  padding: 1em;
