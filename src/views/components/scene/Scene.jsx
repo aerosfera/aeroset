@@ -11,6 +11,10 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const theme = createMuiTheme({
     palette: {
@@ -60,7 +64,7 @@ function CalculateMinMaxOfArray(array) {
 }
 
 
-class Scene3D extends Component {
+class Scene extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -74,6 +78,12 @@ class Scene3D extends Component {
     }
 
     SetupScene() {
+
+        if (!isCanvasSupported()) {
+            console.log('canvas is not supported!');
+            alert('canvas is not supported!');
+        }
+
         const engine = new BABYLON.Engine(this.canvas, true);
         this.scene = new BABYLON.Scene(this.engine);
         this.scene.clearColor = new BABYLON.Color3(27 / 255, 150 / 255, 243 / 255);
@@ -94,15 +104,12 @@ class Scene3D extends Component {
         this.scene.activeCamera.alpha += Math.PI; // camera +180°
 
         this.totalZoom = 0;
-        this.scene.onPointerObservable.add(({ event }) => {
+        this.scene.onPointerObservable.add(({event}) => {
             const delta = (Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail || event.deltaY)))) * 0.9;
-            //const delta = (event.wheelDelta || -event.detail || event.deltaY) * 0.1;
             if (delta > 0 && this.totalZoom < 14 || delta < 0) {
                 this.totalZoom += delta;
                 zoom2DView(this.camera, delta);
             }
-            // this.totalZoom += delta;
-            //zoom2DView(this.camera, delta);
         }, BABYLON.PointerEventTypes.POINTERWHEEL);
 
         this.scene.onPointerObservable.add(() => {
@@ -128,7 +135,7 @@ class Scene3D extends Component {
 
 
         // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
+        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
         light.intensity = 0.7;
     }
 
@@ -169,7 +176,7 @@ class Scene3D extends Component {
         this.SetupCamera();
         //AddControls(this.scene, this.camera);
 
-                this.ShowAxis(5);
+        this.ShowAxis(5);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
@@ -364,143 +371,150 @@ class Scene3D extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
-                <div>
-                    <canvas
-                        style={{width: window.innerWidth, height: window.innerHeight, position: "relative"}}
-                        ref={canvas => {
-                            if (canvas != null){
-                                this.canvas = canvas;
-                            }
-
-                        }}
-                    />
-                    <FiltersContainer style={{top: 20, left: 20}}>
-                        <Button
-                            disableElevation
-                            variant="outlined"
-                            startIcon={<CloudUploadIcon/>}
-                            style={{marginBottom: 24}}
-                            component="label"
-                            color="primary">
-                            Upload File
-                            <input
-                                type="file"
-                                ref={input => this.inputElement = input}
-                                onChange={(e) => this.showFile(e)}
-                                style={{display: "none"}}
-                            />
-                        </Button>
-                        <Typography variant="h5">FILTERS</Typography>
-                        <div style={{marginTop: 16}}>
-                            <TextField
-                                id="outlined-number"
-                                label="X FROM"
-                                type="number"
-                                name={"x-from"}
-                                step="0.1"
-                                value={this.state.filterXFromLimit}
-                                onChange={this.InputOnChangeHandle.bind(this)}
-                                style={{width: 100, height: 20}}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                inputProps={{
-                                    step: 0.1
-                                }}
-                                variant="outlined"
-                            />
-                            <TextField
-                                id="outlined-number"
-                                label="X TO"
-                                type="number"
-                                name={"x-to"}
-                                step="0.1"
-                                value={this.state.filterXToLimit}
-                                onChange={this.InputOnChangeHandle.bind(this)}
-                                style={{width: 100, marginLeft: 24}}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                inputProps={{
-                                    step: 0.1
-                                }}
-                                variant="outlined"/>
-                        </div>
-                        <div style={{marginTop: 12}}>
-                            <TextField
-                                id="outlined-number"
-                                label="Y FROM"
-                                type="number"
-                                name={"y-from"}
-                                step="0.1"
-                                value={this.state.filterYFromLimit}
-                                onChange={this.InputOnChangeHandle.bind(this)}
-                                style={{width: 100, height: 20}}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                inputProps={{
-                                    step: 0.1
-                                }}
-                                variant="outlined"
-                            />
-                            <TextField
-                                id="outlined-number"
-                                label="Y TO"
-                                type="number"
-                                name={"y-to"}
-                                step="0.1"
-                                value={this.state.filterYToLimit}
-                                onChange={this.InputOnChangeHandle.bind(this)}
-                                style={{width: 100, marginLeft: 24}}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                inputProps={{
-                                    step: 0.1
-                                }}
-                                variant="outlined"/>
-                        </div>
-                        <div style={{marginTop: 12}}>
-                            <TextField
-                                id="outlined-number"
-                                label="Z FROM"
-                                type="number"
-                                name={"z-from"}
-                                step="0.1"
-                                value={this.state.filterZFromLimit}
-                                onChange={this.InputOnChangeHandle.bind(this)}
-                                style={{width: 100, height: 20}}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                inputProps={{
-                                    step: 0.1
-                                }}
-                                variant="outlined"
-                            />
-                            <TextField
-                                id="outlined-number"
-                                label="Z TO"
-                                type="number"
-                                name={"z-to"}
-                                step="0.1"
-                                value={this.state.filterZToLimit}
-                                onChange={this.InputOnChangeHandle.bind(this)}
-                                style={{width: 100, marginLeft: 24}}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                inputProps={{
-                                    step: 0.1
-                                }}
-                                variant="outlined"/>
-                        </div>
-                    </FiltersContainer>
-                </div>
+                <canvas
+                    style={{
+                        outline: "none"
+                    }}
+                    ref={canvas => {
+                        if (canvas != undefined && canvas) {
+                            this.canvas = canvas;
+                            // const ctx = canvas.getContext('2d')
+                            // ctx.fillStyle = "blue";
+                            // ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                        }
+                    }}
+                />
+                {/*<FiltersContainer style={{top: 20, left: 20}}>*/}
+                {/*    <Button*/}
+                {/*        disableElevation*/}
+                {/*        variant="outlined"*/}
+                {/*        startIcon={<CloudUploadIcon/>}*/}
+                {/*        style={{marginBottom: 24}}*/}
+                {/*        component="label"*/}
+                {/*        color="primary">*/}
+                {/*        Upload File*/}
+                {/*        <input*/}
+                {/*            type="file"*/}
+                {/*            ref={input => this.inputElement = input}*/}
+                {/*            onChange={(e) => this.showFile(e)}*/}
+                {/*            style={{display: "none"}}*/}
+                {/*        />*/}
+                {/*    </Button>*/}
+                {/*    <Typography variant="h5">FILTERS</Typography>*/}
+                {/*    <div style={{marginTop: 16}}>*/}
+                {/*        <TextField*/}
+                {/*            id="outlined-number"*/}
+                {/*            label="X FROM"*/}
+                {/*            type="number"*/}
+                {/*            name={"x-from"}*/}
+                {/*            step="0.1"*/}
+                {/*            value={this.state.filterXFromLimit}*/}
+                {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
+                {/*            style={{width: 100, height: 20}}*/}
+                {/*            InputLabelProps={{*/}
+                {/*                shrink: true,*/}
+                {/*            }}*/}
+                {/*            inputProps={{*/}
+                {/*                step: 0.1*/}
+                {/*            }}*/}
+                {/*            variant="outlined"*/}
+                {/*        />*/}
+                {/*        <TextField*/}
+                {/*            id="outlined-number"*/}
+                {/*            label="X TO"*/}
+                {/*            type="number"*/}
+                {/*            name={"x-to"}*/}
+                {/*            step="0.1"*/}
+                {/*            value={this.state.filterXToLimit}*/}
+                {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
+                {/*            style={{width: 100, marginLeft: 24}}*/}
+                {/*            InputLabelProps={{*/}
+                {/*                shrink: true,*/}
+                {/*            }}*/}
+                {/*            inputProps={{*/}
+                {/*                step: 0.1*/}
+                {/*            }}*/}
+                {/*            variant="outlined"/>*/}
+                {/*    </div>*/}
+                {/*    <div style={{marginTop: 12}}>*/}
+                {/*        <TextField*/}
+                {/*            id="outlined-number"*/}
+                {/*            label="Y FROM"*/}
+                {/*            type="number"*/}
+                {/*            name={"y-from"}*/}
+                {/*            step="0.1"*/}
+                {/*            value={this.state.filterYFromLimit}*/}
+                {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
+                {/*            style={{width: 100, height: 20}}*/}
+                {/*            InputLabelProps={{*/}
+                {/*                shrink: true,*/}
+                {/*            }}*/}
+                {/*            inputProps={{*/}
+                {/*                step: 0.1*/}
+                {/*            }}*/}
+                {/*            variant="outlined"*/}
+                {/*        />*/}
+                {/*        <TextField*/}
+                {/*            id="outlined-number"*/}
+                {/*            label="Y TO"*/}
+                {/*            type="number"*/}
+                {/*            name={"y-to"}*/}
+                {/*            step="0.1"*/}
+                {/*            value={this.state.filterYToLimit}*/}
+                {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
+                {/*            style={{width: 100, marginLeft: 24}}*/}
+                {/*            InputLabelProps={{*/}
+                {/*                shrink: true,*/}
+                {/*            }}*/}
+                {/*            inputProps={{*/}
+                {/*                step: 0.1*/}
+                {/*            }}*/}
+                {/*            variant="outlined"/>*/}
+                {/*    </div>*/}
+                {/*    <div style={{marginTop: 12}}>*/}
+                {/*        <TextField*/}
+                {/*            id="outlined-number"*/}
+                {/*            label="Z FROM"*/}
+                {/*            type="number"*/}
+                {/*            name={"z-from"}*/}
+                {/*            step="0.1"*/}
+                {/*            value={this.state.filterZFromLimit}*/}
+                {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
+                {/*            style={{width: 100, height: 20}}*/}
+                {/*            InputLabelProps={{*/}
+                {/*                shrink: true*/}
+                {/*            }}*/}
+                {/*            inputProps={{*/}
+                {/*                step: 0.1*/}
+                {/*            }}*/}
+                {/*            variant="outlined"*/}
+                {/*        />*/}
+                {/*        <TextField*/}
+                {/*            id="outlined-number"*/}
+                {/*            label="Z TO"*/}
+                {/*            type="number"*/}
+                {/*            name={"z-to"}*/}
+                {/*            step="0.1"*/}
+                {/*            value={this.state.filterZToLimit}*/}
+                {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
+                {/*            style={{width: 100, marginLeft: 24}}*/}
+                {/*            InputLabelProps={{*/}
+                {/*                shrink: true,*/}
+                {/*            }}*/}
+                {/*            inputProps={{*/}
+                {/*                step: 0.1*/}
+                {/*            }}*/}
+                {/*            variant="outlined"/>*/}
+                {/*    </div>*/}
+                {/*</FiltersContainer>*/}
             </MuiThemeProvider>
         )
     }
+}
+
+function isCanvasSupported() {
+    const elem = document.createElement('canvas');
+    return !!(elem.getContext && elem.getContext('2d'));
 }
 
 /** Add map-like controls to an ArcRotate camera.
@@ -523,7 +537,7 @@ function AddControls(scene, camera) {
     /** @type {BABYLON.Vector3} */
     let initialPos;
     const panningFn = () => {
-        return ;
+        return;
         const pos = getPosition(scene, camera, plane);
         panning(pos, initialPos, camera.inertia, inertialPanning);
     };
@@ -540,14 +554,14 @@ function AddControls(scene, camera) {
         camera.wheelPrecision = 1 / camera.radius * 1000;
     };
 
-    const zoomFn = (p,e) => {
-        const delta = zoomWheel(p,e,camera);
+    const zoomFn = (p, e) => {
+        const delta = zoomWheel(p, e, camera);
         zooming(delta, scene, camera, plane, inertialPanning);
     }
 
     const prvScreenPos = BABYLON.Vector2.Zero();
     const rotateFn = () => {
-        return ;
+        return;
         rotating(scene, camera, prvScreenPos);
     };
 
@@ -598,7 +612,7 @@ function getPosition(scene, camera, plane) {
         ray.origin.addInPlace(ray.direction.scaleInPlace(distance)) : null;
 }
 
-/** Return offsets for inertial panning given initial and current
+/** Return offsets for inertial panning given initialize and current
  * pointer positions.
  * @param {BABYLON.Vector3} newPos
  * @param {BABYLON.Vector3} initialPos
@@ -607,8 +621,8 @@ function getPosition(scene, camera, plane) {
  */
 function panning(newPos, initialPos, inertia, ref) {
     const directionToZoomLocation = initialPos.subtract(newPos);
-    const panningX = directionToZoomLocation.x * (1-inertia);
-    const panningZ = directionToZoomLocation.z * (1-inertia);
+    const panningX = directionToZoomLocation.x * (1 - inertia);
+    const panningZ = directionToZoomLocation.z * (1 - inertia);
     ref.copyFromFloats(panningX, 0, panningZ);
     return ref;
 };
@@ -658,7 +672,7 @@ function zooming(delta, scene, camera, plane, ref) {
     const ratio = zoomDistance / camera.radius;
     const vec = getPosition(scene, camera, plane);
 
-    if(vec !== undefined && vec){
+    if (vec !== undefined && vec) {
         const directionToZoomLocation = vec.subtract(camera.target);
         const offset = directionToZoomLocation.scale(ratio);
         offset.scaleInPlace(inertiaComp);
@@ -707,7 +721,7 @@ function zeroIfClose(vec) {
 }
 
 
-const setTopBottomRatio = (camera,canvas) => {
+const setTopBottomRatio = (camera, canvas) => {
     const ratio = canvas.height / canvas.width;
     camera.orthoTop = camera.orthoRight * ratio;
     camera.orthoBottom = camera.orthoLeft * ratio;
@@ -757,7 +771,7 @@ const resetCameraZoom = (camera, canvas) => {
     camera.orthoLeft = -8;
     camera.orthoRight = 8;
 
-    setTopBottomRatio(camera,canvas);
+    setTopBottomRatio(camera, canvas);
 };
 
 const FiltersContainer = styled(Card)`
@@ -768,4 +782,4 @@ const FiltersContainer = styled(Card)`
  position: absolute;
  `;
 
-export default Scene3D;
+export default Scene;
