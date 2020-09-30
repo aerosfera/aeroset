@@ -12,8 +12,8 @@ function StatePanel() {
     };
 
     return (
-        <div style={{background: "#2a4158", height: 50}}>
-            <FormControl style={{position: "absolute", right: 0, color: "white"}}>
+        <div style={{background: "#0582ca", height: 30}}>
+            <FormControl style={{display: "inline-block", left: 0, color: "white"}}>
                 <InputLabel>projection</InputLabel>
                 <Select
                     value={projectionType}

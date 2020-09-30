@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+//import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as BABYLON from 'babylonjs';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
@@ -86,7 +87,7 @@ class Scene extends Component {
 
         const engine = new BABYLON.Engine(this.canvas, true);
         this.scene = new BABYLON.Scene(this.engine);
-        this.scene.clearColor = new BABYLON.Color3(27 / 255, 150 / 255, 243 / 255);
+        this.scene.clearColor = new BABYLON.Color3(0 / 255, 166 / 255, 251 / 255);
         this.engine = engine;
     }
 
@@ -373,17 +374,23 @@ class Scene extends Component {
             <MuiThemeProvider theme={theme}>
                 <canvas
                     style={{
-                        outline: "none"
+                        outline: "none",
+                        display: "block", //remove scrollBars,
+                        margin: 0,
+                        padding: 0,
+                        height: 500
                     }}
                     ref={canvas => {
                         if (canvas != undefined && canvas) {
                             this.canvas = canvas;
+                            //const context = canvas.getContext('2d');
                             // const ctx = canvas.getContext('2d')
                             // ctx.fillStyle = "blue";
                             // ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                         }
                     }}
                 />
+
                 {/*<FiltersContainer style={{top: 20, left: 20}}>*/}
                 {/*    <Button*/}
                 {/*        disableElevation*/}
