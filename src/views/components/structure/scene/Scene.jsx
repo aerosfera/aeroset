@@ -16,6 +16,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import * as eventTypes from "../../../../constants/eventTypes/EventTypes";
 
 const theme = createMuiTheme({
     palette: {
@@ -184,6 +185,10 @@ class Scene extends Component {
         window.addEventListener("resize", () => {
             this.engine.resize();
         });
+    }
+
+    cloudPointsFileLoaded(filePath) {
+        alert(filePath);
     }
 
     ShowAxis(size) {
@@ -377,8 +382,9 @@ class Scene extends Component {
                         outline: "none",
                         display: "block", //remove scrollBars,
                         margin: 0,
+                        width: '100%',
                         padding: 0,
-                        height: 500
+                        height: (window.innerHeight - 130)
                     }}
                     ref={canvas => {
                         if (canvas != undefined && canvas) {

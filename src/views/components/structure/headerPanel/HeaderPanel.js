@@ -77,7 +77,7 @@ function HeaderPanel() {
     const theme = createMuiTheme({
         palette: {
             primary: {
-                main: "#46AD8D",
+                main: "#46ad8d",
                 contrastText: "white" //button text white instead of black
             },
             background: {
@@ -93,7 +93,7 @@ function HeaderPanel() {
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <div style={{background: "#006494", height: 50, display: "flex", justifyContent: "flex-end"}}>
+                <div style={{background: "#7c7a7a", height: 50, display: "flex", justifyContent: "flex-end"}}>
                     <div style={{verticalAlign: "middle"}}>
                         {['left', 'right', 'top', 'bottom'].map((anchor) => (
                             <React.Fragment key={anchor}>
