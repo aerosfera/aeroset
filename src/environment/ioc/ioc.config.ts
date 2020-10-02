@@ -1,10 +1,10 @@
 import {Container} from "inversify";
-import IocTypes from "./IocTypes";
+import ServiceTypes from "./ServiceTypes";
 import IEventBus from "../../services/eventBus/IEventBus";
 import EventBus from '../../services/eventBus/EventBus';
 
 const iocContainer = new Container();
 
-iocContainer.bind<EventBus>(IocTypes.EventBus).to(IEventBus).inSingletonScope();
+iocContainer.bind<IEventBus>(ServiceTypes.EventBus).to(EventBus).inSingletonScope();
 
 export {iocContainer};
