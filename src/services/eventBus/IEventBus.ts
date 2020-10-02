@@ -1,4 +1,4 @@
-export interface IEventBus {
+export default interface IEventBus {
     subscribe(): void;
     unsubscribe(): void;
 }

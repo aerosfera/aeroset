@@ -1,8 +1,10 @@
 import {Container} from "inversify";
-import EventBus from "../../services/eventBus/eventBus";
-import IOC from "./IOC";
-import {IEventBus} from "../../services/eventBus/IEventBus";
+import IocTypes from "./IocTypes";
+import IEventBus from "../../services/eventBus/IEventBus";
+import EventBus from '../../services/eventBus/EventBus';
 
 const iocContainer = new Container();
-iocContainer.bind<EventBus>(IOC.EventBus).to(IEventBus).inSingletonScope();
-export { iocContainer };
+
+iocContainer.bind<EventBus>(IocTypes.EventBus).to(IEventBus).inSingletonScope();
+
+export {iocContainer};

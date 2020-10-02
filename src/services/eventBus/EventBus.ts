@@ -1,4 +1,4 @@
-import {IEventBus} from "./IEventBus";
+import IEventBus from "./IEventBus";
 
 class EventBus implements IEventBus{
     subscribe(): void {
