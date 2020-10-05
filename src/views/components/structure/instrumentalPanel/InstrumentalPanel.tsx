@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import React, {Fragment} from "react";
 import IconButton from "@material-ui/core/IconButton";
 import {ThemeProvider} from "styled-components";
@@ -6,35 +7,39 @@ import green from "@material-ui/core/colors/green";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import FilterTiltShiftIcon from '@material-ui/icons/FilterTiltShift';
 import Tooltip from "@material-ui/core/Tooltip";
-import CloudSystemFiltersWindowPanel from "../../windowPanels/cloudSystemFiltersPanel/CloudSystemFiltersWindowPanel";
-import * as EventTypes from "../../../../constants/eventTypes/EventTypes";
+import {ServiceTypes} from "../../../../environment/ioc/ServiceTypes";
+import {EventBus} from "../../../../services/eventBus/EventBus";
+import * as EventTypes from "../../../../services/eventBus/EventTypes";
+import IoC from "../../../../environment/ioc/IoC";
 
 function instrumentalPanel() {
-    function loadCloudSystemFile(e) {
-        e.preventDefault();
+    function loadCloudSystemFile(file: File) {
+        const eventBus : EventBus = IoC.get(ServiceTypes.EventBusService);
+        eventBus.send(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(),file);
     };
 
     function showCloudSystemFiltersPanel() {
-        const filtersPanel = CloudSystemFiltersWindowPanel();
-        filtersPanel.open = true;
     }
 
     const redTheme = createMuiTheme({palette: {primary: green}});
-
     return (
+
         <ThemeProvider theme={redTheme}>
             <div style={{height: 35, background: "#ef8354"}}>
                 <Fragment>
                     <input
                         color="primary"
                         type="file"
-                        onChange={(e) => loadCloudSystemFile(e)}
+                        onChange={(e) => {
+                            e.preventDefault();
+                            const file : File | undefined = e.target.files?.[0];
+                            loadCloudSystemFile(file as File);
+                        }}
                         id="icon-button-file"
                         style={{display: 'none',}}/>
                     <Tooltip title="Загрузить файл с облаком точек" style={{marginLeft: 5}}>
                         <label htmlFor="icon-button-file">
                             <IconButton
-                                variant="contained"
                                 component="span"
                                 size="small"
                                 color="primary">

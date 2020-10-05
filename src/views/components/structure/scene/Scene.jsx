@@ -16,7 +16,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import * as eventTypes from "../../../../constants/eventTypes/EventTypes";
+import * as eventTypes from "../../../../services/eventBus/EventTypes";
 
 const theme = createMuiTheme({
     palette: {

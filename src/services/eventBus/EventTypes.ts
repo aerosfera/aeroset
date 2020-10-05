@@ -1,0 +1,1 @@
+export const CLOUD_POINTS_FILE_LOADED = Symbol.for("CLOUD_POINTS_FILE_LOADED");

@@ -1,5 +1,3 @@
-const ServiceTypes = {
-    EventBus: Symbol.for("EventBus"),
+export const ServiceTypes = {
+    EventBusService: Symbol.for("EventBusService")
 };
-
-export default ServiceTypes;
