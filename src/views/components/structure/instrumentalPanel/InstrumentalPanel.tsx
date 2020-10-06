@@ -1,3 +1,4 @@
+import IoC from "../../../../environment/ioc/IoC";
 import 'reflect-metadata';
 import React, {Fragment} from "react";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,13 +10,11 @@ import FilterTiltShiftIcon from '@material-ui/icons/FilterTiltShift';
 import Tooltip from "@material-ui/core/Tooltip";
 import ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import * as EventTypes from "../../../../services/eventBus/EventTypes";
-import IoC from "../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
 
 function instrumentalPanel() {
     function loadCloudSystemFile(file: File) {
-        let tt = IoC;
-        const eventBus : EventBusService = IoC.get(ServiceTypes.EventBusService);
+        let eventBus : EventBusService = IoC.get(ServiceTypes.EventBusService);
         eventBus.send(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(),file);
     };
 
