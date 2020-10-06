@@ -1,0 +1,1 @@
+{"version":3,"file":"EventListenerFn.js","sourceRoot":"","sources":["EventListenerFn.ts"],"names":[],"mappings":"","sourcesContent":["export interface EventListenerFn {\r\n    (...values: any[]): void;\r\n}"]}
