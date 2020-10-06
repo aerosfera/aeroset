@@ -7,13 +7,14 @@ import green from "@material-ui/core/colors/green";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import FilterTiltShiftIcon from '@material-ui/icons/FilterTiltShift';
 import Tooltip from "@material-ui/core/Tooltip";
-import {ServiceTypes} from "../../../../environment/ioc/ServiceTypes";
+import ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import * as EventTypes from "../../../../services/eventBus/EventTypes";
 import IoC from "../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
 
 function instrumentalPanel() {
     function loadCloudSystemFile(file: File) {
+        let tt = IoC;
         const eventBus : EventBusService = IoC.get(ServiceTypes.EventBusService);
         eventBus.send(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(),file);
     };

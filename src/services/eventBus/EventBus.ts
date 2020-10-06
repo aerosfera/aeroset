@@ -1,8 +1,8 @@
-import {EventBusService} from "./EventBusService";
+import {injectable} from "inversify";
 import {EventEmitter2} from "eventemitter2";
+import {EventBusService} from "./EventBusService";
 import {EventListenerFn} from "./EventListenerFn";
 import "reflect-metadata";
-import {injectable} from "inversify";
 
 @injectable()
 export class EventBus implements EventBusService {
