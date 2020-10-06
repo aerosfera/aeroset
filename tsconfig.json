@@ -2,11 +2,13 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "target": "ES2015",
+    "target": "ES2019",
     "module": "esnext",
     "lib": [
       "es2015",
-      "dom"
+      "dom",
+      "es2015.promise"
+
     ],
     "jsx": "preserve",
     "sourceMap": true,
@@ -29,6 +31,6 @@
     "node_modules"
   ],
   "include": [
-    "src"
+    "src/**/*.ts"
   ]
 }
