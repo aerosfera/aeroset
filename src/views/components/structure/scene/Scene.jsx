@@ -17,6 +17,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import * as eventTypes from "../../../../services/eventBus/EventTypes";
+import {EventBusService} from "../../../../services/eventBus/EventBusService";
+import IoC from "../../../../environment/ioc/IoC";
+import ServiceTypes from "../../../../environment/ioc/ServiceTypes";
+import * as EventTypes from "../../../../services/eventBus/EventTypes";
 
 const theme = createMuiTheme({
     palette: {
@@ -77,6 +81,13 @@ class Scene extends Component {
             filterZFromLimit: -5,
             filterZToLimit: 5
         };
+
+        let eventBus : EventBusService = IoC.get(ServiceTypes.EventBusService);
+        eventBus.subscribe(EventTypes.CLOUD_POINTS_FILE_LOADED, this.onCloudPointsFileLoaded)
+    }
+
+    onCloudPointsFileLoaded(file) {
+
     }
 
     SetupScene() {

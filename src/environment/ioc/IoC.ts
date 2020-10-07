@@ -13,5 +13,4 @@ const IoC = new Container({
 decorate(injectable(), EventBus);
 IoC.bind<EventBusService>(ServiceTypes.EventBusService).to(EventBus).inSingletonScope();
 
-
 export default IoC;
