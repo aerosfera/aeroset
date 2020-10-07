@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Scene from "./components/structure/scene/Scene";
-import StatePanel from "./components/structure/statePanel/StatePanel";
-import InstrumentalPanel from "./components/structure/instrumentalPanel/InstrumentalPanel";
-import HeaderPanel from "./components/structure/headerPanel/HeaderPanel";
+import Scene from "./components/base/scene/Scene";
+import StatePanel from "./components/base/statePanel/StatePanel";
+import InstrumentalPanel from "./components/base/instrumentalPanel/InstrumentalPanel";
+import HeaderPanel from "./components/base/headerPanel/HeaderPanel";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
 import {ThemeProvider} from 'styled-components'
 import {maxHeight} from "styled-system";

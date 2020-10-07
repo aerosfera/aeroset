@@ -11,7 +11,6 @@ export default class EventBus implements EventBusService {
 
     }
 
-
     subscribe(event: string, action: EventListenerFn): void {
         this.eventEmitter.on(event, action,);
     }
