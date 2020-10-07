@@ -1,4 +1,4 @@
-export default function CalculateMinMaxOfArray(array : Array<number>) {
+export default function calculateMinMaxOfArray(array : Array<number>) {
     const arrayLength = array.length;
     const borderIncrement = 125000;
     let arrayCounter = 0;

@@ -32,8 +32,8 @@ function instrumentalPanel() {
                         type="file"
                         onChange={(e) => {
                             e.preventDefault();
-                            const file : File | undefined = e.target.files?.[0];
-                            loadCloudSystemFile(file as File);
+                            const file : File = e.target.files?.[0] as File;
+                            loadCloudSystemFile(file);
                         }}
                         id="icon-button-file"
                         style={{display: 'none',}}/>

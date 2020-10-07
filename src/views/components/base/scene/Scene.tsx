@@ -29,6 +29,9 @@ import {Engine} from "babylonjs/Engines/engine";
 import {Light} from "babylonjs/Lights/light";
 import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
 import setupZoom from "./setup/scene/setupZoom";
+import onCloudPointsFileLoaded from "./pointCloudSystem/onCloudPointsFileLoaded";
+import SceneRootApi from "./base/SceneRootApi";
+import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 
 export default function Scene() {
     const theme = createMuiTheme({
@@ -60,46 +63,26 @@ export default function Scene() {
     let eventBus: EventBusService = IoC.get(ServiceTypes.EventBusService);
     eventBus.subscribe(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(), onCloudPointsFileLoaded);
 
-    function onCloudPointsFileLoaded(file: File) {
-        // const reader = new FileReader()
-        // reader.onload = async (e) => {
-        //     const array = [];
-        //     const text = (e.target.result)
-        //     let lines = text.split('\n');
-        //     lines.forEach((line) => {
-        //         let value = line.split(';');
-        //         array.push(value);
-        //     });
-        //
-        //     this.points = array.map((e) => {
-        //         return {
-        //             x: Number.parseFloat(e[0] ? e[0].replace(',', '.') : 0),
-        //             y: Number.parseFloat(e[1] ? e[1].replace(',', '.') : 0),
-        //             z: Number.parseFloat(e[2] ? e[2].replace(',', '.') : 0),
-        //             p: new Number(e[3] ? e[3].replace(',', '.') : 0)
-        //         }
-        //     });
-        //
-        //     const parameters = this.points.map(p => p.p);
-        //     const {max, min} = CalculateMinMaxOfArray(parameters);
-        //     this.parameterMin = min;
-        //     this.parameterMax = max;
-        //
-        //     await this.SetupPcs(this.points);
-        // };
-        // reader.readAsText(file)
-    }
-
-    if (!isCanvasSupported()) {
-        console.log('canvas is not supported!');
-        alert('canvas is not supported!');
-    }
-
     function initialize(canvas: HTMLCanvasElement) {
+        if (!isCanvasSupported()) {
+            console.log('canvas is not supported!');
+            alert('canvas is not supported!');
+        }
+        const apiProvider : ApiProvider = IoC.get(Symbol.for("ApiProviderService"));
+        const sceneRootApi = apiProvider.sceneRootApi;
+
         const engine: Engine = new BABYLON.Engine(canvas, true);
+        sceneRootApi.engine = engine;
+
         const scene: BABYLON.Scene = setupScene(engine);
+        sceneRootApi.scene = scene;
+
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
+        sceneRootApi.camera = camera;
+
         const light: Light = setupLight(scene);
+        sceneRootApi.light = light;
+
         setupZoom(scene, engine, camera);
     }
 
