@@ -32,7 +32,6 @@
     "redux": "^4.0.5",
     "reflect-metadata": "^0.1.13",
     "styled-components": "^5.2.0",
-    "styled-flex-component": "^3.0.5",
     "styled-system": "^5.1.5"
   },
   "scripts": {
@@ -60,6 +59,7 @@
   },
   "devDependencies": {
     "@types/react-redux": "^7.1.9",
+    "@types/styled-system": "^5.1.10",
     "clsx": "^1.1.1",
     "ts-loader": "^8.0.4",
     "typescript": "^4.0.3"

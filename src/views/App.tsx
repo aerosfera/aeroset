@@ -6,7 +6,6 @@ import InstrumentalPanel from "./components/structure/instrumentalPanel/Instrume
 import HeaderPanel from "./components/structure/headerPanel/HeaderPanel";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
 import {ThemeProvider} from 'styled-components'
-import Flex, {FlexItem} from 'styled-flex-component';
 import {maxHeight} from "styled-system";
 
 const theme = {
@@ -37,21 +36,6 @@ function App() {
     return (
         <div style={{height: '100%'}}>
             <ThemeProvider theme={theme}>
-                {/*<Flex column full alignStretch contentStretch >*/}
-                {/*    <FlexItem order="1">*/}
-                {/*        <HeaderPanel/>*/}
-                {/*    </FlexItem>*/}
-                {/*    <FlexItem order="2">*/}
-                {/*        <InstrumentalPanel/>*/}
-                {/*    </FlexItem>*/}
-                {/*    <FlexItem order="3">*/}
-                {/*        <Scene/>*/}
-                {/*    </FlexItem>*/}
-                {/*    <FlexItem order="4">*/}
-                {/*        <StatePanel/>*/}
-                {/*    </FlexItem>*/}
-                {/*</Flex>*/}
-
                 <Grid fluid={true}>
                     <Row>
                         <Col xs>
