@@ -1,5 +1,4 @@
 import React, {Component, useState} from 'react';
-//import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import * as BABYLON from 'babylonjs';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
@@ -32,6 +31,7 @@ import setupZoom from "./setup/scene/setupZoom";
 import onCloudPointsFileLoaded from "./pointCloudSystem/onCloudPointsFileLoaded";
 import SceneRootApi from "./base/SceneRootApi";
 import ApiProvider from "../../../../services/apiProvider/ApiProvider";
+import {Particle} from "babylonjs/Particles/particle";
 
 export default function Scene() {
     const theme = createMuiTheme({
