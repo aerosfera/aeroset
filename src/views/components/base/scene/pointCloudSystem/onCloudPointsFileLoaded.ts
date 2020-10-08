@@ -2,7 +2,7 @@ import SolidPoint from "./SolidPoint";
 import calculateMinMaxOfArray from "../../../../../utilities/math/calculateMaxMinOfArray";
 import constructPointCloud from "./constructPointCloud";
 import IoC from "../../../../../environment/ioc/IoC";
-import ServiceTypes from "../../../../../environment/ioc/ServiceTypes";
+import * as ServiceTypes from "../../../../../environment/ioc/ServiceTypes";
 import ApiProvider from "../../../../../services/apiProvider/ApiProvider";
 import {Scene} from "babylonjs/scene";
 
@@ -31,7 +31,7 @@ export default function onCloudPointsFileLoaded(parameters: Array<File>) {
         const parameterMin = min;
         const parameterMax = max;
 
-        const apiProvider: ApiProvider = IoC.get(Symbol.for("ApiProviderService"));
+        const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
         const scene = apiProvider.sceneRootApi.scene as Scene;
 
         const pcsMesh = await constructPointCloud(scene, points, parameterMin, parameterMax);

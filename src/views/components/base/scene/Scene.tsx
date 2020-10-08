@@ -18,7 +18,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import * as eventTypes from "../../../../services/eventBus/EventTypes";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
 import IoC from "../../../../environment/ioc/IoC";
-import ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import * as EventTypes from "../../../../services/eventBus/EventTypes";
 import isCanvasSupported from "../../../../utilities/dom/isCanvasSupported";
 import setupScene from "./setup/scene/setupScene";
@@ -32,6 +31,8 @@ import onCloudPointsFileLoaded from "./pointCloudSystem/onCloudPointsFileLoaded"
 import SceneRootApi from "./base/SceneRootApi";
 import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {Particle} from "babylonjs/Particles/particle";
+import * as ServiceTypes from "../../../../environment/ioc/ServiceTypes";
+import Draggable from 'react-draggable';
 
 export default function Scene() {
     const theme = createMuiTheme({
@@ -60,7 +61,7 @@ export default function Scene() {
         filterZToLimit: 5
     };
 
-    let eventBus: EventBusService = IoC.get(ServiceTypes.EventBusService);
+    let eventBus: EventBusService = IoC.get(Symbol.for("EVENT_BUS_SERVICE"));
     eventBus.subscribe(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(), onCloudPointsFileLoaded);
 
     function initialize(canvas: HTMLCanvasElement) {
@@ -68,7 +69,7 @@ export default function Scene() {
             console.log('canvas is not supported!');
             alert('canvas is not supported!');
         }
-        const apiProvider : ApiProvider = IoC.get(Symbol.for("ApiProviderService")); //Todo: understand why
+        const apiProvider : ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE")); //Todo: understand why
         const sceneRootApi = apiProvider.sceneRootApi;
 
         const engine: Engine = new BABYLON.Engine(canvas, true);
@@ -260,6 +261,21 @@ export default function Scene() {
                     }
                 }}
             />
+            <Draggable
+                axis="x"
+                handle=".handle"
+                defaultPosition={{x: 0, y: 0}}
+                position={null}
+                grid={[25, 25]}
+                scale={1}
+                onStart={this.handleStart}
+                onDrag={this.handleDrag}
+                onStop={this.handleStop}>
+                <div>
+                    <div className="handle">Drag from here</div>
+                    <div>This readme is really dragging on...</div>
+                </div>
+            </Draggable>
 
             {/*<FiltersContainer style={{top: 20, left: 20}}>*/}
             {/*    <Button*/}

@@ -1,9 +1,11 @@
 import "reflect-metadata";
-import ServiceTypes from "./ServiceTypes";
 import EventBus from '../../services/eventBus/EventBus';
 import ApiProvider from "../../services/apiProvider/ApiProvider";
 import {EventBusService} from "../../services/eventBus/EventBusService";
 import {Container, decorate, injectable} from "inversify";
+import {WindowPanelsService} from "../../services/windowPanelsService/WindowPanelsService";
+import WindowPanelsProvider from "../../services/windowPanelsService/windowPanels/WindowPanelProvider";
+import * as ServiceTypes from "./ServiceTypes";
 
 const IoC = new Container({
     autoBindInjectable: true,
@@ -11,9 +13,9 @@ const IoC = new Container({
     skipBaseClassChecks: true
 });
 
-decorate(injectable(), EventBus);
-IoC.bind<EventBusService>(ServiceTypes.EventBusService).to(EventBus).inSingletonScope();
-
-IoC.bind<ApiProvider>(Symbol.for("ApiProviderService")).to(ApiProvider).inSingletonScope();
+decorate(injectable(), EventBus); //Todo: huck
+IoC.bind<EventBusService>(Symbol.for("EVENT_BUS_SERVICE")).to(EventBus).inSingletonScope();
+IoC.bind<WindowPanelsService>(Symbol.for("WINDOW_PANELS_SERVICE")).to(WindowPanelsProvider).inSingletonScope();
+IoC.bind<ApiProvider>(Symbol.for("API_PROVIDER_SERVICE")).to(ApiProvider).inSingletonScope();
 
 export default IoC;
