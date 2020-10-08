@@ -68,7 +68,7 @@ export default function Scene() {
             console.log('canvas is not supported!');
             alert('canvas is not supported!');
         }
-        const apiProvider : ApiProvider = IoC.get(Symbol.for("ApiProviderService"));
+        const apiProvider : ApiProvider = IoC.get(Symbol.for("ApiProviderService")); //Todo: understand why
         const sceneRootApi = apiProvider.sceneRootApi;
 
         const engine: Engine = new BABYLON.Engine(canvas, true);

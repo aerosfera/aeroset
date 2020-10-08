@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://app.aeroset.net",
   "dependencies": {
-    "@babylonjs/core": "^4.1.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@reduxjs/toolkit": "^1.4.0",

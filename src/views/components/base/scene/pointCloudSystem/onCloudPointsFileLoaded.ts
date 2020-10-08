@@ -6,22 +6,22 @@ import ServiceTypes from "../../../../../environment/ioc/ServiceTypes";
 import ApiProvider from "../../../../../services/apiProvider/ApiProvider";
 import {Scene} from "babylonjs/scene";
 
-export default function onCloudPointsFileLoaded(file: File) {
+export default function onCloudPointsFileLoaded(parameters: Array<File>) {
     const reader : FileReader = new FileReader()
     reader.onload = async (e: ProgressEvent<FileReader>) => {
-        const internalArray: string[] = [];
-        const text: string = <string>(e.target!.result)
+        const fileLines: string[] = [];
+        const text: string = <string>(reader.result)
         let lines: string[] = text.split('\n');
         lines.forEach((line) => {
-            let value: string[] = line.split(';');
-            internalArray.push(...value);
+            fileLines.push(line.slice(0, -1));
         });
 
-        const points: SolidPoint[] = internalArray.map((point: string) => {
-            const x: number = Number.parseFloat(point[0] ? point[0].replace(',', '.') : "0");
-            const y: number = Number.parseFloat(point[1] ? point[1].replace(',', '.') : "0");
-            const z: number = Number.parseFloat(point[2] ? point[2].replace(',', '.') : "0");
-            const p: number = Number(point[3] ? point[3].replace(',', '.') : "0");
+        const points: SolidPoint[] = fileLines.map((line: string) => {
+            const points: string[] = line.split(';');
+            const x: number = Number.parseFloat(points[0] ? points[0].replace(',', '.') : "0");
+            const y: number = Number.parseFloat(points[1] ? points[1].replace(',', '.') : "0");
+            const z: number = Number.parseFloat(points[2] ? points[2].replace(',', '.') : "0");
+            const p: number = Number(points[3] ? points[3].replace(',', '.') : "0");
 
             return new SolidPoint(x, y, z, p);
         });
@@ -31,11 +31,13 @@ export default function onCloudPointsFileLoaded(file: File) {
         const parameterMin = min;
         const parameterMax = max;
 
-        const apiProvider: ApiProvider = IoC.get(ServiceTypes.ApiProviderService);
+        const apiProvider: ApiProvider = IoC.get(Symbol.for("ApiProviderService"));
         const scene = apiProvider.sceneRootApi.scene as Scene;
 
-        await constructPointCloud(scene, points, parameterMin, parameterMax);
+        const pcsMesh = await constructPointCloud(scene, points, parameterMin, parameterMax);
     };
 
-    reader.readAsDataURL(file)
+    const file : File = parameters[0];
+    const blob : Blob = <Blob>file;
+    reader.readAsText(blob);
 }

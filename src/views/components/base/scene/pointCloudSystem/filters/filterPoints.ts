@@ -10,7 +10,7 @@ export default function filterPoints(points: SolidPoint[]) : SolidPoint[]{
         filterZToLimit : 5,
     };
 
-    return  points.filter(point => {
+    const filteredPoints = points.filter(point => {
         const {x, y, z} = point
 
         if ((x >= filterParameters.filterXFromLimit && x <= filterParameters.filterXToLimit)
@@ -23,4 +23,6 @@ export default function filterPoints(points: SolidPoint[]) : SolidPoint[]{
 
         return false;
     });
+
+    return filteredPoints;
 }

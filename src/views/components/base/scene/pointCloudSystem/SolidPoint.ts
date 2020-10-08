@@ -37,15 +37,6 @@ export default class SolidPoint {
     }
 
     constructor(x: number, y: number, z: number, parameter: number) {
-        if (x < 0) {
-            throw new Error("wrong parameters");
-        }
-        if (y < 0) {
-            throw new Error("wrong parameters");
-        }
-        if (z < 0) {
-            throw new Error("wrong parameters");
-        }
         this._x = x;
         this._y = y;
         this._z = z;

@@ -9,10 +9,12 @@ export default async function constructPointCloud(scene: Scene,
                                                   points: SolidPoint[],
                                                   parameterMin: number,
                                                   parameterMax: number): Promise<Mesh> {
-    const pointsCount = points.length;
-    const pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", pointsCount, scene, {updatable: false});
 
-    const filteredPoints = filterPoints(points);
+
+    const filteredPoints: SolidPoint[] = filterPoints(points);
+
+    const pointsCount = filteredPoints.length;
+    const pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", pointsCount, scene, {updatable: false});
 
     const diffP = parameterMax - parameterMin;
     let constructParticle = (particle: Particle, i: number, _: any) => {
@@ -49,7 +51,7 @@ export default async function constructPointCloud(scene: Scene,
             b = 0;
         }
 
-        particle.position = new BABYLON.Vector3(point.x, point.y, point.z);
+        particle.position = new BABYLON.Vector3(3, 3, 1);
         particle.color = new BABYLON.Color4(r / 255, g / 255, b / 255, 1)
     }
 
