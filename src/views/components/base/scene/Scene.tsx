@@ -33,8 +33,9 @@ import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {Particle} from "babylonjs/Particles/particle";
 import * as ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import Draggable from 'react-draggable';
+import {connect} from "react-redux";
 
-export default function Scene() {
+const sceneComponent = function Scene() {
     const theme = createMuiTheme({
         palette: {
             primary: {
@@ -261,21 +262,6 @@ export default function Scene() {
                     }
                 }}
             />
-            <Draggable
-                axis="x"
-                handle=".handle"
-                defaultPosition={{x: 0, y: 0}}
-                position={null}
-                grid={[25, 25]}
-                scale={1}
-                onStart={this.handleStart}
-                onDrag={this.handleDrag}
-                onStop={this.handleStop}>
-                <div>
-                    <div className="handle">Drag from here</div>
-                    <div>This readme is really dragging on...</div>
-                </div>
-            </Draggable>
 
             {/*<FiltersContainer style={{top: 20, left: 20}}>*/}
             {/*    <Button*/}
@@ -403,3 +389,5 @@ export default function Scene() {
         </MuiThemeProvider>
     )
 }
+
+export default sceneComponent;

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Scene from "./components/base/scene/Scene";
 import StatePanel from "./components/base/statePanel/StatePanel";
-import InstrumentalPanel from "./components/base/instrumentalPanel/InstrumentalPanel";
+import {InstrumentalPanel} from "./components/base/instrumentalPanel/InstrumentalPanel";
 import HeaderPanel from "./components/base/headerPanel/HeaderPanel";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
 import {ThemeProvider} from 'styled-components'

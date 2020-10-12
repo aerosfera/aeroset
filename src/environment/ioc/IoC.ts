@@ -13,7 +13,7 @@ const IoC = new Container({
     skipBaseClassChecks: true
 });
 
-decorate(injectable(), EventBus); //Todo: huck
+decorate(injectable(), EventBus); //Todo: FIXME
 IoC.bind<EventBusService>(Symbol.for("EVENT_BUS_SERVICE")).to(EventBus).inSingletonScope();
 IoC.bind<WindowPanelsService>(Symbol.for("WINDOW_PANELS_SERVICE")).to(WindowPanelsProvider).inSingletonScope();
 IoC.bind<ApiProvider>(Symbol.for("API_PROVIDER_SERVICE")).to(ApiProvider).inSingletonScope();
