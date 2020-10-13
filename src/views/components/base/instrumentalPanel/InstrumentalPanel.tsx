@@ -8,16 +8,13 @@ import green from "@material-ui/core/colors/green";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import FilterTiltShiftIcon from '@material-ui/icons/FilterTiltShift';
 import Tooltip from "@material-ui/core/Tooltip";
-import * as EventTypes from "../../../../services/eventBus/EventTypes";
-import {EventBusService} from "../../../../services/eventBus/EventBusService";
 import WindowPanelsProvider from "../../../../services/windowPanelsService/windowPanels/WindowPanelProvider";
 import WindowPanelTypes from "../../../../services/windowPanelsService/WindowPanelTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {ApplicationState, useAppDispatch} from "../../../../store/store";
 import {pcsLoadFileAction} from "../../../../store/domains/instrumentalPanel/sections/pointCloudSystemSection/reductors/pointCloudSystemSectionReducer";
-import {tempAction} from "../../../../store/domains/scene/reducers/sceneReducer";
 
-export const InstrumentalPanel = (props: any) => {
+export const InstrumentalPanel = () => {
     const instrumentalPanelState = useSelector<ApplicationState>(state => state);
     const dispatch = useAppDispatch();
 

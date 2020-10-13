@@ -2,7 +2,6 @@ import SolidPoint from "./SolidPoint";
 import calculateMinMaxOfArray from "../../../../../utilities/math/calculateMaxMinOfArray";
 import constructPointCloud from "./constructPointCloud";
 import IoC from "../../../../../environment/ioc/IoC";
-import * as ServiceTypes from "../../../../../environment/ioc/ServiceTypes";
 import ApiProvider from "../../../../../services/apiProvider/ApiProvider";
 import {Scene} from "babylonjs/scene";
 

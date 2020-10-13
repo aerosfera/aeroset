@@ -33,36 +33,14 @@ import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {Particle} from "babylonjs/Particles/particle";
 import * as ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import Draggable from 'react-draggable';
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
+import {ApplicationState, useAppDispatch} from "../../../../store/store";
 
-const sceneComponent = function Scene() {
-    const theme = createMuiTheme({
-        palette: {
-            primary: {
-                light: '#757ce8',
-                main: '#3f50b5',
-                dark: '#002884',
-                contrastText: '#fff',
-            },
-            secondary: {
-                light: '#ff7961',
-                main: '#f44336',
-                dark: '#ba000d',
-                contrastText: '#000',
-            },
-        },
-    });
+const Scene = () => {
+    const selector: ApplicationState = useSelector((state: ApplicationState) => state);
+    const dispatch = useAppDispatch();
 
-    const state = {
-        filterXFromLimit: -5,
-        filterXToLimit: 5,
-        filterYFromLimit: -5,
-        filterYToLimit: 5,
-        filterZFromLimit: -5,
-        filterZToLimit: 5
-    };
-
-    let eventBus: EventBusService = IoC.get(Symbol.for("EVENT_BUS_SERVICE"));
+    const eventBus: EventBusService = IoC.get(Symbol.for("EVENT_BUS_SERVICE"));
     eventBus.subscribe(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(), onCloudPointsFileLoaded);
 
     function initialize(canvas: HTMLCanvasElement) {
@@ -70,7 +48,7 @@ const sceneComponent = function Scene() {
             console.log('canvas is not supported!');
             alert('canvas is not supported!');
         }
-        const apiProvider : ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE")); //Todo: understand why
+        const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE")); //Todo: understand why
         const sceneRootApi = apiProvider.sceneRootApi;
 
         const engine: Engine = new BABYLON.Engine(canvas, true);
@@ -86,70 +64,12 @@ const sceneComponent = function Scene() {
         sceneRootApi.light = light;
 
         setupZoom(scene, engine, camera);
+
+        const pointsCloudFile: File = selector.instrumentalPanel.pointCloudSystem.pointsCloudFile as File;
+        if (pointsCloudFile && pointsCloudFile !== null)
+            onCloudPointsFileLoaded(new Array<File>(pointsCloudFile));
     }
 
-
-    // SetupPcs(points)
-    // {
-    //     this.pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", this.scene);
-    //     const diffP = this.parameterMax - this.parameterMin;
-    //
-    //     const filteredPoints = points.filter(p => {
-    //         const {x, y, z} = p
-    //
-    //         if ((x >= this.state.filterXFromLimit && x <= this.state.filterXToLimit)
-    //             &&
-    //             (y >= this.state.filterYFromLimit && y <= this.state.filterYToLimit)
-    //             &&
-    //             (z >= this.state.filterZFromLimit && z <= this.state.filterZToLimit)) {
-    //             return true;
-    //         }
-    //
-    //         return false;
-    //     });
-    //
-    //     let constructParticle = (particle, i, _) => {
-    //         let point = filteredPoints[i];
-    //         const pPercent = ((point.p - this.parameterMin) / diffP) * 100;
-    //
-    //         let r;
-    //         let g;
-    //         let b;
-    //
-    //         if (pPercent <= 0) {
-    //             r = 0;
-    //             g = 0;
-    //             b = 0;
-    //         } else if (pPercent > 0 && pPercent <= 25) {
-    //             r = 255;
-    //             g = 0 - ((0 - 255) / (0 - 25)) * (0 - pPercent);
-    //             b = 0;
-    //         } else if (pPercent > 25 && pPercent <= 50) {
-    //             r = 255 - ((255 - 0) / (25 - 50)) * (25 - pPercent);
-    //             g = 255;
-    //             b = 0;
-    //         } else if (pPercent > 50 && pPercent <= 75) {
-    //             r = 0;
-    //             g = 255;
-    //             b = 0 - ((0 - 255) / (50 - 100)) * (50 - pPercent);
-    //         } else if (pPercent > 75 && pPercent <= 100) {
-    //             r = 0;
-    //             g = 255 - ((255 - 0) / (75 - 100)) * (75 - pPercent);
-    //             b = 255;
-    //         } else if (pPercent > 100) {
-    //             r = 0;
-    //             g = 0;
-    //             b = 0;
-    //         }
-    //
-    //         particle.position = new BABYLON.Vector3(point.x, point.y, point.z);
-    //         particle.color = new BABYLON.Color3(r / 255, g / 255, b / 255)
-    //     }
-    //
-    //     this.pointsCloudSystem.addPoints(filteredPoints.length, constructParticle);
-    //     await this.pointsCloudSystem.buildMeshAsync();
-    // }
-    //
     // InputOnChangeHandle(event)
     // {
     //     const target = event.target;
@@ -244,6 +164,22 @@ const sceneComponent = function Scene() {
     // position: absolute;
     // `;
 
+    const theme = createMuiTheme({
+        palette: {
+            primary: {
+                light: '#757ce8',
+                main: '#3f50b5',
+                dark: '#002884',
+                contrastText: '#fff',
+            },
+            secondary: {
+                light: '#ff7961',
+                main: '#f44336',
+                dark: '#ba000d',
+                contrastText: '#000',
+            },
+        },
+    });
 
     return (
         <MuiThemeProvider theme={theme}>
@@ -390,4 +326,4 @@ const sceneComponent = function Scene() {
     )
 }
 
-export default sceneComponent;
+export default Scene;
