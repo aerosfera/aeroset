@@ -13,18 +13,13 @@ import {EventBusService} from "../../../../services/eventBus/EventBusService";
 import WindowPanelsProvider from "../../../../services/windowPanelsService/windowPanels/WindowPanelProvider";
 import WindowPanelTypes from "../../../../services/windowPanelsService/WindowPanelTypes";
 import {useDispatch, useSelector} from "react-redux";
-import * as actionCreators
-    from "../../../../store/domains/instrumentalPanel/sections/pointCloudSystemSection/actions/actions";
-import {ApplicationState} from "../../../../store/rootReducer";
+import {ApplicationState, useAppDispatch} from "../../../../store/store";
+import {pcsLoadFileAction} from "../../../../store/domains/instrumentalPanel/sections/pointCloudSystemSection/reductors/pointCloudSystemSectionReducer";
+import {tempAction} from "../../../../store/domains/scene/reducers/sceneReducer";
 
 export const InstrumentalPanel = (props: any) => {
     const instrumentalPanelState = useSelector<ApplicationState>(state => state);
-    const dispatch = useDispatch();
-
-    function loadCloudSystemFile(file: File) {
-        const eventBus: EventBusService = IoC.get(Symbol.for("EVENT_BUS_SERVICE"));
-        eventBus.send(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(), file);
-    };
+    const dispatch = useAppDispatch();
 
     function showCloudSystemFiltersPanel() {
         const windowPanelsProvider: WindowPanelsProvider = IoC.get(Symbol.for("WINDOW_PANELS_SERVICE"));
@@ -45,7 +40,10 @@ export const InstrumentalPanel = (props: any) => {
                         onChange={(e) => {
                             e.preventDefault();
                             const file: File = e.target.files?.[0] as File;
-                            loadCloudSystemFile(file);
+                            if (file && file !== undefined) {
+                                const loadFileAction = tempAction(4);
+                                dispatch(loadFileAction);
+                            }
                         }}
                         id="icon-button-file"
                         style={{display: 'none',}}/>

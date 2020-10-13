@@ -1,18 +1,23 @@
 import rootReducer from './rootReducer'
 import {applyMiddleware, compose, createStore} from "redux";
 import loadState from "./initialize/loadState";
-import {configureStore} from '@reduxjs/toolkit'
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
+import {useDispatch} from "react-redux";
 
 export const composeEnhancers =
     (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-// export default configureStore({
-//     reducer: rootReducer,
-//     preloadedState: loadState,
-//     devTools: process.env.NODE_ENV !== 'production',
-//     enhancers: composeEnhancers(applyMiddleware(thunk))
-// });
+const store = configureStore({
+    reducer: rootReducer,
+    preloadedState: loadState(),
+    middleware: getDefaultMiddleware({
+        serializableCheck: false,
+    }),
 
-const initialState = loadState();
-export default createStore(rootReducer, initialState);
+});
+
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export type ApplicationState = ReturnType<typeof store.getState>;
+export default store;

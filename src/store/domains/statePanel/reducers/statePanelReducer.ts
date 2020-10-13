@@ -1,9 +1,11 @@
 import {StatePanelState} from "../types/StatePanelState";
+import {createReducer} from "@reduxjs/toolkit";
 
 const defaultValue : StatePanelState = {
 
 };
 
-export default function statePanelReducer(state = defaultValue, action: any): StatePanelState {
-    return state;
-};
+const statePanelReducer = createReducer(defaultValue, builder => {
+});
+
+export default statePanelReducer;

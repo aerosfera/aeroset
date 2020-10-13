@@ -12,5 +12,3 @@ export default function rootReducer() {
         statePanel: statePanelReducer
     });
 };
-
-export type ApplicationState = ReturnType<typeof rootReducer>

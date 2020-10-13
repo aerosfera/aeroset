@@ -1,7 +1,14 @@
 import {SceneState} from "../types/SceneState";
+import {createAction, createReducer} from "@reduxjs/toolkit";
 
 const defaultState: SceneState = {};
 
-export default function sceneReducer(state = defaultState, action: any): SceneState {
-    return state;
-};
+export const tempAction = createAction<number>("TEMP");
+
+const sceneReducer = createReducer(defaultState, builder => {
+    builder.addCase(tempAction, (state, action) => {
+        alert("createReducer")
+    });
+});
+
+export default sceneReducer;
