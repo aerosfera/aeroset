@@ -7,7 +7,8 @@ export const tempAction = createAction<number>("TEMP");
 
 const sceneReducer = createReducer(defaultState, builder => {
     builder.addCase(tempAction, (state, action) => {
-        alert("createReducer")
+        alert("sceneReducer");
+        return state;
     });
 });
 

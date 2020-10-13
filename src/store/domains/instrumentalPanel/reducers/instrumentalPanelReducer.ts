@@ -3,8 +3,5 @@ import pointCloudSystemSectionReducer
     from "../sections/pointCloudSystemSection/reductors/pointCloudSystemSectionReducer";
 
 export default function instrumentalPanelReducer() {
-    return combineReducers({
-            pointCloudSystem: pointCloudSystemSectionReducer
-        }
-    );
+    return undefined;
 };

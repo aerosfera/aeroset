@@ -11,11 +11,10 @@ const defaultState: PointCloudSystemSectionState = {
 export const pcsLoadFileAction = createAction<File>("POINT_CLOUD_SYSTEM_SECTION/LOAD_FILE");
 
 const pointCloudSystemSectionReducer = createReducer(defaultState, builder => {
-    builder.addCase(pcsLoadFileAction,(state, action) => {
-        alert("f33ds")
+    builder.addCase(pcsLoadFileAction, (state, action) => {
         console.log("call pointCloudSystemSectionReducer");
-        update(state, {
-            pointsCloudFile : {$set : action.payload}
+        return update(state, {
+            pointsCloudFile: {$set: action.payload}
         });
     });
 })

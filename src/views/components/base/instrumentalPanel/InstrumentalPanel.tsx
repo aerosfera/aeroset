@@ -41,7 +41,7 @@ export const InstrumentalPanel = (props: any) => {
                             e.preventDefault();
                             const file: File = e.target.files?.[0] as File;
                             if (file && file !== undefined) {
-                                const loadFileAction = tempAction(4);
+                                const loadFileAction = pcsLoadFileAction(file);
                                 dispatch(loadFileAction);
                             }
                         }}
