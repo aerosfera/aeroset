@@ -9,6 +9,8 @@ const defaultState: PointCloudSystemSectionState = {
 }
 
 export const pcsLoadFileAction = createAction<File>("POINT_CLOUD_SYSTEM_SECTION/LOAD_FILE");
+export const showPcsFiltersPanelAction = createAction("POINT_CLOUD_SYSTEM_SECTION/SHOW_FILTERS_PANEL");
+export const closePcsFiltersPanelAction = createAction("POINT_CLOUD_SYSTEM_SECTION/CLOSE_FILTERS_PANEL");
 
 const pointCloudSystemSectionReducer = createReducer(defaultState, builder => {
     builder.addCase(pcsLoadFileAction, (state, action) => {
@@ -16,6 +18,12 @@ const pointCloudSystemSectionReducer = createReducer(defaultState, builder => {
         return update(state, {
             pointsCloudFile: {$set: action.payload}
         });
+    });
+    builder.addCase(showPcsFiltersPanelAction, (state, action) => {
+
+    });
+    builder.addCase(closePcsFiltersPanelAction, (state, action) => {
+
     });
 })
 

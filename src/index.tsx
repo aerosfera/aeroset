@@ -5,7 +5,9 @@ import App from './views/App';
 import * as serviceWorker from './serviceWorker';
 import 'fontsource-roboto';
 import {Provider} from "react-redux";
-import store from "./store/store";
+import {store} from "./store/store";
+//import {PersistGate} from 'redux-persist/lib/integration/react';
+
 
 ReactDOM.render(
     <Provider store={store}>
