@@ -22,6 +22,7 @@ import {
 } from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {useSelector} from "react-redux";
 import {isNumeric} from "rxjs/internal-compatibility";
+import Typography from "@material-ui/core/Typography";
 
 const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
     getPointCloudFiltersPanelSelector], (isActive: boolean, filtersState: PointCloudFiltersState) =>
@@ -44,8 +45,9 @@ const WindowPanels = () => {
             background: "transparent",
             pointerEvents: "none"
         }}>
-            <Draggable bounds="parent">
-                <div className="box" style={
+            <Draggable bounds="parent" handle="strong">
+
+                <div style={
                     {
                         height: 255,
                         width: 250,
@@ -54,37 +56,42 @@ const WindowPanels = () => {
                         pointerEvents: "auto",
                         visibility: props.isActive ? "visible" : "hidden"
                     }}>
+
                     <div>
-                        <div style={{
-                            cursor: "move",
-                            background: "#e6739f",
-                            borderTopLeftRadius: 5,
-                            borderTopRightRadius: 5,
-                            color: "white",
-                            textAlign: "center",
-                            height: 30
-                        }}>
-                            <text style={{
-                                marginTop: "4px",
-                                alignContent: "center"
+                        <strong>
+                            <div style={{
+                                cursor: "move",
+                                background: "#e6739f",
+                                borderTopLeftRadius: 5,
+                                borderTopRightRadius: 5,
+                                color: "white",
+                                textAlign: "center",
+                                height: 30
                             }}>
-                                Фильтр облака точек
-                            </text>
-                            <Tooltip title="Закрыть"
-                                     style={{
-                                         float: "right"
-                                     }}>
-                                <label>
-                                    <IconButton
-                                        component="span"
-                                        size="small"
-                                        onClick={() => dispatch(closePointCloudFiltersPanel())}
-                                        color="primary">
-                                        <CloseIcon style={{color: "white"}}/>
-                                    </IconButton>
-                                </label>
-                            </Tooltip>
-                        </div>
+                                <div style={{
+                                    marginLeft: "8px",
+                                    alignContent: "center",
+                                    display: "inline-block"
+                                }}>
+                                    <Typography variant="subtitle1"> Фильтр облака точек</Typography>
+
+                                </div>
+                                <Tooltip title="Закрыть"
+                                         style={{
+                                             float: "right"
+                                         }}>
+                                    <label>
+                                        <IconButton
+                                            component="span"
+                                            size="small"
+                                            onClick={() => dispatch(closePointCloudFiltersPanel())}
+                                            color="primary">
+                                            <CloseIcon style={{color: "white"}}/>
+                                        </IconButton>
+                                    </label>
+                                </Tooltip>
+                            </div>
+                        </strong>
                         <div style={{marginLeft: "13px"}}>
                             <div style={{marginTop: 16}}>
                                 <TextField
@@ -197,7 +204,6 @@ const WindowPanels = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </Draggable>
         </div>

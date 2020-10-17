@@ -5,7 +5,6 @@ import {EventBusService} from "../../services/eventBus/EventBusService";
 import {Container, decorate, injectable} from "inversify";
 import {WindowPanelsService} from "../../services/windowPanelsService/WindowPanelsService";
 import WindowPanelsProvider from "../../services/windowPanelsService/windowPanels/WindowPanelProvider";
-import * as ServiceTypes from "./ServiceTypes";
 
 const IoC = new Container({
     autoBindInjectable: true,
