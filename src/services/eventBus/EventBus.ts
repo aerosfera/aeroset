@@ -4,7 +4,7 @@ import {EventBusService} from "./EventBusService";
 import {EventListenerFn} from "./EventListenerFn";
 
 @injectable()
-export default class EventBus implements EventBusService {
+class EventBus implements EventBusService {
     protected eventEmitter: EventEmitter2 = new EventEmitter2();
 
     constructor() {
@@ -23,3 +23,5 @@ export default class EventBus implements EventBusService {
         this.eventEmitter.emit(event, values);
     }
 }
+
+export default EventBus
