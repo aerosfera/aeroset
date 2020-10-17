@@ -35,6 +35,7 @@ import * as ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import Draggable from 'react-draggable';
 import {connect, useDispatch, useSelector} from "react-redux";
 import {ApplicationState, useAppDispatch} from "../../../../store/store";
+import WindowPanels from "./WindowPanels";
 
 const Scene = () => {
     const selector: ApplicationState = useSelector((state: ApplicationState) => state);
@@ -185,145 +186,24 @@ const Scene = () => {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <canvas
-                style={{
-                    outline: "none",
-                    display: "block", //remove scrollBars,
-                    margin: 0,
-                    width: '100%',
-                    padding: 0,
-                    height: (window.innerHeight - 130)
-                }}
-                ref={canvas => {
-                    if (canvas != undefined && canvas) {
-                        initialize(canvas);
-                    }
-                }}
-            />
-
-            {/*<FiltersContainer style={{top: 20, left: 20}}>*/}
-            {/*    <Button*/}
-            {/*        disableElevation*/}
-            {/*        variant="outlined"*/}
-            {/*        startIcon={<CloudUploadIcon/>}*/}
-            {/*        style={{marginBottom: 24}}*/}
-            {/*        component="label"*/}
-            {/*        color="primary">*/}
-            {/*        Upload File*/}
-            {/*        <input*/}
-            {/*            type="file"*/}
-            {/*            ref={input => this.inputElement = input}*/}
-            {/*            onChange={(e) => this.showFile(e)}*/}
-            {/*            style={{display: "none"}}*/}
-            {/*        />*/}
-            {/*    </Button>*/}
-            {/*    <Typography variant="h5">FILTERS</Typography>*/}
-            {/*    <div style={{marginTop: 16}}>*/}
-            {/*        <TextField*/}
-            {/*            id="outlined-number"*/}
-            {/*            label="X FROM"*/}
-            {/*            type="number"*/}
-            {/*            name={"x-from"}*/}
-            {/*            step="0.1"*/}
-            {/*            value={this.state.filterXFromLimit}*/}
-            {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
-            {/*            style={{width: 100, height: 20}}*/}
-            {/*            InputLabelProps={{*/}
-            {/*                shrink: true,*/}
-            {/*            }}*/}
-            {/*            inputProps={{*/}
-            {/*                step: 0.1*/}
-            {/*            }}*/}
-            {/*            variant="outlined"*/}
-            {/*        />*/}
-            {/*        <TextField*/}
-            {/*            id="outlined-number"*/}
-            {/*            label="X TO"*/}
-            {/*            type="number"*/}
-            {/*            name={"x-to"}*/}
-            {/*            step="0.1"*/}
-            {/*            value={this.state.filterXToLimit}*/}
-            {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
-            {/*            style={{width: 100, marginLeft: 24}}*/}
-            {/*            InputLabelProps={{*/}
-            {/*                shrink: true,*/}
-            {/*            }}*/}
-            {/*            inputProps={{*/}
-            {/*                step: 0.1*/}
-            {/*            }}*/}
-            {/*            variant="outlined"/>*/}
-            {/*    </div>*/}
-            {/*    <div style={{marginTop: 12}}>*/}
-            {/*        <TextField*/}
-            {/*            id="outlined-number"*/}
-            {/*            label="Y FROM"*/}
-            {/*            type="number"*/}
-            {/*            name={"y-from"}*/}
-            {/*            step="0.1"*/}
-            {/*            value={this.state.filterYFromLimit}*/}
-            {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
-            {/*            style={{width: 100, height: 20}}*/}
-            {/*            InputLabelProps={{*/}
-            {/*                shrink: true,*/}
-            {/*            }}*/}
-            {/*            inputProps={{*/}
-            {/*                step: 0.1*/}
-            {/*            }}*/}
-            {/*            variant="outlined"*/}
-            {/*        />*/}
-            {/*        <TextField*/}
-            {/*            id="outlined-number"*/}
-            {/*            label="Y TO"*/}
-            {/*            type="number"*/}
-            {/*            name={"y-to"}*/}
-            {/*            step="0.1"*/}
-            {/*            value={this.state.filterYToLimit}*/}
-            {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
-            {/*            style={{width: 100, marginLeft: 24}}*/}
-            {/*            InputLabelProps={{*/}
-            {/*                shrink: true,*/}
-            {/*            }}*/}
-            {/*            inputProps={{*/}
-            {/*                step: 0.1*/}
-            {/*            }}*/}
-            {/*            variant="outlined"/>*/}
-            {/*    </div>*/}
-            {/*    <div style={{marginTop: 12}}>*/}
-            {/*        <TextField*/}
-            {/*            id="outlined-number"*/}
-            {/*            label="Z FROM"*/}
-            {/*            type="number"*/}
-            {/*            name={"z-from"}*/}
-            {/*            step="0.1"*/}
-            {/*            value={this.state.filterZFromLimit}*/}
-            {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
-            {/*            style={{width: 100, height: 20}}*/}
-            {/*            InputLabelProps={{*/}
-            {/*                shrink: true*/}
-            {/*            }}*/}
-            {/*            inputProps={{*/}
-            {/*                step: 0.1*/}
-            {/*            }}*/}
-            {/*            variant="outlined"*/}
-            {/*        />*/}
-            {/*        <TextField*/}
-            {/*            id="outlined-number"*/}
-            {/*            label="Z TO"*/}
-            {/*            type="number"*/}
-            {/*            name={"z-to"}*/}
-            {/*            step="0.1"*/}
-            {/*            value={this.state.filterZToLimit}*/}
-            {/*            onChange={this.InputOnChangeHandle.bind(this)}*/}
-            {/*            style={{width: 100, marginLeft: 24}}*/}
-            {/*            InputLabelProps={{*/}
-            {/*                shrink: true,*/}
-            {/*            }}*/}
-            {/*            inputProps={{*/}
-            {/*                step: 0.1*/}
-            {/*            }}*/}
-            {/*            variant="outlined"/>*/}
-            {/*    </div>*/}
-            {/*</FiltersContainer>*/}
+            <div>
+                <canvas
+                    style={{
+                        outline: "none",
+                        display: "block", //remove scrollBars,
+                        margin: 0,
+                        width: '100%',
+                        height: '100%',
+                        position: "fixed"
+                    }}
+                    ref={canvas => {
+                        if (canvas != undefined && canvas) {
+                            initialize(canvas);
+                        }
+                    }}
+                />
+                <WindowPanels/>
+            </div>
         </MuiThemeProvider>
     )
 }

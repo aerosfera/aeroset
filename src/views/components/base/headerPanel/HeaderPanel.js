@@ -93,7 +93,7 @@ function HeaderPanel() {
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <div style={{background: "#7c7a7a", height: 50, display: "flex", justifyContent: "flex-end"}}>
+                <div style={{background: "#8675a9", height: 50, display: "flex", justifyContent: "flex-end"}}>
                     <div style={{verticalAlign: "middle"}}>
                         {['left', 'right', 'top', 'bottom'].map((anchor) => (
                             <React.Fragment key={anchor}>

@@ -1,6 +1,7 @@
-import {createSlice, PayloadAction, createEntityAdapter} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction, createEntityAdapter, Selector} from "@reduxjs/toolkit";
 import {SectionState} from "../base/SectionState";
 import update from "immutability-helper";
+import {ApplicationState} from "../../../store";
 
 export interface PointCloudSectionState extends SectionState {
     pointsCloudFile: File | null;
@@ -28,6 +29,9 @@ const slice = createSlice({
         }
     }
 });
+
+export const pointCloudFiltersPanelActivitySelector: Selector<ApplicationState, boolean> =
+    state => state.ui.sections.pointCloudSection.isActive;
 
 const {actions, reducer} = slice;
 export const {pointCloudLoadFile, showPointCloudFiltersPanel, closePointCloudFiltersPanel} = actions;

@@ -1,4 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, Selector} from "@reduxjs/toolkit";
+import {ApplicationState} from "../../../store";
 
 export interface PointCloudFiltersState {
     filterXFromLimit: number,
@@ -26,6 +27,9 @@ const slice = createSlice({
             state
     }
 });
+
+export const getPointCloudFiltersPanelSelector: Selector<ApplicationState, PointCloudFiltersState> =
+    state => state.ui.panels.pointCloudFiltersPanel;
 
 const {actions, reducer} = slice
 export const {changeXFromLimit} = actions

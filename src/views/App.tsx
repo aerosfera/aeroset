@@ -43,7 +43,7 @@ function App() {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={12} sm={12} md={12} lg={true}>
+                        <Col xs>
                             <InstrumentalPanel/>
                         </Col>
                     </Row>
@@ -53,7 +53,7 @@ function App() {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={12} sm={12} md={12} lg={true}>
+                        <Col xs>
                             <StatePanel/>
                         </Col>
                     </Row>

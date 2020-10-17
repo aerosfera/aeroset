@@ -18,7 +18,7 @@ export const InstrumentalPanel = () => {
     const redTheme = createMuiTheme({palette: {primary: green}});
     return (
         <ThemeProvider theme={redTheme}>
-            <div style={{height: 35, background: "#ef8354"}}>
+            <div style={{height: 35, background: "#c3aed6"}}>
                 <Fragment>
                     <input
                         color="primary"
