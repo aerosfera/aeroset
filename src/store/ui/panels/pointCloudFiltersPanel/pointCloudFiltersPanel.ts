@@ -1,5 +1,6 @@
 import {createSlice, Selector} from "@reduxjs/toolkit";
 import {ApplicationState} from "../../../store";
+import update from "immutability-helper";
 
 export interface PointCloudFiltersState {
     filterXFromLimit: number,
@@ -24,7 +25,29 @@ const slice = createSlice({
     initialState: defaultState,
     reducers: {
         changeXFromLimit: (state: PointCloudFiltersState, action) =>
-            state
+            update(state, {
+                filterXFromLimit: {$set: action.payload}
+            }),
+        changeXToLimit: (state: PointCloudFiltersState, action) =>
+            update(state, {
+                filterXToLimit: {$set: action.payload}
+            }),
+        changeYFromLimit: (state: PointCloudFiltersState, action) =>
+            update(state, {
+                filterYFromLimit: {$set: action.payload}
+            }),
+        changeYToLimit: (state: PointCloudFiltersState, action) =>
+            update(state, {
+                filterYToLimit: {$set: action.payload}
+            }),
+        changeZFromLimit: (state: PointCloudFiltersState, action) =>
+            update(state, {
+                filterZFromLimit: {$set: action.payload}
+            }),
+        changeZToLimit: (state: PointCloudFiltersState, action) =>
+            update(state, {
+                filterZToLimit: {$set: action.payload}
+            })
     }
 });
 
@@ -32,6 +55,6 @@ export const getPointCloudFiltersPanelSelector: Selector<ApplicationState, Point
     state => state.ui.panels.pointCloudFiltersPanel;
 
 const {actions, reducer} = slice
-export const {changeXFromLimit} = actions
+export const {changeXFromLimit, changeXToLimit, changeYFromLimit, changeYToLimit, changeZFromLimit, changeZToLimit} = actions
 const pointCloudFiltersPanel = reducer
 export default pointCloudFiltersPanel

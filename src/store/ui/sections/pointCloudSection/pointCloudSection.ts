@@ -12,6 +12,7 @@ const defaultState: PointCloudSectionState = {
     pointsCloudFile: null,
 }
 
+//Todo: remake using Immer
 const slice = createSlice({
     name: "pointCloudSection",
     initialState: defaultState,
@@ -22,10 +23,14 @@ const slice = createSlice({
             });
         },
         showPointCloudFiltersPanel(state: PointCloudSectionState) {
-            alert("showPointCloudFiltersPanel")
+            return update(state, {
+                isActive: {$set: true}
+            });
         },
         closePointCloudFiltersPanel(state: PointCloudSectionState) {
-            alert("closePointCloudFiltersPanel")
+            return update(state, {
+                isActive: {$set: false}
+            });
         }
     }
 });

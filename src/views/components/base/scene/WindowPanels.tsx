@@ -11,6 +11,12 @@ import {
 import {ApplicationState, useAppDispatch} from "../../../../store/store";
 import {createSelector, Selector} from "@reduxjs/toolkit";
 import {
+    changeXFromLimit,
+    changeXToLimit,
+    changeYFromLimit,
+    changeYToLimit,
+    changeZFromLimit,
+    changeZToLimit,
     getPointCloudFiltersPanelSelector,
     PointCloudFiltersState
 } from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
@@ -27,7 +33,9 @@ const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
 const WindowPanels = () => {
     const dispatch = useAppDispatch()
     const props = useSelector(dataSelector)
+    const filter = props.filtersState
 
+    // @ts-ignore
     return (
         <div style={{
             position: "fixed",
@@ -84,9 +92,9 @@ const WindowPanels = () => {
                                     label="X FROM"
                                     type="number"
                                     name={"x-from"}
-                                    // step="0.1"
-                                    // value={this.state.filterXFromLimit}
-                                    // onChange={this.InputOnChangeHandle.bind(this)}
+                                    step="0.1"
+                                    value={filter.filterXFromLimit}
+                                    onChange={event => dispatch(changeXFromLimit(event.target.value))}
                                     style={{width: 100, height: 20}}
                                     InputLabelProps={{
                                         shrink: true,
@@ -101,9 +109,9 @@ const WindowPanels = () => {
                                     label="X TO"
                                     type="number"
                                     name={"x-to"}
-                                    // step="0.1"
-                                    // value={this.state.filterXToLimit}
-                                    // onChange={this.InputOnChangeHandle.bind(this)}
+                                    step="0.1"
+                                    value={filter.filterXToLimit}
+                                    onChange={event => dispatch(changeXToLimit(event.target.value))}
                                     style={{width: 100, marginLeft: 24}}
                                     InputLabelProps={{
                                         shrink: true,
@@ -119,9 +127,9 @@ const WindowPanels = () => {
                                     label="Y FROM"
                                     type="number"
                                     name={"y-from"}
-                                    // step="0.1"
-                                    // value={this.state.filterYFromLimit}
-                                    // onChange={this.InputOnChangeHandle.bind(this)}
+                                    step="0.1"
+                                    value={filter.filterYFromLimit}
+                                    onChange={event => dispatch(changeYFromLimit(event.target.value))}
                                     style={{width: 100, height: 20}}
                                     InputLabelProps={{
                                         shrink: true,
@@ -136,9 +144,9 @@ const WindowPanels = () => {
                                     label="Y TO"
                                     type="number"
                                     name={"y-to"}
-                                    // step="0.1"
-                                    // value={this.state.filterYToLimit}
-                                    // onChange={this.InputOnChangeHandle.bind(this)}
+                                    step="0.1"
+                                    value={filter.filterYToLimit}
+                                    onChange={event => dispatch(changeYToLimit(event.target.value))}
                                     style={{width: 100, marginLeft: 24}}
                                     InputLabelProps={{
                                         shrink: true,
@@ -154,9 +162,9 @@ const WindowPanels = () => {
                                     label="Z FROM"
                                     type="number"
                                     name={"z-from"}
-                                    // step="0.1"
-                                    // value={this.state.filterZFromLimit}
-                                    // onChange={this.InputOnChangeHandle.bind(this)}
+                                    step="0.1"
+                                    value={filter.filterZFromLimit}
+                                    onChange={event => dispatch(changeZFromLimit(event.target.value))}
                                     style={{width: 100, height: 20}}
                                     InputLabelProps={{
                                         shrink: true
@@ -171,9 +179,9 @@ const WindowPanels = () => {
                                     label="Z TO"
                                     type="number"
                                     name={"z-to"}
-                                    // step="0.1"
-                                    // value={this.state.filterZToLimit}
-                                    // onChange={this.InputOnChangeHandle.bind(this)}
+                                    step="0.1"
+                                    value={filter.filterZToLimit}
+                                    onChange={event => dispatch(changeZToLimit(event.target.value))}
                                     style={{width: 100, marginLeft: 24}}
                                     InputLabelProps={{
                                         shrink: true,
