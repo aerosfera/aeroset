@@ -13,15 +13,6 @@ function StatePanel() {
 
     return (
         <div style={{background: "#0582ca", height: 30}}>
-            <FormControl style={{display: "inline-block", left: 0, color: "white"}}>
-                <InputLabel>projection</InputLabel>
-                <Select
-                    value={projectionType}
-                    onChange={handleChange}>
-                    <MenuItem value={"orthographic"}>orthographic</MenuItem>
-                    <MenuItem value={"perspective"}>perspective</MenuItem>
-                </Select>
-            </FormControl>
         </div>
     );
 }

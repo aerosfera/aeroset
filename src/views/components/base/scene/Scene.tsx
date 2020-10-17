@@ -65,9 +65,11 @@ const Scene = () => {
 
         setupZoom(scene, engine, camera);
 
-        const pointsCloudFile: File = selector.instrumentalPanel.pointCloudSystem.pointsCloudFile as File;
-        if (pointsCloudFile && pointsCloudFile !== null)
-            onCloudPointsFileLoaded(new Array<File>(pointsCloudFile));
+        const s = selector.ui;
+
+        // const pointsCloudFile: File = selector.ui.pointCloudSystem.pointsCloudFile as File;
+        // if (pointsCloudFile && pointsCloudFile !== null)
+        //     onCloudPointsFileLoaded(new Array<File>(pointsCloudFile));
     }
 
     // InputOnChangeHandle(event)
