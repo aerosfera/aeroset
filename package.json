@@ -44,6 +44,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.6.3",
     "styled-components": "^5.2.0",
     "styled-system": "^5.1.5"
   },

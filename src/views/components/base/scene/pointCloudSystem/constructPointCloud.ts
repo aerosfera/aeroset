@@ -1,19 +1,21 @@
 import * as BABYLON from "babylonjs";
 import {Scene} from "babylonjs/scene";
 import {Particle} from "babylonjs/Particles/particle";
-import filterPoints from "./filters/filterPoints";
+import filterPointCloud from "./filterPointCloud";
 import SolidPoint from "./SolidPoint";
 import {Mesh} from "babylonjs/Meshes/mesh";
+import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
 
 export default async function constructPointCloud(scene: Scene,
                                                   points: SolidPoint[],
                                                   parameterMin: number,
-                                                  parameterMax: number): Promise<Mesh> {
+                                                  parameterMax: number,
+                                                  cloudPointFilters: PointCloudFiltersState): Promise<PointsCloudSystem> {
 
 
-    const filteredPoints: SolidPoint[] = filterPoints(points);
+    const filteredPoints: SolidPoint[] = filterPointCloud(points,cloudPointFilters);
 
-    const pointsCount = filteredPoints.length;
     const pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", 2, scene, {updatable: false});
 
     const diffP = parameterMax - parameterMin;
@@ -55,7 +57,8 @@ export default async function constructPointCloud(scene: Scene,
         particle.color = new BABYLON.Color4(r / 255, g / 255, b / 255, 1)
     }
 
-    pointsCloudSystem.addPoints(filteredPoints.length, constructParticle);
+    const pointsCount = filteredPoints.length;
+    pointsCloudSystem.addPoints(pointsCount, constructParticle);
     const mesh = await pointsCloudSystem.buildMeshAsync();
-    return mesh;
+    return pointsCloudSystem;
 }

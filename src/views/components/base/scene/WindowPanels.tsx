@@ -21,6 +21,7 @@ import {
     PointCloudFiltersState
 } from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {useSelector} from "react-redux";
+import {isNumeric} from "rxjs/internal-compatibility";
 
 const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
     getPointCloudFiltersPanelSelector], (isActive: boolean, filtersState: PointCloudFiltersState) =>
@@ -35,7 +36,6 @@ const WindowPanels = () => {
     const props = useSelector(dataSelector)
     const filter = props.filtersState
 
-    // @ts-ignore
     return (
         <div style={{
             position: "fixed",
@@ -94,7 +94,11 @@ const WindowPanels = () => {
                                     name={"x-from"}
                                     step="0.1"
                                     value={filter.filterXFromLimit}
-                                    onChange={event => dispatch(changeXFromLimit(event.target.value))}
+                                    onChange={event => {
+                                        const value = event.target.value;
+                                        if (isNumeric(value))
+                                            dispatch(changeXFromLimit(value))
+                                    }}
                                     style={{width: 100, height: 20}}
                                     InputLabelProps={{
                                         shrink: true,

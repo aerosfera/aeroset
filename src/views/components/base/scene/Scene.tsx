@@ -27,22 +27,29 @@ import {Engine} from "babylonjs/Engines/engine";
 import {Light} from "babylonjs/Lights/light";
 import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
 import setupZoom from "./setup/scene/setupZoom";
-import onCloudPointsFileLoaded from "./pointCloudSystem/onCloudPointsFileLoaded";
+import setUpPointCloud from "./pointCloudSystem/setUpPointCloud";
 import SceneRootApi from "./base/SceneRootApi";
 import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {Particle} from "babylonjs/Particles/particle";
 import * as ServiceTypes from "../../../../environment/ioc/ServiceTypes";
 import Draggable from 'react-draggable';
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect, Selector, useDispatch, useSelector} from "react-redux";
 import {ApplicationState, useAppDispatch} from "../../../../store/store";
 import WindowPanels from "./WindowPanels";
+import {createSelector} from "@reduxjs/toolkit";
+import {
+    getPointCloudFiltersPanelSelector,
+    PointCloudFiltersState
+} from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+import filterPointCloud from "./pointCloudSystem/filterPointCloud";
+import PointCloud from "./pointCloudSystem/PointCloud";
+
 
 const Scene = () => {
-    const selector: ApplicationState = useSelector((state: ApplicationState) => state);
     const dispatch = useAppDispatch();
 
-    const eventBus: EventBusService = IoC.get(Symbol.for("EVENT_BUS_SERVICE"));
-    eventBus.subscribe(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(), onCloudPointsFileLoaded);
+    // const eventBus: EventBusService = IoC.get(Symbol.for("EVENT_BUS_SERVICE"));
+    // eventBus.subscribe(EventTypes.CLOUD_POINTS_FILE_LOADED.toString(), onCloudPointsFileLoaded);
 
     function initialize(canvas: HTMLCanvasElement) {
         if (!isCanvasSupported()) {
@@ -65,107 +72,7 @@ const Scene = () => {
         sceneRootApi.light = light;
 
         setupZoom(scene, engine, camera);
-
-        const s = selector.ui;
-
-        // const pointsCloudFile: File = selector.ui.pointCloudSystem.pointsCloudFile as File;
-        // if (pointsCloudFile && pointsCloudFile !== null)
-        //     onCloudPointsFileLoaded(new Array<File>(pointsCloudFile));
     }
-
-    // InputOnChangeHandle(event)
-    // {
-    //     const target = event.target;
-    //     const inputType = target.name;
-    //     const value = target.value;
-    //
-    //     const constructNewFilteredPCS = async () => {
-    //         if (this.pointsCloudSystem !== undefined) {
-    //             this.pointsCloudSystem.dispose();
-    //         }
-    //
-    //         if (typeof this.points !== 'undefined' && this.points)
-    //             await this.SetupPcs(this.points);
-    //     }
-    //
-    //     if (inputType === "x-from") {
-    //         this.setState(prevState => ({
-    //             filterXFromLimit: value,
-    //             filterXToLimit: prevState.filterXToLimit,
-    //             filterYFromLimit: prevState.filterYFromLimit,
-    //             filterYToLimit: prevState.filterYToLimit,
-    //             filterZFromLimit: prevState.filterZFromLimit,
-    //             filterZToLimit: prevState.filterZToLimit,
-    //         }), () => {
-    //             constructNewFilteredPCS();
-    //         });
-    //
-    //     } else if (inputType === "x-to") {
-    //         this.setState(prevState => ({
-    //             filterXFromLimit: prevState.filterXFromLimit,
-    //             filterXToLimit: value,
-    //             filterYFromLimit: prevState.filterYFromLimit,
-    //             filterYToLimit: prevState.filterYToLimit,
-    //             filterZFromLimit: prevState.filterZFromLimit,
-    //             filterZToLimit: prevState.filterZToLimit,
-    //         }), () => {
-    //             constructNewFilteredPCS();
-    //         });
-    //     } else if (inputType === "y-from") {
-    //         this.setState(prevState => ({
-    //             filterXFromLimit: prevState.filterXFromLimit,
-    //             filterXToLimit: prevState.filterXToLimit,
-    //             filterYFromLimit: value,
-    //             filterYToLimit: prevState.filterYToLimit,
-    //             filterZFromLimit: prevState.filterZFromLimit,
-    //             filterZToLimit: prevState.filterZToLimit,
-    //         }), () => {
-    //             constructNewFilteredPCS();
-    //         });
-    //     } else if (inputType === "y-to") {
-    //         this.setState(prevState => ({
-    //             filterXFromLimit: prevState.filterXFromLimit,
-    //             filterXToLimit: prevState.filterXToLimit,
-    //             filterYFromLimit: prevState.filterYFromLimit,
-    //             filterYToLimit: value,
-    //             filterZFromLimit: prevState.filterZFromLimit,
-    //             filterZToLimit: prevState.filterZToLimit,
-    //         }), () => {
-    //             constructNewFilteredPCS();
-    //         });
-    //     } else if (inputType === "z-from") {
-    //         this.setState(prevState => ({
-    //             filterXFromLimit: prevState.filterXFromLimit,
-    //             filterXToLimit: prevState.filterXToLimit,
-    //             filterYFromLimit: prevState.filterYFromLimit,
-    //             filterYToLimit: prevState.filterYToLimit,
-    //             filterZFromLimit: value,
-    //             filterZToLimit: prevState.filterZToLimit,
-    //         }), () => {
-    //             constructNewFilteredPCS();
-    //         });
-    //     } else if (inputType === "z-to") {
-    //         this.setState(prevState => ({
-    //             filterXFromLimit: prevState.filterXFromLimit,
-    //             filterXToLimit: prevState.filterXToLimit,
-    //             filterYFromLimit: prevState.filterYFromLimit,
-    //             filterYToLimit: prevState.filterYToLimit,
-    //             filterZFromLimit: prevState.filterZFromLimit,
-    //             filterZToLimit: value,
-    //         }), () => {
-    //             constructNewFilteredPCS();
-    //         });
-    //     }
-    // }
-
-
-    //    const FiltersContainer = styled(Card)`
-    // padding: 1em;
-    // background: ${theme.palette.background};
-    // width: 250px;
-    // height: 320px;
-    // position: absolute;
-    // `;
 
     const theme = createMuiTheme({
         palette: {
@@ -202,6 +109,7 @@ const Scene = () => {
                         }
                     }}
                 />
+                <PointCloud/>
                 <WindowPanels/>
             </div>
         </MuiThemeProvider>

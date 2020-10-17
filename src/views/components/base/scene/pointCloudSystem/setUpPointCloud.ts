@@ -4,9 +4,12 @@ import constructPointCloud from "./constructPointCloud";
 import IoC from "../../../../../environment/ioc/IoC";
 import ApiProvider from "../../../../../services/apiProvider/ApiProvider";
 import {Scene} from "babylonjs/scene";
+import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
 
-export default function onCloudPointsFileLoaded(parameters: Array<File>) {
-    const reader : FileReader = new FileReader()
+export default function setUpPointCloud(file: File, cloudPointFilters: PointCloudFiltersState) {
+    const reader: FileReader = new FileReader()
+
     reader.onload = async (e: ProgressEvent<FileReader>) => {
         const fileLines: string[] = [];
         const text: string = <string>(reader.result)
@@ -33,10 +36,16 @@ export default function onCloudPointsFileLoaded(parameters: Array<File>) {
         const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
         const scene = apiProvider.sceneRootApi.scene as Scene;
 
-        const pcsMesh = await constructPointCloud(scene, points, parameterMin, parameterMax);
+        const sceneRootApi = apiProvider.sceneRootApi;
+        if (sceneRootApi.pointsCloudSystem && apiProvider.sceneRootApi.pointsCloudSystem !== null) {
+            sceneRootApi.pointsCloudSystem.dispose()
+            sceneRootApi.pointsCloudSystem = null;
+        }
+
+        const pointsCloudSystem = await constructPointCloud(scene, points, parameterMin, parameterMax, cloudPointFilters);
+        apiProvider.sceneRootApi.pointsCloudSystem = pointsCloudSystem;
     };
 
-    const file : File = parameters[0];
-    const blob : Blob = <Blob>file;
+    const blob: Blob = <Blob>file;
     reader.readAsText(blob);
 }
