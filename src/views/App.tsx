@@ -7,6 +7,9 @@ import HeaderPanel from "./components/base/headerPanel/HeaderPanel";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
 import {ThemeProvider} from 'styled-components'
 import {maxHeight} from "styled-system";
+import {Route} from "react-router-dom";
+import Version from "./components/Version";
+import Auth from "./components/auth/Auth";
 
 const theme = {
     flexboxgrid: {
