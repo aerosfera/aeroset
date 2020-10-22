@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import {AppTheme} from "../../theme";
 
 const useStyles = makeStyles({
     list: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
     },
 });
 
-function HeaderPanel() {
+const HeaderPanel = (props : any) => {
     const classes = useStyles();
     const [state, setState] = useState({
         top: false,
@@ -37,7 +38,7 @@ function HeaderPanel() {
         right: false,
     });
 
-    const toggleDrawer = (anchor, open) => (event) => {
+    const toggleDrawer = (anchor: string, open: boolean) => (event: any) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
@@ -45,7 +46,7 @@ function HeaderPanel() {
         setState({...state, [anchor]: open});
     };
 
-    const list = (anchor) => (
+    const list = (anchor: string) => (
         <div
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
@@ -58,45 +59,29 @@ function HeaderPanel() {
         </div>
     );
 
-    const theme = createMuiTheme({
-        palette: {
-            primary: {
-                main: "#46ad8d",
-                contrastText: "white" //button text white instead of black
-            },
-            background: {
-                default: "#394764"
-            }
-        }
-    });
-
     function userAccountClick() {
         toggleDrawer('left', true);
     }
 
     return (
-        <div>
-            <ThemeProvider theme={theme}>
-                <div style={{background: "#8675a9", height: 50, display: "flex", justifyContent: "flex-end"}}>
-                    <div style={{verticalAlign: "middle"}}>
-                        {['left', 'right', 'top', 'bottom'].map((anchor) => (
-                            <React.Fragment key={anchor}>
-                                <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                                    {list(anchor)}
-                                </Drawer>
-                            </React.Fragment>
-                        ))}
-                    </div>
-                    <Tooltip title="Аккаунт пользователя">
-                        <IconButton size={"medium"}
-                                    color={"primary"}
-                                    onClick={toggleDrawer('left', true)}
-                                    style={{verticalAlign: "bottom", marginLeft: 10}}>
-                            <AccountCircleIcon style={{color: "white", fontSize: 35}}/>
-                        </IconButton>
-                    </Tooltip>
-                </div>
-            </ThemeProvider>
+        <div style={{background: "#000000", height: 50, display: "flex", justifyContent: "flex-end"}}>
+            <div style={{verticalAlign: "middle"}}>
+                {['left', 'right', 'top', 'bottom'].map((anchor) => (
+                    <React.Fragment key={anchor}>
+                        <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+                            {list(anchor)}
+                        </Drawer>
+                    </React.Fragment>
+                ))}
+            </div>
+            <Tooltip title="Аккаунт пользователя">
+                <IconButton size={"medium"}
+                            color={"primary"}
+                            onClick={toggleDrawer('left', true)}
+                            style={{verticalAlign: "bottom", marginLeft: 10}}>
+                    <AccountCircleIcon style={{color: "white", fontSize: 35}}/>
+                </IconButton>
+            </Tooltip>
         </div>
     );
 }

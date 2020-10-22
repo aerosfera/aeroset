@@ -49,6 +49,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.3",
     "styled-components": "^5.2.0",
+    "styled-media-query": "^2.1.2",
+    "styled-normalize": "^8.0.7",
     "styled-system": "^5.1.5",
     "styled-theming": "^2.2.0"
   },

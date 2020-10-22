@@ -1,5 +1,5 @@
 import {injectable} from "inversify";
-import SceneRootApi from "../../views/components/base/scene/base/SceneRootApi";
+import SceneRootApi from "../../views/components/layout/scene/base/SceneRootApi";
 
 @injectable()
 class ApiProvider {

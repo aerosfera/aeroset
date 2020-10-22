@@ -1,48 +1,26 @@
 import React from 'react';
 import './App.css';
-import Scene from "./components/base/scene/Scene";
-import StatePanel from "./components/base/statePanel/StatePanel";
-import {InstrumentalPanel} from "./components/base/instrumentalPanel/InstrumentalPanel";
-import HeaderPanel from "./components/base/headerPanel/HeaderPanel";
+import Scene from "./components/layout/scene/Scene";
+import StatePanel from "./components/layout/statePanel/StatePanel";
+import {InstrumentalPanel} from "./components/layout/instrumentalPanel/InstrumentalPanel";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
-import {ThemeProvider} from 'styled-components'
-import {maxHeight} from "styled-system";
 import {Route} from "react-router-dom";
-import Version from "./components/Version";
-import Auth from "./components/auth/Auth";
+import Version from "./components/version/version";
+import Auth from "./components/auth/auth";
+import HeaderPanel from "./components/layout/headerPanel";
+import {AppTheme} from "./components/theme";
 
-const theme = {
-    flexboxgrid: {
-        // Defaults
-        gridSize: 12, // columns
-        gutterWidth: 1, // rem
-        outerMargin: 0, // rem
-        mediaQuery: 'only screen',
-        height: 1000,
-        container: {
-            sm: 46, // rem
-            md: 61, // rem
-            lg: 76  // rem
-        },
-        breakpoints: {
-            xs: 0,  // em
-            sm: 48, // em
-            md: 64, // em
-            lg: 75  // em
-        }
-    }
-}
-
-function App() {
-    const {innerWidth: windowWidth, innerHeight: windowHeight} = window;
-
+const App = (theme: AppTheme) => {
     return (
         <div style={{height: '100%'}}>
-            <ThemeProvider theme={theme}>
+            {/*<Route exact path="/version" component={Version}/>*/}
+            {/*<Route exact path="/auth" component={Auth}/>*/}
+            <div>
+
                 <Grid fluid={true}>
                     <Row>
                         <Col xs>
-                            <HeaderPanel/>
+                            <HeaderPanel theme={theme} />
                         </Col>
                     </Row>
                     <Row>
@@ -61,7 +39,7 @@ function App() {
                         </Col>
                     </Row>
                 </Grid>
-            </ThemeProvider>
+            </div>
         </div>
     );
 }
