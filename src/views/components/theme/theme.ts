@@ -1,3 +1,5 @@
+import {path} from "ramda";
+
 export interface AppTheme {
     colors: {
         main: {
@@ -125,5 +127,14 @@ const theme: AppTheme = {
     },
     font: "Roboto"
 };
+
+// @ts-ignore
+export const getTheme = (keys = []) =>
+// @ts-ignore
+    props => path(['theme', ...keys], props);
+// @ts-ignore
+export const mainColor = key => getTheme(['colors', "main", key]);
+// @ts-ignore
+export const paletteColor = key => getTheme(['colors', "main", key]);
 
 export default theme;
