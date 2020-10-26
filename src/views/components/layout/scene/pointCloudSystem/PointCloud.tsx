@@ -5,8 +5,8 @@ import {
     getPointCloudFiltersPanelSelector,
     PointCloudFiltersState
 } from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
-import setUpPointCloud from "./setUpPointCloud";
 import * as React from "react";
+import {setUpPointCloud} from "./constructPointCloud";
 
 
 const pointCloudFileSelector: Selector<ApplicationState, File | null> = state => state.ui.sections.pointCloudSection.pointsCloudFile;
@@ -25,7 +25,7 @@ const PointCloud = () => {
     const cloudPointFile = props.file
 
     if (cloudPointFile && cloudPointFile !== null)
-        setUpPointCloud(cloudPointFile, cloudPointFilters);
+        setUpPointCloud(cloudPointFile, cloudPointFilters)
 
     return (
         <div style={{

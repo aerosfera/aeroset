@@ -6,14 +6,14 @@ import 'fontsource-roboto';
 import {Provider} from "react-redux";
 import {store} from "./store/store";
 import {BrowserRouter, Route} from 'react-router-dom';
+import {GlobalStyle} from "./globalStyle";
 import Theme from "./views/components/theme";
-import {GlobalStyle} from "./styles";
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <React.StrictMode>
-                <GlobalStyle />
+                <GlobalStyle/>
                 <Theme>
                     <App/>
                 </Theme>

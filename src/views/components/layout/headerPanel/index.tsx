@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {createMuiTheme} from "@material-ui/core";
-import {ThemeProvider} from "styled-components";
+import {ThemeProvider, withTheme} from "styled-components";
 import red from "@material-ui/core/colors/red";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import green from "@material-ui/core/colors/green";
-import TemporarySidePanel from "../../sidePanels/temporarySidePanel";
 import Button from "@material-ui/core/Button";
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
@@ -18,7 +17,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import {AppTheme} from "../../theme";
+import App from "../../../App";
+import {AppTheme} from "../../theme/theme";
 
 const useStyles = makeStyles({
     list: {
@@ -29,7 +29,8 @@ const useStyles = makeStyles({
     },
 });
 
-const HeaderPanel = (props : any) => {
+const HeaderPanel: React.FC<{ theme: AppTheme }> = (props) => {
+    const theme : AppTheme = props.theme;
     const classes = useStyles();
     const [state, setState] = useState({
         top: false,
@@ -64,7 +65,7 @@ const HeaderPanel = (props : any) => {
     }
 
     return (
-        <div style={{background: "#000000", height: 50, display: "flex", justifyContent: "flex-end"}}>
+            <div style={{background: theme.colors.main.lightGray, height: 50, display: "flex", justifyContent: "flex-end"}}>
             <div style={{verticalAlign: "middle"}}>
                 {['left', 'right', 'top', 'bottom'].map((anchor) => (
                     <React.Fragment key={anchor}>
@@ -86,4 +87,4 @@ const HeaderPanel = (props : any) => {
     );
 }
 
-export default HeaderPanel;
+export default withTheme(HeaderPanel);

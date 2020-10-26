@@ -1,11 +1,13 @@
 import * as BABYLON from "babylonjs";
 import {Scene} from "babylonjs/scene";
 import {Particle} from "babylonjs/Particles/particle";
-import filterPointCloud from "./filterPointCloud";
 import SolidPoint from "./SolidPoint";
 import {Mesh} from "babylonjs/Meshes/mesh";
 import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
+import calculateMinMaxOfArray from "../../../../../utilities/math/calculateMaxMinOfArray";
+import ApiProvider from "../../../../../services/apiProvider/ApiProvider";
+import IoC from "../../../../../environment/ioc/IoC";
 
 export default async function constructPointCloud(scene: Scene,
                                                   points: SolidPoint[],
@@ -15,8 +17,7 @@ export default async function constructPointCloud(scene: Scene,
 
 
     const filteredPoints: SolidPoint[] = filterPointCloud(points,cloudPointFilters);
-
-    const pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", 2, scene, {updatable: false});
+    const pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", 3, scene, {updatable: false});
 
     const diffP = parameterMax - parameterMin;
     let constructParticle = (particle: Particle, i: number, _: any) => {
@@ -53,6 +54,7 @@ export default async function constructPointCloud(scene: Scene,
             b = 0;
         }
 
+        //particle.position = new BABYLON.Vector3((point.x - 76990) / 100, (point.y - 92383) / 100, (point.z - 525) / 10);
         particle.position = new BABYLON.Vector3(point.x, point.y, point.z);
         particle.color = new BABYLON.Color4(r / 255, g / 255, b / 255, 1)
     }
@@ -61,4 +63,65 @@ export default async function constructPointCloud(scene: Scene,
     pointsCloudSystem.addPoints(pointsCount, constructParticle);
     const mesh = await pointsCloudSystem.buildMeshAsync();
     return pointsCloudSystem;
+}
+
+export function setUpPointCloud(file: File, cloudPointFilters: PointCloudFiltersState) {
+    const reader: FileReader = new FileReader()
+
+    reader.onload = async (e: ProgressEvent<FileReader>) => {
+        const fileLines: string[] = [];
+        const text: string = <string>(reader.result)
+        let lines: string[] = text.split('\n');
+        lines.forEach((line) => {
+            fileLines.push(line.slice(0, -1));
+        });
+
+        const points: SolidPoint[] = fileLines.map((line: string) => {
+            const points: string[] = line.split(';');
+            const x: number = Number.parseFloat(points[0] ? points[0].replace(',', '.') : "0");
+            const y: number = Number.parseFloat(points[1] ? points[1].replace(',', '.') : "0");
+            const z: number = Number.parseFloat(points[2] ? points[2].replace(',', '.') : "0");
+            const p: number = Number(points[3] ? points[3].replace(',', '.') : "0");
+
+            return new SolidPoint(x, y, z, p);
+        });
+
+        const parameters = points.map(p => p.parameter);
+        const {max, min} = calculateMinMaxOfArray(parameters);
+        const parameterMin = min;
+        const parameterMax = max;
+
+        const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
+        const scene = apiProvider.sceneRootApi.scene as Scene;
+
+        const sceneRootApi = apiProvider.sceneRootApi;
+        if (sceneRootApi.pointsCloudSystem && apiProvider.sceneRootApi.pointsCloudSystem !== null) {
+            sceneRootApi.pointsCloudSystem.dispose()
+            sceneRootApi.pointsCloudSystem = null;
+        }
+
+        const pointsCloudSystem = await constructPointCloud(scene, points, parameterMin, parameterMax, cloudPointFilters);
+        apiProvider.sceneRootApi.pointsCloudSystem = pointsCloudSystem;
+    };
+
+    const blob: Blob = <Blob>file;
+    reader.readAsText(blob);
+}
+
+function filterPointCloud(points: SolidPoint[], cloudPointFilters: PointCloudFiltersState): SolidPoint[] {
+    const filteredPoints = points.filter(point => {
+        const {x, y, z} = point
+
+        if ((x >= cloudPointFilters.filterXFromLimit && x <= cloudPointFilters.filterXToLimit)
+            &&
+            (y >= cloudPointFilters.filterYFromLimit && y <= cloudPointFilters.filterYToLimit)
+            &&
+            (z >= cloudPointFilters.filterZFromLimit && z <= cloudPointFilters.filterZToLimit)) {
+            return true;
+        }
+
+        return false;
+    });
+
+    return filteredPoints;
 }

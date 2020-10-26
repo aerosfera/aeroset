@@ -5,22 +5,19 @@ import {normalize} from 'styled-normalize'
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
   
-  body {
+   body {
     padding: 0;
     margin: 0;
-    font-family: 'Roboto',-apple-system, BlinkMacSystemFont, 'Segoe UI' , 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', 'Segoe UI',sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow:hidden;
-  }
-  
-  html, body, #root, .App {
-    height: 100%;
+    box-sizing: border-box;
   }
 
   code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, monospace;
   }
 `

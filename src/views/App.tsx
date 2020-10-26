@@ -1,18 +1,15 @@
 import React from 'react';
-import './App.css';
 import Scene from "./components/layout/scene/Scene";
 import StatePanel from "./components/layout/statePanel/StatePanel";
 import {InstrumentalPanel} from "./components/layout/instrumentalPanel/InstrumentalPanel";
 import {Grid, Col, Row} from 'react-styled-flexboxgrid'
-import {Route} from "react-router-dom";
-import Version from "./components/version/version";
-import Auth from "./components/auth/auth";
 import HeaderPanel from "./components/layout/headerPanel";
-import {AppTheme} from "./components/theme";
+import {AppTheme} from "./components/theme/theme";
+import {StyledProps, withTheme} from 'styled-components';
 
-const App = (theme: AppTheme) => {
+const App : React.FC<{ theme : AppTheme }> = (_) => {
     return (
-        <div style={{height: '100%'}}>
+        <div>
             {/*<Route exact path="/version" component={Version}/>*/}
             {/*<Route exact path="/auth" component={Auth}/>*/}
             <div>
@@ -20,7 +17,7 @@ const App = (theme: AppTheme) => {
                 <Grid fluid={true}>
                     <Row>
                         <Col xs>
-                            <HeaderPanel theme={theme} />
+                            <HeaderPanel/>
                         </Col>
                     </Row>
                     <Row>
@@ -44,4 +41,4 @@ const App = (theme: AppTheme) => {
     );
 }
 
-export default App;
+export default withTheme(App);
