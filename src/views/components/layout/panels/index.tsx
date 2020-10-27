@@ -23,6 +23,8 @@ import {
 import {useSelector} from "react-redux";
 import {isNumeric} from "rxjs/internal-compatibility";
 import Typography from "@material-ui/core/Typography";
+import {withTheme} from "styled-components";
+import {AppTheme} from "../../theme/theme";
 
 const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
     getPointCloudFiltersPanelSelector], (isActive: boolean, filtersState: PointCloudFiltersState) =>
@@ -32,19 +34,13 @@ const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
     })
 );
 
-const WindowPanels = () => {
+const Panels: React.FC<{ theme: AppTheme }> = (props) => {
     const dispatch = useAppDispatch()
-    const props = useSelector(dataSelector)
-    const filter = props.filtersState
+    const data = useSelector(dataSelector)
+    const filter = data.filtersState
 
     return (
-        <div style={{
-            position: "fixed",
-            height: "100%",
-            width: "100%",
-            background: "transparent",
-            pointerEvents: "none"
-        }}>
+        <Panels>
             <Draggable bounds="parent" handle="strong">
 
                 <div style={
@@ -54,7 +50,7 @@ const WindowPanels = () => {
                         background: "#e8e8e8",
                         borderRadius: 5,
                         pointerEvents: "auto",
-                        visibility: props.isActive ? "visible" : "hidden"
+                        visibility: data.isActive ? "visible" : "hidden"
                     }}>
 
                     <div>
@@ -206,8 +202,8 @@ const WindowPanels = () => {
                     </div>
                 </div>
             </Draggable>
-        </div>
+        </Panels>
     );
 }
 
-export default WindowPanels;
+export default withTheme(Panels);

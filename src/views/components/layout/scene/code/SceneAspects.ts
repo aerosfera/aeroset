@@ -4,7 +4,7 @@ import {Light} from "babylonjs/Lights/light";
 import {Scene} from "babylonjs/scene";
 import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
 
-export default class SceneRootApi {
+export default class SceneAspects {
     private _engine: Engine | null = null;
     private _scene: Scene | null = null;
     private _camera: ArcRotateCamera | null = null;

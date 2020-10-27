@@ -1,12 +1,13 @@
 import {injectable} from "inversify";
-import SceneRootApi from "../../views/components/layout/scene/base/SceneRootApi";
+import SceneAspects from "../../views/components/layout/scene/code/SceneAspects";
 
 @injectable()
 class ApiProvider {
-    private _scene : SceneRootApi = new SceneRootApi();
+    private _scene: SceneAspects = new SceneAspects();
 
-    get scene(): SceneRootApi {
+    get scene(): SceneAspects {
         return this._scene;
     }
 }
+
 export default ApiProvider;

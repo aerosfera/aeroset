@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     height: 100%;
     min-height: 100%;
+    min-width: 100%;
     width: 100%;
     font-family: 'Roboto', 'Segoe UI',sans-serif;
     -webkit-font-smoothing: antialiased;

@@ -2,7 +2,6 @@ import * as BABYLON from "babylonjs";
 import {Scene} from "babylonjs/scene";
 import {Particle} from "babylonjs/Particles/particle";
 import SolidPoint from "./SolidPoint";
-import {Mesh} from "babylonjs/Meshes/mesh";
 import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
 import calculateMinMaxOfArray from "../../../../../utilities/math/calculateMaxMinOfArray";

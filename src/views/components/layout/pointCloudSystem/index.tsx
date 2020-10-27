@@ -1,13 +1,13 @@
 import {Selector, useSelector} from "react-redux";
-import {ApplicationState} from "../../../../../store/store";
 import {createSelector} from "@reduxjs/toolkit";
+import * as React from "react";
+import {setUpPointCloud} from "./code/constructPointCloud";
 import {
     getPointCloudFiltersPanelSelector,
     PointCloudFiltersState
-} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
-import * as React from "react";
-import {setUpPointCloud} from "./constructPointCloud";
-
+} from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+import {ApplicationState} from "../../../../store/store";
+import {PointCloudContainer} from "./style";
 
 const pointCloudFileSelector: Selector<ApplicationState, File | null> = state => state.ui.sections.pointCloudSection.pointsCloudFile;
 
@@ -28,14 +28,7 @@ const PointCloud = () => {
         setUpPointCloud(cloudPointFile, cloudPointFilters)
 
     return (
-        <div style={{
-            position: "fixed",
-            height: "100%",
-            width: "100%",
-            background: "transparent",
-            pointerEvents: "none"
-        }}>
-        </div>
+        <PointCloudContainer/>
     )
 }
 

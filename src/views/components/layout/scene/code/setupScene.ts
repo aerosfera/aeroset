@@ -1,13 +1,13 @@
 import * as BABYLON from "babylonjs";
 import setupAxis from "./setupAxis";
-import {AppTheme, themeColor, ThemeColors} from "../../../../theme/theme";
-import {hexToRgb} from "../../../../../../utilities/color/hexToRgb";
+import {AppTheme, themeColor, ThemeColors} from "../../../theme/theme";
+import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
 
 export default function setupScene(engine: BABYLON.Engine, theme: AppTheme): BABYLON.Scene {
     const scene: BABYLON.Scene = new BABYLON.Scene(engine);
+
     const colorHex = themeColor(ThemeColors.mediumBlue)({theme});
     const color = hexToRgb(colorHex);
-
     if(color && color !== null)
         scene.clearColor = new BABYLON.Color4(color.r / 255, color.g / 255, color.b / 255, 1);
 
