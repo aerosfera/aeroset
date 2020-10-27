@@ -1,5 +1,4 @@
 import {path} from "ramda";
-import {strict} from "assert";
 
 export interface AppTheme {
     colors: {
@@ -130,12 +129,12 @@ const theme: AppTheme = {
 };
 
 // @ts-ignore
-export const getTheme = (keys = []) =>
+export const getTheme : string = (keys: any[] = []) =>
 // @ts-ignore
     props => path(['theme', ...keys], props);
 // @ts-ignore
-export const getMainColor = key => getTheme(['colors', "main", key]);
+export const mainColor = key => getTheme(['colors', "main", key]);
 // @ts-ignore
-export const getPaletteColor = key => getTheme(['colors', "main", key]);
+export const paletteColor = key => getTheme(['colors', "main", key]);
 
 export default theme;
