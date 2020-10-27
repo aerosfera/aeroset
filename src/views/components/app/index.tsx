@@ -1,19 +1,24 @@
 import React from "react";
 import {withTheme} from "styled-components";
 import {AppTheme} from "../theme/theme";
-import {Area, Container, Footer, Header, HR, Panel} from "./styles";
+import {Area, Container, Footer, Header, HeaderContainer, HR, Panel} from "./styles";
+import Scene from "../layout/scene/Scene";
 
 const App: React.FC<{ theme: AppTheme }> = (_) => {
-
     return (
         <Container>
-            <Header/>
-            {/*<HR/>*/}
-            <Panel/>
-            {/*<HR/>*/}
-            <Area/>
-            {/*<HR/>*/}
-            <Footer/>
+            <HeaderContainer>
+                <Header/>
+                <HR/>
+                <Panel/>
+                <HR/>
+            </HeaderContainer>
+            <Area>
+                <Scene/>
+            </Area>
+            <Footer>
+                <HR/>
+            </Footer>
         </Container>
     );
 }

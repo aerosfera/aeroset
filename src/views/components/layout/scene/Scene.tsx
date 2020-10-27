@@ -41,7 +41,6 @@ import {
     getPointCloudFiltersPanelSelector,
     PointCloudFiltersState
 } from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
-import filterPointCloud from "./pointCloudSystem/filterPointCloud";
 import PointCloud from "./pointCloudSystem/PointCloud";
 
 
@@ -92,7 +91,6 @@ const Scene = () => {
     });
 
     return (
-        <MuiThemeProvider theme={theme}>
             <div>
                 <canvas
                     style={{
@@ -101,7 +99,6 @@ const Scene = () => {
                         margin: 0,
                         height: '100%',
                         width: '100%',
-                        position: "fixed"
                     }}
                     ref={canvas => {
                         if (canvas != undefined && canvas) {
@@ -109,10 +106,9 @@ const Scene = () => {
                         }
                     }}
                 />
-                <PointCloud/>
-                <WindowPanels/>
+                {/*<PointCloud/>*/}
+                {/*<WindowPanels/>*/}
             </div>
-        </MuiThemeProvider>
     )
 }
 
