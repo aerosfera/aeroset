@@ -1,14 +1,23 @@
 import {path} from "ramda";
 
+export enum ThemeColors {
+    white,
+    lightGray,
+    mediumGray,
+    darkGray,
+    lightBlue,
+    mediumBlue,
+}
+
 export interface AppTheme {
     colors: {
         main: {
-            white: string,
+            white : string,
             lightGray: string,
             mediumGray: string,
             darkGray: string,
             lightBlue: string,
-            mediumBlue: string
+            mediumBlue: string,
         },
         palette: {
             black: string,
@@ -129,11 +138,11 @@ const theme: AppTheme = {
 };
 
 // @ts-ignore
-export const getTheme : string = (keys: any[] = []) =>
+export const getTheme: string = (keys: any[] = []) =>
 // @ts-ignore
     props => path(['theme', ...keys], props);
 // @ts-ignore
-export const mainColor = key => getTheme(['colors', "main", key]);
+export const themeColor = (key : ThemeColors) => getTheme(['colors', "main", ThemeColors[key]]);
 // @ts-ignore
 export const paletteColor = key => getTheme(['colors', "main", key]);
 

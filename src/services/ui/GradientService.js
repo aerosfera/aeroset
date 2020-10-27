@@ -20,7 +20,7 @@ class ColorLabel {
 
   constructor(position, color) {
     this.Position = position;
-    this.Color = color;
+    this.themeColor = color;
   };
 
 }

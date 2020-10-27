@@ -3,10 +3,10 @@ import SceneRootApi from "../../views/components/layout/scene/base/SceneRootApi"
 
 @injectable()
 class ApiProvider {
-    private _sceneRootApi : SceneRootApi = new SceneRootApi();
+    private _scene : SceneRootApi = new SceneRootApi();
 
-    get sceneRootApi(): SceneRootApi {
-        return this._sceneRootApi;
+    get scene(): SceneRootApi {
+        return this._scene;
     }
 }
 export default ApiProvider;

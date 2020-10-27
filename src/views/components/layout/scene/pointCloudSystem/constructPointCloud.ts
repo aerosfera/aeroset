@@ -92,16 +92,16 @@ export function setUpPointCloud(file: File, cloudPointFilters: PointCloudFilters
         const parameterMax = max;
 
         const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
-        const scene = apiProvider.sceneRootApi.scene as Scene;
+        const scene = apiProvider.scene.scene as Scene;
 
-        const sceneRootApi = apiProvider.sceneRootApi;
-        if (sceneRootApi.pointsCloudSystem && apiProvider.sceneRootApi.pointsCloudSystem !== null) {
+        const sceneRootApi = apiProvider.scene;
+        if (sceneRootApi.pointsCloudSystem && apiProvider.scene.pointsCloudSystem !== null) {
             sceneRootApi.pointsCloudSystem.dispose()
             sceneRootApi.pointsCloudSystem = null;
         }
 
         const pointsCloudSystem = await constructPointCloud(scene, points, parameterMin, parameterMax, cloudPointFilters);
-        apiProvider.sceneRootApi.pointsCloudSystem = pointsCloudSystem;
+        apiProvider.scene.pointsCloudSystem = pointsCloudSystem;
     };
 
     const blob: Blob = <Blob>file;
