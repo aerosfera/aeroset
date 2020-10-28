@@ -14,7 +14,7 @@ import {withTheme} from "styled-components";
 import {AppTheme} from "../../theme/theme";
 import {Canvas} from "./style";
 import PointCloud from "../pointCloudSystem";
-import Panels from "../panels";
+import {Panels} from "../panels/style";
 
 const Scene: React.FC<{ theme: AppTheme }> = (props) => {
     function initialize(canvas: HTMLCanvasElement) {

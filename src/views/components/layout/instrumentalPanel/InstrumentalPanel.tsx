@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import React, {Fragment} from "react";
 import IconButton from "@material-ui/core/IconButton";
-import {ThemeProvider, withTheme} from "styled-components";
+import {ThemeProvider} from "styled-components";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import green from "@material-ui/core/colors/green";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -10,9 +10,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {useSelector} from "react-redux";
 import {ApplicationState, useAppDispatch} from "../../../../store/store";
 import { pointCloudLoadFile, showPointCloudFiltersPanel } from "../../../../store/ui/sections/pointCloudSection/pointCloudSection";
-import {AppTheme} from "../../theme/theme";
 
-const InstrumentalPanel :React.FC<{theme : AppTheme}> = (props) => {
+export const InstrumentalPanel = () => {
     const instrumentalPanelState = useSelector<ApplicationState>(state => state);
     const dispatch = useAppDispatch();
 
@@ -57,5 +56,3 @@ const InstrumentalPanel :React.FC<{theme : AppTheme}> = (props) => {
         </ThemeProvider>
     );
 };
-
-export default withTheme(InstrumentalPanel);
