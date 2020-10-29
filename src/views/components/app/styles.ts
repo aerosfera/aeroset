@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import theme, {themeColor} from "../theme/theme";
+import theme from "../theme/theme";
 import {Theme} from "@material-ui/core";
 import {ThemeColors} from "../theme/ThemeColors";
+import {themeColor} from "../theme/themeAccessors";
 
 export const Container = styled.div`
    background: #282c34;

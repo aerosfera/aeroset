@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {Theme} from "@material-ui/core";
-import {themeColor} from "../../theme/theme";
 import {ThemeColors} from "../../theme/ThemeColors";
+import {themeColor} from "../../theme/themeAccessors";
 
 const Header = styled.div<Theme>`
 height: 20px;
