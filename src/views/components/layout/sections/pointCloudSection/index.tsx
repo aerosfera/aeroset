@@ -1,24 +1,19 @@
-import 'reflect-metadata';
 import React, {Fragment} from "react";
-import IconButton from "@material-ui/core/IconButton";
-import {ThemeProvider} from "styled-components";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import green from "@material-ui/core/colors/green";
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import FilterTiltShiftIcon from '@material-ui/icons/FilterTiltShift';
+import {AppTheme} from "../../../theme/theme";
+import {useAppDispatch} from "../../../../../store/store";
+import {
+    pointCloudLoadFile,
+    showPointCloudFiltersPanel
+} from "../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
 import Tooltip from "@material-ui/core/Tooltip";
-import {useSelector} from "react-redux";
-import {ApplicationState, useAppDispatch} from "../../../../store/store";
-import { pointCloudLoadFile, showPointCloudFiltersPanel } from "../../../../store/ui/sections/pointCloudSection/pointCloudSection";
+import IconButton from "@material-ui/core/IconButton";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import FilterTiltShiftIcon from "@material-ui/icons/FilterTiltShift";
+import {withTheme} from "styled-components";
 
-export const InstrumentalPanel = () => {
-    const instrumentalPanelState = useSelector<ApplicationState>(state => state);
+const PointCloudSection: React.FC<{ theme: AppTheme }> = (props) => {
     const dispatch = useAppDispatch();
-
-    const redTheme = createMuiTheme({palette: {primary: green}});
-    return (
-        <ThemeProvider theme={redTheme}>
-            <div style={{height: 35, background: "#c3aed6"}}>
+    return (<div>
                 <Fragment>
                     <input
                         color="primary"
@@ -53,6 +48,7 @@ export const InstrumentalPanel = () => {
                     </IconButton>
                 </Tooltip>
             </div>
-        </ThemeProvider>
     );
 };
+
+export default withTheme(PointCloudSection);

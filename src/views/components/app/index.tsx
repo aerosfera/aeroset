@@ -1,8 +1,9 @@
-import React from "react";
+import React, {Suspense} from "react";
 import {withTheme} from "styled-components";
 import {AppTheme} from "../theme/theme";
 import {Area, Container, Footer, Header, HeaderContainer, HR, Panel} from "./styles";
 import Scene from "../layout/scene";
+import InstrumentalPanel from "../layout/instrumentalPanel";
 
 const App: React.FC<{ theme: AppTheme }> = (_) => {
     return (
@@ -10,7 +11,9 @@ const App: React.FC<{ theme: AppTheme }> = (_) => {
             <HeaderContainer>
                 <Header/>
                 <HR/>
-                <Panel/>
+                <Panel>
+                    <InstrumentalPanel/>
+                </Panel>
                 <HR/>
             </HeaderContainer>
             <Area>

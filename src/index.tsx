@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
+import "./internationalization/i18n"; // import i18n (needs to be bundled ;))
 import * as serviceWorker from './serviceWorker';
 import 'fontsource-roboto';
 import {Provider} from "react-redux";
@@ -15,7 +16,9 @@ ReactDOM.render(
             <React.StrictMode>
                 <GlobalStyle/>
                 <Theme>
-                    <App/>
+                    <Suspense fallback="loading...">
+                        <App/>
+                    </Suspense>
                 </Theme>
             </React.StrictMode>
         </BrowserRouter>

@@ -27,7 +27,7 @@ export const HR = styled.hr<AppTheme>`
   border-top: 1px solid ${themeColor(ThemeColors.mediumGray)};
   padding: 0; 
 `
-export const Panel = styled.header<AppTheme>`
+export const Panel = styled.div<AppTheme>`
   min-height: 24px;
   width: 100%;
   background: ${themeColor(ThemeColors.lightGray)};
