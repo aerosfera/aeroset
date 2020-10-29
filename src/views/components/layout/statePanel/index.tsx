@@ -1,8 +1,8 @@
 import React, {Component, useState} from 'react';
-import {AppTheme} from "../../theme/theme";
 import {withTheme} from "styled-components";
+import {Theme} from "@material-ui/core";
 
-const StatePanel : React.FC<{ theme: AppTheme }> = (props) => {
+const StatePanel : React.FC<{ theme: Theme }> = (props) => {
     return (
         <div style={{background: "#0582ca", height: 30}}>
         </div>

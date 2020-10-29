@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {AppTheme} from "../../theme/theme";
+import {Theme} from "@material-ui/core";
 
-export const Panels = styled.div<AppTheme>`
+export const Panels = styled.div<Theme>`
     position: fixed;
     height: 100%;
     width: 100%;

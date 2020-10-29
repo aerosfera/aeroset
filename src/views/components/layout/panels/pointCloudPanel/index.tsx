@@ -7,7 +7,7 @@ import {
     pointCloudFiltersPanelActivitySelector
 } from "../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
 import CloseIcon from "@material-ui/icons/Close";
-import {TextField} from "@material-ui/core";
+import {TextField, Theme} from "@material-ui/core";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {
     changeXFromLimit,
@@ -19,7 +19,6 @@ import {
     getPointCloudFiltersPanelSelector, PointCloudFiltersState
 } from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import * as React from "react";
-import {AppTheme} from "../../../theme/theme";
 import {useAppDispatch} from "../../../../../store/store";
 import {useSelector} from "react-redux";
 import {createSelector} from "@reduxjs/toolkit";
@@ -33,7 +32,7 @@ const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
     })
 );
 
-const PointCloudPanel: React.FC<{ theme: AppTheme }> = (props) => {
+const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
     const dispatch = useAppDispatch()
     const data = useSelector(dataSelector)
     const filter = data.filtersState

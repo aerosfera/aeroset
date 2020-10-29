@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import theme, {AppTheme, themeColor, ThemeColors} from "../theme/theme";
+import theme, {themeColor} from "../theme/theme";
+import {Theme} from "@material-ui/core";
+import {ThemeColors} from "../theme/ThemeColors";
 
 export const Container = styled.div`
    background: #282c34;
@@ -8,31 +10,31 @@ export const Container = styled.div`
    height: 100%;
    min-height: 100%;
 `
-export const HeaderContainer = styled.header<AppTheme>`
+export const HeaderContainer = styled.header<Theme>`
   min-height: 62px;
   width: 100%;
   position: fixed;
   left: 0;
   top:0;
 `
-export const Header = styled.div<AppTheme>`
+export const Header = styled.div<Theme>`
   min-height: 36px;
   width: 100%;
   background: ${themeColor(ThemeColors.lightGray)};
 `
-export const HR = styled.hr<AppTheme>`
+export const HR = styled.hr<Theme>`
   border: 0; 
   width: 100%;
   margin: 0;
   border-top: 1px solid ${themeColor(ThemeColors.mediumGray)};
   padding: 0; 
 `
-export const Panel = styled.div<AppTheme>`
+export const Panel = styled.div<Theme>`
   min-height: 24px;
   width: 100%;
   background: ${themeColor(ThemeColors.lightGray)};
 `
-export const Footer = styled.footer<AppTheme>`
+export const Footer = styled.footer<Theme>`
   min-height: 24px;
   width: 100%;
   position: fixed;
@@ -40,7 +42,7 @@ export const Footer = styled.footer<AppTheme>`
   bottom:0;
   background: ${themeColor(ThemeColors.lightGray)};
 `
-export const Area = styled.main<AppTheme>`
+export const Area = styled.main<Theme>`
   min-height: 100%;
   height: 100%;
   width: 100%;

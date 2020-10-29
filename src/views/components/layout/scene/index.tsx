@@ -11,12 +11,12 @@ import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
 import setupZoom from "./code/setupZoom";
 import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {withTheme} from "styled-components";
-import {AppTheme} from "../../theme/theme";
 import {Canvas} from "./style";
 import PointCloud from "../pointCloudSystem";
 import {Panels} from "../panels/style";
+import {Theme} from "@material-ui/core";
 
-const Scene: React.FC<{ theme: AppTheme }> = (props) => {
+const Scene: React.FC<{ theme: Theme }> = (props) => {
     function initialize(canvas: HTMLCanvasElement) {
         if (!isCanvasSupported()) {
             console.log('canvas is not supported!');

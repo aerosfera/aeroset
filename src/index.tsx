@@ -16,7 +16,7 @@ ReactDOM.render(
             <React.StrictMode>
                 <GlobalStyle/>
                 <Theme>
-                    <Suspense fallback="loading...">
+                    <Suspense fallback="">
                         <App/>
                     </Suspense>
                 </Theme>

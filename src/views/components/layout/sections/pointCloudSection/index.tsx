@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import {AppTheme} from "../../../theme/theme";
 import {useAppDispatch} from "../../../../../store/store";
 import {
     pointCloudLoadFile,
@@ -10,8 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import FilterTiltShiftIcon from "@material-ui/icons/FilterTiltShift";
 import {withTheme} from "styled-components";
+import {Theme} from "@material-ui/core";
 
-const PointCloudSection: React.FC<{ theme: AppTheme }> = (props) => {
+const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
     const dispatch = useAppDispatch();
     return (<div>
                 <Fragment>

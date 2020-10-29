@@ -1,9 +1,11 @@
 import * as BABYLON from "babylonjs";
 import setupAxis from "./setupAxis";
-import {AppTheme, themeColor, ThemeColors} from "../../../theme/theme";
+import {themeColor} from "../../../theme/theme";
 import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
+import {ThemeColors} from "../../../theme/ThemeColors";
+import { Theme } from "@material-ui/core";
 
-export default function setupScene(engine: BABYLON.Engine, theme: AppTheme): BABYLON.Scene {
+export default function setupScene(engine: BABYLON.Engine, theme: Theme): BABYLON.Scene {
     const scene: BABYLON.Scene = new BABYLON.Scene(engine);
 
     const colorHex = themeColor(ThemeColors.mediumBlue)({theme});

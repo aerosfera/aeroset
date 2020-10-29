@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {AppTheme} from "../../theme/theme";
+import {Theme} from "@material-ui/core";
 
-export const Canvas = styled.canvas<AppTheme>`
+export const Canvas = styled.canvas<Theme>`
    outline: none;
    display: block;
    margin: 0;

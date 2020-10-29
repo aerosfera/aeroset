@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import {AppTheme} from "../../theme/theme";
+import {Theme} from "@material-ui/core";
+import {themeColor} from "../../theme/theme";
+import {ThemeColors} from "../../theme/ThemeColors";
 
-const Header = styled.div<AppTheme>`
+const Header = styled.div<Theme>`
 height: 20px;
-background: ${theme => theme.colors.main.lightGray};
+background: ${themeColor(ThemeColors.lightGray)};
 justify-content: "flex-end";
 display: "flex";
 `
