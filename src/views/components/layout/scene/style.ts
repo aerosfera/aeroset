@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import {Theme} from "@material-ui/core";
+import {appSizes} from "../../theme/themeAccessors";
 
 export const Canvas = styled.canvas<Theme>`
    outline: none;
    display: block;
    margin: 0;
    padding: 0;
-   position:fixed;
-   left: 0;
-   top: 61.5px;
    width: 100%;
-   height: 100%;
+   ${props => props.theme.breakpoints.up("sm")} {
+      height: calc(100vh - ${props => appSizes('header')(props) + appSizes('footer')(props) + appSizes('instrumentalPanel')(props)}px);
+   }
+   ${props => props.theme.breakpoints.down("sm")} {
+      height: calc(100vh - ${props => appSizes('headerMobile')(props)}px);
+   }
+   touch-action: auto;
 `

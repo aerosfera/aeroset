@@ -8,4 +8,6 @@ export const getTheme: string = (keys: any[] = []) =>
 // @ts-ignore
 export const themeColor = (key: ThemeColors) => getTheme(['colors', "main", ThemeColors[key]]);
 // @ts-ignore
-export const paletteColor = key => getTheme(['colors', "palette", key]);
+export const paletteColor = (key: string) => getTheme(['colors', "palette", key]);
+// @ts-ignore
+export const appSizes = (key: string) => getTheme(['sizes', key]);

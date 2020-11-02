@@ -7,4 +7,8 @@ export const Panels = styled.div<Theme>`
     width: 100%;
     background: transparent;
     pointer-events: none;
+    left: 0;
+    top: 61.5px;
+    right: 0;
+    bottom: 24px;
 `

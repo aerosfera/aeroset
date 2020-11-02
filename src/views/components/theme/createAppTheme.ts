@@ -64,7 +64,14 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                     }
                 }
             },
-            font: string
+            font: string,
+            sizes: {
+                header : number,
+                headerMobile:number,
+                instrumentalPanel : number,
+                footer : number
+            },
+            lang : string
         }
     }
 
@@ -130,7 +137,14 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                     }
                 }
             },
-            font: string
+            font: string,
+            sizes: {
+                header : number,
+                headerMobile: number,
+                instrumentalPanel : number,
+                footer : number
+            },
+            lang : string
         }
     }
 }

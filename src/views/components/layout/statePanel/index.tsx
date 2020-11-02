@@ -1,11 +1,12 @@
 import React, {Component, useState} from 'react';
 import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
+import {FooterContainer} from "./style";
 
-const StatePanel : React.FC<{ theme: Theme }> = (props) => {
+const StatePanel: React.FC<{ theme: Theme }> = (props) => {
     return (
-        <div style={{background: "#0582ca", height: 30}}>
-        </div>
+        <FooterContainer>
+        </FooterContainer>
     );
 }
 

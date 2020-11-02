@@ -60,6 +60,14 @@ export const defaultAppThemeValues = {
                 }
             }
         },
-        font: "Roboto"
+        font: "Roboto",
+        sizes: {
+            header : 40,
+            headerMobile: 40,
+            instrumentalPanel : 30,
+            footer : 30,
+        },
+        lang : "ru"
+
     }
 };

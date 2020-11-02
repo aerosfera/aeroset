@@ -5,22 +5,23 @@ import {withTheme} from "styled-components";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import {useTranslation} from "react-i18next";
-import {HeaderPanelContainer} from "./style";
+import {HeaderMobilePanelContainer} from "./style";
+import MenuIcon from '@material-ui/icons/Menu';
 
-const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
+const HeaderMobilePanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();
 
     return (
-        <HeaderPanelContainer>
+        <HeaderMobilePanelContainer>
             <Tooltip title={t('user_account')}>
                 <IconButton size={"small"}
                             color={"primary"}
                             style={{marginLeft: 10}}>
-                    <AccountCircleIcon style={{color: "white", fontSize: 35}}/>
+                    <MenuIcon style={{color: "white", fontSize: 35}}/>
                 </IconButton>
             </Tooltip>
-        </HeaderPanelContainer>
+        </HeaderMobilePanelContainer>
     );
 }
 
-export default withTheme(HeaderPanel);
+export default withTheme(HeaderMobilePanel);
