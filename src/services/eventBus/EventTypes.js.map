@@ -1,1 +1,0 @@
-{"version":3,"file":"EventTypes.js","sourceRoot":"","sources":["EventTypes.ts"],"names":[],"mappings":";;;AAAa,QAAA,wBAAwB,GAAG,MAAM,CAAC,GAAG,CAAC,0BAA0B,CAAC,CAAC","sourcesContent":["export const CLOUD_POINTS_FILE_LOADED = Symbol.for(\"CLOUD_POINTS_FILE_LOADED\");"]}

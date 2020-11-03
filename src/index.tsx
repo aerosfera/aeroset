@@ -10,8 +10,6 @@ import {GlobalStyle} from "./globalStyle";
 import Theme from "./views/components/theme";
 import App from "./views/components/app";
 import {CssBaseline} from "@material-ui/core";
-import {useTranslation} from "react-i18next";
-import {initializeApp} from "./views/components/app/code/initialize";
 
 ReactDOM.render(
     <Provider store={store}>

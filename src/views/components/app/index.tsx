@@ -1,69 +1,62 @@
 import React from "react";
 import {withTheme} from "styled-components";
-import {Area, HR} from "./styles";
-import {Hidden, Theme} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import {Area} from "./styles";
+import {Divider, Hidden, Theme} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import HeaderPanel from "../layout/headerPanel";
 import InstrumentalPanel from "../layout/instrumentalPanel";
 import StatePanel from "../layout/statePanel";
 import Scene from "../layout/scene";
 import HeaderMobilePanel from "../layout/headerMobilePanel";
-
-const useStyles = makeStyles((theme) => ({
-    grid_item: {
-        padding: 0,
-        margin: 0,
-    }
-}));
+import SnackbarContainer from "../snackbar";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
-    const styles = useStyles();
-
     return (
-        <Grid container
-              spacing={0}
-              alignItems="stretch"
-              direction={"column"}>
-            <Hidden smDown>
-                <Grid item xs={12} className={styles.grid_item}>
-                    <HeaderPanel/>
+        <SnackbarContainer>
+            <Grid container
+                  spacing={0}
+                  alignItems="stretch"
+                  direction={"column"}>
+                <Hidden smDown>
+                    <Grid item xs={12}>
+                        <HeaderPanel/>
+                    </Grid>
+                </Hidden>
+                <Hidden mdUp>
+                    <Grid item xs={12}>
+                        <HeaderMobilePanel/>
+                    </Grid>
+                </Hidden>
+                <Grid item xs={12}>
+                    <Divider/>
                 </Grid>
-            </Hidden>
-            <Hidden mdUp>
-                <Grid item xs={12} className={styles.grid_item}>
-                    <HeaderMobilePanel/>
+                <Hidden smDown>
+                    <Grid item xs={12}>
+                        <InstrumentalPanel/>
+                    </Grid>
+                </Hidden>
+                <Hidden smDown>
+                    <Grid item xs={12}>
+                        <Divider/>
+                    </Grid>
+                </Hidden>
+                <Grid item xs={12}>
+                    <Area>
+                        <Scene/>
+                    </Area>
                 </Grid>
-            </Hidden>
-            <Grid item xs={12} className={styles.grid_item}>
-                <HR/>
+                <Hidden smDown>
+                    <Grid item xs={12}>
+                        <Divider/>
+                    </Grid>
+                </Hidden>
+                <Hidden smDown>
+                    <Grid item xs={12}>
+                        <StatePanel/>
+                    </Grid>
+                </Hidden>
             </Grid>
-            <Hidden smDown>
-                <Grid item xs={12} className={styles.grid_item}>
-                    <InstrumentalPanel/>
-                </Grid>
-            </Hidden>
-            <Hidden smDown>
-                <Grid item xs={12} className={styles.grid_item}>
-                    <HR/>
-                </Grid>
-            </Hidden>
-            <Grid item xs={12} className={styles.grid_item}>
-                <Area>
-                    <Scene/>
-                </Area>
-            </Grid>
-            <Hidden smDown>
-                <Grid item xs={12} className={styles.grid_item}>
-                    <HR/>
-                </Grid>
-            </Hidden>
-            <Hidden smDown>
-                <Grid item xs={12} className={styles.grid_item}>
-                    <StatePanel/>
-                </Grid>
-            </Hidden>
-        </Grid>
+        </SnackbarContainer>
     );
 }
 

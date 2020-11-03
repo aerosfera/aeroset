@@ -13,11 +13,3 @@ export const Area = styled.main<Theme>`
   background: ${themeColor(ThemeColors.lightBlue)};
 `
 
-export const HR = styled.hr<Theme>`
-  border: 0; 
-  width: 100%;
-  margin: 0;
-  border-top: 1px solid ${themeColor(ThemeColors.mediumGray)};
-  padding: 0; 
-`
-
