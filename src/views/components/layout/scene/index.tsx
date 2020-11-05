@@ -13,8 +13,8 @@ import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {withTheme} from "styled-components";
 import {Canvas} from "./style";
 import PointCloud from "../pointCloudSystem";
-import {Panels} from "../panels/style";
-import {Theme} from "@material-ui/core";
+import {Hidden, Theme} from "@material-ui/core";
+import Panels from "../panels";
 
 const Scene: React.FC<{ theme: Theme }> = (props) => {
     function initialize(canvas: HTMLCanvasElement) {
@@ -52,7 +52,9 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
                 }}
             />
             <PointCloud/>
-            <Panels/>
+            <Hidden smDown>
+                <Panels/>
+            </Hidden>
         </div>
     )
 }
