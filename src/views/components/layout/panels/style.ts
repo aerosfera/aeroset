@@ -9,8 +9,4 @@ export const PanelsContainer = styled.div<Theme>`
     left: 0;
     top: 81px;
     right: 0;     
-    f
-    
-   
- 
 `

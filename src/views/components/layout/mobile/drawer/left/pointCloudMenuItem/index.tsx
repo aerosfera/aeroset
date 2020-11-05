@@ -11,10 +11,14 @@ import {withTheme} from "styled-components";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import DialpadIcon from '@material-ui/icons/Dialpad';
 import {
-    pointCloudLoadFile,
-    showPointCloudFiltersPanel
-} from "../../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
-import {useAppDispatch} from "../../../../../../store/store";
+    pointCloudLoadFile
+} from "../../../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
+import {useAppDispatch} from "../../../../../../../store/store";
+import IoC from "../../../../../../../environment/ioc/IoC";
+import {EventBusService} from "../../../../../../../services/eventBus/EventBusService";
+import {EVENT_BUS_SERVICE} from "../../../../../../../environment/ioc/ServiceTypes";
+import {OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../../services/eventBus/EventTypes";
+import {BottomDrawerContentType} from "../../bottom/code/BottomDrawerContentType";
 
 const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation()
@@ -27,6 +31,11 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
 
     const handleClick = () => {
         setState({subMenuIsOpen: !subMenuIsOpen});
+    };
+
+    const openPanelPointCloudFiltersClickHandle = () => {
+        const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
+        eventBus.send(OPEN_BOTTOM_DRAWER_EVENT,{contentType: BottomDrawerContentType.PointCloud})
     };
 
     return (
@@ -67,8 +76,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
                     </ListItem>
                     <ListItem button style={{paddingLeft: 32}}>
                         <ListItemIcon
-                            onClick={() =>
-                                dispatch(showPointCloudFiltersPanel())}>
+                            onClick={openPanelPointCloudFiltersClickHandle}>
                             <DialpadIcon/>
                         </ListItemIcon>
                         <ListItemText primary={t('open_panel_point_cloud_filters')}/>

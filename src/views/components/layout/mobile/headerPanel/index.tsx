@@ -10,11 +10,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
-import DrawerPanel from "../drawer";
+import DrawerLeftPanel from "../drawer/left";
 import IoC from "../../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../../services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT} from "../../../../../services/eventBus/EventTypes";
+import DrawerBottomPanel from "../drawer/bottom";
 
 const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
@@ -66,7 +67,8 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
                     </Tooltip>
                 </Toolbar>
             </AppBar>
-            <DrawerPanel isOpen={state.drawerIsOpen}/>
+            <DrawerLeftPanel isOpen={state.drawerIsOpen}/>
+            <DrawerBottomPanel/>
         </HeaderMobilePanelContainer>
     );
 }

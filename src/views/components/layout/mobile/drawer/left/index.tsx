@@ -1,8 +1,8 @@
 import {Theme} from "@material-ui/core";
 import {withTheme} from "styled-components";
-import IoC from "../../../../../environment/ioc/IoC";
-import {EventBusService} from "../../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import IoC from "../../../../../../environment/ioc/IoC";
+import {EventBusService} from "../../../../../../services/eventBus/EventBusService";
+import {EVENT_BUS_SERVICE} from "../../../../../../environment/ioc/ServiceTypes";
 import {useTranslation} from "react-i18next";
 import Drawer from "@material-ui/core/Drawer";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -11,7 +11,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import React, {useEffect, useState} from "react";
-import {CLOSE_DRAWER_EVENT} from "../../../../../services/eventBus/EventTypes";
+import {CLOSE_DRAWER_EVENT} from "../../../../../../services/eventBus/EventTypes";
 import PointCloudMenuItem from "./pointCloudMenuItem";
 import {DrawerContainer, DrawerHeader} from "./style";
 
@@ -20,7 +20,7 @@ interface DrawerPanelProps {
     isOpen: boolean
 }
 
-const DrawerPanel: React.FC<DrawerPanelProps> = (props) => {
+const DrawerLeftPanel: React.FC<DrawerPanelProps> = (props) => {
     const {t} = useTranslation();
 
     const [state, setState] = useState({
@@ -63,4 +63,4 @@ const DrawerPanel: React.FC<DrawerPanelProps> = (props) => {
     )
 }
 
-export default withTheme(DrawerPanel)
+export default withTheme(DrawerLeftPanel)
