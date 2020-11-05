@@ -5,7 +5,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import {useEffect, useState} from "react";
 import IoC from "../../../environment/ioc/IoC";
 import {EventBusService} from "../../../services/eventBus/EventBusService";
-import {SHOW_SNACKBAR} from "../../../services/eventBus/EventTypes";
+import {SHOW_SNACKBAR_EVENT} from "../../../services/eventBus/EventTypes";
 import {Alert} from "@material-ui/lab";
 import {EVENT_BUS_SERVICE} from "../../../environment/ioc/ServiceTypes";
 import {SnackbarWrapper} from "./style";
@@ -34,10 +34,10 @@ const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
 
     useEffect(() => {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-        eventBus.subscribe(SHOW_SNACKBAR, snackbarEventHandler)
+        eventBus.subscribe(SHOW_SNACKBAR_EVENT, snackbarEventHandler)
 
         return () => {
-            eventBus.unsubscribe(SHOW_SNACKBAR, snackbarEventHandler)
+            eventBus.unsubscribe(SHOW_SNACKBAR_EVENT, snackbarEventHandler)
         }
     }, [])
 
@@ -61,18 +61,18 @@ const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
                     horizontal: 'right',
                 }}
                 open={open}
-                aw
                 onClose={handleCloseSnackbar}
                 autoHideDuration={5000}>
-                <Alert onClose={handleClose} severity={alertType} action={callback}
-                closeText={t('close')}>
+                <Alert onClose={handleClose}
+                       severity={alertType}
+                       action={callback}
+                       closeText={t('close')}>
                     {message}
                 </Alert>
             </Snackbar>
             <div>
                 {props.children}
             </div>
-
         </SnackbarWrapper>
     )
 }

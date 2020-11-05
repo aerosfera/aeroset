@@ -1,4 +1,8 @@
 {
   "close": "Close",
-  "user_account" : "User account"
+  "user_account" : "User account",
+  "menu" : "Menu",
+  "point_cloud" : "Point cloud",
+  "load_file_with_point_cloud" : "Load file with point cloud",
+  "open_panel_point_cloud_filters" : "Open filters panel"
 }

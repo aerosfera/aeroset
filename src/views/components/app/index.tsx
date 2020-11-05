@@ -7,7 +7,7 @@ import HeaderPanel from "../layout/headerPanel";
 import InstrumentalPanel from "../layout/instrumentalPanel";
 import StatePanel from "../layout/statePanel";
 import Scene from "../layout/scene";
-import HeaderMobilePanel from "../layout/headerMobilePanel";
+import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
 
 const App: React.FC<{ theme: Theme }> = (_) => {

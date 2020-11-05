@@ -10,8 +10,10 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import FilterTiltShiftIcon from "@material-ui/icons/FilterTiltShift";
 import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
+import {useTranslation} from "react-i18next";
 
 const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
+    const {t} = useTranslation()
     const dispatch = useAppDispatch();
     return (<div>
                 <Fragment>
@@ -27,7 +29,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                         }}
                         id="icon-button-file"
                         style={{display: 'none',}}/>
-                    <Tooltip title="Загрузить файл с облаком точек" style={{marginLeft: 5}}>
+                    <Tooltip title={t('load_file_with_point_cloud')} style={{marginLeft: 5}}>
                         <label htmlFor="icon-button-file">
                             <IconButton
                                 component="span"
@@ -38,7 +40,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                         </label>
                     </Tooltip>
                 </Fragment>
-                <Tooltip title="Открыть панель с фильтрами облака точек">
+                <Tooltip title={t('open_panel_point_cloud_filters')}>
                     <IconButton size={"small"}
                                 color={"primary"}
                                 onClick={() =>

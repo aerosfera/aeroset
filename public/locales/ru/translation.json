@@ -1,4 +1,8 @@
 {
   "close": "Закрыть",
-  "user_account" : "Аккаунт пользователя"
+  "user_account" : "Аккаунт пользователя",
+  "menu" : "Меню",
+  "point_cloud" : "Облако точек",
+  "load_file_with_point_cloud" : "Загрузить файл с облаком точек",
+  "open_panel_point_cloud_filters" : "Открыть панель фильтров"
 }

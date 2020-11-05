@@ -62,9 +62,9 @@ export const defaultAppThemeValues = {
         },
         font: "Roboto",
         sizes: {
-            header : 40,
-            headerMobile: 40,
-            instrumentalPanel : 30,
+            header : 48,
+            headerMobile: 56,
+            instrumentalPanel : 32,
             footer : 30,
         },
         lang : "ru"

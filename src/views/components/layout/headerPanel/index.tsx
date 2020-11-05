@@ -9,7 +9,7 @@ import {HeaderPanelContainer} from "./style";
 import IoC from "../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE} from "../../../../environment/ioc/ServiceTypes";
-import {SHOW_SNACKBAR} from "../../../../services/eventBus/EventTypes";
+import {SHOW_SNACKBAR_EVENT} from "../../../../services/eventBus/EventTypes";
 import {SnackbarEvent} from "../../snackbar/code/SnackbarEvent";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
@@ -17,7 +17,7 @@ const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
 
     function handleClick() {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-        eventBus.send(SHOW_SNACKBAR, {message: "test", alertType: "success"} as SnackbarEvent)
+        eventBus.send(SHOW_SNACKBAR_EVENT, {message: "test", alertType: "success"} as SnackbarEvent)
     }
 
     return (
