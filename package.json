@@ -58,9 +58,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -95,8 +92,14 @@
     "@types/redux-thunk": "^2.1.32",
     "@types/styled-components": "^5.1.4",
     "@types/styled-system": "^5.1.10",
-    "@typescript-eslint/parser": "^4.6.0",
     "clsx": "^1.1.1",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-plugin-import": "2.21.2",
+    "eslint-plugin-jsx-a11y": "6.3.0",
+    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react-hooks": "4.0.0",
     "inversify": "^5.0.1",
     "react-app-rewired": "^2.1.6",
     "redux-devtools-extension": "^2.13.8",
