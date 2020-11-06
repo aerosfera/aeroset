@@ -2,8 +2,16 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: [
         '@typescript-eslint',
-        "react"
+        "react",
+        "only-warn"
     ],
+    env: {
+        browser: true,
+        amd: true,
+        node: true,
+        es6: true,
+        jest: true,
+    },
     parserOptions: {
         project: './tsconfig.json',
         tsconfigRootDir: __dirname,
@@ -30,7 +38,7 @@ module.exports = {
                                  // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
                                  // default to latest and warns if missing
                                  // It will default to "detect" in the future
-            "flowVersion": "0.53" // Flow version
+            flowVersion: "0.53" // Flow version
         },
         propWrapperFunctions: [
             // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.

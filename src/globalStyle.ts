@@ -3,7 +3,7 @@ import {normalize} from 'styled-normalize'
 
 // noinspection Stylelint
 export const GlobalStyle = createGlobalStyle`
-  ${normalize}
+  ${normalize};
   
    html, body {
     padding: 0;
