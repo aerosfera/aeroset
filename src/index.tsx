@@ -1,5 +1,7 @@
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
+// @ts-ignore
+import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import "./internationalization/i18n"; // import i18n (needs to be bundled ;))
 import * as serviceWorker from './serviceWorker';
 import 'fontsource-roboto';
@@ -16,7 +18,7 @@ ReactDOM.render(
         <BrowserRouter>
             <React.StrictMode>
                 <GlobalStyle/>
-                <CssBaseline />
+                <CssBaseline/>
                 <Theme>
                     <Suspense fallback="">
                         <App/>
@@ -28,4 +30,21 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-serviceWorker.register();
+function renderRefreshUI(registration, { refresh }) {
+    const el = document.createElement('div');
+    document.body.appendChild(el);
+
+    ReactDOM.render(<div onClick={refresh} />, document.getElementById(el));
+}
+
+serviceWorker.register({//https://www.npmjs.com/package/@loopmode/cra-workbox-refresh
+        onUpdate: registration => initWorkboxRefresh(registration, { render: renderRefreshUI })
+    }
+    //https://stackoverflow.com/questions/55245427/create-react-app-reload-on-service-worker-update
+    // onUpdate: registration => {
+    //     alert('New version available!  Ready to update?');
+    //     if (registration && registration.waiting) {
+    //         registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    //     }
+    //     window.location.reload();
+);
