@@ -18,7 +18,7 @@ export const PanelHeaderContainer = styled.strong<Theme>`
 
 export const PanelHeader = styled.div<Theme>`
 cursor: move;
-background: ${themeColor(ThemeColors.mediumGray)};
+background: ${themeColor(ThemeColors.darkBlue)};
 border-top-left-radius: 5px;
 border-top-right-radius: 5px;
 color: ${themeColor(ThemeColors.white)};

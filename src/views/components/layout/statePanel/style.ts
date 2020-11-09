@@ -4,6 +4,6 @@ import {ThemeColors} from "../../theme/ThemeColors";
 import {appSizes, themeColor} from "../../theme/themeAccessors";
 
 export const FooterContainer = styled.div<Theme>`
-background: ${themeColor(ThemeColors.lightGray)};
+background: ${themeColor(ThemeColors.mediumGray)};
 height: ${appSizes("footer")}px;
 `

@@ -9,7 +9,7 @@ export const Canvas = styled.canvas<Theme>`
    padding: 0;
    width: 100%;
    ${props => props.theme.breakpoints.up("sm")} {
-      height: calc(100vh - ${props => appSizes('header')(props) + appSizes('footer')(props) + appSizes('instrumentalPanel')(props)}px);
+      height: calc(100vh - ${props => appSizes('header')(props) + appSizes('footer')(props) + appSizes('instrumentalPanel')(props) }px);
    }
    ${props => props.theme.breakpoints.down("sm")} {
       height: calc(100vh - ${props => appSizes('headerMobile')(props)}px);

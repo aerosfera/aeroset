@@ -13,7 +13,11 @@ import List from "@material-ui/core/List";
 import React, {useEffect, useState} from "react";
 import {CLOSE_DRAWER_EVENT} from "../../../../../../services/eventBus/EventTypes";
 import PointCloudMenuItem from "./pointCloudMenuItem";
-import {DrawerContainer, DrawerHeader} from "./style";
+import {DrawerContainer, DrawerHeader, DrawerHeaderTitle} from "./style";
+import Typography from "@material-ui/core/Typography";
+import {themeColor} from "../../../../theme/themeAccessors";
+import {ThemeColors} from "../../../../theme/ThemeColors";
+import AppBar from "@material-ui/core/AppBar";
 
 interface DrawerPanelProps {
     theme: Theme,
@@ -38,12 +42,15 @@ const DrawerLeftPanel: React.FC<DrawerPanelProps> = (props) => {
         eventBus.send(CLOSE_DRAWER_EVENT, {})
     }
 
+    const blue = themeColor(ThemeColors.darkBlue)(props);
+
     return (
         <Drawer anchor="left"
                 open={isOpen}
                 onClose={handleDrawerClose}>
             <DrawerContainer>
                 <DrawerHeader>
+                    <DrawerHeaderTitle variant="h5">{t('aeroset')}</DrawerHeaderTitle>
                     <Tooltip title={t('close')}>
                         <IconButton onClick={handleDrawerClose}>
                             <ChevronLeftIcon onClick={handleDrawerClose}/>

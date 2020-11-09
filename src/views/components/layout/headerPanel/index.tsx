@@ -6,11 +6,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import {useTranslation} from "react-i18next";
 import {HeaderPanelContainer} from "./style";
-import IoC from "../../../../environment/ioc/IoC";
-import {EventBusService} from "../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../environment/ioc/ServiceTypes";
-import {SHOW_SNACKBAR_EVENT} from "../../../../services/eventBus/EventTypes";
-import {SnackbarEvent} from "../../snackbar/code/SnackbarEvent";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();

@@ -1,17 +1,14 @@
-import * as React from "react";
+import React from "react";
 import {Theme} from "@material-ui/core";
 import {withTheme} from "styled-components";
 import PointCloudPanelFilters from "../shared";
+import {PointCloudPanelMobileContainer} from "./style";
 
 const PointCloudPanelMobile: React.FC<{ theme: Theme }> = (props) => {
     return (
-        <div style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center'
-        }}>
+        <PointCloudPanelMobileContainer>
             <PointCloudPanelFilters/>
-        </div>
+        </PointCloudPanelMobileContainer>
     )
 }
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Theme} from "@material-ui/core";
 
 export const DrawerBottomContainer = styled.section<Theme>`
-height : 250px;
+height : 270px;
 align-content: center;
 `
 export const DrawerBottomHeader = styled.div<Theme>`

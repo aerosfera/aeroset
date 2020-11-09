@@ -4,6 +4,11 @@ import {ThemeColors} from "../../theme/ThemeColors";
 import {appSizes, themeColor} from "../../theme/themeAccessors";
 
 export const HeaderPanelContainer = styled.div<Theme>`
-background: ${themeColor(ThemeColors.lightGray)};
+background: ${themeColor(ThemeColors.mediumGray)};
 height: ${appSizes("header")}px;
+display: flex;
+align-items: center;
+flex-direction: row-reverse;
+padding-left: 16px;
+padding-right: 16px;
 `

@@ -34,7 +34,7 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
     const data = useSelector(dataSelector)
 
     return (
-        <Draggable bounds="parent" handle="strong">
+        <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}}>
             <PanelContainer isActive={data.isActive} width={257} height={240}>
                 <section>
                     <PanelHeaderContainer>

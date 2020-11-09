@@ -13,7 +13,7 @@ export default function setupScene(engine: BABYLON.Engine, theme: Theme): BABYLO
     if(color && color !== null)
         scene.clearColor = new BABYLON.Color4(color.r / 255, color.g / 255, color.b / 255, 1);
 
-    setupAxis(scene, 5);
+    setupAxis(scene, 2);
 
     engine.runRenderLoop(() => {
         scene.render();

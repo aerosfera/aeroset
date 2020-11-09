@@ -22,7 +22,7 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
             console.log('canvas is not supported!');
             alert('canvas is not supported!');
         }
-        const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE")); //Todo: understand why
+        const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
         const sceneAspects = apiProvider.scene;
 
         const engine: Engine = new BABYLON.Engine(canvas, true);

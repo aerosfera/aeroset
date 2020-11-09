@@ -1,4 +1,5 @@
 {
+  "aeroset" : "Aeroset",
   "close": "Close",
   "user_account" : "User account",
   "menu" : "Menu",
@@ -12,5 +13,7 @@
   "point_cloud_y_to" : "y to",
   "point_cloud_z_from" : "z from",
   "point_cloud_z_to" : "z to",
-  "point_cloud_successfully_uploaded" : "Point Cloud Successfully Uploaded"
+  "point_cloud_successfully_uploaded" : "Point Cloud Successfully Uploaded",
+  "actions" : "Actions",
+  "point_cloud_clear" : "Clear point cloud"
 }

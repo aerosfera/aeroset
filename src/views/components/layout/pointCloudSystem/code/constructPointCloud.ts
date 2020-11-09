@@ -106,10 +106,13 @@ export function setUpPointCloud(file: File, cloudPointFilters: PointCloudFilters
         }
 
         const pointsCloudSystem = await constructPointCloud(scene, points, parameterMin, parameterMax, cloudPointFilters);
+        const previousPcsMesh = apiProvider.scene.pointsCloudSystem?.mesh;
         apiProvider.scene.pointsCloudSystem = pointsCloudSystem;
 
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-        eventBus.send(SHOW_SNACKBAR_EVENT, {message: i18next.t('point_cloud_successfully_uploaded'), alertType: "success"} as SnackbarEvent)
+
+        if(previousPcsMesh !== pointsCloudSystem.mesh || !previousPcsMesh)
+            eventBus.send(SHOW_SNACKBAR_EVENT, {message: i18next.t('point_cloud_successfully_uploaded'), alertType: "success"} as SnackbarEvent)
     };
 
     const blob: Blob = <Blob>file;

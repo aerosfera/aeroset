@@ -16,6 +16,7 @@ import {EventBusService} from "../../../../../services/eventBus/EventBusService"
 import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT} from "../../../../../services/eventBus/EventTypes";
 import DrawerBottomPanel from "../drawer/bottom";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
@@ -58,6 +59,13 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
                     <Typography variant="h6" style={{display: "block", flexGrow: 1, marginLeft: 16}}>
                         'Scheme name'
                     </Typography>
+                    <Tooltip title={t('actions')}>
+                        <IconButton size={"small"}
+                                    color={"primary"}
+                                    style={{marginLeft: 10}}>
+                            <MoreVertIcon style={{color: "white", fontSize: 35}}/>
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title={t('user_account')}>
                         <IconButton size={"small"}
                                     color={"primary"}
