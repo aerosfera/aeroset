@@ -45,7 +45,7 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
     return (
         <HeaderMobilePanelContainer>
             <AppBar position="static">
-                <Toolbar style={{background: props.theme.app.colors.main.darkGray}}>
+                <Toolbar style={{background: props.theme.app.colors.main.mediumGray}}>
                     <Tooltip title={t('menu')}>
                         <IconButton size={"medium"}
                                     color={"primary"}

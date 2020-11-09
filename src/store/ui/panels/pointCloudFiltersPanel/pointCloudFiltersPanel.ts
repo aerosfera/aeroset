@@ -12,12 +12,12 @@ export interface PointCloudFiltersState {
 };
 
 const defaultState: PointCloudFiltersState = {
-    filterXFromLimit: -5,
-    filterXToLimit: 5,
-    filterYFromLimit: -5,
-    filterYToLimit: 5,
-    filterZFromLimit: -5,
-    filterZToLimit: 5
+    filterXFromLimit: -100,
+    filterXToLimit: 100,
+    filterYFromLimit: -100,
+    filterYToLimit: 100,
+    filterZFromLimit: -100,
+    filterZToLimit: 100
 };
 
 const slice = createSlice({

@@ -1,4 +1,3 @@
-import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import Draggable from 'react-draggable';
@@ -6,7 +5,6 @@ import {
     closePointCloudFiltersPanel,
     pointCloudFiltersPanelActivitySelector
 } from "../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
-import CloseIcon from "@material-ui/icons/Close";
 import {TextField, Theme} from "@material-ui/core";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {
@@ -23,6 +21,16 @@ import {useAppDispatch} from "../../../../../store/store";
 import {useSelector} from "react-redux";
 import {createSelector} from "@reduxjs/toolkit";
 import {withTheme} from "styled-components";
+import {useTranslation} from "react-i18next";
+import {
+    PanelContainer,
+    PanelHeaderContainer,
+    PanelHeader,
+    PanelHeaderText,
+    PanelHeaderTypography, PanelBodyContainer
+} from "../shared/style";
+import {AppCloseIcon} from "../../../shared/style";
+import {PointCloudPanelLineContainer} from "./style";
 
 const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
     getPointCloudFiltersPanelSelector], (isActive: boolean, filtersState: PointCloudFiltersState) =>
@@ -34,41 +42,20 @@ const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector,
 
 const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
     const dispatch = useAppDispatch()
+    const {t} = useTranslation()
     const data = useSelector(dataSelector)
     const filter = data.filtersState
 
     return (
         <Draggable bounds="parent" handle="strong">
-            <div style={
-                {
-                    height: 255,
-                    width: 250,
-                    background: "#e8e8e8",
-                    borderRadius: 5,
-                    pointerEvents: "auto",
-                    visibility: data.isActive ? "visible" : "hidden"
-                }}>
-
-                <div>
-                    <strong>
-                        <div style={{
-                            cursor: "move",
-                            background: "#e6739f",
-                            borderTopLeftRadius: 5,
-                            borderTopRightRadius: 5,
-                            color: "white",
-                            textAlign: "center",
-                            height: 30
-                        }}>
-                            <div style={{
-                                marginLeft: "8px",
-                                alignContent: "center",
-                                display: "inline-block"
-                            }}>
-                                <Typography variant="subtitle1"> Фильтр облака точек</Typography>
-
-                            </div>
-                            <Tooltip title="Закрыть"
+            <PanelContainer isActive={data.isActive} width={257} height={240}>
+                <section>
+                    <PanelHeaderContainer>
+                        <PanelHeader>
+                            <PanelHeaderText>
+                                <PanelHeaderTypography variant="subtitle1">{t('point_cloud_filters')}</PanelHeaderTypography>
+                            </PanelHeaderText>
+                            <Tooltip title={t('close')}
                                      style={{
                                          float: "right"
                                      }}>
@@ -78,17 +65,16 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                         size="small"
                                         onClick={() => dispatch(closePointCloudFiltersPanel())}
                                         color="primary">
-                                        <CloseIcon style={{color: "white"}}/>
+                                        <AppCloseIcon/>
                                     </IconButton>
                                 </label>
                             </Tooltip>
-                        </div>
-                    </strong>
-                    <div style={{marginLeft: "13px"}}>
-                        <div style={{marginTop: 16}}>
+                        </PanelHeader>
+                    </PanelHeaderContainer>
+                    <PanelBodyContainer>
+                        <PointCloudPanelLineContainer>
                             <TextField
-                                id="outlined-number"
-                                label="X FROM"
+                                label={t('point_cloud_x_from')}
                                 type="number"
                                 name={"x-from"}
                                 step="0.1"
@@ -105,11 +91,11 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                 inputProps={{
                                     step: 0.1
                                 }}
-                                variant="outlined"
+                                variant="standard"
                             />
                             <TextField
                                 id="outlined-number"
-                                label="X TO"
+                                label={t('point_cloud_x_to')}
                                 type="number"
                                 name={"x-to"}
                                 step="0.1"
@@ -122,12 +108,12 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                 inputProps={{
                                     step: 0.1
                                 }}
-                                variant="outlined"/>
-                        </div>
-                        <div style={{marginTop: 12}}>
+                                variant="standard"/>
+                        </PointCloudPanelLineContainer>
+                        <PointCloudPanelLineContainer>
                             <TextField
                                 id="outlined-number"
-                                label="Y FROM"
+                                label={t('point_cloud_y_from')}
                                 type="number"
                                 name={"y-from"}
                                 step="0.1"
@@ -140,11 +126,11 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                 inputProps={{
                                     step: 0.1
                                 }}
-                                variant="outlined"
+                                variant="standard"
                             />
                             <TextField
                                 id="outlined-number"
-                                label="Y TO"
+                                label={t('point_cloud_y_to')}
                                 type="number"
                                 name={"y-to"}
                                 step="0.1"
@@ -157,12 +143,12 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                 inputProps={{
                                     step: 0.1
                                 }}
-                                variant="outlined"/>
-                        </div>
-                        <div style={{marginTop: 12}}>
+                                variant="standard"/>
+                        </PointCloudPanelLineContainer>
+                        <PointCloudPanelLineContainer>
                             <TextField
                                 id="outlined-number"
-                                label="Z FROM"
+                                label={t('point_cloud_z_from')}
                                 type="number"
                                 name={"z-from"}
                                 step="0.1"
@@ -175,11 +161,11 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                 inputProps={{
                                     step: 0.1
                                 }}
-                                variant="outlined"
+                                variant="standard"
                             />
                             <TextField
                                 id="outlined-number"
-                                label="Z TO"
+                                label={t('point_cloud_z_to')}
                                 type="number"
                                 name={"z-to"}
                                 step="0.1"
@@ -192,11 +178,11 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                 inputProps={{
                                     step: 0.1
                                 }}
-                                variant="outlined"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                variant="standard"/>
+                        </PointCloudPanelLineContainer>
+                    </PanelBodyContainer>
+                </section>
+            </PanelContainer>
         </Draggable>
     )
 }

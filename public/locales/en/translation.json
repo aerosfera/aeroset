@@ -4,5 +4,12 @@
   "menu" : "Menu",
   "point_cloud" : "Point cloud",
   "load_file_with_point_cloud" : "Load file with point cloud",
-  "open_panel_point_cloud_filters" : "Open filters panel"
+  "open_panel_point_cloud_filters" : "Open filters panel",
+  "point_cloud_filters" : "Point Cloud filters",
+  "point_cloud_x_from" : "x from",
+  "point_cloud_x_to" : "x to",
+  "point_cloud_y_from" : "y from",
+  "point_cloud_y_to" : "y to",
+  "point_cloud_z_from" : "z from",
+  "point_cloud_z_to" : "z to"
 }

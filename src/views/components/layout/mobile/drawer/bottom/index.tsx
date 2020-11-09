@@ -18,7 +18,7 @@ const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
 
     const [state, setState] = useState({
-        isOpen: true
+        isOpen: false
     });
     const {isOpen} = state;
 
@@ -40,6 +40,7 @@ const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
                 break;
         }
 
+        setState({isOpen: true})
     }
 
     const handleDrawerClose = () => {

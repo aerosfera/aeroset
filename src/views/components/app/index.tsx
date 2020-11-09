@@ -9,6 +9,7 @@ import StatePanel from "../layout/statePanel";
 import Scene from "../layout/scene";
 import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
+import {AppDivider} from "../shared/style";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
     return (
@@ -28,7 +29,7 @@ const App: React.FC<{ theme: Theme }> = (_) => {
                     </Grid>
                 </Hidden>
                 <Grid item xs={12}>
-                    <Divider/>
+                    <AppDivider/>
                 </Grid>
                 <Hidden smDown>
                     <Grid item xs={12}>
@@ -37,7 +38,7 @@ const App: React.FC<{ theme: Theme }> = (_) => {
                 </Hidden>
                 <Hidden smDown>
                     <Grid item xs={12}>
-                        <Divider/>
+                        <AppDivider/>
                     </Grid>
                 </Hidden>
                 <Grid item xs={12}>
@@ -47,7 +48,7 @@ const App: React.FC<{ theme: Theme }> = (_) => {
                 </Grid>
                 <Hidden smDown>
                     <Grid item xs={12}>
-                        <Divider/>
+                        <AppDivider/>
                     </Grid>
                 </Hidden>
                 <Hidden smDown>
