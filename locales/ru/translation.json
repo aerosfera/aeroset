@@ -1,0 +1,19 @@
+{
+  "aeroset" : "Аэросеть",
+  "close": "Закрыть",
+  "user_account" : "Аккаунт пользователя",
+  "menu" : "Меню",
+  "point_cloud" : "Облако точек",
+  "load_file_with_point_cloud" : "Загрузить файл с облаком точек",
+  "open_panel_point_cloud_filters" : "Открыть панель фильтров",
+  "point_cloud_filters" : "Фильтры облака точек",
+  "point_cloud_x_from" : "x от",
+  "point_cloud_x_to" : "x до",
+  "point_cloud_y_from" : "y от",
+  "point_cloud_y_to" : "y до",
+  "point_cloud_z_from" : "z от",
+  "point_cloud_z_to" : "z до",
+  "point_cloud_successfully_uploaded" : "Облако точек успешно загружено",
+  "actions" : "Действия",
+  "point_cloud_clear" : "Очистить облако точек"
+}
