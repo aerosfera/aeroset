@@ -4,9 +4,9 @@ import {themeColor} from "../../../theme/themeAccessors";
 import {ThemeColors} from "../../../theme/ThemeColors";
 import Typography from "@material-ui/core/Typography";
 
-export const PanelContainer = styled.section<Theme>`
- height: ${props => props.height}px;
+export const PanelContainer = styled.section<{ theme: Theme, width: number, height: number, isActive: number }>`
  width: ${props => props.width}px;
+ height: ${props => props.height}px;
  background: ${themeColor(ThemeColors.lightGray)};
  border-radius: 5px;
  pointer-events: auto;

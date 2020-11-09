@@ -56,7 +56,7 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
                         </IconButton>
                     </Tooltip>
                     <Typography variant="h6" style={{display: "block", flexGrow: 1, marginLeft: 16}}>
-                        Scheme name
+                        'Scheme name'
                     </Typography>
                     <Tooltip title={t('user_account')}>
                         <IconButton size={"small"}

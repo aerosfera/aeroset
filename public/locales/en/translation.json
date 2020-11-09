@@ -11,5 +11,6 @@
   "point_cloud_y_from" : "y from",
   "point_cloud_y_to" : "y to",
   "point_cloud_z_from" : "z from",
-  "point_cloud_z_to" : "z to"
+  "point_cloud_z_to" : "z to",
+  "point_cloud_successfully_uploaded" : "Point Cloud Successfully Uploaded"
 }

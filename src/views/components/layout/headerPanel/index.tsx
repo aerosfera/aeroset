@@ -14,18 +14,11 @@ import {SnackbarEvent} from "../../snackbar/code/SnackbarEvent";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();
-
-    function handleClick() {
-        const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-        eventBus.send(SHOW_SNACKBAR_EVENT, {message: "test", alertType: "success"} as SnackbarEvent)
-    }
-
     return (
         <HeaderPanelContainer>
             <Tooltip title={t('user_account')}>
                 <IconButton size={"small"}
                             color={"primary"}
-                            onClick={handleClick}
                             style={{marginLeft: 10}}>
                     <AccountCircleIcon style={{color: "white", fontSize: 35}}/>
                 </IconButton>

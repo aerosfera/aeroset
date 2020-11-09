@@ -17,7 +17,7 @@ import {useAppDispatch} from "../../../../../../../store/store";
 import IoC from "../../../../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../../../../services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE} from "../../../../../../../environment/ioc/ServiceTypes";
-import {OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../../services/eventBus/EventTypes";
+import {CLOSE_DRAWER_EVENT, OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../../services/eventBus/EventTypes";
 import {BottomDrawerContentType} from "../../bottom/code/BottomDrawerContentType";
 
 const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
@@ -36,6 +36,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
     const openPanelPointCloudFiltersClickHandle = () => {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
         eventBus.send(OPEN_BOTTOM_DRAWER_EVENT,{contentType: BottomDrawerContentType.PointCloud})
+        eventBus.send(CLOSE_DRAWER_EVENT,{})
     };
 
     return (
@@ -58,6 +59,8 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
                                     e.preventDefault();
                                     const file: File = e.target.files?.[0] as File;
                                     if (file && file !== undefined) {
+                                        const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
+                                        eventBus.send(CLOSE_DRAWER_EVENT,{})
                                         dispatch(pointCloudLoadFile(file));
                                     }
                                 }}
@@ -79,7 +82,9 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
                             onClick={openPanelPointCloudFiltersClickHandle}>
                             <DialpadIcon/>
                         </ListItemIcon>
-                        <ListItemText primary={t('open_panel_point_cloud_filters')}/>
+                        <ListItemText
+                            onClick={openPanelPointCloudFiltersClickHandle}
+                            primary={t('open_panel_point_cloud_filters')}/>
                     </ListItem>
                 </List>
             </Collapse>

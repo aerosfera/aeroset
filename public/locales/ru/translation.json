@@ -11,5 +11,6 @@
   "point_cloud_y_from" : "y от",
   "point_cloud_y_to" : "y до",
   "point_cloud_z_from" : "z от",
-  "point_cloud_z_to" : "z до"
+  "point_cloud_z_to" : "z до",
+  "point_cloud_successfully_uploaded" : "Облако точек успешно загружено"
 }

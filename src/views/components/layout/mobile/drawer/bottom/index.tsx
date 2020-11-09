@@ -4,23 +4,27 @@ import {useTranslation} from "react-i18next";
 import Drawer from "@material-ui/core/Drawer";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
-import Divider from "@material-ui/core/Divider";
 import React, {useEffect, useState} from "react";
-import {DrawerBottomContainer, DrawerBottomHeader} from "./style";
+import {DrawerBottomContainer, DrawerBottomHeader, MobilePanelContainer} from "./style";
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import IoC from "../../../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../../../services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE} from "../../../../../../environment/ioc/ServiceTypes";
 import {OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../services/eventBus/EventTypes";
 import {BottomDrawerContentType} from "./code/BottomDrawerContentType";
+import {AppDivider} from "../../../../shared/style";
+import {PanelHeader, PanelHeaderText, PanelHeaderTypography} from "../../../panels/shared/style";
+import Typography from "@material-ui/core/Typography";
+import PointCloudPanelMobile from "../../../panels/pointCloudPanel/mobile";
 
 const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
 
     const [state, setState] = useState({
-        isOpen: false
+        isOpen: false,
+        visiblePanel: BottomDrawerContentType
     });
-    const {isOpen} = state;
+    const {isOpen, visiblePanel} = state;
 
     useEffect(() => {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
@@ -32,19 +36,12 @@ const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
     }, [])
 
     const contentChangedHandler = (events: any[]) => {
-        const content = events[0] as { contentType: BottomDrawerContentType}
-
-        switch (content.contentType){
-            case BottomDrawerContentType.PointCloud:
-
-                break;
-        }
-
-        setState({isOpen: true})
+        const content = events[0] as { contentType: BottomDrawerContentType }
+        setState({visiblePanel: content.contentType, isOpen: true})
     }
 
     const handleDrawerClose = () => {
-        setState({isOpen: false})
+        setState({...state, isOpen: false})
     }
 
     return (
@@ -53,16 +50,24 @@ const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
                 onClose={handleDrawerClose}>
             <DrawerBottomContainer>
                 <DrawerBottomHeader>
+                    <div style={{marginRight: "auto"}}>
+                        <Typography variant="h6">
+                            <MobilePanelContainer currentType={BottomDrawerContentType.PointCloud}
+                                                  stateType={visiblePanel}>
+                                {t('point_cloud_filters')}
+                            </MobilePanelContainer>
+                        </Typography>
+                    </div>
                     <Tooltip title={t('close')}>
                         <IconButton onClick={handleDrawerClose}>
                             <KeyboardArrowDownIcon onClick={handleDrawerClose}/>
                         </IconButton>
                     </Tooltip>
                 </DrawerBottomHeader>
-                <Divider/>
-                <div>
-
-                </div>
+                <AppDivider/>
+                <MobilePanelContainer currentType={BottomDrawerContentType.PointCloud} stateType={visiblePanel}>
+                    <PointCloudPanelMobile/>
+                </MobilePanelContainer>
             </DrawerBottomContainer>
         </Drawer>
     )

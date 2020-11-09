@@ -7,6 +7,12 @@ import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
 import calculateMinMaxOfArray from "../../../../../utilities/math/calculateMaxMinOfArray";
 import ApiProvider from "../../../../../services/apiProvider/ApiProvider";
 import IoC from "../../../../../environment/ioc/IoC";
+import {EventBusService} from "../../../../../services/eventBus/EventBusService";
+import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import {SHOW_SNACKBAR_EVENT} from "../../../../../services/eventBus/EventTypes";
+import {SnackbarEvent} from "../../../snackbar/code/SnackbarEvent";
+import {useTranslation} from "react-i18next";
+import i18next from "i18next";
 
 export default async function constructPointCloud(scene: Scene,
                                                   points: SolidPoint[],
@@ -101,6 +107,9 @@ export function setUpPointCloud(file: File, cloudPointFilters: PointCloudFilters
 
         const pointsCloudSystem = await constructPointCloud(scene, points, parameterMin, parameterMax, cloudPointFilters);
         apiProvider.scene.pointsCloudSystem = pointsCloudSystem;
+
+        const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
+        eventBus.send(SHOW_SNACKBAR_EVENT, {message: i18next.t('point_cloud_successfully_uploaded'), alertType: "success"} as SnackbarEvent)
     };
 
     const blob: Blob = <Blob>file;
