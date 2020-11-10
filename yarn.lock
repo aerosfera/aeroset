@@ -1391,7 +1391,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@loopmode/cra-workbox-refresh@^0.0.5":
+"@loopmode/cra-workbox-refresh@0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@loopmode/cra-workbox-refresh/-/cra-workbox-refresh-0.0.5.tgz#178b3e860dd137a41863166dada5fe02ca410d95"
   integrity sha512-DcawFOxZK0uJVSmhEogd5jJUx/4ibi5aata1Vn3x+gmxsVUzm+SnMI8wT56D8v48QcBeGnhEUxXfTtAyYdkvwA==

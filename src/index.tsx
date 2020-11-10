@@ -11,6 +11,11 @@ import Theme from "./views/components/theme";
 import App from "./views/components/app";
 import {CssBaseline} from "@material-ui/core";
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh'
+import IoC from "./environment/ioc/IoC";
+import {EventBusService} from "./services/eventBus/EventBusService";
+import {EVENT_BUS_SERVICE} from "./environment/ioc/ServiceTypes";
+import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
+import i18next from "i18next";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -29,31 +34,24 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-// function renderRefreshUI(registration, { refresh }) {
-//     const el = document.createElement('div');
-//     document.body.appendChild(el);
-//
-//     ReactDOM.render(<div onClick={refresh}>Вышла новая версия. Обновить?</div>, document.getElementById(el));
-// }
+function renderRefreshUI(registration : any, { refresh }) {
+    const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
+    const event : SnackbarEvent = {
+        message : i18next.t('f'),
+        alertType : "info",
+        callback : refresh
+    }
+    eventBus.send('SHOW_NEW_VERSION_EVENT',event)
+}
+
+window.onerror = function unhandledExceptionErrorHandler(errorMsg, url, lineNumber) {
+    alert("Error occured: " + errorMsg);//or any message
+    return false;
+}
 
 serviceWorker.register({
          onUpdate: registration => {
-             alert("New Version")
              console.log("New Version")
-             return initWorkboxRefresh(registration, {render: () => alert("New Version")});
+             return initWorkboxRefresh(registration, {render: renderRefreshUI});
          }
 })
-
-
-//
-// serviceWorker.register({//https://www.npmjs.com/package/@loopmode/cra-workbox-refresh
-//         onUpdate: registration => initWorkboxRefresh(registration, { render: renderRefreshUI })
-//     }
-//     //https://stackoverflow.com/questions/55245427/create-react-app-reload-on-service-worker-update
-//     // onUpdate: registration => {
-//     //     alert('New version available!  Ready to update?');
-//     //     if (registration && registration.waiting) {
-//     //         registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-//     //     }
-//     //     window.location.reload();
-// );
