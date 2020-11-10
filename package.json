@@ -27,6 +27,7 @@
     "ramda": "^0.27.1",
     "react": "^17.0.1",
     "react-app-rewire-styled-components": "^3.0.2",
+    "react-app-rewire-workbox": "^2.0.1",
     "react-dom": "^17.0.1",
     "react-draggable": "^4.4.3",
     "react-i18next": "^11.7.3",
@@ -45,15 +46,19 @@
     "styled-media-query": "^2.1.2",
     "styled-normalize": "^8.0.7",
     "styled-system": "^5.1.5",
-    "styled-theming": "^2.2.0"
+    "styled-theming": "^2.2.0",
+    "workbox-precaching": "^5.1.4",
+    "workbox-routing": "^5.1.4",
+    "workbox-strategies": "^5.1.4",
+    "workbox-webpack-plugin": "^5.1.4"
   },
   "sideEffects": [
     "./src/internationalization/i18n.ts"
   ],
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && inject-workbox-refresh",
-    "test": "react-app-rewired test",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -107,6 +112,7 @@
     "inversify": "^5.0.1",
     "react-app-rewired": "^2.1.6",
     "redux-devtools-extension": "^2.13.8",
+    "serve": "^11.3.2",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-processor-styled-components": "^1.10.0",
