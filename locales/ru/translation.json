@@ -16,5 +16,6 @@
   "point_cloud_successfully_uploaded" : "Облако точек успешно загружено",
   "actions" : "Действия",
   "point_cloud_clear" : "Очистить облако точек",
-  "new_version" : "Появилась новая версия."
+  "new_version" : "Новая версия",
+  "update" : "Обновить"
 }
