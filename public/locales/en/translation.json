@@ -15,5 +15,7 @@
   "point_cloud_z_to" : "z to",
   "point_cloud_successfully_uploaded" : "Point Cloud Successfully Uploaded",
   "actions" : "Actions",
-  "point_cloud_clear" : "Clear point cloud"
+  "point_cloud_clear" : "Clear point cloud",
+  "new_version" : "New version released",
+  "update" : "Update"
 }

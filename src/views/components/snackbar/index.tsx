@@ -1,8 +1,8 @@
 import {Theme} from "@material-ui/core";
 import * as React from "react";
+import {useEffect, useState} from "react";
 import {withTheme} from "styled-components";
 import Snackbar from "@material-ui/core/Snackbar";
-import {useEffect, useState} from "react";
 import IoC from "../../../environment/ioc/IoC";
 import {EventBusService} from "../../../services/eventBus/EventBusService";
 import {SHOW_NEW_VERSION_EVENT, SHOW_SNACKBAR_EVENT} from "../../../services/eventBus/EventTypes";
@@ -11,6 +11,9 @@ import {EVENT_BUS_SERVICE} from "../../../environment/ioc/ServiceTypes";
 import {SnackbarWrapper} from "./style";
 import {SnackbarEvent} from "./code/SnackbarEvent";
 import {useTranslation} from "react-i18next";
+import Button from "@material-ui/core/Button";
+import {themeColor} from "../theme/themeAccessors";
+import {ThemeColors} from "../theme/ThemeColors";
 
 const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -74,10 +77,20 @@ const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
 
     const {open, message, callback, alertType, isVersionSnackbar} = snackbarState;
 
+    const reload = () => {
+        location.reload();
+        return false;
+    }
+
+    const updateVersionAction = (
+        <Button color="primary" size="small" onClick={reload}>
+            {t('update')}
+        </Button>
+    )
     return (
         <SnackbarWrapper>
             <Snackbar
-                style={{position: "absolute"}}
+                style={{position: "absolute", alignContent: "center"}}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'right',
@@ -87,8 +100,9 @@ const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
                 autoHideDuration={isVersionSnackbar ? null : 5000}>
                 <Alert onClose={handleClose}
                        severity={alertType}
-                       action={callback}
-                       closeText={t('close')}>
+                       style={{verticalAlign: "middle"}}
+                       closeText={t('close')}
+                       action={isVersionSnackbar ? updateVersionAction : null}>
                     {message}
                 </Alert>
             </Snackbar>

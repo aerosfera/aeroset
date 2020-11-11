@@ -15,5 +15,7 @@
   "point_cloud_z_to" : "z до",
   "point_cloud_successfully_uploaded" : "Облако точек успешно загружено",
   "actions" : "Действия",
-  "point_cloud_clear" : "Очистить облако точек"
+  "point_cloud_clear" : "Очистить облако точек",
+  "new_version" : "Новая версия приложения доступна",
+  "update" : "Обновить"
 }

@@ -9,7 +9,7 @@ import StatePanel from "../layout/statePanel";
 import Scene from "../layout/scene";
 import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
-import {AppDivider, AppDividerLight} from "../shared/style";
+import {AppDividerLight} from "../shared/style";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
     return (

@@ -10,12 +10,12 @@ import {GlobalStyle} from "./globalStyle";
 import Theme from "./views/components/theme";
 import App from "./views/components/app";
 import {CssBaseline} from "@material-ui/core";
-import initWorkboxRefresh from '@loopmode/cra-workbox-refresh'
 import IoC from "./environment/ioc/IoC";
 import {EventBusService} from "./services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE} from "./environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
+import {checkAppUpdate} from "./utilities/workbox/checkUpdate";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -34,12 +34,11 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-function renderRefreshUI(registration : any, { refresh }) {
+function renderRefreshUI(registration : any, { _ }) {
     const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
     const event : SnackbarEvent = {
-        message : i18next.t('f'),
-        alertType : "info",
-        callback : refresh
+        message : i18next.t('new_version'),
+        alertType : "info"
     }
     eventBus.send('SHOW_NEW_VERSION_EVENT',event)
 }
@@ -50,8 +49,9 @@ window.onerror = function unhandledExceptionErrorHandler(errorMsg, url, lineNumb
 }
 
 serviceWorker.register({
-         onUpdate: registration => {
+         onUpdate: (registration: any) => {
              console.log("New Version")
-             return initWorkboxRefresh(registration, {render: renderRefreshUI});
+             // @ts-ignore
+             return checkAppUpdate(registration, {render: renderRefreshUI});
          }
 })
