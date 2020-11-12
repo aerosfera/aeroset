@@ -12,8 +12,6 @@ import {SnackbarWrapper} from "./style";
 import {SnackbarEvent} from "./code/SnackbarEvent";
 import {useTranslation} from "react-i18next";
 import Button from "@material-ui/core/Button";
-import {themeColor} from "../theme/themeAccessors";
-import {ThemeColors} from "../theme/ThemeColors";
 
 const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()

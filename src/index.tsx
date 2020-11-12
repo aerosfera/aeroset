@@ -16,6 +16,7 @@ import {EVENT_BUS_SERVICE} from "./environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import {checkAppUpdate} from "./utilities/workbox/checkUpdate";
+import 'pepjs';
 
 ReactDOM.render(
     <Provider store={store}>

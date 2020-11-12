@@ -14,5 +14,5 @@ export const Canvas = styled.canvas<Theme>`
    ${props => props.theme.breakpoints.down("sm")} {
       height: calc(100vh - ${props => appSizes('headerMobile')(props)}px);
    }
-   touch-action: auto;
+   touch-action: none;
 `

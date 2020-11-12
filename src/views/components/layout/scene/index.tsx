@@ -43,7 +43,7 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
 
 
     return (
-        <div>
+        <div onPointerDown={(e) => console.log(e)}>
             <Canvas
                 ref={canvas => {
                     if (canvas != undefined && canvas) {
