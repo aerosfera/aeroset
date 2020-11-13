@@ -18,6 +18,8 @@ import Typography from "@material-ui/core/Typography";
 import {themeColor} from "../../../../theme/themeAccessors";
 import {ThemeColors} from "../../../../theme/ThemeColors";
 import AppBar from "@material-ui/core/AppBar";
+import Version from "../../../../version";
+import SnackbarContainer from "../../../../snackbar";
 
 interface DrawerPanelProps {
     theme: Theme,
@@ -42,8 +44,6 @@ const DrawerLeftPanel: React.FC<DrawerPanelProps> = (props) => {
         eventBus.send(CLOSE_DRAWER_EVENT, {})
     }
 
-    const blue = themeColor(ThemeColors.darkBlue)(props);
-
     return (
         <Drawer anchor="left"
                 open={isOpen}
@@ -65,6 +65,9 @@ const DrawerLeftPanel: React.FC<DrawerPanelProps> = (props) => {
                 >
                     <PointCloudMenuItem/>
                 </List>
+                <div style={{position:"absolute", bottom: 8, left: 8}}>
+                    <Version isDark={true}/>
+                </div>
             </DrawerContainer>
         </Drawer>
     )
