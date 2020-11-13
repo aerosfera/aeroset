@@ -6,4 +6,7 @@ import {appSizes, themeColor} from "../../theme/themeAccessors";
 export const FooterContainer = styled.div<Theme>`
 background: ${themeColor(ThemeColors.mediumGray)};
 height: ${appSizes("footer")}px;
+display: flex;
+flex-direction: row;
+align-items: center;
 `

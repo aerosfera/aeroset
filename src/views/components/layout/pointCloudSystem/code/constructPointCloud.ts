@@ -21,7 +21,7 @@ export default async function constructPointCloud(scene: Scene,
                                                   cloudPointFilters: PointCloudFiltersState): Promise<PointsCloudSystem> {
 
 
-    const filteredPoints: SolidPoint[] = filterPointCloud(points,cloudPointFilters);
+    const filteredPoints: SolidPoint[] = filterPointCloud(points, cloudPointFilters);
     const pointsCloudSystem = new BABYLON.PointsCloudSystem("pcs", 3, scene, {updatable: false});
 
     const diffP = parameterMax - parameterMin;
@@ -70,7 +70,7 @@ export default async function constructPointCloud(scene: Scene,
     return pointsCloudSystem;
 }
 
-export function setUpPointCloud(file: File, cloudPointFilters: PointCloudFiltersState) {
+export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudFiltersState) => {
     const reader: FileReader = new FileReader()
 
     reader.onload = async (e: ProgressEvent<FileReader>) => {
@@ -111,8 +111,11 @@ export function setUpPointCloud(file: File, cloudPointFilters: PointCloudFilters
 
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
 
-        if(previousPcsMesh !== pointsCloudSystem.mesh || !previousPcsMesh)
-            eventBus.send(SHOW_SNACKBAR_EVENT, {message: i18next.t('point_cloud_successfully_uploaded'), alertType: "success"} as SnackbarEvent)
+        if (previousPcsMesh !== pointsCloudSystem.mesh || !previousPcsMesh)
+            eventBus.send(SHOW_SNACKBAR_EVENT, {
+                message: i18next.t('point_cloud_successfully_uploaded'),
+                alertType: "success"
+            } as SnackbarEvent)
     };
 
     const blob: Blob = <Blob>file;
@@ -136,3 +139,4 @@ function filterPointCloud(points: SolidPoint[], cloudPointFilters: PointCloudFil
 
     return filteredPoints;
 }
+

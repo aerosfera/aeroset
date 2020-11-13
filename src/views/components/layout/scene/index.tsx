@@ -52,10 +52,6 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
                     }
                 }}
             />
-            <div style={{position:"absolute"}}>
-                <div>x</div>
-                <div>y</div>
-            </div>
             <PointCloud/>
             <Hidden smDown>
                 <Panels/>
