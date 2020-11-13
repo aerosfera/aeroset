@@ -14,10 +14,13 @@ export default function setupCamera(canvas: HTMLCanvasElement, scene: BABYLON.Sc
 
     camera.attachControl(canvas, false);
     camera.alpha += Math.PI; // camera +180°
-    camera.attachControl(canvas, true, false, 0);
+    //camera.attachControl(canvas, true, false, 0);
     camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
 
     camera.lowerRadiusLimit = camera.radius;
     camera.upperRadiusLimit = camera.radius;
+
+    camera.inputs.addMouseWheel();
+    camera.inputs.addPointers();
     return camera;
 }

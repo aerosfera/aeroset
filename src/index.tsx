@@ -15,6 +15,7 @@ import {EventBusService} from "./services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE, VERSION_SERVICE} from "./environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
+import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import {checkAppUpdate} from "./utilities/workbox/checkUpdate";
 import 'pepjs';
 
@@ -52,6 +53,6 @@ serviceWorker.register({
     onUpdate: (registration: any) => {
         console.log("New Version")
         // @ts-ignore
-        return checkAppUpdate(registration, {render: renderRefreshUI});
+        return initWorkboxRefresh(registration, {render: renderRefreshUI});
     }
 })

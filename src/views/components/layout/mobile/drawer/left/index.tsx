@@ -14,12 +14,7 @@ import React, {useEffect, useState} from "react";
 import {CLOSE_DRAWER_EVENT} from "../../../../../../services/eventBus/EventTypes";
 import PointCloudMenuItem from "./pointCloudMenuItem";
 import {DrawerContainer, DrawerHeader, DrawerHeaderTitle} from "./style";
-import Typography from "@material-ui/core/Typography";
-import {themeColor} from "../../../../theme/themeAccessors";
-import {ThemeColors} from "../../../../theme/ThemeColors";
-import AppBar from "@material-ui/core/AppBar";
 import Version from "../../../../version";
-import SnackbarContainer from "../../../../snackbar";
 
 interface DrawerPanelProps {
     theme: Theme,

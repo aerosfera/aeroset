@@ -15,9 +15,11 @@ import Version from "../version";
 const App: React.FC<{ theme: Theme }> = (_) => {
     return (
         <SnackbarContainer>
-            <div style={{position: "absolute", left: 8, top: 8}}>
-                <Version/>
-            </div>
+            <Hidden smDown>
+                <div style={{position: "absolute", left: 8, top: 8}}>
+                    <Version/>
+                </div>
+            </Hidden>
             <Grid container
                   spacing={0}
                   alignItems="stretch"

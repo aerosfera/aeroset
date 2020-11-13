@@ -19,6 +19,8 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     *, *:before, *:after {
     box-sizing: inherit;
+    touch-action: none;
+    -ms-touch-action: none;
     }
   }
 

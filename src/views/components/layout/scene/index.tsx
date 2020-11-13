@@ -15,6 +15,7 @@ import {Canvas} from "./style";
 import PointCloud from "../pointCloudSystem";
 import {Hidden, Theme} from "@material-ui/core";
 import Panels from "../panels";
+import 'pepjs';
 
 const Scene: React.FC<{ theme: Theme }> = (props) => {
     function initialize(canvas: HTMLCanvasElement) {
@@ -51,6 +52,10 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
                     }
                 }}
             />
+            <div style={{position:"absolute"}}>
+                <div>x</div>
+                <div>y</div>
+            </div>
             <PointCloud/>
             <Hidden smDown>
                 <Panels/>
