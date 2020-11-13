@@ -17,5 +17,7 @@
   "actions" : "Actions",
   "point_cloud_clear" : "Clear point cloud",
   "new_version" : "New version released",
-  "update" : "Update"
+  "update" : "Update",
+  "version" : "version"
+
 }
