@@ -12,7 +12,7 @@ import App from "./views/components/app";
 import {CssBaseline} from "@material-ui/core";
 import IoC from "./environment/ioc/IoC";
 import {EventBusService} from "./services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "./environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE, VERSION_SERVICE} from "./environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import {checkAppUpdate} from "./utilities/workbox/checkUpdate";
@@ -35,24 +35,23 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-function renderRefreshUI(registration : any, { _ }) {
+function renderRefreshUI(registration: any, {_}) {
     const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-    const event : SnackbarEvent = {
-        message : i18next.t('new_version'),
-        alertType : "info"
+    const event: SnackbarEvent = {
+        message: i18next.t('new_version'),
+        alertType: "info"
     }
-    eventBus.send('SHOW_NEW_VERSION_EVENT',event)
+    eventBus.send('SHOW_NEW_VERSION_EVENT', event)
 }
 
 window.onerror = function unhandledExceptionErrorHandler(errorMsg, url, lineNumber) {
-    alert("Error occured: " + errorMsg);//or any message
     return false;
 }
 
 serviceWorker.register({
-         onUpdate: (registration: any) => {
-             console.log("New Version")
-             // @ts-ignore
-             return checkAppUpdate(registration, {render: renderRefreshUI});
-         }
+    onUpdate: (registration: any) => {
+        console.log("New Version")
+        // @ts-ignore
+        return checkAppUpdate(registration, {render: renderRefreshUI});
+    }
 })

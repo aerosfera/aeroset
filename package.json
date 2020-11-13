@@ -23,6 +23,7 @@
     "inversify-inject-decorators": "^3.1.0",
     "localforage": "^1.9.0",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "normalizr": "^3.6.1",
     "pepjs": "^0.5.2",
     "pino": "^6.7.0",
@@ -60,7 +61,7 @@
   ],
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "node generate-build-id.js && react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
