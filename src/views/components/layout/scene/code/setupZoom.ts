@@ -5,19 +5,24 @@ import {Vector3} from "babylonjs/Maths/math.vector";
 import {Engine} from "babylonjs/Engines/engine";
 import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
 
-export default function setupZoom(scene: Scene, engine: Engine, camera: Camera){
-    let totalZoom = 0;
-    let zoomTarget : Vector3|null = null;
+let totalZoom = 0;
+let zoomTarget : Vector3|null = null;
 
-    scene.onPointerObservable.add((eventData,_) => {
+export const CanvasZoom =(deltaValue: any, camera: Camera) => {
+    const delta = (Math.max(-1, Math.min(1, (deltaValue)))) * 0.9;
+    if (delta > 0 && totalZoom < 14 || delta < 0) {
+        totalZoom += delta;
+        zoom2DView(camera, delta, zoomTarget);
+    }
+}
+
+export default function setupZoom(scene: Scene, engine: Engine, camera: Camera){
+   scene.onPointerObservable.add((eventData,_) => {
         const event = eventData.event as any;
-        const delta = (Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail || event.deltaY)))) * 0.9;
-        if (delta > 0 && totalZoom < 14 || delta < 0) {
-            totalZoom += delta;
-            zoom2DView(camera, delta, zoomTarget);
-        }
+        CanvasZoom((event.wheelDelta || -event.detail || event.deltaY),camera);
     }, BABYLON.PointerEventTypes.POINTERWHEEL);
-    scene.onPointerObservable.add(() => {
+
+   scene.onPointerObservable.add(() => {
         zoomTarget = BABYLON.Vector3.Unproject(
             new BABYLON.Vector3(scene.pointerX, scene.pointerY, 0),
             engine.getRenderWidth(),
@@ -29,7 +34,7 @@ export default function setupZoom(scene: Scene, engine: Engine, camera: Camera){
     }, BABYLON.PointerEventTypes.POINTERMOVE);
 }
 
-function zoom2DView(camera : Camera, delta : number, zoomTarget : Vector3|null){
+export const zoom2DView = (camera : Camera, delta : number, zoomTarget : Vector3|null) =>{
     const zoomingOut = delta < 0;
 
     if (zoomTarget) {
