@@ -12,7 +12,24 @@ class VersionService {
 
     private async Initialize() {
         const year = moment().year()
-        const month = moment().month() + 1
+        const currentMonth = moment().month() + 1
+        let month = 0;
+        if(currentMonth <= 3)
+        {
+            month = 1;
+        }
+        if(currentMonth <= 6)
+        {
+            month = 2;
+        }
+        if(currentMonth <= 9)
+        {
+            month = 3;
+        }
+        if(currentMonth <= 12)
+        {
+            month = 4;
+        }
         VersionService._version = `${year}.${month}.${build}`
     }
 
