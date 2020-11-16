@@ -18,15 +18,15 @@ class VersionService {
         {
             month = 1;
         }
-        if(currentMonth <= 6)
+        else if(currentMonth <= 6)
         {
             month = 2;
         }
-        if(currentMonth <= 9)
+        else if(currentMonth <= 9)
         {
             month = 3;
         }
-        if(currentMonth <= 12)
+        else if(currentMonth <= 12)
         {
             month = 4;
         }
