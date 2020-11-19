@@ -7,7 +7,7 @@ export const Canvas = styled.canvas<Theme>`
    display: block;
    margin: 0;
    padding: 0;
-   width: 100%;
+   width: 100vw;
    ${props => props.theme.breakpoints.up("sm")} {
       height: calc(100vh - ${props => appSizes('header')(props) + appSizes('footer')(props) + appSizes('instrumentalPanel')(props) }px);
    }

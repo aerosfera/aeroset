@@ -1,8 +1,4 @@
-import {Engine} from "babylonjs/Engines/engine";
-import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
-import {Light} from "babylonjs/Lights/light";
-import {Scene} from "babylonjs/scene";
-import {PointsCloudSystem} from "babylonjs/Particles/pointsCloudSystem";
+import {ArcRotateCamera, Engine, Light, PointsCloudSystem, Scene} from "@babylonjs/core";
 
 export default class SceneAspects {
     private _engine: Engine | null = null;

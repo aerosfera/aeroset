@@ -1,8 +1,7 @@
-import * as BABYLON from "babylonjs";
-import {Light} from "babylonjs/Lights/light";
+import {HemisphericLight, Light, Scene, Vector3} from "@babylonjs/core";
 
-export default function setupLight(scene : BABYLON.Scene) : Light {
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+export default (scene: Scene): Light => {
+    const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
     light.intensity = 0.7;
 
     return light;

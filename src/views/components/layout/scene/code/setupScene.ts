@@ -1,17 +1,14 @@
-import * as BABYLON from "babylonjs";
 import setupAxis from "./setupAxis";
 import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
-import {ThemeColors} from "../../../theme/ThemeColors";
-import { Theme } from "@material-ui/core";
-import {themeColor} from "../../../theme/themeAccessors";
+import {Color4, Engine, Scene} from "@babylonjs/core";
 
-export default function setupScene(engine: BABYLON.Engine, theme: Theme): BABYLON.Scene {
-    const scene: BABYLON.Scene = new BABYLON.Scene(engine);
+export default (engine: Engine, bgColor: string): Scene => {
+    const scene: Scene = new Scene(engine);
 
-    const colorHex = themeColor(ThemeColors.mediumBlue)({theme});
+    const colorHex = bgColor
     const color = hexToRgb(colorHex);
     if(color && color !== null)
-        scene.clearColor = new BABYLON.Color4(color.r / 255, color.g / 255, color.b / 255, 1);
+        scene.clearColor = new Color4(color.r / 255, color.g / 255, color.b / 255, 1);
 
     setupAxis(scene, 2);
 

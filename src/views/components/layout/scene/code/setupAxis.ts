@@ -1,42 +1,41 @@
-import * as BABYLON from "babylonjs";
-import {StandardMaterial} from "babylonjs/Materials/standardMaterial";
+import {Color3, DynamicTexture, Mesh, Scene, StandardMaterial, Vector3} from "@babylonjs/core";
 
-export default function setupAxis(sceneBase : BABYLON.Scene,  size:number){
+export default function setupAxis(sceneBase: Scene, size: number) {
 
-    const makeTextPlane = function (text: string, color: string, size: number, scene: BABYLON.Scene) {
-        const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
+    const makeTextPlane = function (text: string, color: string, size: number, scene: Scene) {
+        const dynamicTexture = new DynamicTexture("DynamicTexture", 50, scene, true);
         dynamicTexture.hasAlpha = true;
         dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color, "transparent", true);
         const plane = mesh.CreatePlane("TextPlane", size, scene, true);
-        let standardMaterial : StandardMaterial = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
-        standardMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        let standardMaterial: StandardMaterial = new StandardMaterial("TextPlaneMaterial", scene);
+        standardMaterial.specularColor = new Color3(0, 0, 0);
         standardMaterial.diffuseTexture = dynamicTexture;
         plane.material = standardMaterial;
         plane.material.backFaceCulling = false;
         return plane;
     };
 
-    const mesh = BABYLON.Mesh;
+    const mesh = Mesh;
 
     const axisX = mesh.CreateLines("axisX", [
-        BABYLON.Vector3.Zero(), new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, 0.05 * size, 0),
-        new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
+        Vector3.Zero(), new Vector3(size, 0, 0), new Vector3(size * 0.95, 0.05 * size, 0),
+        new Vector3(size, 0, 0), new Vector3(size * 0.95, -0.05 * size, 0)
     ], sceneBase);
-    axisX.color = new BABYLON.Color3(1, 0, 0);
+    axisX.color = new Color3(1, 0, 0);
     const xChar = makeTextPlane("X", "red", size / 10, sceneBase);
-    xChar.position = new BABYLON.Vector3(0.9 * size, -0.05 * size, 0);
+    xChar.position = new Vector3(0.9 * size, -0.05 * size, 0);
     const axisY = mesh.CreateLines("axisY", [
-        BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(-0.05 * size, size * 0.95, 0),
-        new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(0.05 * size, size * 0.95, 0)
+        Vector3.Zero(), new Vector3(0, size, 0), new Vector3(-0.05 * size, size * 0.95, 0),
+        new Vector3(0, size, 0), new Vector3(0.05 * size, size * 0.95, 0)
     ], sceneBase);
-    axisY.color = new BABYLON.Color3(0, 1, 0);
+    axisY.color = new Color3(0, 1, 0);
     const yChar = makeTextPlane("Y", "green", size / 10, sceneBase);
-    yChar.position = new BABYLON.Vector3(0, 0.9 * size, -0.05 * size);
+    yChar.position = new Vector3(0, 0.9 * size, -0.05 * size);
     const axisZ = mesh.CreateLines("axisZ", [
-        BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, -0.05 * size, size * 0.95),
-        new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, 0.05 * size, size * 0.95)
+        Vector3.Zero(), new Vector3(0, 0, size), new Vector3(0, -0.05 * size, size * 0.95),
+        new Vector3(0, 0, size), new Vector3(0, 0.05 * size, size * 0.95)
     ], sceneBase);
-    axisZ.color = new BABYLON.Color3(0, 0, 1);
+    axisZ.color = new Color3(0, 0, 1);
     const zChar = makeTextPlane("Z", "blue", size / 10, sceneBase);
-    zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
+    zChar.position = new Vector3(0, 0.05 * size, 0.9 * size);
 }

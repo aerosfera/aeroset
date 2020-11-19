@@ -1,14 +1,9 @@
-import {Scene} from "babylonjs/scene";
-import * as BABYLON from "babylonjs";
-import {Camera} from "babylonjs/Cameras/camera";
-import {Vector3} from "babylonjs/Maths/math.vector";
-import {Engine} from "babylonjs/Engines/engine";
-import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
+import {ArcRotateCamera, Camera, Engine, PointerEventTypes, Scene, Vector3} from "@babylonjs/core";
 
 let totalZoom = 0;
-let zoomTarget : Vector3|null = null;
+let zoomTarget: Vector3 | null = null;
 
-export const CanvasZoom =(deltaValue: any, camera: Camera) => {
+export const CanvasZoom = (deltaValue: any, camera: Camera) => {
     const delta = (Math.max(-1, Math.min(1, (deltaValue)))) * 0.9;
     if (delta > 0 && totalZoom < 14 || delta < 0) {
         totalZoom += delta;
@@ -16,25 +11,25 @@ export const CanvasZoom =(deltaValue: any, camera: Camera) => {
     }
 }
 
-export default function setupZoom(scene: Scene, engine: Engine, camera: Camera){
-   scene.onPointerObservable.add((eventData,_) => {
+export default function setupZoom(scene: Scene, engine: Engine, camera: Camera) {
+    scene.onPointerObservable.add((eventData, _) => {
         const event = eventData.event as any;
-        CanvasZoom((event.wheelDelta || -event.detail || event.deltaY),camera);
-    }, BABYLON.PointerEventTypes.POINTERWHEEL);
+        CanvasZoom((event.wheelDelta || -event.detail || event.deltaY), camera);
+    }, PointerEventTypes.POINTERWHEEL);
 
-   scene.onPointerObservable.add(() => {
-        zoomTarget = BABYLON.Vector3.Unproject(
-            new BABYLON.Vector3(scene.pointerX, scene.pointerY, 0),
+    scene.onPointerObservable.add(() => {
+        zoomTarget = Vector3.Unproject(
+            new Vector3(scene.pointerX, scene.pointerY, 0),
             engine.getRenderWidth(),
             engine.getRenderHeight(),
             camera.getWorldMatrix(),
             camera.getViewMatrix(),
             camera.getProjectionMatrix()
         );
-    }, BABYLON.PointerEventTypes.POINTERMOVE);
+    }, PointerEventTypes.POINTERMOVE);
 }
 
-export const zoom2DView = (camera : Camera, delta : number, zoomTarget : Vector3|null) =>{
+export const zoom2DView = (camera: Camera, delta: number, zoomTarget: Vector3 | null) => {
     const zoomingOut = delta < 0;
 
     if (zoomTarget) {

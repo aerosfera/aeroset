@@ -1,11 +1,10 @@
-import * as BABYLON from 'babylonjs';
-import {ArcRotateCamera} from "babylonjs/Cameras/arcRotateCamera";
+import {ArcRotateCamera, Camera, Scene, Vector3} from "@babylonjs/core";
 
-export default function setupCamera(canvas: HTMLCanvasElement, scene: BABYLON.Scene): ArcRotateCamera {
-    const camera: ArcRotateCamera = new BABYLON.ArcRotateCamera('Camera', 0, 0, -100, new BABYLON.Vector3(1, 2, -3), scene);
+export default function setupCamera(canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera {
+    const camera: ArcRotateCamera = new ArcRotateCamera('Camera', 0, 0, -100, new Vector3(1, 2, -3), scene);
 
-    camera.setPosition(new BABYLON.Vector3(0, 0, -100));
-    camera.target = new BABYLON.Vector3(0, 0, 0);
+    camera.setPosition(new Vector3(0, 0, -100));
+    camera.target = new Vector3(0, 0, 0);
     camera.orthoLeft = -8;
     camera.orthoRight = 8;
     const ratio = canvas.height / canvas.width;
@@ -14,7 +13,7 @@ export default function setupCamera(canvas: HTMLCanvasElement, scene: BABYLON.Sc
 
     camera.attachControl(canvas, false);
     camera.alpha += Math.PI; // camera +180°
-    camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+    camera.mode = Camera.ORTHOGRAPHIC_CAMERA;
 
     camera.wheelPrecision = 100.0;
     camera.pinchPrecision = 30;
@@ -23,5 +22,6 @@ export default function setupCamera(canvas: HTMLCanvasElement, scene: BABYLON.Sc
 
     camera.lowerRadiusLimit = camera.radius;
     camera.upperRadiusLimit = camera.radius;
+    //camera.inputs.add(new ArcRotateCameraPointersCustomInput())
     return camera;
 }
