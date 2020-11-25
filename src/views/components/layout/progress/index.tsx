@@ -40,6 +40,7 @@ const Progress: React.FC<{ theme: Theme }> = (props) => {
     }
 
     const {title, isOpen} = state
+    // @ts-ignore
     const innerTheme = createMuiTheme({
         palette: {
             primary: {
@@ -51,11 +52,11 @@ const Progress: React.FC<{ theme: Theme }> = (props) => {
         },
     });
     return (
-        <ProgressContainer isOpen={isOpen}>
-            <ThemeProvider theme={innerTheme}>
+        <ThemeProvider theme={innerTheme}>
+            <ProgressContainer isOpen={isOpen}>
                 <LinearProgress title={title} color={"secondary"}/>
-            </ThemeProvider>
-        </ProgressContainer>
+            </ProgressContainer>
+        </ThemeProvider>
     );
 }
 

@@ -11,59 +11,62 @@ import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
 import {AppDividerLight} from "../shared/style";
 import Version from "../version";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
     return (
-        <SnackbarContainer>
-            <Hidden smDown>
-                <div style={{position: "absolute", left: 8, top: 8}}>
-                    <Version/>
-                </div>
-            </Hidden>
-            <Grid container
-                  spacing={0}
-                  alignItems="stretch"
-                  direction={"column"}>
+            <SnackbarContainer>
                 <Hidden smDown>
-                    <Grid item xs={12}>
-                        <HeaderPanel/>
-                    </Grid>
+                    <div style={{position: "absolute", left: 8, top: 8}}>
+                        <Version/>
+                    </div>
                 </Hidden>
-                <Hidden mdUp>
-                    <Grid item xs={12}>
-                        <HeaderMobilePanel/>
-                    </Grid>
-                </Hidden>
-                <Grid item xs={12}>
-                    <AppDividerLight/>
-                </Grid>
-                <Hidden smDown>
-                    <Grid item xs={12}>
-                        <InstrumentalPanel/>
-                    </Grid>
-                </Hidden>
-                <Hidden smDown>
+                <Grid container
+                      spacing={0}
+                      alignItems="stretch"
+                      direction={"column"}>
+                    <Hidden smDown>
+                        <Grid item xs={12}>
+                            <HeaderPanel/>
+                        </Grid>
+                    </Hidden>
+                    <Hidden mdUp>
+                        <Grid item xs={12}>
+                            <HeaderMobilePanel/>
+                        </Grid>
+                    </Hidden>
                     <Grid item xs={12}>
                         <AppDividerLight/>
                     </Grid>
-                </Hidden>
-                <Grid item xs={12}>
-                    <Area>
-                        <Scene/>
-                    </Area>
+                    <Hidden smDown>
+                        <Grid item xs={12}>
+                            <InstrumentalPanel/>
+                        </Grid>
+                    </Hidden>
+                    <Hidden smDown>
+                        <Grid item xs={12}>
+                            <AppDividerLight/>
+                        </Grid>
+                    </Hidden>
+                    <Grid item xs={12}>
+                        <Area>
+                            <Scene/>
+                        </Area>
+                    </Grid>
+                    <Hidden smDown>
+                        <Grid item xs={12}>
+                            <AppDividerLight/>
+                        </Grid>
+                    </Hidden>
+                    <Hidden smDown>
+                        <Grid item xs={12}>
+                            <StatePanel/>
+                        </Grid>
+                    </Hidden>
                 </Grid>
-                <Hidden smDown>
-                    <Grid item xs={12}>
-                        <AppDividerLight/>
-                    </Grid>
-                </Hidden>
-                <Hidden smDown>
-                    <Grid item xs={12}>
-                        <StatePanel/>
-                    </Grid>
-                </Hidden>
-            </Grid>
-        </SnackbarContainer>
+            </SnackbarContainer>
     );
 }
 

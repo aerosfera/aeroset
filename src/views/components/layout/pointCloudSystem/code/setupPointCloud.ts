@@ -1,31 +1,36 @@
 import {Color4, Particle, PointsCloudSystem, Scene, Vector3} from "@babylonjs/core";
 import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {filterPointCloudAsync} from "../../../../../workers/pointCloud/filterPointCloud.worker";
-import {calculateParticleAsync} from "../../../../../workers/pointCloud/calculateParticle.worker";
+import IoC from "../../../../../environment/ioc/IoC";
+import {EventBusService} from "../../../../../services/eventBus/EventBusService";
+import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import {CLOSE_BACKDROP_EVENT, SHOW_BACKDROP_EVENT} from "../../../../../services/eventBus/EventTypes";
+import i18next from "i18next";
+import {sendMessage} from "../../../../../utilities/common/sendMessage";
 
 export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudFiltersState, scene: Scene) => {
     const reader: FileReader = new FileReader()
 
     reader.onload = async (e: ProgressEvent<FileReader>) => {
         const fileText: string = <string>(reader.result)
-        const pointCloudState = await filterPointCloudAsync(fileText, cloudPointFilters)
         const pointsCloudSystem = new PointsCloudSystem("pcs", 3, scene, {updatable: false});
+        const pointCloudState = await filterPointCloudAsync(fileText, cloudPointFilters)
 
-        const parameterMin = pointCloudState.parameterMin;
-        const parameterDiff = pointCloudState.parameterDiff;
+        sendMessage(SHOW_BACKDROP_EVENT, i18next.t('point_cloud_process'))
 
         let constructParticle = async (particle: Particle, i: number, _: any) => {
-            const solidPoints = pointCloudState.filteredPoints;
-            const point = solidPoints[i];
-            const {vector, color} = await calculateParticleAsync(i, point, parameterMin, parameterDiff)
+            const pointData = pointCloudState[i];
+            const {vector, color} = pointData
             particle.position = vector;
             particle.color = color
-            console.log(i)
         }
 
-        const points = pointCloudState.filteredPoints;
-        pointsCloudSystem.addPoints(points.length, constructParticle);
+        const points = pointCloudState.length;
+        pointsCloudSystem.addPoints(points, constructParticle);
         const mesh = await pointsCloudSystem.buildMeshAsync();
+
+        sendMessage(CLOSE_BACKDROP_EVENT,undefined)
+
         return pointsCloudSystem;
     };
 

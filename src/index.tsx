@@ -18,6 +18,7 @@ import i18next from "i18next";
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import {checkAppUpdate} from "./utilities/workbox/checkUpdate";
 import 'pepjs';
+import Backdrop from "./views/components/backdrop";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -28,6 +29,7 @@ ReactDOM.render(
                 <Theme>
                     <Suspense fallback="">
                         <App/>
+                        {/*<Backdrop/>*/}
                     </Suspense>
                 </Theme>
             </React.StrictMode>

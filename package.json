@@ -12,6 +12,9 @@
     "@types/offscreencanvas": "^2019.6.2",
     "babylonjs-hook": "^0.0.9",
     "choose-files": "^1.0.2",
+    "collect.js": "^4.28.6",
+    "comlink": "^4.3.0",
+    "comlink-loader": "^2.0.0",
     "connected-react-router": "^6.8.0",
     "create-react-app": "^4.0.0",
     "events": "^3.2.0",
@@ -58,9 +61,7 @@
     "workbox-precaching": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-webpack-plugin": "^5.1.4",
-    "comlink": "^4.3.0",
-    "comlink-loader": "^2.0.0"
+    "workbox-webpack-plugin": "^5.1.4"
   },
   "sideEffects": [
     "./src/internationalization/i18n.ts"

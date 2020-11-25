@@ -12,6 +12,8 @@ import {SnackbarWrapper} from "./style";
 import {SnackbarEvent} from "./code/SnackbarEvent";
 import {useTranslation} from "react-i18next";
 import Button from "@material-ui/core/Button";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
