@@ -28,6 +28,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                         if (file && file !== undefined) {
                             dispatch(pointCloudLoadFile(file));
                         }
+                        e.preventDefault()
                     }}
                     id="icon-button-file"
                     style={{display: 'none',}}/>

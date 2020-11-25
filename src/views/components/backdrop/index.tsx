@@ -11,6 +11,7 @@ import {
     SHOW_BACKDROP_EVENT
 } from "../../../services/eventBus/EventTypes";
 import {purple} from "@material-ui/core/colors";
+import Backdrop from "@material-ui/core/Backdrop";
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Backdrop: React.FC<{ theme: Theme }> = (props) => {
+const AppBackdrop: React.FC<{ theme: Theme }> = (props) => {
     const classes = useStyles();
 
     const [backdropState, setBackdropState] = useState<{
@@ -72,4 +73,4 @@ const Backdrop: React.FC<{ theme: Theme }> = (props) => {
     )
 }
 
-export default withTheme(Backdrop)
+export default withTheme(AppBackdrop)

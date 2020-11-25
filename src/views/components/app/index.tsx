@@ -11,9 +11,7 @@ import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
 import {AppDividerLight} from "../shared/style";
 import Version from "../version";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import AppBackdrop from "../backdrop";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
     return (

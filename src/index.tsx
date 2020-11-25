@@ -9,31 +9,30 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {GlobalStyle} from "./globalStyle";
 import Theme from "./views/components/theme";
 import App from "./views/components/app";
-import {CssBaseline} from "@material-ui/core";
+import {CssBaseline, Hidden} from "@material-ui/core";
 import IoC from "./environment/ioc/IoC";
 import {EventBusService} from "./services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE, VERSION_SERVICE} from "./environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
-import {checkAppUpdate} from "./utilities/workbox/checkUpdate";
 import 'pepjs';
-import Backdrop from "./views/components/backdrop";
+import AppBackdrop from "./views/components/backdrop";
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <React.StrictMode>
-                <GlobalStyle/>
-                <CssBaseline/>
-                <Theme>
-                    <Suspense fallback="">
-                        <App/>
-                        {/*<Backdrop/>*/}
-                    </Suspense>
-                </Theme>
-            </React.StrictMode>
-        </BrowserRouter>
+        {/*<BrowserRouter>*/}
+        {/*<React.StrictMode>*/}
+            <GlobalStyle/>
+            <CssBaseline/>
+            <Theme>
+                <Suspense fallback="">
+                    <App/>
+                    <AppBackdrop/>
+                </Suspense>
+            </Theme>
+        {/*</React.StrictMode>*/}
+        {/*</BrowserRouter>*/}
     </Provider>,
     document.getElementById('root')
 );
