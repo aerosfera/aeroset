@@ -8,7 +8,7 @@ import List from "@material-ui/core/List";
 import React, {Fragment, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {withTheme} from "styled-components";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import PublishIcon from '@material-ui/icons/Publish';
 import DialpadIcon from '@material-ui/icons/Dialpad';
 import {
     pointCloudLoadFile
@@ -68,7 +68,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
                                 style={{display: 'none'}}/>
                             <label htmlFor="icon-button-file">
                                 <ListItemIcon>
-                                    <CloudUploadIcon/>
+                                    <PublishIcon/>
                                 </ListItemIcon>
                             </label>
                             <label htmlFor="icon-button-file">
