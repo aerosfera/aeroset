@@ -1,7 +1,7 @@
-import React, {Suspense} from "react";
+import React from "react";
 import {withTheme} from "styled-components";
 import {Area} from "./styles";
-import {Divider, Hidden, Theme} from "@material-ui/core";
+import {Hidden, Theme} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import HeaderPanel from "../layout/headerPanel";
 import InstrumentalPanel from "../layout/instrumentalPanel";
@@ -11,7 +11,6 @@ import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
 import {AppDividerLight} from "../shared/style";
 import Version from "../version";
-import AppBackdrop from "../backdrop";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
     return (

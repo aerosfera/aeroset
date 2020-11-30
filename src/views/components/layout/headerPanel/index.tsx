@@ -3,9 +3,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Theme} from "@material-ui/core";
 import {withTheme} from "styled-components";
 import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 import {useTranslation} from "react-i18next";
 import {HeaderPanelContainer} from "./style";
+import IconButton from "@material-ui/core/IconButton";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();

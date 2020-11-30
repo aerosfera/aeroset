@@ -24,8 +24,6 @@ module.exports = (config, env) => {
         config = rewireWorkboxInject(workboxConfig)(config, env);
     }
 
-    return config
-
     const babelLoader = getBabelLoader(config);
 
     return override(

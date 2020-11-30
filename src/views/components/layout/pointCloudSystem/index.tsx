@@ -42,7 +42,7 @@ const PointCloud = () => {
     }
 
     if (cloudPointFile && cloudPointFile !== null) {
-        initialize();
+        initialize()
     }
 
 
