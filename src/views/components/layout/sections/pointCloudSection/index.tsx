@@ -6,12 +6,12 @@ import {
 } from "../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import DialpadIcon from "@material-ui/icons/Dialpad";
 import ClearAllIcon from '@material-ui/icons/ClearAll';
+import PublishIcon from '@material-ui/icons/Publish';
 
 const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -38,7 +38,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                             component="span"
                             size="small"
                             color="primary">
-                            <CloudUploadIcon style={{color: "white"}}/>
+                            <PublishIcon style={{color: "white"}}/>
                         </IconButton>
                     </label>
                 </Tooltip>
