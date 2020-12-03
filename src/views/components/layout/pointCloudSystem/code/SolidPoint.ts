@@ -36,7 +36,7 @@ export default class SolidPoint {
         this._parameter = value;
     }
 
-    constructor(x: number, y: number, z: number, parameter: number) {
+    constructor(x: number, y: number, z: number, parameter: number = 0) {
         this._x = x;
         this._y = y;
         this._z = z;

@@ -16,8 +16,11 @@ import setupCamera from "./code/setupCamera";
 import setupLight from "./code/setupLight";
 import setupZoom from "./code/setupZoom";
 import IoC from "../../../../environment/ioc/IoC";
+import Scheme from "../scheme";
 
 const Scene: React.FC<{ theme: Theme }> = (props) => {
+    let scene;
+
     async function initialize(canvas: HTMLCanvasElement) {
         if (!isCanvasSupported()) {
             console.error('Canvas is not supported!');
@@ -33,7 +36,7 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
         const engine: Engine = new Engine(canvas, true);
         sceneAspects.engine = engine;
 
-        const scene = setupScene(engine, bgColor);
+        scene = setupScene(engine, bgColor);
         sceneAspects.scene = scene;
 
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
@@ -56,6 +59,7 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
                 }}
             />
             <PointCloud/>
+            <Scheme Scene={scene}/>
             <Hidden smDown>
                 <Panels/>
             </Hidden>

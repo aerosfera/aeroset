@@ -19,8 +19,18 @@ import {EventBusService} from "../../../../../../../services/eventBus/EventBusSe
 import {EVENT_BUS_SERVICE} from "../../../../../../../environment/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT, OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../../services/eventBus/EventTypes";
 import {BottomDrawerContentType} from "../../bottom/code/BottomDrawerContentType";
+import {
+    AppListItemIcon,
+    AppExpandLess,
+    AppExpandMore,
+    AppPublishIcon,
+    AppDialpadIcon,
+    AppBlurOnIcon
+} from "../../../../../shared/icons";
+import {themeColor} from "../../../../../theme/themeAccessors";
+import {ThemeColors} from "../../../../../theme/ThemeColors";
 
-const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
+const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch()
 
@@ -35,18 +45,18 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
 
     const openPanelPointCloudFiltersClickHandle = () => {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-        eventBus.send(OPEN_BOTTOM_DRAWER_EVENT,{contentType: BottomDrawerContentType.PointCloud})
-        eventBus.send(CLOSE_DRAWER_EVENT,{})
+        eventBus.send(OPEN_BOTTOM_DRAWER_EVENT, {contentType: BottomDrawerContentType.PointCloud})
+        eventBus.send(CLOSE_DRAWER_EVENT, {})
     };
-
+    const btnColor = themeColor(ThemeColors.mediumGray)(props)
     return (
         <React.Fragment>
             <ListItem button onClick={handleClick}>
                 <ListItemIcon>
-                    <BlurOnIcon/>
+                    <AppBlurOnIcon/>
                 </ListItemIcon>
                 <ListItemText primary={t('point_cloud')}/>
-                {subMenuIsOpen ? <ExpandLess/> : <ExpandMore/>}
+                {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMore/>}
             </ListItem>
             <Collapse in={subMenuIsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
@@ -60,7 +70,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
                                     const file: File = e.target.files?.[0] as File;
                                     if (file && file !== undefined) {
                                         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-                                        eventBus.send(CLOSE_DRAWER_EVENT,{})
+                                        eventBus.send(CLOSE_DRAWER_EVENT, {})
                                         dispatch(pointCloudLoadFile(file));
                                     }
                                 }}
@@ -68,7 +78,9 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
                                 style={{display: 'none'}}/>
                             <label htmlFor="icon-button-file">
                                 <ListItemIcon>
-                                    <PublishIcon/>
+                                    <AppPublishIcon style={{
+                                        color: btnColor
+                                    }}/>
                                 </ListItemIcon>
                             </label>
                             <label htmlFor="icon-button-file">
@@ -78,10 +90,12 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (_) => {
 
                     </ListItem>
                     <ListItem button style={{paddingLeft: 32}}>
-                        <ListItemIcon
+                        <AppListItemIcon
                             onClick={openPanelPointCloudFiltersClickHandle}>
-                            <DialpadIcon/>
-                        </ListItemIcon>
+                            <AppDialpadIcon style={{
+                                color: btnColor
+                            }}/>
+                        </AppListItemIcon>
                         <ListItemText
                             onClick={openPanelPointCloudFiltersClickHandle}
                             primary={t('open_panel_point_cloud_filters')}/>

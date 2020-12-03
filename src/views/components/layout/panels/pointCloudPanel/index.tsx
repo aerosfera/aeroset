@@ -19,14 +19,15 @@ import {
     PanelHeaderText,
     PanelHeaderTypography
 } from "../shared/style";
-import {AppCloseIcon} from "../../../shared/style";
 import PointCloudPanelFilters from "./shared";
+import {AppCloseIcon} from "../../../shared/icons";
 
 const dataSelector = createSelector([pointCloudFiltersPanelActivitySelector], (isActive: boolean) =>
     ({
         isActive : isActive
     })
 );
+
 
 const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
     const dispatch = useAppDispatch()

@@ -6,7 +6,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import {useTranslation} from "react-i18next";
 import {HeaderMobilePanelContainer} from "./style";
-import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,7 +15,11 @@ import {EventBusService} from "../../../../../services/eventBus/EventBusService"
 import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT} from "../../../../../services/eventBus/EventTypes";
 import DrawerBottomPanel from "../drawer/bottom";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {
+    AppAccountCircleIcon,
+    AppMenuIcon,
+    AppMoreVertIcon
+} from "../../../shared/icons";
 
 const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
@@ -49,11 +52,10 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
                 <Toolbar style={{background: props.theme.app.colors.main.mediumGray}}>
                     <Tooltip title={t('menu')}>
                         <IconButton size={"medium"}
-                                    color={"primary"}
                                     aria-label="open drawer"
                                     style={{verticalAlign: "middle"}}
                                     onClick={menuButtonClickHandle}>
-                            <MenuIcon style={{color: "white", fontSize: 35}}/>
+                            <AppMenuIcon/>
                         </IconButton>
                     </Tooltip>
                     <Typography variant="h6" style={{display: "block", flexGrow: 1, marginLeft: 16}}>
@@ -61,16 +63,14 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
                     </Typography>
                     <Tooltip title={t('actions')}>
                         <IconButton size={"small"}
-                                    color={"primary"}
                                     style={{marginLeft: 10}}>
-                            <MoreVertIcon style={{color: "white", fontSize: 35}}/>
+                            <AppMoreVertIcon/>
                         </IconButton>
                     </Tooltip>
                     <Tooltip title={t('user_account')}>
                         <IconButton size={"small"}
-                                    color={"primary"}
                                     style={{marginLeft: 10}}>
-                            <AccountCircleIcon style={{color: "white", fontSize: 35}}/>
+                            <AppAccountCircleIcon/>
                         </IconButton>
                     </Tooltip>
                 </Toolbar>

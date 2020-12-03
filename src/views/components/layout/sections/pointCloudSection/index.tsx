@@ -9,9 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
-import DialpadIcon from "@material-ui/icons/Dialpad";
-import ClearAllIcon from '@material-ui/icons/ClearAll';
-import PublishIcon from '@material-ui/icons/Publish';
+import {AppClearAllIcon, AppDialpadIcon, AppPublishIcon} from "../../../shared/icons";
 
 const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -38,7 +36,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                             component="span"
                             size="small"
                             color="primary">
-                            <PublishIcon style={{color: "white"}}/>
+                            <AppPublishIcon/>
                         </IconButton>
                     </label>
                 </Tooltip>
@@ -49,7 +47,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                             onClick={() =>
                                 dispatch(showPointCloudFiltersPanel())}
                             style={{verticalAlign: "bottom", marginLeft: 8}}>
-                    <DialpadIcon style={{color: "white"}}/>
+                    <AppDialpadIcon/>
                 </IconButton>
             </Tooltip>
             <Tooltip title={t('point_cloud_clear')}>
@@ -57,7 +55,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                             color={"primary"}
                             onClick={() => null}
                             style={{verticalAlign: "bottom", marginLeft: 8}}>
-                    <ClearAllIcon style={{color: "white"}}/>
+                    <AppClearAllIcon/>
                 </IconButton>
             </Tooltip>
         </div>

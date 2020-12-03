@@ -20,6 +20,4 @@ margin-left: 8px;
 margin-right: 8px;
 `
 
-export const AppCloseIcon = styled(CloseIcon)`
-color: ${themeColor(ThemeColors.white)};
-`
+
