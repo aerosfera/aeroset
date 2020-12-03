@@ -66,7 +66,7 @@ export const defaultAppThemeValues = {
             header : 48,
             headerMobile: 56,
             instrumentalPanel : 32,
-            footer : 30,
+            footer : 0,
         },
         lang : "ru"
 
