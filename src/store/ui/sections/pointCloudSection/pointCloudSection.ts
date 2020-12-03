@@ -8,7 +8,7 @@ export interface PointCloudSectionState extends SectionState {
 }
 
 const defaultState: PointCloudSectionState = {
-    isActive: true,
+    isActive: false,
     pointsCloudFile: null,
 }
 

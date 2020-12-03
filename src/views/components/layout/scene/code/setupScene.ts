@@ -2,7 +2,7 @@ import setupAxis from "./setupAxis";
 import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
 import {Color4, Engine, Scene} from "@babylonjs/core";
 
-export default (engine: Engine, bgColor: string): Scene => {
+export default (engine: Engine, canvas: HTMLCanvasElement, bgColor: string): Scene => {
     const scene: Scene = new Scene(engine);
 
     const colorHex = bgColor
@@ -15,9 +15,13 @@ export default (engine: Engine, bgColor: string): Scene => {
     engine.runRenderLoop(() => {
         scene.render();
     });
-    window.addEventListener("resize", () => {
+
+    canvas.onresize = function() {
         engine.resize();
-    });
+    };
+    window.onresize = function() {
+        engine.resize();
+    };
 
     return scene;
 }

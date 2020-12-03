@@ -8,11 +8,13 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                 main: {
                     white: string,
                     lightGray: string,
+                    lightGraySecond: string,
                     mediumGray: string,
                     darkGray: string,
                     lightBlue: string,
                     mediumBlue: string,
                     darkBlue: string,
+                    lightGreen: string,
                 },
                 palette: {
                     black: string,
@@ -82,11 +84,13 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                 main: {
                     white: string,
                     lightGray: string,
+                    lightGraySecond: string,
                     mediumGray: string,
                     darkGray: string,
                     lightBlue: string,
                     mediumBlue: string,
                     darkBlue: string,
+                    lightGreen: string,
                 },
                 palette: {
                     black: string,

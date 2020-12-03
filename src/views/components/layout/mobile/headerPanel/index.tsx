@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Theme} from "@material-ui/core";
 import {withTheme} from "styled-components";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -49,7 +48,7 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
     return (
         <HeaderMobilePanelContainer>
             <AppBar position="fixed">
-                <Toolbar style={{background: props.theme.app.colors.main.mediumGray}}>
+                <Toolbar style={{background: props.theme.app.colors.main.darkBlue}}>
                     <Tooltip title={t('menu')}>
                         <IconButton size={"medium"}
                                     aria-label="open drawer"

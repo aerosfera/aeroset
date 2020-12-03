@@ -4,7 +4,7 @@ import {ThemeColors} from "../../theme/ThemeColors";
 import {appSizes, themeColor} from "../../theme/themeAccessors";
 
 export const HeaderPanelContainer = styled.div<Theme>`
-background: ${themeColor(ThemeColors.mediumGray)};
+background: ${themeColor(ThemeColors.darkBlue)};
 height: ${appSizes("header")}px;
 display: flex;
 align-items: center;

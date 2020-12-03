@@ -1,6 +1,6 @@
 import React from "react";
 import {withTheme} from "styled-components";
-import PointCloudSection from "../sections/pointCloudSection";
+import PointCloudSection from "../sections/pointCloud";
 import {Panel} from "./style";
 import {Theme} from "@material-ui/core";
 import {AppDividerBold} from "../../shared/style";

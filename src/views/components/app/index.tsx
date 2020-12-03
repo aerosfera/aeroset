@@ -52,16 +52,6 @@ const App: React.FC<{ theme: Theme }> = (_) => {
                             <Scene/>
                         </Area>
                     </Grid>
-                    {/*<Hidden smDown>*/}
-                    {/*    <Grid item xs={12}>*/}
-                    {/*        <AppDividerLight/>*/}
-                    {/*    </Grid>*/}
-                    {/*</Hidden>*/}
-                    {/*<Hidden smDown>*/}
-                    {/*    <Grid item xs={12}>*/}
-                    {/*        <StatePanel/>*/}
-                    {/*    </Grid>*/}
-                    {/*</Hidden>*/}
                 </Grid>
             </SnackbarContainer>
     );

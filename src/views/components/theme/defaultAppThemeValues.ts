@@ -4,11 +4,13 @@ export const defaultAppThemeValues = {
             main: {
                 white: "#ffffff",
                 lightGray: "#f7f7f7",
+                lightGraySecond: "#D3D3D3",
                 mediumGray: "#969696",
                 darkGray: "#363835",
                 lightBlue: "#bee7f1",
                 mediumBlue: "#7dd0e4",
                 darkBlue: "#137cbf",
+                lightGreen: "",
             },
             palette: {
                 white: "#ffffff",

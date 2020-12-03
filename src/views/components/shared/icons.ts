@@ -12,22 +12,20 @@ import BlurOnIcon from "@material-ui/icons/BlurOn";
 import MenuIcon from '@material-ui/icons/Menu';
 import {ExpandLess, ExpandMore} from "@material-ui/icons";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import BlurOffIcon from '@material-ui/icons/BlurOff';
 
-export const AppDialpadIcon = styled(DialpadIcon)`
+export const OpenPointCloudFiltersIcon = styled(DialpadIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
-
-export const AppClearAllIcon = styled(ClearAllIcon)`
+export const ClearPointCloudIcon = styled(BlurOffIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
-
 export const AppCloseIcon = styled(CloseIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
-
-export const AppChevronLeftIcon = styled(ChevronLeftIcon)`
+export const ArrowCloseLeft = styled(ChevronLeftIcon)`
 `
-export const AppBlurOnIcon = styled(BlurOnIcon)`
+export const PointCloudIcon = styled(BlurOnIcon)`
 `
 export const AppExpandLess = styled(ExpandLess)`
   color: ${themeColor(ThemeColors.darkGray)}

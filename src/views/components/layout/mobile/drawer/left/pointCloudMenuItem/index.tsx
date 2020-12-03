@@ -24,8 +24,9 @@ import {
     AppExpandLess,
     AppExpandMore,
     AppPublishIcon,
-    AppDialpadIcon,
-    AppBlurOnIcon
+    OpenPointCloudFiltersIcon,
+    PointCloudIcon,
+    ClearPointCloudIcon
 } from "../../../../../shared/icons";
 import {themeColor} from "../../../../../theme/themeAccessors";
 import {ThemeColors} from "../../../../../theme/ThemeColors";
@@ -53,7 +54,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
         <React.Fragment>
             <ListItem button onClick={handleClick}>
                 <ListItemIcon>
-                    <AppBlurOnIcon/>
+                    <PointCloudIcon/>
                 </ListItemIcon>
                 <ListItemText primary={t('point_cloud')}/>
                 {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMore/>}
@@ -92,13 +93,23 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                     <ListItem button style={{paddingLeft: 32}}>
                         <AppListItemIcon
                             onClick={openPanelPointCloudFiltersClickHandle}>
-                            <AppDialpadIcon style={{
+                            <OpenPointCloudFiltersIcon style={{
                                 color: btnColor
                             }}/>
                         </AppListItemIcon>
                         <ListItemText
                             onClick={openPanelPointCloudFiltersClickHandle}
                             primary={t('open_panel_point_cloud_filters')}/>
+                    </ListItem>
+                    <ListItem button style={{paddingLeft: 32}}>
+                        <AppListItemIcon>
+                            <ClearPointCloudIcon style={{
+                                color: btnColor
+                            }}/>
+                        </AppListItemIcon>
+                        <ListItemText
+                            onClick={openPanelPointCloudFiltersClickHandle}
+                            primary={t('point_cloud_clear')}/>
                     </ListItem>
                 </List>
             </Collapse>
