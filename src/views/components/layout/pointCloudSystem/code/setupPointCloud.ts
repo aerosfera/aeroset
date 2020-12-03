@@ -1,10 +1,12 @@
 import {Color4, Particle, PointsCloudSystem, Scene, Vector3} from "@babylonjs/core";
 import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {filterPointCloudAsync} from "../../../../../workers/pointCloud/filterPointCloud.worker";
-import {CLOSE_BACKDROP_EVENT, SHOW_BACKDROP_EVENT} from "../../../../../services/eventBus/EventTypes";
+import IoC from "../../../../../environment/ioc/IoC";
+import {EventBusService} from "../../../../../services/eventBus/EventBusService";
+import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import {SnackbarEvent} from "../../../snackbar/code/SnackbarEvent";
 import i18next from "i18next";
-import {sendMessage} from "../../../../../utilities/common/sendMessage";
-import { delay } from "../../../../../utilities/async/delay";
+import { SHOW_SNACKBAR_EVENT } from "../../../../../services/eventBus/EventTypes";
 
 export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudFiltersState, scene: Scene) => {
     const reader: FileReader = new FileReader()
@@ -24,6 +26,14 @@ export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudFilters
         pointsCloudSystem.addPoints(pointsLength, constructParticle);
 
         const mesh = await pointsCloudSystem.buildMeshAsync();
+
+        const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
+        const event: SnackbarEvent = {
+            message: i18next.t('point_cloud_successfully_uploaded'),
+            alertType: "success"
+        }
+        eventBus.send(SHOW_SNACKBAR_EVENT, event)
+
         return pointsCloudSystem;
     };
 

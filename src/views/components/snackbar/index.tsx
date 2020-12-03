@@ -12,8 +12,6 @@ import {SnackbarWrapper} from "./style";
 import {SnackbarEvent} from "./code/SnackbarEvent";
 import {useTranslation} from "react-i18next";
 import Button from "@material-ui/core/Button";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -46,7 +44,7 @@ const SnackbarContainer: React.FC<{ theme: Theme }> = (props) => {
         const event: SnackbarEvent = events[0] as SnackbarEvent
         const {message, alertType, callback} = event
         setSnackbarState({
-            ...snackbarState,
+            isVersionSnackbar: false,
             open: true,
             message: message,
             alertType: alertType,

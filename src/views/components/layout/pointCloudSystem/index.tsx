@@ -15,6 +15,7 @@ import i18next from "i18next";
 import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {setUpPointCloud} from "./code/setupPointCloud";
 import {Scene} from "@babylonjs/core";
+import {SnackbarEvent} from "../../snackbar/code/SnackbarEvent";
 
 const pointCloudFileSelector: Selector<ApplicationState, File | null> = state => state.ui.sections.pointCloudSection.pointsCloudFile;
 
@@ -32,12 +33,10 @@ const PointCloud = () => {
     const cloudPointFile = props.file
 
     const initialize = async () => {
-        const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
         const apiProvider = IoC.get<ApiProvider>(API_PROVIDER_SERVICE)
 
         const scene = apiProvider.scene.scene as Scene;
         await setUpPointCloud(cloudPointFile as File, cloudPointFilters, scene)
-        //eventBus.send(SHOW_SNACKBAR_EVENT, null)
     }
 
     if (cloudPointFile && cloudPointFile !== null) {
