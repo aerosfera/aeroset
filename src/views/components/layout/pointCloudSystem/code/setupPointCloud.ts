@@ -15,19 +15,15 @@ export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudFilters
         const pointCloudState = await filterPointCloudAsync(fileText, cloudPointFilters)
 
         let constructParticle = async (particle: Particle, i: number, _: any) => {
-            const pointData = pointCloudState[i];
-            const {vector, color} = pointData
-            particle.position = vector;
-            particle.color = color
+            const {vector, color} = pointCloudState[i];
+            particle.position = new Vector3(vector.x, vector.y, vector.z);
+            particle.color = new Color4(color.r, color.g, color.b)
         }
 
-        const points = pointCloudState.length;
-        pointsCloudSystem.addPoints(points, constructParticle);
+        const pointsLength = pointCloudState.length;
+        pointsCloudSystem.addPoints(pointsLength, constructParticle);
 
-        sendMessage(SHOW_BACKDROP_EVENT, i18next.t('point_cloud_process'))
         const mesh = await pointsCloudSystem.buildMeshAsync();
-        sendMessage(CLOSE_BACKDROP_EVENT,undefined)
-
         return pointsCloudSystem;
     };
 

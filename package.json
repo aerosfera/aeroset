@@ -34,6 +34,7 @@
     "pepjs": "^0.5.2",
     "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",
+    "protobufjs": "^6.10.2",
     "ramda": "^0.27.1",
     "react": "^17.0.1",
     "react-app-rewire-styled-components": "^3.0.2",

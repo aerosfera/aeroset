@@ -15,7 +15,7 @@ import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT} from "../../../../../services/eventBus/EventTypes";
 import DrawerBottomPanel from "../drawer/bottom";
 import {
-    AppAccountCircleIcon,
+    AppUserAccountIcon,
     AppMenuIcon,
     AppMoreVertIcon
 } from "../../../shared/icons";
@@ -69,7 +69,7 @@ const HeaderMobilePanel: React.FC<{ theme: Theme }> = (props) => {
                     <Tooltip title={t('user_account')}>
                         <IconButton size={"small"}
                                     style={{marginLeft: 10}}>
-                            <AppAccountCircleIcon/>
+                            <AppUserAccountIcon/>
                         </IconButton>
                     </Tooltip>
                 </Toolbar>

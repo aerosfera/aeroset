@@ -5,7 +5,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {useTranslation} from "react-i18next";
 import {HeaderPanelContainer} from "./style";
 import IconButton from "@material-ui/core/IconButton";
-import {AppAccountCircleIcon} from "../../shared/icons";
+import {AppUserAccountIcon} from "../../shared/icons";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();
@@ -15,7 +15,7 @@ const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
                 <IconButton size={"small"}
                             color={"primary"}
                             style={{marginLeft: 10}}>
-                    <AppAccountCircleIcon/>
+                    <AppUserAccountIcon/>
                 </IconButton>
             </Tooltip>
         </HeaderPanelContainer>

@@ -3,7 +3,7 @@ import SolidPoint from "../../views/components/layout/pointCloudSystem/code/Soli
 import calculateMinMaxOfArray from "../../utilities/math/calculateMaxMinOfArray";
 import {Color4, Vector3} from "@babylonjs/core";
 
-export const filterPointCloudAsync = async (fileText: string, cloudPointFilters: PointCloudFiltersState): Promise<{ vector: Vector3, color: Color4 }[]> => {
+export const filterPointCloudAsync = async (fileText: string, cloudPointFilters: PointCloudFiltersState): Promise<{ vector: { x: number, y: number, z: number }, color: { r: number, g: number, b: number } }[]> => {
     const filter = (points: SolidPoint[], cloudPointFilters: PointCloudFiltersState): SolidPoint[] => {
         const filteredPoints = points.filter(point => {
             const {x, y, z} = point
@@ -22,7 +22,7 @@ export const filterPointCloudAsync = async (fileText: string, cloudPointFilters:
         return filteredPoints;
     }
 
-    const calculateParticle = (i: number, point: SolidPoint, parameterMin: number, parameterDiff: number): { vector: Vector3, color: Color4 } => {
+    const calculateParticle = (i: number, point: SolidPoint, parameterMin: number, parameterDiff: number): { vector: { x: number, y: number, z: number }, color: { r: number, g: number, b: number } } => {
         const pPercent = ((point.parameter - parameterMin) / parameterDiff) * 100;
 
         let r: number = 0;
@@ -55,7 +55,7 @@ export const filterPointCloudAsync = async (fileText: string, cloudPointFilters:
             b = 0;
         }
 
-        return {vector: new Vector3(point.x, point.y, point.z), color: new Color4(r / 255, g / 255, b / 255, 1)}
+        return {vector: {x: point.x, y: point.y, z: point.z}, color: {r: r / 255, g: g / 255, b: b / 255}}
     }
 
     const fileLines: string[] = []
@@ -76,16 +76,16 @@ export const filterPointCloudAsync = async (fileText: string, cloudPointFilters:
 
     const parameters = points.map(p => p.parameter)
     //const {max, min} = calculateMinMaxOfArray(parameters);
-    const parameterMin = 0//min
-    const parameterMax = 4//max
+    const parameterMin = -5//min
+    const parameterMax = 5//max
     const parameterDiff = parameterMax - parameterMin;
 
     const filteredPoints: SolidPoint[] = filter(points, cloudPointFilters)
 
     const pointsCount = filteredPoints.length;
-    const result = new Array<{ vector: Vector3, color: Color4 }>()
+    const result = new Array<{ vector: { x: number, y: number, z: number }, color: { r: number, g: number, b: number } }>()
     for (let i = 0; i < pointsCount; i++) {
-        const point: { vector: Vector3, color: Color4 } = calculateParticle(i, filteredPoints[i], parameterMin, parameterDiff)
+        const point = calculateParticle(i, filteredPoints[i], parameterMin, parameterDiff)
         result.push(point)
     }
 

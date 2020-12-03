@@ -35,10 +35,9 @@ const PointCloud = () => {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
         const apiProvider = IoC.get<ApiProvider>(API_PROVIDER_SERVICE)
 
-        //eventBus.send(START_PROGRESS_EVENT, i18next.t('point_cloud_process'))
         const scene = apiProvider.scene.scene as Scene;
         await setUpPointCloud(cloudPointFile as File, cloudPointFilters, scene)
-        //eventBus.send(STOP_PROGRESS_EVENT, null)
+        //eventBus.send(SHOW_SNACKBAR_EVENT, null)
     }
 
     if (cloudPointFile && cloudPointFile !== null) {

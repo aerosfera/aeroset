@@ -56,7 +56,7 @@ export const AppMoreVertIcon = styled(MoreVertIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
 
-export const AppAccountCircleIcon = styled(AccountCircleIcon)`
+export const AppUserAccountIcon = styled(AccountCircleIcon)`
   font-size: 35px;
   color: ${themeColor(ThemeColors.white)}
 `
