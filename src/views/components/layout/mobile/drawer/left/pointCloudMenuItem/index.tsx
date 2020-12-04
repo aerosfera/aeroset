@@ -12,7 +12,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import DialpadIcon from '@material-ui/icons/Dialpad';
 import {
     pointCloudLoadFile
-} from "../../../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
+} from "../../../../../../../store/ui/sections/pointCloud/pointCloudSection";
 import {useAppDispatch} from "../../../../../../../store/store";
 import IoC from "../../../../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../../../../services/eventBus/EventBusService";
@@ -24,9 +24,9 @@ import {
     AppExpandLess,
     AppExpandMore,
     AppPublishIcon,
-    OpenPointCloudFiltersIcon,
-    PointCloudIcon,
-    ClearPointCloudIcon
+    AppOpenPointCloudFiltersIcon,
+    AppPointCloudIcon,
+    AppClearPointCloudIcon
 } from "../../../../../shared/icons";
 import {themeColor} from "../../../../../theme/themeAccessors";
 import {ThemeColors} from "../../../../../theme/ThemeColors";
@@ -54,7 +54,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
         <React.Fragment>
             <ListItem button onClick={handleClick}>
                 <ListItemIcon>
-                    <PointCloudIcon/>
+                    <AppPointCloudIcon/>
                 </ListItemIcon>
                 <ListItemText primary={t('point_cloud')}/>
                 {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMore/>}
@@ -93,7 +93,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                     <ListItem button style={{paddingLeft: 32}}>
                         <AppListItemIcon
                             onClick={openPanelPointCloudFiltersClickHandle}>
-                            <OpenPointCloudFiltersIcon style={{
+                            <AppOpenPointCloudFiltersIcon style={{
                                 color: btnColor
                             }}/>
                         </AppListItemIcon>
@@ -103,7 +103,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                     </ListItem>
                     <ListItem button style={{paddingLeft: 32}}>
                         <AppListItemIcon>
-                            <ClearPointCloudIcon style={{
+                            <AppClearPointCloudIcon style={{
                                 color: btnColor
                             }}/>
                         </AppListItemIcon>

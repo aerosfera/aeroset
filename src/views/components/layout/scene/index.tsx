@@ -31,7 +31,7 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
         const bgColor = themeColor(ThemeColors.lightGraySecond)(props);
 
         const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
-        const sceneAspects = apiProvider.scene;
+        const sceneAspects = apiProvider.root;
 
         const engine: Engine = new Engine(canvas, true);
         sceneAspects.engine = engine;

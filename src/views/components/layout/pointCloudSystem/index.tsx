@@ -35,7 +35,7 @@ const PointCloud = () => {
     const initialize = async () => {
         const apiProvider = IoC.get<ApiProvider>(API_PROVIDER_SERVICE)
 
-        const scene = apiProvider.scene.scene as Scene;
+        const scene = apiProvider.root.scene as Scene;
         await setUpPointCloud(cloudPointFile as File, cloudPointFilters, scene)
     }
 

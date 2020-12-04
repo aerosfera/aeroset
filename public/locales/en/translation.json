@@ -14,11 +14,11 @@
   "point_cloud_z_from" : "z from",
   "point_cloud_z_to" : "z to",
   "point_cloud_successfully_uploaded" : "Point Cloud Successfully Uploaded",
-  "point_cloud_process" : "Обработка облака точек",
+  "point_cloud_process" : "Point cloud processing",
   "actions" : "Actions",
   "point_cloud_clear" : "Clear point cloud",
   "new_version" : "New version released",
   "update" : "Update",
-  "version" : "version"
-
+  "version" : "version",
+  "load_file_with_scheme" : "Load file with scheme"
 }

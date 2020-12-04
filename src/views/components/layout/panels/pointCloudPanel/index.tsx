@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 import {
     closePointCloudFiltersPanel,
     pointCloudFiltersPanelActivitySelector
-} from "../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
+} from "../../../../../store/ui/sections/pointCloud/pointCloudSection";
 import {Theme} from "@material-ui/core";
 import * as React from "react";
 import {useAppDispatch} from "../../../../../store/store";

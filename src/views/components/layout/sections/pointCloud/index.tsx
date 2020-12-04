@@ -3,13 +3,13 @@ import {useAppDispatch} from "../../../../../store/store";
 import {
     pointCloudLoadFile,
     showPointCloudFiltersPanel
-} from "../../../../../store/ui/sections/pointCloudSection/pointCloudSection";
+} from "../../../../../store/ui/sections/pointCloud/pointCloudSection";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
-import {ClearPointCloudIcon, OpenPointCloudFiltersIcon, AppPublishIcon} from "../../../shared/icons";
+import {AppClearPointCloudIcon, AppOpenPointCloudFiltersIcon, AppPublishIcon} from "../../../shared/icons";
 
 const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -47,7 +47,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                             onClick={() =>
                                 dispatch(showPointCloudFiltersPanel())}
                             style={{verticalAlign: "bottom", marginLeft: 8}}>
-                    <OpenPointCloudFiltersIcon/>
+                    <AppOpenPointCloudFiltersIcon/>
                 </IconButton>
             </Tooltip>
             <Tooltip title={t('point_cloud_clear')}>
@@ -55,7 +55,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                             color={"primary"}
                             onClick={() => null}
                             style={{verticalAlign: "bottom", marginLeft: 8}}>
-                    <ClearPointCloudIcon/>
+                    <AppClearPointCloudIcon/>
                 </IconButton>
             </Tooltip>
         </div>

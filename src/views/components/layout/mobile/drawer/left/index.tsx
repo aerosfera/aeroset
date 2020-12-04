@@ -15,7 +15,7 @@ import {CLOSE_DRAWER_EVENT} from "../../../../../../services/eventBus/EventTypes
 import PointCloudMenuItem from "./pointCloudMenuItem";
 import {DrawerContainer, DrawerHeader, DrawerHeaderTitle} from "./style";
 import Version from "../../../../version";
-import { ArrowCloseLeft } from "../../../../shared/icons";
+import { AppArrowCloseLeft } from "../../../../shared/icons";
 
 interface DrawerPanelProps {
     theme: Theme,
@@ -49,7 +49,7 @@ const DrawerLeftPanel: React.FC<DrawerPanelProps> = (props) => {
                     <DrawerHeaderTitle variant="h5">{t('aeroset')}</DrawerHeaderTitle>
                     <Tooltip title={t('close')}>
                         <IconButton onClick={handleDrawerClose}>
-                            <ArrowCloseLeft onClick={handleDrawerClose}/>
+                            <AppArrowCloseLeft onClick={handleDrawerClose}/>
                         </IconButton>
                     </Tooltip>
                 </DrawerHeader>
