@@ -12,6 +12,7 @@ const InstrumentalPanel: React.FC<{ theme: Theme }> = (props) => {
             <PointCloudSection/>
             <AppDividerBold orientation="vertical"/>
             <SchemeSection/>
+            <AppDividerBold orientation="vertical"/>
         </Panel>
     );
 };

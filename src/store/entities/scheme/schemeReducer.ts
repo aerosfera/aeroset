@@ -1,40 +1,47 @@
 import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
-import update from "immutability-helper";
 import {ApplicationState} from "../../store";
-import SchemeInfo from "../../../models/scheme/SchemeInfo";
 import produce from "immer";
+import Scheme from "../../../models/scheme/Scheme";
+import { SchemeMode } from "../../../views/types/SchemeMode";
 
 export interface SchemeState {
-    currentScheme: SchemeInfo | null
-    availableSchemes: SchemeInfo[]
+    currentScheme: Scheme | null
+    availableSchemes: Scheme[]
+    currentMode: SchemeMode
 }
 
 const defaultState: SchemeState = {
     currentScheme: null,
-    availableSchemes: []
+    availableSchemes: [],
+    currentMode: SchemeMode.Topology
 }
 
 const slice = createSlice({
     name: "schemeReducer",
     initialState: defaultState,
     reducers: {
-        selectedSchemeChanged(state: SchemeState, action: PayloadAction<SchemeInfo>) {
+        selectedSchemeChanged(state: SchemeState, action: PayloadAction<Scheme>) {
             return produce(state, (draft) => {
                 draft.currentScheme = action.payload
             });
         },
-        addScheme(state: SchemeState, action: PayloadAction<SchemeInfo>) {
+        schemeModeChanged(state: SchemeState, action: PayloadAction<SchemeMode>) {
+            return produce(state, (draft) => {
+                draft.currentMode = action.payload
+            });
+        },
+        addScheme(state: SchemeState, action: PayloadAction<Scheme>) {
             return produce(state, (draft) => {
                 draft.availableSchemes.push(action.payload);
             });
         },
-        removeScheme(state: SchemeState, action: PayloadAction<SchemeInfo>) {
+        removeScheme(state: SchemeState, action: PayloadAction<Scheme>) {
             return produce(state, (draft) => {
                 const index = draft.availableSchemes.indexOf((action.payload))
                 draft.availableSchemes.splice(index, 1);
             });
         },
-        setSchemes(state: SchemeState, action: PayloadAction<SchemeInfo[]>) {
+        setSchemes(state: SchemeState, action: PayloadAction<Scheme[]>) {
             return produce(state, (draft) => {
                 draft.availableSchemes = action.payload;
             });
@@ -43,9 +50,15 @@ const slice = createSlice({
 });
 
 
-export const schemeChangedSelector: Selector<ApplicationState, SchemeInfo | null> =
+export const schemeChangedSelector: Selector<ApplicationState, Scheme | null> =
     state => state.entities.scheme.currentScheme;
 
+export const schemesChangedSelector: Selector<ApplicationState, Scheme[]> =
+    state => state.entities.scheme.availableSchemes;
+
+export const schemeModeChangedSelector: Selector<ApplicationState, SchemeMode> =
+    state => state.entities.scheme.currentMode;
+
 const {actions, reducer} = slice;
-export const {selectedSchemeChanged, addScheme, removeScheme, setSchemes} = actions;
+export const {selectedSchemeChanged, addScheme, removeScheme, setSchemes, schemeModeChanged} = actions;
 export default reducer;

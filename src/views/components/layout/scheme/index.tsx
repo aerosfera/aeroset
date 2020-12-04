@@ -4,20 +4,29 @@ import {withTheme} from "styled-components";
 import {Scene} from '@babylonjs/core/scene';
 import {useSelector} from "react-redux";
 import {schemeFileLoadSelector} from "../../../../store/ui/sections/scheme/schemeSection";
-import {processSchemeFile} from "./code/processSchemeFile";
+import {parseSchemeFileAsync} from "./code/parseSchemeFileAsync";
+import Scheme from "../../../../models/scheme/Scheme";
+import {loadSchemeFileToSceneAsync} from "./code/loadSchemeToSceneAsync";
+import {SchemeMode} from "../../../types/SchemeMode";
 
-const Scheme: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
+const AppScheme: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const {scene} = props
     const data: File | null = useSelector(schemeFileLoadSelector)
 
+    const initialize = async (file: File) => {
+        //Todo: to saga
+        const scheme: Scheme = await parseSchemeFileAsync(file)
+        await loadSchemeFileToSceneAsync(scheme, scene, SchemeMode.Topology)
+    }
+
     if (data && data !== null) {
-        processSchemeFile(data, scene)
+        initialize(data)
     }
     return (
-        <div id="schemeContainer">
-
+        <div>
+            {/*empty*/}
         </div>
     )
 }
 
-export default withTheme(Scheme);
+export default withTheme(AppScheme);

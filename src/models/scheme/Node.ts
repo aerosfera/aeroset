@@ -4,6 +4,6 @@ export default interface Node {
     id: string,
     point: Point,
     linkedNodes: string[]
-    lifetime : Date,
+    lifetime : number,
     type : number
 }

@@ -16,7 +16,7 @@ import setupCamera from "./code/setupCamera";
 import setupLight from "./code/setupLight";
 import setupZoom from "./code/setupZoom";
 import IoC from "../../../../environment/ioc/IoC";
-import Scheme from "../scheme";
+import AppScheme from "../scheme";
 
 const Scene: React.FC<{ theme: Theme }> = (props) => {
     let scene;
@@ -59,7 +59,7 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
                 }}
             />
             <PointCloud/>
-            <Scheme Scene={scene}/>
+            <AppScheme Scene={scene}/>
             <Hidden smDown>
                 <Panels/>
             </Hidden>

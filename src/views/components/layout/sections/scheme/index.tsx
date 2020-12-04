@@ -2,15 +2,32 @@ import React, {Fragment} from "react";
 import {useAppDispatch} from "../../../../../store/store";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
-import {withTheme} from "styled-components";
-import {Theme} from "@material-ui/core";
+import {ThemeProvider, withTheme} from "styled-components";
+import {ButtonGroup, createMuiTheme, Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import {AppLoadSchemeFile} from "../../../shared/icons";
-import { schemeLoadFile} from "../../../../../store/ui/sections/scheme/schemeSection";
+import {schemeLoadFile} from "../../../../../store/ui/sections/scheme/schemeSection";
+import Button from "@material-ui/core/Button";
+import {purple} from "@material-ui/core/colors";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
 
 const SchemeSection: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch();
+
+    const innerTheme = createMuiTheme({
+        palette: {
+            primary: {
+                main: '#ffffff',
+            },
+            secondary: {
+                main: '#ffffff'
+            }
+        },
+    });
+
     return (
         <div>
             <Fragment>
@@ -25,10 +42,10 @@ const SchemeSection: React.FC<{ theme: Theme }> = (props) => {
                         }
                         e.preventDefault()
                     }}
-                    id="icon-button-file"
-                    style={{display: 'none',}}/>
+                    id="scheme-load-file"
+                    style={{display: 'none'}}/>
                 <Tooltip title={t('load_file_with_scheme')}>
-                    <label htmlFor="icon-button-file">
+                    <label htmlFor="scheme-load-file">
                         <IconButton
                             component="span"
                             size="small"
@@ -38,6 +55,14 @@ const SchemeSection: React.FC<{ theme: Theme }> = (props) => {
                     </label>
                 </Tooltip>
             </Fragment>
+            <ThemeProvider theme={innerTheme}>
+                {/*<Typography variant={"subtitle2"}>Режимы</Typography>*/}
+                <ButtonGroup size="small" variant="text" color="primary" aria-label="text outlined primary button group">
+                    <Button>One</Button>
+                    <Button>Two</Button>
+                    <Button>Three</Button>
+                </ButtonGroup>
+            </ThemeProvider>
         </div>
     );
 };
