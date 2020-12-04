@@ -108,7 +108,6 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                             }}/>
                         </AppListItemIcon>
                         <ListItemText
-                            onClick={openPanelPointCloudFiltersClickHandle}
                             primary={t('point_cloud_clear')}/>
                     </ListItem>
                 </List>
