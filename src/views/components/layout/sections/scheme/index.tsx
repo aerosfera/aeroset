@@ -58,9 +58,9 @@ const SchemeSection: React.FC<{ theme: Theme }> = (props) => {
             <ThemeProvider theme={innerTheme}>
                 {/*<Typography variant={"subtitle2"}>Режимы</Typography>*/}
                 <ButtonGroup size="small" variant="text" color="primary" aria-label="text outlined primary button group">
-                    <Button>One</Button>
-                    <Button>Two</Button>
-                    <Button>Three</Button>
+                    <Button>{t('scheme_mode_topology')}</Button>
+                    <Button>{t('scheme_mode_rib_geometry')}</Button>
+                    <Button>{t('scheme_mode_full')}</Button>
                 </ButtonGroup>
             </ThemeProvider>
         </div>

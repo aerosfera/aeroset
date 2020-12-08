@@ -75,9 +75,9 @@ export const filterPointCloudAsync = async (fileText: string, cloudPointFilters:
     });
 
     const parameters = points.map(p => p.parameter)
-    //const {max, min} = calculateMinMaxOfArray(parameters);
-    const parameterMin = -5//min
-    const parameterMax = 5//max
+    const {max, min} = calculateMinMaxOfArray(parameters);
+    const parameterMin = min
+    const parameterMax = max
     const parameterDiff = parameterMax - parameterMin;
 
     const filteredPoints: SolidPoint[] = filter(points, cloudPointFilters)

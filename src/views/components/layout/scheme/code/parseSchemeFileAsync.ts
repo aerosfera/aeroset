@@ -1,16 +1,14 @@
 import Scheme from "../../../../../models/scheme/Scheme";
+import jsonEscape from "../../../../../utilities/string/jsonEscape";
 
-function jsonEscape(str : string)  {
-    return str.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
-}
-
-export const parseSchemeFileAsync = (file: File) : Promise<Scheme> => {
+export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();
         reader.onload = () => {
             const fileText: string = <string>(reader.result)
 
-            const scheme : Scheme = JSON.parse(jsonEscape(fileText));
+            const jsonText = jsonEscape(fileText);
+            const scheme: Scheme = JSON.parse(jsonText);
             resolve(scheme);
         };
 
@@ -19,6 +17,4 @@ export const parseSchemeFileAsync = (file: File) : Promise<Scheme> => {
         const blob: Blob = <Blob>file;
         reader.readAsText(blob);
     })
-
-    const reader: FileReader = new FileReader()
 }

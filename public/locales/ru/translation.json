@@ -20,5 +20,9 @@
   "new_version" : "Новая версия приложения доступна",
   "update" : "Обновить",
   "version" : "Версия",
-  "load_file_with_scheme" : "Загрузить файл со схемой"
+  "load_file_with_scheme" : "Загрузить файл со схемой",
+  "scheme_mode_topology" : "топология",
+  "scheme_mode_rib_geometry" : "геометрия выработок",
+  "scheme_mode_full" : "полный",
+  "mode" : "режим"
 }
