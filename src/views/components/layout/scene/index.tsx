@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component, useEffect, useMemo, useRef, useState} from 'react';
 import 'pepjs';
 import isCanvasSupported from "../../../../utilities/dom/isCanvasSupported";
 import {withTheme} from "styled-components";
@@ -8,20 +8,29 @@ import {Hidden, Theme} from "@material-ui/core";
 import Panels from "../panels";
 import {ThemeColors} from "../../theme/ThemeColors";
 import {themeColor} from "../../theme/themeAccessors";
-import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {Engine} from "@babylonjs/core/Engines/engine";
 import setupScene from "./code/setupScene";
-import {ArcRotateCamera, Light} from "@babylonjs/core";
+import {ArcRotateCamera, Light, Scene} from "@babylonjs/core";
 import setupCamera from "./code/setupCamera";
 import setupLight from "./code/setupLight";
 import setupZoom from "./code/setupZoom";
-import IoC from "../../../../environment/ioc/IoC";
 import AppScheme from "../scheme";
 
-const Scene: React.FC<{ theme: Theme }> = (props) => {
-    let scene;
+export interface RefSceneObject {
+    initialize: (scene: Scene) => void
+}
 
-    async function initialize(canvas: HTMLCanvasElement) {
+const AppScene: React.FC<{ theme: Theme }> = (props) => {
+    const pointCloudEl = useRef<RefSceneObject>(null)
+    const schemeEl = useRef<RefSceneObject>(null)
+    const canvasEl = useRef<HTMLCanvasElement>(null)
+
+    useEffect(() => {
+        if (canvasEl.current)
+            initialize(canvasEl.current)
+    },[])
+
+    const initialize = async (canvas: HTMLCanvasElement) => {
         if (!isCanvasSupported()) {
             console.error('Canvas is not supported!');
             alert('Canvas is not supported!');
@@ -29,37 +38,24 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
         }
 
         const bgColor = themeColor(ThemeColors.lightGraySecond)(props);
-
-        const apiProvider: ApiProvider = IoC.get(Symbol.for("API_PROVIDER_SERVICE"));
-        const sceneAspects = apiProvider.root;
-
         const engine: Engine = new Engine(canvas, true);
-        sceneAspects.engine = engine;
-
-        scene = setupScene(engine, canvas, bgColor);
-        sceneAspects.scene = scene;
-
+        const scene: Scene = setupScene(engine, canvas, bgColor);
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
-        sceneAspects.camera = camera;
-
-        const light: Light = setupLight(scene);
-        sceneAspects.light = light;
-
+        setupLight(scene);
         setupZoom(scene, engine, camera);
-    }
 
+         if (schemeEl.current)
+             schemeEl.current.initialize(scene)
+
+        if (pointCloudEl.current)
+            pointCloudEl.current.initialize(scene)
+    }
 
     return (
         <div id="canvasContainer">
-            <Canvas
-                ref={canvas => {
-                    if (canvas != undefined && canvas) {
-                        initialize(canvas);
-                    }
-                }}
-            />
-            <PointCloud/>
-            <AppScheme Scene={scene}/>
+            <Canvas ref={canvasEl}/>
+            <PointCloud ref={pointCloudEl}/>
+            <AppScheme ref={schemeEl}/>
             <Hidden smDown>
                 <Panels/>
             </Hidden>
@@ -68,4 +64,4 @@ const Scene: React.FC<{ theme: Theme }> = (props) => {
     )
 }
 
-export default withTheme(Scene);
+export default withTheme(AppScene);

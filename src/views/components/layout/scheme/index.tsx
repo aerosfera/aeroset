@@ -1,6 +1,4 @@
-import React from 'react';
-import {Theme} from "@material-ui/core/styles/createMuiTheme";
-import {withTheme} from "styled-components";
+import React, {forwardRef, Ref, useImperativeHandle, useState} from 'react';
 import {Scene} from '@babylonjs/core/scene';
 import {useSelector} from "react-redux";
 import {schemeFileLoadSelector} from "../../../../store/ui/sections/scheme/schemeSection";
@@ -8,25 +6,32 @@ import {parseSchemeFileAsync} from "./code/parseSchemeFileAsync";
 import Scheme from "../../../../models/scheme/Scheme";
 import {loadSchemeFileToSceneAsync} from "./code/loadSchemeToSceneAsync";
 import {SchemeMode} from "../../../types/SchemeMode";
+import {RefSceneObject} from "../scene";
 
-const AppScheme: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
-    const {scene} = props
+const AppScheme = forwardRef((props, ref: Ref<RefSceneObject>) => {
+    useImperativeHandle(ref, () => ({initialize}));
     const data: File | null = useSelector(schemeFileLoadSelector)
+    const [state, setState] = useState<{ scene: Scene | null }>({scene: null})
+    const {scene} = state
 
-    const initialize = async (file: File) => {
-        //Todo: to saga
-        const scheme: Scheme = await parseSchemeFileAsync(file)
-        await loadSchemeFileToSceneAsync(scheme, scene, SchemeMode.Topology)
+    const initialize = async (scene: Scene) => {
+        setState({scene: scene})
     }
 
-    if (data && data !== null) {
-        initialize(data)
+    const loadScheme = async () => {
+        const scheme: Scheme = await parseSchemeFileAsync(data as File)
+        await loadSchemeFileToSceneAsync(scheme, scene as Scene, SchemeMode.Topology)
     }
+
+    if (data && scene) {
+        loadScheme()
+    }
+
     return (
         <div>
             {/*empty*/}
         </div>
     )
-}
+})
 
-export default withTheme(AppScheme);
+export default AppScheme;

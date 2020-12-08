@@ -7,15 +7,10 @@ import {
 } from "../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
 import {ApplicationState} from "../../../../store/store";
 import {PointCloudContainer} from "./style";
-import IoC from "../../../../environment/ioc/IoC";
-import {EventBusService} from "../../../../services/eventBus/EventBusService";
-import {API_PROVIDER_SERVICE, EVENT_BUS_SERVICE} from "../../../../environment/ioc/ServiceTypes";
-import {START_PROGRESS_EVENT, STOP_PROGRESS_EVENT} from "../../../../services/eventBus/EventTypes";
-import i18next from "i18next";
-import ApiProvider from "../../../../services/apiProvider/ApiProvider";
 import {setUpPointCloud} from "./code/setupPointCloud";
 import {Scene} from "@babylonjs/core";
-import {SnackbarEvent} from "../../snackbar/code/SnackbarEvent";
+import {forwardRef, Ref, useImperativeHandle, useState} from "react";
+import { RefSceneObject } from "../scene";
 
 const pointCloudFileSelector: Selector<ApplicationState, File | null> = state => state.ui.sections.pointCloudSection.pointsCloudFile;
 
@@ -27,26 +22,29 @@ const dataSelector = createSelector([getPointCloudFiltersPanelSelector, pointClo
         }
     })
 
-const PointCloud = () => {
-    const props = useSelector(dataSelector);
-    const cloudPointFilters = props.pointCloudFilters
-    const cloudPointFile = props.file
+const PointCloud = forwardRef((props, ref: Ref<RefSceneObject>) => {
+    useImperativeHandle(ref, () => ({initialize}))
+    const [state, setState] = useState<{ scene: Scene | null }>({scene: null})
+    const {scene} = state
 
-    const initialize = async () => {
-        const apiProvider = IoC.get<ApiProvider>(API_PROVIDER_SERVICE)
+    const data = useSelector(dataSelector);
+    const cloudPointFilters = data.pointCloudFilters
+    const cloudPointFile = data.file
 
-        const scene = apiProvider.root.scene as Scene;
-        await setUpPointCloud(cloudPointFile as File, cloudPointFilters, scene)
+    const initialize = async (scene: Scene) => {
+        setState({scene: scene})
+    }
+    const loadPointCloud = async () => {
+        await setUpPointCloud(cloudPointFile as File, cloudPointFilters, scene as Scene)
     }
 
-    if (cloudPointFile && cloudPointFile !== null) {
-        initialize()
+    if (cloudPointFile) {
+        loadPointCloud()
     }
-
 
     return (
         <PointCloudContainer/>
     )
-}
+})
 
 export default PointCloud

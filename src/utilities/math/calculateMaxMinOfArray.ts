@@ -1,6 +1,6 @@
 export default function calculateMinMaxOfArray(array : Array<number>) {
     const arrayLength = array.length;
-    const borderIncrement = 125000;
+    const borderIncrement = 10000;
     let arrayCounter = 0;
     let lastBottomBorder = 0;
     let lastTopBorder = borderIncrement;
