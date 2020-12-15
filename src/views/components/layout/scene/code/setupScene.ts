@@ -1,6 +1,7 @@
 import setupAxis from "./setupAxis";
 import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
 import {Color4, Engine, Scene} from "@babylonjs/core";
+import {VRExperienceHelper} from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
 
 export default (engine: Engine, canvas: HTMLCanvasElement, bgColor: string): Scene => {
     const scene: Scene = new Scene(engine);
@@ -11,6 +12,7 @@ export default (engine: Engine, canvas: HTMLCanvasElement, bgColor: string): Sce
         scene.clearColor = new Color4(color.r / 255, color.g / 255, color.b / 255, 1);
 
     setupAxis(scene, 2);
+
 
     engine.runRenderLoop(() => {
         scene.render();
@@ -23,6 +25,7 @@ export default (engine: Engine, canvas: HTMLCanvasElement, bgColor: string): Sce
         engine.resize();
     };
 
+    //const helper : VRExperienceHelper = scene.createDefaultVRExperience(); //VR test
     return scene;
 }
 
