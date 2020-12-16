@@ -10,25 +10,22 @@ import {ThemeColors} from "../../theme/ThemeColors";
 import {themeColor} from "../../theme/themeAccessors";
 import {Engine} from "@babylonjs/core/Engines/engine";
 import setupScene from "./code/setupScene";
-import {ArcRotateCamera, Light, Scene} from "@babylonjs/core";
+import {ArcRotateCamera, Camera, Light, Scene} from "@babylonjs/core";
 import setupCamera from "./code/setupCamera";
 import setupLight from "./code/setupLight";
 import setupZoom from "./code/setupZoom";
 import AppScheme from "../scheme";
-
-export interface RefSceneObject {
-    initialize: (scene: Scene) => void
-}
+import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
 
 const AppScene: React.FC<{ theme: Theme }> = (props) => {
-    const pointCloudEl = useRef<RefSceneObject>(null)
-    const schemeEl = useRef<RefSceneObject>(null)
+    const pointCloudEl = useRef<DelayedInitialization>(null)
+    const schemeEl = useRef<DelayedInitialization>(null)
     const canvasEl = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
         if (canvasEl.current)
             initialize(canvasEl.current)
-    },[])
+    }, [])
 
     const initialize = async (canvas: HTMLCanvasElement) => {
         if (!isCanvasSupported()) {
@@ -44,11 +41,17 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         setupLight(scene);
         setupZoom(scene, engine, camera);
 
-         if (schemeEl.current)
-             schemeEl.current.initialize(scene)
+        const engineData : GuiEngineData = {
+            camera: camera,
+            canvas: canvas,
+            scene: scene
+        };
+
+        if (schemeEl.current)
+            schemeEl.current.initialize(engineData)
 
         if (pointCloudEl.current)
-            pointCloudEl.current.initialize(scene)
+            pointCloudEl.current.initialize(engineData)
     }
 
     return (

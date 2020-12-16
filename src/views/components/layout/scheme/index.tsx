@@ -6,24 +6,25 @@ import {parseSchemeFileAsync} from "./code/parseSchemeFileAsync";
 import Scheme from "../../../../models/scheme/Scheme";
 import {loadSchemeFileToSceneAsync} from "./code/loadSchemeToSceneAsync";
 import {SchemeMode} from "../../../types/SchemeMode";
-import {RefSceneObject} from "../scene";
+import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
 
-const AppScheme = forwardRef((props, ref: Ref<RefSceneObject>) => {
+const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
+
     useImperativeHandle(ref, () => ({initialize}));
     const data: File | null = useSelector(schemeFileLoadSelector)
-    const [state, setState] = useState<{ scene: Scene | null }>({scene: null})
-    const {scene} = state
+    const [state, setState] = useState<{ engineData: GuiEngineData | null }>({engineData: null})
+    const {engineData} = state
 
-    const initialize = async (scene: Scene) => {
-        setState({scene: scene})
+    const initialize = async (engineData: GuiEngineData) => {
+        setState({engineData})
     }
 
     const loadScheme = async () => {
         const scheme: Scheme = await parseSchemeFileAsync(data as File)
-        await loadSchemeFileToSceneAsync(scheme, scene as Scene, SchemeMode.Topology)
+        await loadSchemeFileToSceneAsync(scheme, engineData as GuiEngineData, SchemeMode.Topology)
     }
 
-    if (data && scene) {
+    if (data && engineData) {
         loadScheme()
     }
 

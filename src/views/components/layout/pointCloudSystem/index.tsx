@@ -10,7 +10,7 @@ import {PointCloudContainer} from "./style";
 import {setUpPointCloud} from "./code/setupPointCloud";
 import {Scene} from "@babylonjs/core";
 import {forwardRef, Ref, useImperativeHandle, useState} from "react";
-import { RefSceneObject } from "../scene";
+import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
 
 const pointCloudFileSelector: Selector<ApplicationState, File | null> = state => state.ui.sections.pointCloudSection.pointsCloudFile;
 
@@ -22,20 +22,20 @@ const dataSelector = createSelector([getPointCloudFiltersPanelSelector, pointClo
         }
     })
 
-const PointCloud = forwardRef((props, ref: Ref<RefSceneObject>) => {
+const PointCloud = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     useImperativeHandle(ref, () => ({initialize}))
-    const [state, setState] = useState<{ scene: Scene | null }>({scene: null})
-    const {scene} = state
+    const [state, setState] = useState<{ engineData: GuiEngineData | null }>({engineData: null})
+    const {engineData} = state
 
     const data = useSelector(dataSelector);
     const cloudPointFilters = data.pointCloudFilters
     const cloudPointFile = data.file
 
-    const initialize = async (scene: Scene) => {
-        setState({scene: scene})
+    const initialize = async (engineData: GuiEngineData) => {
+        setState({engineData})
     }
     const loadPointCloud = async () => {
-        await setUpPointCloud(cloudPointFile as File, cloudPointFilters, scene as Scene)
+        await setUpPointCloud(cloudPointFile as File, cloudPointFilters, (engineData as GuiEngineData).scene)
     }
 
     if (cloudPointFile) {
