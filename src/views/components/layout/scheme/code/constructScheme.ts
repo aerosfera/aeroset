@@ -18,8 +18,9 @@ import constructTopologyNode from "./construction/node/constructTopologyNode";
 import constructTopologyRib from "./construction/rib/constructTopologyRib";
 import constructGeometryRib from "./construction/rib/constructGeometryRib";
 import {GuiEngineData} from "../../../../types/DelayedInitialization";
+import attachOwnPointerDragBehavior from "./behaviors/pointerDragBehavior";
 
-export const constructTopologyScheme = async (scheme: Scheme, engineData: GuiEngineData, schemeMode: SchemeMode): Promise<void> => {
+export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData, schemeMode: SchemeMode): Promise<void> => {
     const {scene, canvas, camera} = engineData
 
     const nodes = new Array<Mesh>()
@@ -46,6 +47,7 @@ export const constructTopologyScheme = async (scheme: Scheme, engineData: GuiEng
 
         const nodeMesh: Mesh = constructNode(scene, nodeId)
         nodes.push(nodeMesh)
+        attachOwnPointerDragBehavior(nodeMesh);
 
         nodeMesh.position.x = node.point.x / 150
         nodeMesh.position.y = node.point.y / 150
@@ -70,53 +72,10 @@ export const constructTopologyScheme = async (scheme: Scheme, engineData: GuiEng
 
                 const rib: Mesh = constructRib(scene, nodeVector, linkedNodeVector)
                 ribs.push(rib)
+                attachOwnPointerDragBehavior(rib);
             }
 
             pointDrawingLineComplete.push(node.id)
         }
-    }
-
-    for(let i = 0; i < nodes.length; i++) {
-        attachOwnPointerDragBehavior(nodes[i]);
-    }
-
-    for(let i = 0; i < ribs.length; i++) {
-        attachOwnPointerDragBehavior(ribs[i]);
-    }
-
-
-    /**
-     * will attach an own PointerDragBehavoir to a given mesh
-     * pointerDragBehavoir can only hold one attached mesh (attachedNode-property),
-     * so this function will create 'unique' pointerDragBehavoirs and add them the the mesh
-     */
-    function attachOwnPointerDragBehavior(mesh : Mesh){
-        // Create pointerDragBehavior in the desired mode
-        const pointerDragBehavior = new PointerDragBehavior({dragPlaneNormal: new Vector3(0,1,0)});
-
-        // If handling drag events manually is desired, set move attached to false
-        pointerDragBehavior.moveAttached = false;
-
-        // Use drag plane in world space
-        pointerDragBehavior.useObjectOrientationForDragging = false;
-
-        // Listen to drag events
-        pointerDragBehavior.onDragStartObservable.add((event)=>{
-            console.log("startDrag");
-            pointerDragBehavior.attachedNode.visibility = 0.5
-        })
-        pointerDragBehavior.onDragObservable.add((event)=>{
-            console.log("drag");
-
-            //attachedNode could be also mesh here again...
-            pointerDragBehavior.attachedNode.position.x += event.delta.x;
-            pointerDragBehavior.attachedNode.position.z += event.delta.z;
-        })
-        pointerDragBehavior.onDragEndObservable.add((event)=>{
-            console.log("endDrag");
-            pointerDragBehavior.attachedNode.visibility = 1
-        })
-
-        mesh.addBehavior(pointerDragBehavior);
     }
 }
