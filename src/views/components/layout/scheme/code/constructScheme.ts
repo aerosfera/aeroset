@@ -1,17 +1,9 @@
 import Scheme from "../../../../../models/scheme/Scheme";
 import Node from "../../../../../models/scheme/Node";
-import {Scene} from "@babylonjs/core/scene";
 import {
-    ArcRotateCamera,
-    Color3,
-    Color4, FloatArray, Mesh,
-    MeshBuilder, Nullable, PointerDragBehavior, PointerEventTypes,
-    SolidParticleSystem,
-    StandardMaterial, Texture, Vector2,
+    Mesh,
     Vector3,
-    VertexBuffer
 } from "@babylonjs/core";
-import {Point} from "../../../../../models/scheme/Point";
 import {SchemeMode} from "../../../../types/SchemeMode";
 import constructGeometryNode from "./construction/node/constructGeometryNode";
 import constructTopologyNode from "./construction/node/constructTopologyNode";
@@ -21,7 +13,7 @@ import {GuiEngineData} from "../../../../types/DelayedInitialization";
 import attachOwnPointerDragBehavior from "./behaviors/pointerDragBehavior";
 
 export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData, schemeMode: SchemeMode): Promise<void> => {
-    const {scene, canvas, camera} = engineData
+    const {scene} = engineData
 
     const nodes = new Array<Mesh>()
     const ribs = new Array<Mesh>()
