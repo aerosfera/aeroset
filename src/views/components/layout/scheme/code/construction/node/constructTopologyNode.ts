@@ -4,7 +4,8 @@ import {Color3, Mesh, MeshBuilder, StandardMaterial} from "@babylonjs/core";
 export const constructTopologyNode = (scene: Scene, nodeId: string): Mesh => {
     const mesh = MeshBuilder.CreateSphere(`sphere, id=${nodeId}`,
         {
-            diameter: 0.15
+            diameter: 0.15,
+            updatable : true
         }, scene);
 
     const material = new StandardMaterial("box_mat2", scene)
