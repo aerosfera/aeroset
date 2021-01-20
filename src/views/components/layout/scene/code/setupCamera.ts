@@ -1,10 +1,12 @@
-import {ArcRotateCamera, Camera, Scene, Vector3} from "@babylonjs/core";
+import {ArcRotateCamera, Camera, Matrix, Plane, Scene, Vector3} from "@babylonjs/core";
+import {PickingInfo} from "@babylonjs/core/Collisions/pickingInfo";
 
 export default function setupCamera(canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera {
     const camera: ArcRotateCamera = new ArcRotateCamera('Camera', 0, 0, -100, new Vector3(1, 2, -3), scene);
 
     camera.setPosition(new Vector3(0, 0, -100));
     camera.target = new Vector3(0, 0, 0);
+    camera.panningSensibility = 200;
     camera.orthoLeft = -8;
     camera.orthoRight = 8;
     const ratio = canvas.height / canvas.width;
@@ -22,6 +24,45 @@ export default function setupCamera(canvas: HTMLCanvasElement, scene: Scene): Ar
 
     camera.lowerRadiusLimit = camera.radius;
     camera.upperRadiusLimit = camera.radius;
-    //camera.inputs.add(new ArcRotateCameraPointersCustomInput())
+
+    let plane: Plane;
+    let pickOrigin: PickingInfo;
+    let isPanning = false;
+    scene.onPointerDown = (evt) => {
+        if (evt.ctrlKey) {
+            const pickResult = scene.pick(scene.pointerX, scene.pointerY) as PickingInfo;
+            if (pickResult.pickedMesh) {
+                let normal = camera.position.subtract(pickResult.pickedPoint as Vector3).normalize();
+                plane = Plane.FromPositionAndNormal(pickResult.pickedPoint as Vector3, normal);
+                // @ts-ignore
+                pickOrigin = pickResult.pickedPoint;
+                isPanning = true;
+                camera.detachControl(canvas);
+            }
+        }
+    };
+
+    scene.onPointerUp = () => {
+        isPanning = false;
+        camera.attachControl(canvas, true, true);
+    };
+
+    const identity = Matrix.Identity();
+    scene.onPointerMove = (evt) => {
+        if (isPanning) {
+            let ray = scene.createPickingRay(scene.pointerX, scene.pointerY, identity, camera, false);
+            let distance = ray.intersectsPlane(plane);
+
+            if (distance === null) {
+                return;
+            }
+            let pickedPoint = ray.direction.scale(distance).add(ray.origin);
+            // @ts-ignore
+            let diff = pickedPoint.subtract(pickOrigin);
+            camera.target.subtractInPlace(diff);
+        }
+    };
+
+
     return camera;
 }

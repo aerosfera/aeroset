@@ -1,7 +1,7 @@
 import Scheme from "../../../../../models/scheme/Scheme";
 import Node from "../../../../../models/scheme/Node";
 import {
-    ArcRotateCamera, BoundingInfo,
+    ArcRotateCamera, BoundingInfo, Color3,
     Mesh, MeshBuilder,
     Vector3,
 } from "@babylonjs/core";
@@ -15,6 +15,7 @@ import attachOwnPointerDragBehavior from "./behaviors/pointerDragBehavior";
 import SchemeNodeMetadata from "../../../../types/SchemeNodeMetadata";
 import {delay} from "../../../../../utilities/async/delay";
 import {setCameraTargetToCenterOfMeshes} from "./construction/setCameraTargetToCenterOfMeshes";
+import {GridMaterial} from "@babylonjs/materials";
 
 export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData, schemeMode: SchemeMode): Promise<void> => {
     const {scene, camera} = engineData
