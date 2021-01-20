@@ -1,7 +1,7 @@
 import Scheme from "../../../../../models/scheme/Scheme";
 import jsonEscape from "../../../../../utilities/string/jsonEscape";
 
-export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
+export const parseSchemeFile = (file: File): Promise<Scheme> => {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();
         reader.onload = () => {

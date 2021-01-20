@@ -25,7 +25,7 @@ export const constructTopologyRib = (scene: Scene, nodeVector: Vector3, linkedNo
 
     const material = new StandardMaterial("rib_mat", scene)
     material.alpha = 1;
-    material.diffuseColor = new Color3(89/255, 182/255, 91/255);
+    material.diffuseColor = new Color3(255/255, 255/255, 255/255);
     tube.material = material
 
     // let colors = new Array(2);

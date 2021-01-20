@@ -5,7 +5,7 @@ let zoomTarget: Vector3 | null = null;
 
 export const CanvasZoom = (deltaValue: any, camera: Camera) => {
     const delta = (Math.max(-1, Math.min(1, (deltaValue)))) * 0.9;
-    if (delta > 0 && totalZoom < 14 || delta < 0) {
+    if (delta > 0 && totalZoom < 50 || delta < 0) {
         totalZoom += delta;
         zoom2DView(camera, delta, zoomTarget);
     }

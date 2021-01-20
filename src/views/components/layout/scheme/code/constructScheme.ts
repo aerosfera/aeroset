@@ -1,8 +1,8 @@
 import Scheme from "../../../../../models/scheme/Scheme";
 import Node from "../../../../../models/scheme/Node";
 import {
-    ArcRotateCamera,
-    Mesh,
+    ArcRotateCamera, BoundingInfo,
+    Mesh, MeshBuilder,
     Vector3,
 } from "@babylonjs/core";
 import {SchemeMode} from "../../../../types/SchemeMode";
@@ -13,6 +13,8 @@ import constructGeometryRib from "./construction/rib/constructGeometryRib";
 import {GuiEngineData} from "../../../../types/DelayedInitialization";
 import attachOwnPointerDragBehavior from "./behaviors/pointerDragBehavior";
 import SchemeNodeMetadata from "../../../../types/SchemeNodeMetadata";
+import {delay} from "../../../../../utilities/async/delay";
+import {setCameraTargetToCenterOfMeshes} from "./construction/setCameraTargetToCenterOfMeshes";
 
 export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData, schemeMode: SchemeMode): Promise<void> => {
     const {scene, camera} = engineData
@@ -36,23 +38,21 @@ export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData,
             break;
     }
 
-    let nodeZMax = 0
-    let nodeZMin = 0
-    let nodeXMin = 0
-    let nodeXMax = 0
-    let nodeYMin = 0
-    let nodeYMax = 0
+
+    let parent = new Mesh("parent", scene);
 
     for (const node of scheme.nodes) {
         const nodeId = node.id.toString();
 
         const nodeMesh: Mesh = constructNode(scene, nodeId)
+        nodeMesh.setParent(parent)
+
         nodes.push(nodeMesh)
         attachOwnPointerDragBehavior(nodeMesh, scene);
 
         nodeMesh.position.x = node.point.x / 150
-        nodeMesh.position.y = node.point.y / 150
-        nodeMesh.position.z = node.point.z / 10
+        nodeMesh.position.y = node.point.z / 10
+        nodeMesh.position.z = node.point.y / 150
 
         const nodesIdToDrawingLine = node
             .linkedNodes
@@ -61,7 +61,7 @@ export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData,
         const linkedRibsMetadata = new Array<SchemeNodeMetadata>()
 
         const nodePoint = node.point;
-        const nodeVector = new Vector3(nodePoint.x / 150, nodePoint.y / 150, nodePoint.z / 10);
+        const nodeVector = new Vector3(nodePoint.x / 150, nodePoint.z / 10, nodePoint.y / 150);
 
         if (nodesIdToDrawingLine.length > 0) {
             for (const linkedNodeId of nodesIdToDrawingLine) {
@@ -71,7 +71,7 @@ export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData,
                     continue
 
                 const linkedNodePoint = linkedNode.point
-                const linkedNodeVector = new Vector3(linkedNodePoint.x / 150, linkedNodePoint.y / 150, linkedNodePoint.z / 10);
+                const linkedNodeVector = new Vector3(linkedNodePoint.x / 150, linkedNodePoint.z / 10, linkedNodePoint.y / 150);
 
                 const rib: Mesh = constructRib(scene, nodeVector, linkedNodeVector)
                 const nodeMetadata = {mesh: rib, nodeVector: nodeVector, linkedNodeVector: linkedNodeVector};
@@ -97,65 +97,9 @@ export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData,
             }
 
             pointDrawingLineComplete.push(node.id)
-
-            if (nodeMesh.position.z < nodeZMin)
-                nodeZMin = nodeMesh.position.z
-
-            if (nodeMesh.position.x < nodeXMin)
-                nodeXMin = nodeMesh.position.x
-
-            if (nodeMesh.position.z > nodeZMax)
-                nodeZMax = nodeMesh.position.z
-
-            if (nodeMesh.position.x > nodeXMax)
-                nodeXMax = nodeMesh.position.x
-
-            if (nodeMesh.position.y > nodeYMin)
-                nodeYMin = nodeMesh.position.y
-
-            if (nodeMesh.position.y > nodeYMax)
-                nodeYMax = nodeMesh.position.y
-
         }
     }
 
-    // const meshes = nodes.map(n => n.clone());
-    // // @ts-ignore
-    // const pseudoMesh = Mesh.MergeMeshes(meshes, null, true)
-    //
-    // // @ts-ignore
-    // pseudoMesh.isVisible = false;
-    // // @ts-ignore
-    // pseudoMesh.computeWorldMatrix(true);
-    //
-    // const centerMesh = Mesh.CreateSphere('centerMesh', 10, 2, scene);
-    // // @ts-ignore
-    // centerMesh.position = pseudoMesh.getBoundingInfo().boundingSphere.center;
-    //
-    // // @ts-ignore
-    // const {x, z} = pseudoMesh.getBoundingInfo().boundingBox.center;
-    //
-
-    // // arcRotateCamera.beta = 0;
-    // // arcRotateCamera.alpha = -Math.PI / 2;
-    // // // @ts-ignore
-    // // arcRotateCamera.zoomOn([pseudoMesh]);
-    //
-    // // @ts-ignore
-    // const w = pseudoMesh.getBoundingInfo().boundingBox.maximumWorld.x - pseudoMesh.getBoundingInfo().boundingBox.minimumWorld.x
-    // // @ts-ignore
-    // const h = pseudoMesh.getBoundingInfo().boundingBox.maximumWorld.z - pseudoMesh.getBoundingInfo().boundingBox.minimumWorld.z
-    //
-
-    const x = (nodeZMax + nodeZMin) / 2
-    const z = (nodeXMax + nodeXMin) / 2
-    const y = (nodeYMax + nodeYMin) / 2
-    const arcRotateCamera = <ArcRotateCamera>camera;
-    arcRotateCamera.setTarget(new Vector3(x, y, z))
-
-     const size = Math.max(50, 50)
-    camera.orthoTop = size / 2;
-    camera.orthoBottom = -(size / 2);
-    camera.orthoLeft = -(size / 2);
-    camera.orthoRight = size / 2;
+    await delay(100)
+    setCameraTargetToCenterOfMeshes(parent, <ArcRotateCamera>camera)
 }

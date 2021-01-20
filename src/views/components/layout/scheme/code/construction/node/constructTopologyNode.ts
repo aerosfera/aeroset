@@ -10,7 +10,7 @@ export const constructTopologyNode = (scene: Scene, nodeId: string): Mesh => {
 
     const material = new StandardMaterial("box_mat2", scene)
     material.alpha = 1;
-    material.diffuseColor = new Color3(1.0, 0.2, 0.7);
+    material.diffuseColor = new Color3(1, 1, 1);
     mesh.material = material
 
     return  mesh

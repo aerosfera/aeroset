@@ -2,9 +2,9 @@ import React, {forwardRef, Ref, useImperativeHandle, useState} from 'react';
 import {Scene} from '@babylonjs/core/scene';
 import {useSelector} from "react-redux";
 import {schemeFileLoadSelector} from "../../../../store/ui/sections/scheme/schemeSection";
-import {parseSchemeFileAsync} from "./code/parseSchemeFileAsync";
+import {parseSchemeFile} from "./code/parseSchemeFile";
 import Scheme from "../../../../models/scheme/Scheme";
-import {loadSchemeFileToSceneAsync} from "./code/loadSchemeToSceneAsync";
+import {loadSchemeFileToSceneAsync} from "./code/loadSchemeToScene";
 import {SchemeMode} from "../../../types/SchemeMode";
 import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
 
@@ -20,7 +20,7 @@ const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     }
 
     const loadScheme = async () => {
-        const scheme: Scheme = await parseSchemeFileAsync(data as File)
+        const scheme: Scheme = await parseSchemeFile(data as File)
         await loadSchemeFileToSceneAsync(scheme, engineData as GuiEngineData, SchemeMode.Topology)
     }
 
