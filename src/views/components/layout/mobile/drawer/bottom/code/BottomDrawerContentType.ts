@@ -1,4 +1,5 @@
 export enum BottomDrawerContentType{
     None,
-    PointCloud
+    PointCloudFilters,
+    SchemeSettings,
 }

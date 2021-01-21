@@ -16,7 +16,7 @@ import {
 } from "../shared/style";
 import {AppCloseIcon} from "../../../shared/icons";
 import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../store/ui/panels/scheme/schemePanelReducer";
-import SetupSchemeMode from "./shared/SetupSchemeType";
+import SchemeSettings from "./shared/SchemeSettings";
 
 const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
     const dispatch = useAppDispatch()
@@ -49,7 +49,7 @@ const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
                             </Tooltip>
                         </PanelHeader>
                     </PanelHeaderContainer>
-                    <SetupSchemeMode/>
+                    <SchemeSettings/>
                 </section>
             </PanelContainer>
         </Draggable>

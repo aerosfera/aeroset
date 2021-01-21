@@ -16,6 +16,12 @@ export const PanelContainer = styled.section<{ theme: Theme, width: number, heig
 export const PanelHeaderContainer = styled.strong<Theme>`
 `
 
+export const PanelMobileContainer = styled.div<Theme>`
+width: 100%;
+display: flex;
+justify-content: center
+`
+
 export const PanelHeader = styled.div<Theme>`
 cursor: move;
 background: ${themeColor(ThemeColors.darkBlue)};
@@ -33,8 +39,8 @@ display: inline-block;
 `
 
 export const PanelHeaderTypography = styled(Typography)`
-`;
+`
 
 export const PanelBodyContainer = styled.div<Theme>`
 margin: 16px;
-`;
+`

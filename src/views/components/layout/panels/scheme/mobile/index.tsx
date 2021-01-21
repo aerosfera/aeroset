@@ -1,15 +1,15 @@
 import React from "react";
 import {Theme} from "@material-ui/core";
 import {withTheme} from "styled-components";
-import PointCloudPanelFilters from "../shared/PointCloudPanelFilters";
+import SchemeSettings from "../shared/SchemeSettings";
 import { PanelMobileContainer } from "../../shared/style";
 
-const PointCloudPanelMobile: React.FC<{ theme: Theme }> = (props) => {
+const SchemePanelMobile: React.FC<{ theme: Theme }> = (props) => {
     return (
         <PanelMobileContainer>
-            <PointCloudPanelFilters/>
+            <SchemeSettings/>
         </PanelMobileContainer>
     )
 }
 
-export default withTheme(PointCloudPanelMobile)
+export default withTheme(SchemePanelMobile)

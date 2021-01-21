@@ -1,18 +1,11 @@
 import ListItem from "@material-ui/core/ListItem";
 import {ListItemIcon, Theme} from "@material-ui/core";
-import BlurOnIcon from "@material-ui/icons/BlurOn";
 import ListItemText from "@material-ui/core/ListItemText";
-import {ExpandLess, ExpandMore, StarBorder} from "@material-ui/icons";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
 import React, {Fragment, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {withTheme} from "styled-components";
-import PublishIcon from '@material-ui/icons/Publish';
-import DialpadIcon from '@material-ui/icons/Dialpad';
-import {
-    pointCloudLoadFile
-} from "../../../../../../../store/ui/sections/pointCloud/pointCloudSection";
 import {useAppDispatch} from "../../../../../../../store/store";
 import IoC from "../../../../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../../../../services/eventBus/EventBusService";
@@ -20,18 +13,20 @@ import {EVENT_BUS_SERVICE} from "../../../../../../../environment/ioc/ServiceTyp
 import {CLOSE_DRAWER_EVENT, OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../../services/eventBus/EventTypes";
 import {BottomDrawerContentType} from "../../bottom/code/BottomDrawerContentType";
 import {
-    AppListItemIcon,
+    AppOpenPointCloudFiltersIcon,
+    AppClearPointCloudIcon,
+    AppSchemeIcon,
     AppExpandLess,
     AppExpandMore,
+    AppListItemIcon,
     AppPublishIcon,
-    AppOpenPointCloudFiltersIcon,
-    AppPointCloudIcon,
-    AppClearPointCloudIcon
+    AppSettingsIcon
 } from "../../../../../shared/icons";
 import {themeColor} from "../../../../../theme/themeAccessors";
 import {ThemeColors} from "../../../../../theme/ThemeColors";
+import {schemeLoadFile} from "../../../../../../../store/ui/sections/scheme/schemeSection";
 
-const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
+const SchemeMenuItem: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch()
 
@@ -44,9 +39,9 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
         setState({subMenuIsOpen: !subMenuIsOpen});
     };
 
-    const openPanelPointCloudFiltersClickHandle = () => {
+    const openPanelSchemeSettingsClickHandle = () => {
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
-        eventBus.send(OPEN_BOTTOM_DRAWER_EVENT, {contentType: BottomDrawerContentType.PointCloudFilters})
+        eventBus.send(OPEN_BOTTOM_DRAWER_EVENT, {contentType: BottomDrawerContentType.SchemeSettings})
         eventBus.send(CLOSE_DRAWER_EVENT, {})
     };
     const btnColor = themeColor(ThemeColors.mediumGray)(props)
@@ -54,9 +49,9 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
         <React.Fragment>
             <ListItem button onClick={handleClick}>
                 <ListItemIcon>
-                    <AppPointCloudIcon/>
+                    <AppSchemeIcon/>
                 </ListItemIcon>
-                <ListItemText primary={t('point_cloud')}/>
+                <ListItemText primary={t('scheme')}/>
                 {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMore/>}
             </ListItem>
             <Collapse in={subMenuIsOpen} timeout="auto" unmountOnExit>
@@ -72,7 +67,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                                     if (file && file !== undefined) {
                                         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
                                         eventBus.send(CLOSE_DRAWER_EVENT, {})
-                                        dispatch(pointCloudLoadFile(file));
+                                        dispatch(schemeLoadFile(file));
                                     }
                                 }}
                                 id="icon-button-file"
@@ -85,30 +80,20 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                                 </ListItemIcon>
                             </label>
                             <label htmlFor="icon-button-file">
-                                <ListItemText primary={t('load_file_with_point_cloud')}/>
+                                <ListItemText primary={t('load_file_with_scheme')}/>
                             </label>
                         </Fragment>
-
                     </ListItem>
                     <ListItem button style={{paddingLeft: 32}}>
                         <AppListItemIcon
-                            onClick={openPanelPointCloudFiltersClickHandle}>
-                            <AppOpenPointCloudFiltersIcon style={{
+                            onClick={openPanelSchemeSettingsClickHandle}>
+                            <AppSettingsIcon style={{
                                 color: btnColor
                             }}/>
                         </AppListItemIcon>
                         <ListItemText
-                            onClick={openPanelPointCloudFiltersClickHandle}
-                            primary={t('open_panel_point_cloud_filters')}/>
-                    </ListItem>
-                    <ListItem button style={{paddingLeft: 32}}>
-                        <AppListItemIcon>
-                            <AppClearPointCloudIcon style={{
-                                color: btnColor
-                            }}/>
-                        </AppListItemIcon>
-                        <ListItemText
-                            primary={t('point_cloud_clear')}/>
+                            onClick={openPanelSchemeSettingsClickHandle}
+                            primary={t('scheme_settings')}/>
                     </ListItem>
                 </List>
             </Collapse>
@@ -116,4 +101,4 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
     )
 }
 
-export default withTheme(PointCloudMenuItem)
+export default withTheme(SchemeMenuItem)

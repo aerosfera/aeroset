@@ -16,6 +16,8 @@ import {AppDivider} from "../../../../shared/style";
 import {PanelHeader, PanelHeaderText, PanelHeaderTypography} from "../../../panels/shared/style";
 import Typography from "@material-ui/core/Typography";
 import PointCloudPanelMobile from "../../../panels/pointCloudPanel/mobile";
+import SchemeSection from "../../../sections/scheme";
+import SchemePanelMobile from "../../../panels/scheme/mobile";
 
 const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
@@ -52,9 +54,13 @@ const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
                 <DrawerBottomHeader>
                     <div style={{marginRight: "auto"}}>
                         <Typography variant="h6">
-                            <MobilePanelContainer currentType={BottomDrawerContentType.PointCloud}
+                            <MobilePanelContainer currentType={BottomDrawerContentType.PointCloudFilters}
                                                   stateType={visiblePanel}>
                                 {t('point_cloud_filters')}
+                            </MobilePanelContainer>
+                            <MobilePanelContainer currentType={BottomDrawerContentType.SchemeSettings}
+                                                  stateType={visiblePanel}>
+                                {t('scheme_settings')}
                             </MobilePanelContainer>
                         </Typography>
                     </div>
@@ -65,8 +71,11 @@ const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
                     </Tooltip>
                 </DrawerBottomHeader>
                 <AppDivider/>
-                <MobilePanelContainer currentType={BottomDrawerContentType.PointCloud} stateType={visiblePanel}>
+                <MobilePanelContainer currentType={BottomDrawerContentType.PointCloudFilters} stateType={visiblePanel}>
                     <PointCloudPanelMobile/>
+                </MobilePanelContainer>
+                <MobilePanelContainer currentType={BottomDrawerContentType.SchemeSettings} stateType={visiblePanel}>
+                    <SchemePanelMobile/>
                 </MobilePanelContainer>
             </DrawerBottomContainer>
         </Drawer>

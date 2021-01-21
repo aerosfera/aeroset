@@ -16,11 +16,6 @@ const slice = createSlice({
     name: "schemePanel",
     initialState: defaultState,
     reducers: {
-        schemeLoadFile(state: SchemePanelState, action: PayloadAction<File>) {
-            return update(state, {
-                schemeFile: {$set: action.payload}
-            });
-        },
         showSchemePanel(state: SchemePanelState) {
             return update(state, {
                 isActive: {$set: true}
@@ -39,5 +34,5 @@ export const schemePanelActivitySelector: Selector<ApplicationState, boolean> =
 
 
 const {actions, reducer} = slice;
-export const {schemeLoadFile, showSchemePanel, closeSchemePanel} = actions;
+export const {showSchemePanel, closeSchemePanel} = actions;
 export default reducer;

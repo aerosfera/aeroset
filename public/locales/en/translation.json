@@ -5,6 +5,7 @@
   "menu" : "Menu",
   "point_cloud" : "Point cloud",
   "load_file_with_point_cloud" : "Load file with point cloud",
+  "load_file_with_scheme" : "Load file with scheme",
   "open_panel_point_cloud_filters" : "Open filters panel",
   "point_cloud_filters" : "Point Cloud filters",
   "point_cloud_x_from" : "x from",
@@ -14,6 +15,7 @@
   "point_cloud_z_from" : "z from",
   "point_cloud_z_to" : "z to",
   "point_cloud_successfully_uploaded" : "Point Cloud Successfully Uploaded",
+  "scheme_successfully_uploaded" : "Scheme Successfully Uploaded",
   "point_cloud_process" : "Point cloud processing",
   "actions" : "Actions",
   "point_cloud_clear" : "Clear point cloud",
@@ -25,5 +27,6 @@
   "scheme_mode_rib_geometry" : "Rib geometry",
   "mode" : "mode",
   "scheme_display_settings" : "scheme display settings",
-  "scheme_settings" : "scheme settings"
+  "scheme_settings" : "Scheme settings",
+  "scheme" : "scheme"
 }

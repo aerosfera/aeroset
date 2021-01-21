@@ -5,6 +5,7 @@
   "menu" : "Меню",
   "point_cloud" : "Облако точек",
   "load_file_with_point_cloud" : "Загрузить файл с облаком точек",
+  "load_file_with_scheme" : "Загрузить файл со схемой",
   "open_panel_point_cloud_filters" : "Открыть панель фильтров",
   "point_cloud_filters" : "Фильтры облака точек",
   "point_cloud_x_from" : "x от",
@@ -14,6 +15,7 @@
   "point_cloud_z_from" : "z от",
   "point_cloud_z_to" : "z до",
   "point_cloud_successfully_uploaded" : "Облако точек успешно загружено",
+  "scheme_successfully_uploaded" : "Cхема успешно загружена",
   "point_cloud_process" : "Обработка облака точек",
   "actions" : "Действия",
   "point_cloud_clear" : "Очистить облако точек",
@@ -25,5 +27,6 @@
   "scheme_mode_rib_geometry" : "Геометрия выработок",
   "mode" : "режим",
   "scheme_display_settings" : "Настройки отображения схемы",
-  "scheme_settings" : "Настройки схемы"
+  "scheme_settings" : "Настройки схемы",
+  "scheme" : "Схема"
 }

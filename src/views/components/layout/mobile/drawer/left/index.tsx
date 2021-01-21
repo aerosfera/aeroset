@@ -16,6 +16,7 @@ import PointCloudMenuItem from "./pointCloudMenuItem";
 import {DrawerContainer, DrawerHeader, DrawerHeaderTitle} from "./style";
 import Version from "../../../../version";
 import { AppArrowCloseLeft } from "../../../../shared/icons";
+import SchemeMenuItem from "./schemeMenuItem";
 
 interface DrawerPanelProps {
     theme: Theme,
@@ -59,6 +60,7 @@ const DrawerLeftPanel: React.FC<DrawerPanelProps> = (props) => {
                     aria-labelledby="nested-list-subheader"
                     style={{width: '100%'}}
                 >
+                    <SchemeMenuItem/>
                     <PointCloudMenuItem/>
                 </List>
                 <div style={{position:"absolute", bottom: 8, left: 8}}>
