@@ -21,8 +21,9 @@
   "update" : "Обновить",
   "version" : "Версия",
   "load_file_with_scheme" : "Загрузить файл со схемой",
-  "scheme_mode_topology" : "топология",
-  "scheme_mode_rib_geometry" : "геометрия выработок",
-  "scheme_mode_full" : "полный",
-  "mode" : "режим"
+  "scheme_mode_topology" : "Топология",
+  "scheme_mode_rib_geometry" : "Геометрия выработок",
+  "mode" : "режим",
+  "scheme_display_settings" : "Настройки отображения схемы",
+  "scheme_settings" : "Настройки схемы"
 }

@@ -1,8 +1,12 @@
 import {combineReducers} from "redux";
-import pointCloudFiltersPanel from "./pointCloudFiltersPanel/pointCloudFiltersPanel";
+import pointCloudPanelReducer from "./pointCloud/pointCloudPanel";
+import schemePanelReducer from "./scheme/schemePanelReducer";
 
-export default function uiPanelReducer() {
+const uiPanelReducer = () => {
     return combineReducers({
-        pointCloudFiltersPanel: pointCloudFiltersPanel
+        pointCloud: pointCloudPanelReducer,
+        scheme: schemePanelReducer
     })
 }
+
+export default uiPanelReducer

@@ -1,5 +1,5 @@
 import {Color4, Particle, PointsCloudSystem, Scene, Vector3} from "@babylonjs/core";
-import {PointCloudFiltersState} from "../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+import {PointCloudPanelState} from "../../../../../store/ui/panels/pointCloud/pointCloudPanel";
 import {filterPointCloudAsync} from "../../../../../workers/pointCloud/filterPointCloud.worker";
 import IoC from "../../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../../services/eventBus/EventBusService";
@@ -8,7 +8,7 @@ import {SnackbarEvent} from "../../../snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import {SHOW_SNACKBAR_EVENT} from "../../../../../services/eventBus/EventTypes";
 
-export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudFiltersState, scene: Scene) => {
+export const setUpPointCloud = (file: File, cloudPointFilters: PointCloudPanelState, scene: Scene) => {
     const reader: FileReader = new FileReader()
 
     reader.onload = async (e: ProgressEvent<FileReader>) => {

@@ -1,11 +1,13 @@
 import {combineReducers} from "redux";
 import uiSectionsReducer from "./sections/uiSectionsReducer";
-import uiPanelReducer from "./panels/uiPanelsReducer";
+import uiPanelsReducer from "./panels/uiPanelsReducer";
 
-export default function uiReducer() {
+const uiReducer = () => {
     return combineReducers({
             sections: uiSectionsReducer(),
-            panels: uiPanelReducer()
+            panels: uiPanelsReducer()
         }
     )
 }
+
+export default uiReducer

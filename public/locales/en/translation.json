@@ -21,8 +21,9 @@
   "update" : "Update",
   "version" : "version",
   "load_file_with_scheme" : "Load file with scheme",
-  "scheme_mode_topology" : "topology",
-  "scheme_mode_rib_geometry" : "rib geometry",
-  "scheme_mode_full" : "full",
-  "mode" : "mode"
+  "scheme_mode_topology" : "Topology",
+  "scheme_mode_rib_geometry" : "Rib geometry",
+  "mode" : "mode",
+  "scheme_display_settings" : "scheme display settings",
+  "scheme_settings" : "scheme settings"
 }

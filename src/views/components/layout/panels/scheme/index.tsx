@@ -14,17 +14,14 @@ import {
     PanelHeaderText,
     PanelHeaderTypography
 } from "../shared/style";
-import PointCloudPanelFilters from "./shared/PointCloudPanelFilters";
 import {AppCloseIcon} from "../../../shared/icons";
-import {
-    closePointCloudPanel,
-    pointCloudPanelActivitySelector
-} from "../../../../../store/ui/panels/pointCloud/pointCloudPanel";
+import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../store/ui/panels/scheme/schemePanelReducer";
+import SetupSchemeMode from "./shared/SetupSchemeType";
 
-const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
+const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
     const dispatch = useAppDispatch()
     const {t} = useTranslation()
-    const isActive = useSelector(pointCloudPanelActivitySelector)
+    const isActive = useSelector(schemePanelActivitySelector)
 
     return (
         <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}}>
@@ -34,7 +31,7 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                         <PanelHeader>
                             <PanelHeaderText>
                                 <PanelHeaderTypography
-                                    variant="subtitle1">{t('point_cloud_filters')}</PanelHeaderTypography>
+                                    variant="subtitle1">{t('scheme_settings')}</PanelHeaderTypography>
                             </PanelHeaderText>
                             <Tooltip title={t('close')}
                                      style={{
@@ -44,7 +41,7 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                                     <IconButton
                                         component="span"
                                         size="small"
-                                        onClick={() => dispatch(closePointCloudPanel())}
+                                        onClick={() => dispatch(closeSchemePanel())}
                                         color="primary">
                                         <AppCloseIcon/>
                                     </IconButton>
@@ -52,11 +49,11 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
                             </Tooltip>
                         </PanelHeader>
                     </PanelHeaderContainer>
-                    <PointCloudPanelFilters/>
+                    <SetupSchemeMode/>
                 </section>
             </PanelContainer>
         </Draggable>
     )
 }
 
-export default withTheme(PointCloudPanel)
+export default withTheme(SchemePanel)

@@ -56,7 +56,7 @@ export const schemeChangedSelector: Selector<ApplicationState, Scheme | null> =
 export const schemesChangedSelector: Selector<ApplicationState, Scheme[]> =
     state => state.entities.scheme.availableSchemes;
 
-export const schemeModeChangedSelector: Selector<ApplicationState, SchemeMode> =
+export const schemeModeSelector: Selector<ApplicationState, SchemeMode> =
     state => state.entities.scheme.currentMode;
 
 const {actions, reducer} = slice;

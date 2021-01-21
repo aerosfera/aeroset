@@ -1,10 +1,10 @@
-import {PointCloudFiltersState} from "../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+import {PointCloudPanelState} from "../../store/ui/panels/pointCloud/pointCloudPanel";
 import SolidPoint from "../../views/components/layout/pointCloudSystem/code/SolidPoint";
 import calculateMinMaxOfArray from "../../utilities/math/calculateMaxMinOfArray";
 import {Color4, Vector3} from "@babylonjs/core";
 
-export const filterPointCloudAsync = async (fileText: string, cloudPointFilters: PointCloudFiltersState): Promise<{ vector: { x: number, y: number, z: number }, color: { r: number, g: number, b: number } }[]> => {
-    const filter = (points: SolidPoint[], cloudPointFilters: PointCloudFiltersState): SolidPoint[] => {
+export const filterPointCloudAsync = async (fileText: string, cloudPointFilters: PointCloudPanelState): Promise<{ vector: { x: number, y: number, z: number }, color: { r: number, g: number, b: number } }[]> => {
+    const filter = (points: SolidPoint[], cloudPointFilters: PointCloudPanelState): SolidPoint[] => {
         const filteredPoints = points.filter(point => {
             const {x, y, z} = point
 

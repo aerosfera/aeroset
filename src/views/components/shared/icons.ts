@@ -13,8 +13,13 @@ import {ExpandLess, ExpandMore} from "@material-ui/icons";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import BlurOffIcon from '@material-ui/icons/BlurOff';
 import DescriptionIcon from '@material-ui/icons/Description';
+import SettingsIcon from '@material-ui/icons/Settings';
+import TuneIcon from '@material-ui/icons/Tune';
 
 export const AppOpenPointCloudFiltersIcon = styled(DialpadIcon)`
+  color: ${themeColor(ThemeColors.white)}
+`
+export const AppSettingsIcon = styled(TuneIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
 export const AppLoadSchemeFile = styled(DescriptionIcon)`
@@ -35,6 +40,8 @@ export const AppExpandLess = styled(ExpandLess)`
 `
 export const AppExpandMore = styled(ExpandMore)`
   color: ${themeColor(ThemeColors.darkGray)}
+  
+  
 `
 export const AppPublishIcon = styled(PublishIcon)`
   ${props => props.theme.breakpoints.down("sm")} {

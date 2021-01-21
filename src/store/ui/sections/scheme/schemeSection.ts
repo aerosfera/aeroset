@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
-import {SectionState} from "../base/SectionState";
+import {SectionState} from "../SectionState";
 import update from "immutability-helper";
 import {ApplicationState} from "../../../store";
 
@@ -25,7 +25,7 @@ const slice = createSlice({
 });
 
 export const schemeFileLoadSelector: Selector<ApplicationState, File | null> =
-    state => state.ui.sections.schemeSection.schemeFile;
+    state => state.ui.sections.scheme.schemeFile;
 
 const {actions, reducer} = slice;
 export const {schemeLoadFile} = actions;

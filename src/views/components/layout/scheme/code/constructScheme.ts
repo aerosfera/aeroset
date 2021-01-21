@@ -102,5 +102,5 @@ export const constructScheme = async (scheme: Scheme, engineData: GuiEngineData,
     }
 
     await delay(100)
-    setCameraTargetToCenterOfMeshes(parent, <ArcRotateCamera>camera)
+    setCameraTargetToCenterOfMeshes(parent, <ArcRotateCamera>camera, 150)
 }

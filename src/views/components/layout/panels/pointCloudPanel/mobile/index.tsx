@@ -1,7 +1,7 @@
 import React from "react";
 import {Theme} from "@material-ui/core";
 import {withTheme} from "styled-components";
-import PointCloudPanelFilters from "../shared";
+import PointCloudPanelFilters from "../shared/PointCloudPanelFilters";
 import {PointCloudPanelMobileContainer} from "./style";
 
 const PointCloudPanelMobile: React.FC<{ theme: Theme }> = (props) => {

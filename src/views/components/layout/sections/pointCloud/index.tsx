@@ -1,8 +1,7 @@
 import React, {Fragment} from "react";
 import {useAppDispatch} from "../../../../../store/store";
 import {
-    pointCloudLoadFile,
-    showPointCloudFiltersPanel
+    pointCloudLoadFile
 } from "../../../../../store/ui/sections/pointCloud/pointCloudSection";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,8 +9,9 @@ import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import {AppClearPointCloudIcon, AppOpenPointCloudFiltersIcon, AppPublishIcon} from "../../../shared/icons";
+import { showPointCloudPanel } from "../../../../../store/ui/panels/pointCloud/pointCloudPanel";
 
-const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
+const PointCloudSection: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch();
     return (
@@ -45,7 +45,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (props) => {
                 <IconButton size={"small"}
                             color={"primary"}
                             onClick={() =>
-                                dispatch(showPointCloudFiltersPanel())}
+                                dispatch(showPointCloudPanel())}
                             style={{verticalAlign: "bottom", marginLeft: 8}}>
                     <AppOpenPointCloudFiltersIcon/>
                 </IconButton>

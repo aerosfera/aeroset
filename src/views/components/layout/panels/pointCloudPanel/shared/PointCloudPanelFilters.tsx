@@ -11,8 +11,8 @@ import {
     changeYToLimit,
     changeZFromLimit,
     changeZToLimit,
-    getPointCloudFiltersPanelSelector, PointCloudFiltersState
-} from "../../../../../../store/ui/panels/pointCloudFiltersPanel/pointCloudFiltersPanel";
+    pointCloudPanelSelector, PointCloudPanelState
+} from "../../../../../../store/ui/panels/pointCloud/pointCloudPanel";
 import * as React from "react";
 import {useAppDispatch} from "../../../../../../store/store";
 import {useTranslation} from "react-i18next";
@@ -20,8 +20,8 @@ import {createSelector} from "@reduxjs/toolkit";
 import {useSelector} from "react-redux";
 
 const dataSelector = createSelector(
-    [getPointCloudFiltersPanelSelector],
-    (filter: PointCloudFiltersState) => ({
+    [pointCloudPanelSelector],
+    (filter: PointCloudPanelState) => ({
         filter : filter
     })
 )
