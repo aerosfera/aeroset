@@ -13,8 +13,8 @@ import {
     PanelHeader,
     PanelHeaderText,
     PanelHeaderTypography
-} from "../../shared/style";
-import PointCloudPanelFilters from "../../shared/PointCloudPanelFilters";
+} from "../../shared/panels/style";
+import PointCloudPanelFilters from "../../shared/panels/PointCloudPanelFilters";
 import {AppCloseIcon} from "../../../shared/icons";
 import {
     closePointCloudPanel,

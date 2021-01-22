@@ -31,5 +31,6 @@
   "scheme" : "Схема",
   "camera" : "Камера",
   "orthographic" : "Ортографическая",
-  "perspective" : "Перспективная"
+  "perspective" : "Перспективная",
+  "showAxisOnCameraTarget" : "Показывать оси"
 }

@@ -1,13 +1,13 @@
 import {withTheme} from "styled-components";
 import * as React from "react";
-import {useAppDispatch} from "../../../../store/store";
+import {useAppDispatch} from "../../../../../store/store";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
-import {schemeModeChanged, schemeModeSelector} from "../../../../store/entities/scheme/schemeReducer";
+import {schemeModeChanged, schemeModeSelector} from "../../../../../store/entities/scheme/schemeReducer";
 import {createStyles, FormControl, FormHelperText, MenuItem, Select} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
-import {SchemeMode} from "../../../types/SchemeMode";
+import {SchemeMode} from "../../../../types/SchemeMode";
 import { FormControlStyled, SelectStyled } from "./style";
 
 const SetupSchemeMode: React.FC<{ theme: Theme }> = (_) => {

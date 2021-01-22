@@ -1,13 +1,13 @@
 import {withTheme} from "styled-components";
 import * as React from "react";
-import {useAppDispatch} from "../../../../store/store";
+import {useAppDispatch} from "../../../../../store/store";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 import {FormHelperText, MenuItem, Select} from "@material-ui/core";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {FormControlStyled, SelectStyled} from "./style";
-import {cameraModeChanged, cameraTargetModeSelector} from "../../../../store/entities/camera/cameraReducer";
-import {CameraMode} from "../../../types/CameraMode";
+import {cameraModeChanged, cameraTargetModeSelector} from "../../../../../store/entities/camera/cameraReducer";
+import {CameraMode} from "../../../../types/CameraMode";
 
 const SetupCameraMode: React.FC<{ theme: Theme }> = (_) => {
     const dispatch = useAppDispatch()

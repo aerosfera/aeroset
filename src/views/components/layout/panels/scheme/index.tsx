@@ -13,11 +13,12 @@ import {
     PanelHeader,
     PanelHeaderText,
     PanelHeaderTypography
-} from "../../shared/style";
+} from "../../shared/panels/style";
 import {AppCloseIcon} from "../../../shared/icons";
 import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../store/ui/panels/scheme/schemePanel";
-import SetupSchemeMode from "../../shared/SetupSchemeMode";
-import SetupCameraMode from "../../shared/SetupCameraMode";
+import SetupSchemeMode from "../../shared/panels/SetupSchemeMode";
+import SetupCameraMode from "../../shared/panels/SetupCameraMode";
+import GreenCheckbox from "../../shared/panels/SetupAxis";
 
 const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
     const dispatch = useAppDispatch()
@@ -52,6 +53,7 @@ const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
                     </PanelHeaderContainer>
                     <SetupSchemeMode/>
                     <SetupCameraMode/>
+                    <GreenCheckbox/>
                 </section>
             </PanelContainer>
         </Draggable>

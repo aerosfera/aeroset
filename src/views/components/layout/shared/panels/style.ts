@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {FormControl, Select, Theme} from "@material-ui/core";
-import {themeColor} from "../../theme/themeAccessors";
-import {ThemeColors} from "../../theme/ThemeColors";
+import {FormControl, FormControlLabel, Select, Theme} from "@material-ui/core";
+import {themeColor} from "../../../theme/themeAccessors";
+import {ThemeColors} from "../../../theme/ThemeColors";
 import Typography from "@material-ui/core/Typography";
 
 export const PanelContainer = styled.section<{ theme: Theme, width: number, height: number, isActive: number }>`
@@ -46,8 +46,14 @@ export const PanelBodyContainer = styled.div<Theme>`
 `
 
 export const FormControlStyled = styled(FormControl)<Theme>`
-  margin: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 8px;
   minWidth: 120px;
+`
+
+export const FormControlLabelStyled = styled(FormControlLabel)<Theme>`
+  margin-left: 8px;
 `
 
 export const SelectStyled = styled(Select)<Theme>`
