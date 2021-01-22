@@ -18,16 +18,14 @@ const slice = createSlice({
     name: "cameraReducer",
     initialState: defaultState,
     reducers: {
-        cameraTargetChanged(state: CameraState, action: PayloadAction<Vector3>) {
-            return produce(state, (draft) => {
+        cameraTargetChanged: (state: CameraState, action: PayloadAction<Vector3>) =>
+            produce(state, (draft) => {
                 draft.target = action.payload
-            });
-        },
-        cameraModeChanged(state: CameraState, action: PayloadAction<CameraMode>) {
-            return produce(state, (draft) => {
+            }),
+        cameraModeChanged: (state: CameraState, action: PayloadAction<CameraMode>) =>
+            produce(state, (draft) => {
                 draft.mode = action.payload
-            });
-        }
+            })
     }
 });
 

@@ -15,11 +15,10 @@ const slice = createSlice({
     name: "pointCloudSectionReducer",
     initialState: defaultState,
     reducers: {
-        pointCloudLoadFile: (state: PointCloudSectionState, action: PayloadAction<File>) => {
+        pointCloudLoadFile: (state: PointCloudSectionState, action: PayloadAction<File>) =>
             produce(state, (draft) => {
                 draft.pointsCloudFile = action.payload
-            });
-        }
+            })
     }
 });
 

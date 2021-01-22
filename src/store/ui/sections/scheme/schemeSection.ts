@@ -16,11 +16,10 @@ const slice = createSlice({
         name: "schemeSectionReducer",
         initialState: defaultState,
         reducers: {
-            schemeLoadFile: (state: SchemeSectionState, action: PayloadAction<File>) => {
+            schemeLoadFile: (state: SchemeSectionState, action: PayloadAction<File>) =>
                 produce(state, (draft) => {
                     draft.schemeFile = action.payload
-                });
-            }
+                })
         }
     })
 ;

@@ -16,16 +16,15 @@ const slice = createSlice({
     name: "schemePanelReducer",
     initialState: defaultState,
     reducers: {
-        showSchemePanel: (state: SchemePanelState) => {
+        showSchemePanel: (state: SchemePanelState) =>
             produce(state, (draft) => {
                 draft.isActive = true
-            })
-        },
-        closeSchemePanel: (state: SchemePanelState) => {
+            }),
+        closeSchemePanel: (state: SchemePanelState) =>
             produce(state, (draft) => {
                 draft.isActive = false
             })
-        }
+
     }
 });
 
