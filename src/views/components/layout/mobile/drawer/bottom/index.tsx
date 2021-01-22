@@ -14,8 +14,8 @@ import {OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../services/eventBus/Even
 import {BottomDrawerContentType} from "./code/BottomDrawerContentType";
 import {AppDivider} from "../../../../shared/style";
 import Typography from "@material-ui/core/Typography";
-import PointCloudPanelMobile from "../../../panels/pointCloudPanel/mobile";
-import SchemePanelMobile from "../../../panels/scheme/mobile";
+import PointCloudPanelMobile from "../../panels/pointCloud";
+import SchemePanelMobile from "../../panels/schemeSettings";
 
 const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();

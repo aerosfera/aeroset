@@ -37,5 +37,5 @@ export const cameraTargetModeSelector: Selector<ApplicationState, CameraMode> =
     state => state.entities.camera.mode;
 
 const {actions, reducer} = slice;
-export const {cameraTargetChanged} = actions;
+export const {cameraTargetChanged, cameraModeChanged} = actions;
 export default reducer;

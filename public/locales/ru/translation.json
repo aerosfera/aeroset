@@ -28,5 +28,8 @@
   "mode" : "режим",
   "scheme_display_settings" : "Настройки отображения схемы",
   "scheme_settings" : "Настройки схемы",
-  "scheme" : "Схема"
+  "scheme" : "Схема",
+  "camera" : "Камера",
+  "orthographic" : "Ортографическая",
+  "perspective" : "Перспективная"
 }

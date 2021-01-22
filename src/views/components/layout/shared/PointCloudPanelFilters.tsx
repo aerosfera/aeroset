@@ -1,7 +1,7 @@
 import {Theme} from "styled-system";
 import {withTheme} from "styled-components";
-import {PanelBodyContainer} from "../../shared/style";
-import {PointCloudPanelLineContainer} from "../style";
+import {PanelBodyContainer} from "./style";
+import {PointCloudPanelLineContainer} from "../panels/pointCloud/style";
 import {TextField} from "@material-ui/core";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {
@@ -12,9 +12,9 @@ import {
     changeZFromLimit,
     changeZToLimit,
     pointCloudPanelSelector, PointCloudPanelState
-} from "../../../../../../store/ui/panels/pointCloud/pointCloudPanel";
+} from "../../../../store/ui/panels/pointCloud/pointCloudPanel";
 import * as React from "react";
-import {useAppDispatch} from "../../../../../../store/store";
+import {useAppDispatch} from "../../../../store/store";
 import {useTranslation} from "react-i18next";
 import {createSelector} from "@reduxjs/toolkit";
 import {useSelector} from "react-redux";

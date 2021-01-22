@@ -1,6 +1,6 @@
 import * as React from "react";
 import {withTheme} from "styled-components";
-import PointCloudPanel from "./pointCloudPanel";
+import PointCloudPanel from "./pointCloud";
 import {Theme} from "@material-ui/core";
 import {PanelsContainer} from "./style";
 import SchemePanel from "./scheme";

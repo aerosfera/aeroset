@@ -13,10 +13,11 @@ import {
     PanelHeader,
     PanelHeaderText,
     PanelHeaderTypography
-} from "../shared/style";
+} from "../../shared/style";
 import {AppCloseIcon} from "../../../shared/icons";
 import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../store/ui/panels/scheme/schemePanel";
-import SchemeSettings from "./shared/SchemeSettings";
+import SetupSchemeMode from "../../shared/SetupSchemeMode";
+import SetupCameraMode from "../../shared/SetupCameraMode";
 
 const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
     const dispatch = useAppDispatch()
@@ -49,7 +50,8 @@ const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
                             </Tooltip>
                         </PanelHeader>
                     </PanelHeaderContainer>
-                    <SchemeSettings/>
+                    <SetupSchemeMode/>
+                    <SetupCameraMode/>
                 </section>
             </PanelContainer>
         </Draggable>
