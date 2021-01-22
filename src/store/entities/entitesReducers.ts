@@ -1,9 +1,11 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import schemeReducer from "./scheme/schemeReducer";
+import cameraReducer from "./camera/cameraReducer";
 
 const entitiesReducer = () => {
     return combineReducers({
-            scheme: schemeReducer
+            scheme: schemeReducer,
+            camera: cameraReducer
         }
     )
 }

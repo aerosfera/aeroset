@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
-import update from "immutability-helper";
+import {createSlice, Selector} from "@reduxjs/toolkit";
+import produce from "immer";
 import {ApplicationState} from "../../../store";
 import {PanelState} from "../PanelState";
 
@@ -8,23 +8,23 @@ export interface SchemePanelState extends PanelState {
 }
 
 const defaultState: SchemePanelState = {
-    isActive: true,
+    isActive: false,
     schemeFile: null,
 }
 
 const slice = createSlice({
-    name: "schemePanel",
+    name: "schemePanelReducer",
     initialState: defaultState,
     reducers: {
-        showSchemePanel(state: SchemePanelState) {
-            return update(state, {
-                isActive: {$set: true}
-            });
+        showSchemePanel: (state: SchemePanelState) => {
+            produce(state, (draft) => {
+                draft.isActive = true
+            })
         },
-        closeSchemePanel(state: SchemePanelState) {
-            return update(state, {
-                isActive: {$set: false}
-            });
+        closeSchemePanel: (state: SchemePanelState) => {
+            produce(state, (draft) => {
+                draft.isActive = false
+            })
         }
     }
 });

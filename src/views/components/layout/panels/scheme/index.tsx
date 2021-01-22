@@ -15,7 +15,7 @@ import {
     PanelHeaderTypography
 } from "../shared/style";
 import {AppCloseIcon} from "../../../shared/icons";
-import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../store/ui/panels/scheme/schemePanelReducer";
+import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../store/ui/panels/scheme/schemePanel";
 import SchemeSettings from "./shared/SchemeSettings";
 
 const SchemePanel: React.FC<{ theme: Theme }> = (_) => {

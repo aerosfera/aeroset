@@ -13,10 +13,8 @@ import {EVENT_BUS_SERVICE} from "../../../../../../environment/ioc/ServiceTypes"
 import {OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../services/eventBus/EventTypes";
 import {BottomDrawerContentType} from "./code/BottomDrawerContentType";
 import {AppDivider} from "../../../../shared/style";
-import {PanelHeader, PanelHeaderText, PanelHeaderTypography} from "../../../panels/shared/style";
 import Typography from "@material-ui/core/Typography";
 import PointCloudPanelMobile from "../../../panels/pointCloudPanel/mobile";
-import SchemeSection from "../../../sections/scheme";
 import SchemePanelMobile from "../../../panels/scheme/mobile";
 
 const DrawerBottomPanel: React.FC<{ theme: Theme }> = (props) => {

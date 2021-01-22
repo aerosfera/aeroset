@@ -7,7 +7,7 @@ import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import {AppLoadSchemeFile, AppSettingsIcon} from "../../../shared/icons";
 import {schemeLoadFile} from "../../../../../store/ui/sections/scheme/schemeSection";
-import { showSchemePanel } from "../../../../../store/ui/panels/scheme/schemePanelReducer";
+import { showSchemePanel } from "../../../../../store/ui/panels/scheme/schemePanel";
 
 const SchemeSection: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation()

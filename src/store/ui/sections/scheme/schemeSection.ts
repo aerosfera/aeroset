@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
 import {SectionState} from "../SectionState";
-import update from "immutability-helper";
+import produce from "immer";
 import {ApplicationState} from "../../../store";
 
 export interface SchemeSectionState extends SectionState {
@@ -13,16 +13,17 @@ const defaultState: SchemeSectionState = {
 }
 
 const slice = createSlice({
-    name: "schemeSection",
-    initialState: defaultState,
-    reducers: {
-        schemeLoadFile(state: SchemeSectionState, action: PayloadAction<File>) {
-            return update(state, {
-                schemeFile: {$set: action.payload}
-            });
+        name: "schemeSectionReducer",
+        initialState: defaultState,
+        reducers: {
+            schemeLoadFile: (state: SchemeSectionState, action: PayloadAction<File>) => {
+                produce(state, (draft) => {
+                    draft.schemeFile = action.payload
+                });
+            }
         }
-    }
-});
+    })
+;
 
 export const schemeFileLoadSelector: Selector<ApplicationState, File | null> =
     state => state.ui.sections.scheme.schemeFile;

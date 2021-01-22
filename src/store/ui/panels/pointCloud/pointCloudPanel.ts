@@ -1,6 +1,6 @@
 import {createSlice, Selector} from "@reduxjs/toolkit";
 import {ApplicationState} from "../../../store";
-import update from "immutability-helper";
+import produce from "immer";
 import {PanelState} from "../PanelState";
 
 export interface PointCloudPanelState extends PanelState {
@@ -13,7 +13,7 @@ export interface PointCloudPanelState extends PanelState {
 };
 
 const defaultState: PointCloudPanelState = {
-    isActive: true,
+    isActive: false,
     filterXFromLimit: -100,
     filterXToLimit: 100,
     filterYFromLimit: -100,
@@ -23,43 +23,42 @@ const defaultState: PointCloudPanelState = {
 };
 
 const slice = createSlice({
-    name: "pointCloudPanel",
+    name: "pointCloudPanelReducer",
     initialState: defaultState,
     reducers: {
         changeXFromLimit: (state: PointCloudPanelState, action) =>
-            update(state, {
-                filterXFromLimit: {$set: action.payload}
-            }),
+            produce(state, (draft) => {
+                    draft.filterXFromLimit = action.payload
+                }
+            ),
         changeXToLimit: (state: PointCloudPanelState, action) =>
-            update(state, {
-                filterXToLimit: {$set: action.payload}
+            produce(state, (draft) => {
+                draft.filterXToLimit = action.payload
             }),
         changeYFromLimit: (state: PointCloudPanelState, action) =>
-            update(state, {
-                filterYFromLimit: {$set: action.payload}
+            produce(state, (draft) => {
+                draft.filterYFromLimit = action.payload
             }),
         changeYToLimit: (state: PointCloudPanelState, action) =>
-            update(state, {
-                filterYToLimit: {$set: action.payload}
+            produce(state, (draft) => {
+                draft.filterYToLimit = action.payload
             }),
         changeZFromLimit: (state: PointCloudPanelState, action) =>
-            update(state, {
-                filterZFromLimit: {$set: action.payload}
+            produce(state, (draft) => {
+                draft.filterZFromLimit = action.payload
             }),
         changeZToLimit: (state: PointCloudPanelState, action) =>
-            update(state, {
-                filterZToLimit: {$set: action.payload}
+            produce(state, (draft) => {
+                draft.filterZToLimit = action.payload
             }),
-        showPointCloudPanel(state: PointCloudPanelState) {
-            return update(state, {
-                isActive: {$set: true}
-            });
-        },
-        closePointCloudPanel(state: PointCloudPanelState) {
-            return update(state, {
-                isActive: {$set: false}
-            });
-        }
+        showPointCloudPanel: (state: PointCloudPanelState) =>
+            produce(state, (draft) => {
+                draft.isActive = true
+            }),
+        closePointCloudPanel: (state: PointCloudPanelState) =>
+            produce(state, (draft) => {
+                draft.isActive = false
+            })
     }
 });
 

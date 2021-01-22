@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {SectionState} from "../SectionState";
-import update from "immutability-helper";
+import produce from "immer";
 
 export interface PointCloudSectionState extends SectionState {
     pointsCloudFile: File | null;
@@ -12,12 +12,12 @@ const defaultState: PointCloudSectionState = {
 }
 
 const slice = createSlice({
-    name: "pointCloudSection",
+    name: "pointCloudSectionReducer",
     initialState: defaultState,
     reducers: {
-        pointCloudLoadFile(state: PointCloudSectionState, action: PayloadAction<File>) {
-            return update(state, {
-                pointsCloudFile: {$set: action.payload}
+        pointCloudLoadFile: (state: PointCloudSectionState, action: PayloadAction<File>) => {
+            produce(state, (draft) => {
+                draft.pointsCloudFile = action.payload
             });
         }
     }
