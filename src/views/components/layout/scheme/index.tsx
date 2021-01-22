@@ -6,28 +6,30 @@ import {parseSchemeFile} from "./code/parseSchemeFile";
 import Scheme from "../../../../models/scheme/Scheme";
 import {loadSchemeFileToSceneAsync} from "./code/loadSchemeToScene";
 import {SchemeMode} from "../../../types/SchemeMode";
-import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
+import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitialization";
 import IoC from "../../../../environment/ioc/IoC";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE} from "../../../../environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "../../snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import {SHOW_SNACKBAR_EVENT} from "../../../../services/eventBus/EventTypes";
+import withTheme from "@material-ui/core/styles/withTheme";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
 
     useImperativeHandle(ref, () => ({initialize}));
     const data: File | null = useSelector(schemeFileLoadSelector)
-    const [state, setState] = useState<{ engineData: GuiEngineData | null }>({engineData: null})
+    const [state, setState] = useState<{ engineData: GraphicData | null }>({engineData: null})
     const {engineData} = state
 
-    const initialize = async (engineData: GuiEngineData) => {
+    const initialize = async (engineData: GraphicData) => {
         setState({engineData})
     }
 
     const loadScheme = async () => {
         const scheme: Scheme = await parseSchemeFile(data as File)
-        await loadSchemeFileToSceneAsync(scheme, engineData as GuiEngineData, SchemeMode.Topology)
+        await loadSchemeFileToSceneAsync(scheme, engineData as GraphicData, SchemeMode.Topology)
 
         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
         const event: SnackbarEvent = {
@@ -46,4 +48,5 @@ const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     )
 })
 
-export default AppScheme;
+// @ts-ignore
+export default withTheme(withStyles(null)(AppScheme));

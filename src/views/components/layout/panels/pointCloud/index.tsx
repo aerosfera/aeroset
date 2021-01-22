@@ -27,7 +27,7 @@ const PointCloudPanel: React.FC<{ theme: Theme }> = (props) => {
     const isActive = useSelector(pointCloudPanelActivitySelector)
 
     return (
-        <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}}>
+        <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}} grid={[25,25]}>
             <PanelContainer isActive={isActive} width={257} height={240}>
                 <section>
                     <PanelHeaderContainer>

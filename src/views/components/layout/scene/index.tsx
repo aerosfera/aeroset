@@ -15,11 +15,12 @@ import setupCamera from "./code/setupCamera";
 import setupLight from "./code/setupLight";
 import setupZoom from "./code/setupZoom";
 import AppScheme from "../scheme";
-import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
+import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitialization";
 
 const AppScene: React.FC<{ theme: Theme }> = (props) => {
     const pointCloudEl = useRef<DelayedInitialization>(null)
     const schemeEl = useRef<DelayedInitialization>(null)
+    const panelsEl = useRef<DelayedInitialization>(null)
     const canvasEl = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         setupLight(scene);
         setupZoom(scene, engine, camera);
 
-        const engineData : GuiEngineData = {
+        const engineData : GraphicData = {
             camera: camera,
             canvas: canvas,
             scene: scene
@@ -52,6 +53,9 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
 
         if (pointCloudEl.current)
             pointCloudEl.current.initialize(engineData)
+
+        if (panelsEl.current)
+            panelsEl.current.initialize(engineData)
     }
 
     return (
@@ -59,9 +63,7 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
             <Canvas ref={canvasEl}/>
             <PointCloud ref={pointCloudEl}/>
             <AppScheme ref={schemeEl}/>
-            <Hidden smDown>
-                <Panels/>
-            </Hidden>
+            <Panels ref={panelsEl}/>
         </div>
 
     )

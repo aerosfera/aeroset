@@ -11,9 +11,6 @@ export default (engine: Engine, canvas: HTMLCanvasElement, bgColor: string): Sce
     if(color && color !== null)
         scene.clearColor = new Color4(color.r / 255, color.g / 255, color.b / 255, 1);
 
-    setupAxis(scene, 2);
-
-
     engine.runRenderLoop(() => {
         scene.render();
     });

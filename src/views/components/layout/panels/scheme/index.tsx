@@ -19,14 +19,16 @@ import {closeSchemePanel, schemePanelActivitySelector} from "../../../../../stor
 import SetupSchemeMode from "../../shared/panels/SetupSchemeMode";
 import SetupCameraMode from "../../shared/panels/SetupCameraMode";
 import GreenCheckbox from "../../shared/panels/SetupAxis";
+import {Scene} from "@babylonjs/core/scene";
 
-const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
+const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
+    const {scene} = props
     const dispatch = useAppDispatch()
     const {t} = useTranslation()
     const isActive = useSelector(schemePanelActivitySelector)
 
     return (
-        <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}}>
+        <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}} grid={[25,25]}>
             <PanelContainer isActive={isActive} width={257} height={240}>
                 <section>
                     <PanelHeaderContainer>
@@ -53,7 +55,7 @@ const SchemePanel: React.FC<{ theme: Theme }> = (_) => {
                     </PanelHeaderContainer>
                     <SetupSchemeMode/>
                     <SetupCameraMode/>
-                    <GreenCheckbox/>
+                    <GreenCheckbox scene={scene}/>
                 </section>
             </PanelContainer>
         </Draggable>

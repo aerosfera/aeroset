@@ -9,7 +9,9 @@ import {ApplicationState} from "../../../../store/store";
 import {PointCloudContainer} from "./style";
 import {setUpPointCloud} from "./code/setupPointCloud";
 import {forwardRef, Ref, useImperativeHandle, useState} from "react";
-import {DelayedInitialization, GuiEngineData} from "../../../types/DelayedInitialization";
+import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitialization";
+import withStyles from "@material-ui/core/styles/withStyles";
+import withTheme from "@material-ui/core/styles/withTheme";
 
 const pointCloudFileSelector: Selector<ApplicationState, File | null> = state => state.ui.sections.pointCloud.pointsCloudFile;
 
@@ -23,18 +25,18 @@ const dataSelector = createSelector([pointCloudPanelSelector, pointCloudFileSele
 
 const PointCloud = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     useImperativeHandle(ref, () => ({initialize}))
-    const [state, setState] = useState<{ engineData: GuiEngineData | null }>({engineData: null})
+    const [state, setState] = useState<{ engineData: GraphicData | null }>({engineData: null})
     const {engineData} = state
 
     const data = useSelector(dataSelector);
     const cloudPointFilters = data.pointCloudFilters
     const cloudPointFile = data.file
 
-    const initialize = async (engineData: GuiEngineData) => {
+    const initialize = async (engineData: GraphicData) => {
         setState({engineData})
     }
     const loadPointCloud = async () => {
-        await setUpPointCloud(cloudPointFile as File, cloudPointFilters, (engineData as GuiEngineData).scene)
+        await setUpPointCloud(cloudPointFile as File, cloudPointFilters, (engineData as GraphicData).scene)
     }
 
     if (cloudPointFile) {
@@ -46,4 +48,5 @@ const PointCloud = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     )
 })
 
-export default PointCloud
+// @ts-ignore
+export default withTheme(withStyles(null)(PointCloud))

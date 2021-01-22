@@ -1,10 +1,10 @@
 import {Camera, Scene} from "@babylonjs/core";
 
 export interface DelayedInitialization {
-    initialize: (data: GuiEngineData) => void
+    initialize: (data: GraphicData) => void
 }
 
-export interface GuiEngineData {
+export interface GraphicData {
     scene: Scene,
     canvas: HTMLCanvasElement,
     camera: Camera

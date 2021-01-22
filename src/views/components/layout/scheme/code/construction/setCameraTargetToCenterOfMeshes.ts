@@ -1,6 +1,6 @@
 import {AbstractMesh, ArcRotateCamera, BoundingInfo, Vector3} from "@babylonjs/core";
 
-export const setCameraTargetToCenterOfMeshes = (parentMesh: AbstractMesh, camera: ArcRotateCamera, radius: number) => {
+export const setCameraTargetToCenterOfMeshes = (parentMesh: AbstractMesh, camera: ArcRotateCamera, radius: number): Vector3 => {
     let childMeshes = parentMesh.getChildMeshes();
 
     let min = childMeshes[0].getBoundingInfo().boundingBox.minimumWorld;
@@ -19,6 +19,9 @@ export const setCameraTargetToCenterOfMeshes = (parentMesh: AbstractMesh, camera
 
     parentMesh.showBoundingBox = true;
 
-    camera.setTarget(boundingInfo.boundingBox.center)
+    const target = boundingInfo.boundingBox.center;
+    camera.setTarget(target)
     camera.radius = radius
+
+    return target
 }
