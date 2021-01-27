@@ -1,6 +1,6 @@
 import {AbstractMesh, Color3, DynamicTexture, Mesh, Scene, StandardMaterial, Vector3} from "@babylonjs/core";
 
-export default function setupAxis(sceneBase: Scene, size: number, vector: Vector3): AbstractMesh[] {
+const constructAxis = (sceneBase: Scene, size: number, vector: Vector3): AbstractMesh[] => {
 
     const makeTextPlane = function (text: string, color: string, size: number, scene: Scene) {
         const dynamicTexture = new DynamicTexture("DynamicTexture", 50, scene, true);
@@ -42,5 +42,7 @@ export default function setupAxis(sceneBase: Scene, size: number, vector: Vector
     axisX.position = vector;
     axisY.position = vector;
     axisZ.position = vector;
-    return [axisX, axisY, axisZ];
+    return [axisX, axisY, axisZ, xChar, yChar, zChar];
 }
+
+export default constructAxis;

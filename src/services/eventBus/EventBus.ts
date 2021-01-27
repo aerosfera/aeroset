@@ -1,6 +1,6 @@
 import {injectable} from "inversify";
 import {EventBusService} from "./EventBusService";
-import {EventListenerFn} from "./EventListenerFn";
+import {EventListenerFn} from "../shared/EventListenerFn";
 import EventEmitter from "events";
 
 @injectable()

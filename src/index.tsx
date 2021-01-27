@@ -11,12 +11,13 @@ import App from "./views/components/app";
 import {CssBaseline, Hidden} from "@material-ui/core";
 import IoC from "./environment/ioc/IoC";
 import {EventBusService} from "./services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE, VERSION_SERVICE} from "./environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE, KEYBOARD_SERVICE, VERSION_SERVICE} from "./environment/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import 'pepjs';
 import AppBackdrop from "./views/components/backdrop";
+import Keyboard from "./services/keyboard/Keyboard";
 
 ReactDOM.render(
     <Provider store={store}>

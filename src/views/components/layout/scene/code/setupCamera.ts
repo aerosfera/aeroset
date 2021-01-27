@@ -1,7 +1,7 @@
 import {ArcRotateCamera, Camera, Matrix, Plane, Scene, Vector3} from "@babylonjs/core";
 import {PickingInfo} from "@babylonjs/core/Collisions/pickingInfo";
 
-export default function setupCamera(canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera {
+const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera => {
     const camera: ArcRotateCamera = new ArcRotateCamera('Camera', 0, 0, -100, new Vector3(1, 2, -3), scene);
 
     camera.setPosition(new Vector3(0, 0, -100));
@@ -66,3 +66,5 @@ export default function setupCamera(canvas: HTMLCanvasElement, scene: Scene): Ar
 
     return camera;
 }
+
+export default setupCamera

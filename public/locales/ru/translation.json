@@ -30,7 +30,7 @@
   "scheme_settings" : "Настройки схемы",
   "scheme" : "Схема",
   "camera" : "Камера",
-  "orthographic" : "Ортографическая",
+  "orthographic" : "Ортогональная",
   "perspective" : "Перспективная",
   "showAxisOnCameraTarget" : "Показывать оси"
 }

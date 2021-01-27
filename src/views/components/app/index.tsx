@@ -5,14 +5,16 @@ import {Hidden, Theme} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import HeaderPanel from "../layout/headerPanel";
 import InstrumentalPanel from "../layout/instrumentalPanel";
-import StatePanel from "../layout/statePanel";
 import Scene from "../layout/scene";
 import HeaderMobilePanel from "../layout/mobile/headerPanel";
 import SnackbarContainer from "../snackbar";
 import {AppDividerLight} from "../shared/style";
 import Version from "../version";
+import AppInitialize from "./code/AppInitialize";
 
 const App: React.FC<{ theme: Theme }> = (_) => {
+    AppInitialize();
+
     return (
             <SnackbarContainer>
                 <Hidden smDown>

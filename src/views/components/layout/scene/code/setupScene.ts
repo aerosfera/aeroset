@@ -1,4 +1,4 @@
-import setupAxis from "./setupAxis";
+import constructAxis from "./constructAxis";
 import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
 import {Color4, Engine, Scene} from "@babylonjs/core";
 import {VRExperienceHelper} from "@babylonjs/core/Cameras/VR/vrExperienceHelper";

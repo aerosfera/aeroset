@@ -10,6 +10,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@reduxjs/toolkit": "^1.4.0",
     "@types/offscreencanvas": "^2019.6.2",
+    "babel-plugin-transform-typescript-metadata": "^0.3.1",
     "babylonjs-hook": "^0.0.9",
     "choose-files": "^1.0.2",
     "collect.js": "^4.28.6",

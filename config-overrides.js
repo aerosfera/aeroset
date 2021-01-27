@@ -6,6 +6,8 @@ const path = require('path');
 
 const {
     override,
+    addDecoratorsLegacy,
+    addBabelPlugin,
     getBabelLoader,
     addWebpackModuleRule
 } = require('customize-cra')
@@ -25,6 +27,9 @@ module.exports = (config, env) => {
     }
 
     const babelLoader = getBabelLoader(config);
+
+    addDecoratorsLegacy();
+    addBabelPlugin("babel-plugin-parameter-decorator");
 
     return override(
         addWebpackModuleRule({
