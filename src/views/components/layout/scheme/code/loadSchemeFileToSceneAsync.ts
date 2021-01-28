@@ -10,17 +10,15 @@ import constructGeometryNode from "./construction/node/constructGeometryNode";
 import constructTopologyNode from "./construction/node/constructTopologyNode";
 import constructTopologyRib from "./construction/rib/constructTopologyRib";
 import constructGeometryRib from "./construction/rib/constructGeometryRib";
-import {GraphicData} from "../../../../types/DelayedInitialization";
 import attachOwnPointerDragBehavior from "./behaviors/pointerDragBehavior";
 import SchemeNodeMetadata from "../../../../types/SchemeNodeMetadata";
 import {delay} from "../../../../../utilities/async/delay";
 import {setCameraTargetToCenterOfMeshes} from "./construction/setCameraTargetToCenterOfMeshes";
 import {store} from "../../../../../store/store";
 import {cameraTargetChanged} from "../../../../../store/entities/camera/cameraReducer";
+import {Scene} from "@babylonjs/core/scene";
 
-export const constructScheme = async (scheme: Scheme, engineData: GraphicData, schemeMode: SchemeMode): Promise<void> => {
-    const {scene, camera} = engineData
-
+export const loadSchemeFileToSceneAsync = async (scheme: Scheme, scene: Scene, camera: ArcRotateCamera, schemeMode: SchemeMode): Promise<void> => {
     const nodes = new Array<Mesh>()
     const ribs = new Array<SchemeNodeMetadata>()
 
@@ -105,4 +103,6 @@ export const constructScheme = async (scheme: Scheme, engineData: GraphicData, s
     await delay(100);
     const cameraTarget = setCameraTargetToCenterOfMeshes(parent, <ArcRotateCamera>camera, 150);
     store.dispatch(cameraTargetChanged(cameraTarget))
+
+    scheme.ui = nodes;
 }

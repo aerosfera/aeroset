@@ -16,7 +16,7 @@ const slice = createSlice({
         name: "schemeSectionReducer",
         initialState: defaultState,
         reducers: {
-            schemeLoadFile: (state: SchemeSectionState, action: PayloadAction<File>) =>
+            schemeLoadFile: (state: SchemeSectionState, action: PayloadAction<File | null>) =>
                 produce(state, (draft) => {
                     draft.schemeFile = action.payload
                 })
@@ -24,7 +24,7 @@ const slice = createSlice({
     })
 ;
 
-export const schemeFileLoadSelector: Selector<ApplicationState, File | null> =
+export const schemeLoadFromFileSelector: Selector<ApplicationState, File | null> =
     state => state.ui.sections.scheme.schemeFile;
 
 const {actions, reducer} = slice;

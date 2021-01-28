@@ -68,6 +68,7 @@ const SchemeMenuItem: React.FC<{ theme: Theme }> = (props) => {
                                         const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
                                         eventBus.send(CLOSE_DRAWER_EVENT, {})
                                         dispatch(schemeLoadFile(file));
+                                        e.target.value = "";
                                     }
                                 }}
                                 id="icon-button-file"

@@ -7,7 +7,7 @@ import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import {AppLoadSchemeFile, AppSettingsIcon} from "../../../shared/icons";
 import {schemeLoadFile} from "../../../../../store/ui/sections/scheme/schemeSection";
-import { showSchemePanel } from "../../../../../store/ui/panels/scheme/schemePanel";
+import {showSchemePanel} from "../../../../../store/ui/panels/scheme/schemePanel";
 
 const SchemeSection: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation()
@@ -20,12 +20,11 @@ const SchemeSection: React.FC<{ theme: Theme }> = (_) => {
                     color="primary"
                     type="file"
                     onChange={(e) => {
-                        e.preventDefault();
                         const file: File = e.target.files?.[0] as File;
                         if (file && file !== undefined) {
                             dispatch(schemeLoadFile(file));
+                            e.target.value = "";
                         }
-                        e.preventDefault()
                     }}
                     id="scheme-load-file"
                     style={{display: 'none'}}/>
