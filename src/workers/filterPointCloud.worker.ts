@@ -1,6 +1,6 @@
-import {PointCloudPanelState} from "../../store/ui/panels/pointCloud/pointCloudPanel";
-import SolidPoint from "../../views/components/layout/pointCloudSystem/code/SolidPoint";
-import calculateMinMaxOfArray from "../../utilities/math/calculateMaxMinOfArray";
+import {PointCloudPanelState} from "../store/ui/panels/pointCloud/pointCloudPanel";
+import SolidPoint from "../views/components/layout/pointCloudSystem/code/SolidPoint";
+import calculateMinMaxOfArray from "../utilities/math/calculateMaxMinOfArray";
 import {Color4, Vector3} from "@babylonjs/core";
 
 export const filterPointCloudAsync = async (fileText: string, cloudPointFilters: PointCloudPanelState): Promise<{ vector: { x: number, y: number, z: number }, color: { r: number, g: number, b: number } }[]> => {

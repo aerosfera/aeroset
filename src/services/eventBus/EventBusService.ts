@@ -1,4 +1,4 @@
-import {EventListenerFn} from "../shared/EventListenerFn";
+import {EventListenerFn} from "./EventListenerFn";
 
 export interface EventBusService {
     subscribe(event: string, action: EventListenerFn): void;

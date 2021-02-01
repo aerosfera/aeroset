@@ -1,8 +1,8 @@
-import Scheme from "../../../../../models/scheme/Scheme";
-import jsonEscape from "../../../../../utilities/string/jsonEscape";
-import {SchemeMode} from "../../../../types/SchemeMode";
+import Scheme from "../../models/Scheme";
+import jsonEscape from "../../utilities/string/jsonEscape";
+import {SchemeMode} from "../../views/types/SchemeMode";
 
-export const parseSchemeFile = (file: File): Promise<Scheme> => {
+export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();
         reader.onload = () => {

@@ -1,5 +1,5 @@
 import {AbstractMesh, Mesh, PointerDragBehavior, Vector3} from "@babylonjs/core";
-import SchemeNodeMetadata from "../../../../../types/SchemeNodeMetadata";
+import SchemeNodeMetadata from "../../../views/types/SchemeNodeMetadata";
 import constructTopologyRib from "../construction/rib/constructTopologyRib";
 import {Scene} from "@babylonjs/core/scene";
 

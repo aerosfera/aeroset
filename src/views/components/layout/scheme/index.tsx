@@ -5,8 +5,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppSchemeCurrent from "./current";
 import {Scene} from '@babylonjs/core/scene';
 import {ArcRotateCamera} from "@babylonjs/core";
-import AppSchemeLoadFromFile from "./file";
-import AppSchemeLoading from "./load";
 
 const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     useImperativeHandle(ref, () => ({initialize}));
@@ -25,9 +23,8 @@ const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
 
     return (
         <React.Fragment>
-            <AppSchemeLoadFromFile scene={scene} camera={camera}/>
-            <AppSchemeLoading/>
-            <AppSchemeCurrent scene={scene} />
+            // @ts-ignore
+            <AppSchemeCurrent scene={scene} camera={camera} />
         </React.Fragment>
     )
 });

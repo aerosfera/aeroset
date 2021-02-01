@@ -1,16 +1,16 @@
 import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
 import {ApplicationState} from "../../store";
 import produce from "immer";
-import {Vector3} from "@babylonjs/core";
 import {CameraMode} from "../../../views/types/CameraMode";
+import {Vector3D} from "../../../models/Vector3D";
 
 export interface CameraState {
-    target: Vector3
+    target: Vector3D
     mode: CameraMode
 }
 
 const defaultState: CameraState = {
-    target: new Vector3(),
+    target: {x: 0, y: 0, z: 0},
     mode: CameraMode.Orthographic
 }
 
@@ -18,19 +18,19 @@ const slice = createSlice({
     name: "cameraReducer",
     initialState: defaultState,
     reducers: {
-        cameraTargetChanged: (state: CameraState, action: PayloadAction<Vector3>) =>
+        cameraTargetChanged: (state: CameraState, action: PayloadAction<Vector3D>) =>
             produce(state, (draft) => {
-                draft.target = action.payload
+                draft.target = action.payload;
             }),
         cameraModeChanged: (state: CameraState, action: PayloadAction<CameraMode>) =>
             produce(state, (draft) => {
-                draft.mode = action.payload
+                draft.mode = action.payload;
             })
     }
 });
 
 
-export const cameraTargetSelector: Selector<ApplicationState, Vector3> =
+export const cameraTargetSelector: Selector<ApplicationState, Vector3D> =
     state => state.entities.camera.target;
 
 export const cameraTargetModeSelector: Selector<ApplicationState, CameraMode> =

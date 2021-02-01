@@ -30,7 +30,7 @@ const AxisSubLayer: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const axisIsVisible = useSelector(targetAxisVisibilitySelector)
 
     if (axisIsVisible && scene && cameraTarget) {
-        axisMeshes = constructAxis(scene, 2, cameraTarget);
+        axisMeshes = constructAxis(scene, 2, new Vector3(cameraTarget.x, cameraTarget.y, cameraTarget.z));
     } else if (!axisIsVisible && scene && axisMeshes) {
         for (const mesh of axisMeshes) {
             mesh.dispose()
@@ -48,7 +48,7 @@ const AxisSubLayer: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
             eventBus.unsubscribe(KEY_UNPRESSED_EVENT, OnKeyUnPressed);
             eventBus.unsubscribe(CANVAS_MOUSE_CLICK_EVENT, canvasClickHandle);
         }
-    }, [scene])
+    }, [scene, cameraTarget, axisIsVisible])
 
     function changeCameraTarget(mouseEvent: MouseEvent) {
         const mousePosition = new Vector3(mouseEvent.screenX, mouseEvent.screenY, 0);
@@ -60,7 +60,7 @@ const AxisSubLayer: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
             Matrix.Identity(),
             scene.getViewMatrix(),
             scene.getProjectionMatrix());
-        dispatch(cameraTargetChanged(vector));
+        dispatch(cameraTargetChanged({x: vector.x, y: vector.y, z: vector.z}));
         isKeyPressed = false;
         document.documentElement.style.cursor = "default";
 

@@ -1,24 +1,24 @@
-import Scheme from "../../../../../models/scheme/Scheme";
-import Node from "../../../../../models/scheme/Node";
+import Scheme from "../../models/Scheme";
+import Node from "../../models/Node";
 import {
     ArcRotateCamera,
     Mesh,
     Vector3,
 } from "@babylonjs/core";
-import {SchemeMode} from "../../../../types/SchemeMode";
+import {SchemeMode} from "../../views/types/SchemeMode";
 import constructGeometryNode from "./construction/node/constructGeometryNode";
 import constructTopologyNode from "./construction/node/constructTopologyNode";
 import constructTopologyRib from "./construction/rib/constructTopologyRib";
 import constructGeometryRib from "./construction/rib/constructGeometryRib";
 import attachOwnPointerDragBehavior from "./behaviors/pointerDragBehavior";
-import SchemeNodeMetadata from "../../../../types/SchemeNodeMetadata";
-import {delay} from "../../../../../utilities/async/delay";
+import SchemeNodeMetadata from "../../views/types/SchemeNodeMetadata";
+import {delay} from "../../utilities/async/delay";
 import {setCameraTargetToCenterOfMeshes} from "./construction/setCameraTargetToCenterOfMeshes";
-import {store} from "../../../../../store/store";
-import {cameraTargetChanged} from "../../../../../store/entities/camera/cameraReducer";
+import {store} from "../../store/store";
+import {cameraTargetChanged} from "../../store/entities/camera/cameraReducer";
 import {Scene} from "@babylonjs/core/scene";
 
-export const loadSchemeFileToSceneAsync = async (scheme: Scheme, scene: Scene, camera: ArcRotateCamera, schemeMode: SchemeMode): Promise<void> => {
+export const buildSchemeAsync = async (scheme: Scheme, scene: Scene, camera: ArcRotateCamera, schemeMode: SchemeMode): Promise<void> => {
     const nodes = new Array<Mesh>()
     const ribs = new Array<SchemeNodeMetadata>()
 
@@ -102,7 +102,7 @@ export const loadSchemeFileToSceneAsync = async (scheme: Scheme, scene: Scene, c
 
     await delay(100);
     const cameraTarget = setCameraTargetToCenterOfMeshes(parent, <ArcRotateCamera>camera, 150);
-    store.dispatch(cameraTargetChanged(cameraTarget))
+    store.dispatch(cameraTargetChanged({x: cameraTarget.x, y: cameraTarget.y, z: cameraTarget.z}))
 
     scheme.ui = nodes;
 }
