@@ -14,20 +14,26 @@ import { showPointCloudPanel } from "../../../../../store/ui/panels/pointCloud/p
 const PointCloudSection: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch();
+
+    const fileLoad = (e) => {
+        e.preventDefault();
+        const file: File = e.target.files?.[0] as File;
+        if (file && file !== undefined) {
+            dispatch(pointCloudLoadFile(file));
+        }
+        e.preventDefault()
+    };
+
+    const showPanel = () =>
+        dispatch(showPointCloudPanel());
+
     return (
         <div>
             <Fragment>
                 <input
                     color="primary"
                     type="file"
-                    onChange={(e) => {
-                        e.preventDefault();
-                        const file: File = e.target.files?.[0] as File;
-                        if (file && file !== undefined) {
-                            dispatch(pointCloudLoadFile(file));
-                        }
-                        e.preventDefault()
-                    }}
+                    onChange={fileLoad}
                     id="icon-button-file"
                     style={{display: 'none',}}/>
                 <Tooltip title={t('load_file_with_point_cloud')}>
@@ -44,8 +50,7 @@ const PointCloudSection: React.FC<{ theme: Theme }> = (_) => {
             <Tooltip title={t('open_panel_point_cloud_filters')}>
                 <IconButton size={"small"}
                             color={"primary"}
-                            onClick={() =>
-                                dispatch(showPointCloudPanel())}
+                            onClick={showPanel}
                             style={{verticalAlign: "bottom", marginLeft: 8}}>
                     <AppOpenPointCloudFiltersIcon/>
                 </IconButton>

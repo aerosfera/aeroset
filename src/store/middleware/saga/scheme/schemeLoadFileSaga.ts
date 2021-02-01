@@ -11,7 +11,6 @@ export function* schemeLoadFileSaga(action: { payload: File | null; }) {
         return;
 
     try {
-        yield put(isSchemeLoading(true));
         const scheme: Scheme = yield call(parseSchemeFileAsync, file);
         yield put(currentSchemeChanged(scheme));
     } catch (err) {

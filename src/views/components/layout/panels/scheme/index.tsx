@@ -23,10 +23,11 @@ import {Scene} from "@babylonjs/core/scene";
 
 const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const {scene} = props
-    const dispatch = useAppDispatch()
-    const {t} = useTranslation()
-    const isActive = useSelector(schemePanelActivitySelector)
+    const {t} = useTranslation();
+    const dispatch = useAppDispatch();
+    const isActive = useSelector(schemePanelActivitySelector);
 
+    const onClose = () => dispatch(closeSchemePanel());
     return (
         <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}} grid={[25,25]}>
             <PanelContainer isActive={isActive} width={257} height={240}>
@@ -45,7 +46,7 @@ const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
                                     <IconButton
                                         component="span"
                                         size="small"
-                                        onClick={() => dispatch(closeSchemePanel())}
+                                        onClick={onClose}
                                         color="primary">
                                         <AppCloseIcon/>
                                     </IconButton>

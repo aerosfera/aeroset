@@ -29,8 +29,12 @@ const AppSchemeCurrent: React.FC<{ theme: Theme, scene: Scene, camera: ArcRotate
         async function constructScheme() {
             if (scene && camera && currentScheme) {
                 dispatch(isSchemeLoading(true));
-                await buildSchemeAsync(currentScheme, scene, camera, schemeMode)
-                dispatch(isSchemeLoading(false));
+
+                try {
+                    await buildSchemeAsync(currentScheme, scene, camera, schemeMode)
+                } finally {
+                    dispatch(isSchemeLoading(false));
+                }
 
                 const eventBus = IoC.get<EventBusService>(EVENT_BUS_SERVICE)
                 const event: SnackbarEvent = {

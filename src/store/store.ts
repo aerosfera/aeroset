@@ -11,7 +11,7 @@ const devMode = process.env.NODE_ENV === 'development';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [...getDefaultMiddleware({thunk: false, serializableCheck: false}), sagaMiddleware];
+const middleware = [...getDefaultMiddleware({thunk: false, serializableCheck: false, immutableCheck : false}), sagaMiddleware];
 
 if (devMode) {
     middleware.push(logger);
@@ -24,7 +24,7 @@ export const store = configureStore({
     reducer: rootReducer(),
     preloadedState: loadState(),
     middleware: middleware,
-    devTools: process.env.NODE_ENV !== 'production'
+    devTools: devMode
 });
 
 sagaMiddleware.run(rootSaga);

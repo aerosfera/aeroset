@@ -27,10 +27,12 @@ const slice = createSlice({
             produce(state, (draft) => {
                 draft.currentScheme = action.payload
             }),
-        schemeModeChanged: (state: SchemeState, action: PayloadAction<SchemeMode>) =>
-            produce(state, (draft) => {
-                draft.currentScheme!.mode = action.payload
-            }),
+        schemeModeChanged: (state: SchemeState, action: PayloadAction<SchemeMode>) => {
+            return produce(state, (draft) => {
+                if(draft.currentScheme)
+                    draft.currentScheme.mode = action.payload
+            });
+        },
         isSchemeLoading: (state: SchemeState, action: PayloadAction<boolean>) =>
             produce(state, (draft) => {
                 draft.isSchemeLoading = action.payload

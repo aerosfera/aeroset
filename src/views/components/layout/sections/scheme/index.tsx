@@ -13,19 +13,22 @@ const SchemeSection: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation()
     const dispatch = useAppDispatch();
 
+    const showPanel = () =>
+        dispatch(showSchemePanel());
+    const loadFile = (e) => {
+        const file: File = e.target.files?.[0] as File;
+        if (file && file !== undefined) {
+            dispatch(schemeLoadFile(file));
+            e.target.value = "";
+        }
+    };
     return (
         <div>
             <Fragment>
                 <input
                     color="primary"
                     type="file"
-                    onChange={(e) => {
-                        const file: File = e.target.files?.[0] as File;
-                        if (file && file !== undefined) {
-                            dispatch(schemeLoadFile(file));
-                            e.target.value = "";
-                        }
-                    }}
+                    onChange={loadFile}
                     id="scheme-load-file"
                     style={{display: 'none'}}/>
                 <Tooltip title={t('load_file_with_scheme')}>
@@ -43,8 +46,7 @@ const SchemeSection: React.FC<{ theme: Theme }> = (_) => {
                 <Tooltip title={t('scheme_display_settings')}>
                     <label htmlFor="scheme-open-display-settings">
                         <IconButton
-                            onClick={() =>
-                                dispatch(showSchemePanel())}
+                            onClick={showPanel}
                             component="span"
                             size="small"
                             color="primary">
