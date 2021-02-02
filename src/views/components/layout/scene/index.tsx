@@ -49,7 +49,8 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         const engine: Engine = new Engine(canvas, true);
         const scene: Scene = setupScene(engine, canvas, bgColor);
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
-        setupLight(scene);
+        const light = setupLight(scene, camera);
+
         setupZoom(scene, engine, camera);
 
         const engineData: GraphicData = {
