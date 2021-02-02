@@ -25,7 +25,7 @@ const slice = createSlice({
 
 
 export const targetAxisVisibilitySelector: Selector<ApplicationState, boolean> =
-    state => state.entities.scene.isTargetAxisVisible;
+    state => state.ui.scene.isTargetAxisVisible;
 
 const {actions, reducer} = slice;
 export const {setTargetAxisVisibility} = actions;

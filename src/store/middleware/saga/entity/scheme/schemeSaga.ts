@@ -1,6 +1,6 @@
 import {takeEvery, takeLatest} from "redux-saga/effects";
-import {isSchemeLoading} from "../../../entities/scheme/schemeReducer";
-import {schemeLoadFile} from "../../../ui/sections/scheme/schemeSection";
+import {isSchemeLoading} from "../../../../entity/scheme/activeSchemeReducer";
+import {schemeLoadFile} from "../../../../ui/sections/scheme/schemeSection";
 import {schemeDisposeSaga} from "./schemeDisposeSaga";
 import {schemeLoadFileSaga} from "./schemeLoadFileSaga";
 

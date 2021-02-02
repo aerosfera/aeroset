@@ -5,7 +5,7 @@ import {default as schemeSectionReducer} from "./scheme/schemeSection";
 const uiSectionsReducer = () => {
     return combineReducers({
         pointCloud: pointCloudSectionReducer,
-        scheme: schemeSectionReducer
+        activeScheme: schemeSectionReducer
     })
 }
 

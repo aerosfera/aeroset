@@ -31,10 +31,10 @@ const slice = createSlice({
 
 
 export const cameraTargetSelector: Selector<ApplicationState, Vector3D> =
-    state => state.entities.camera.target;
+    state => state.ui.camera.target;
 
 export const cameraTargetModeSelector: Selector<ApplicationState, CameraMode> =
-    state => state.entities.camera.mode;
+    state => state.ui.camera.mode;
 
 const {actions, reducer} = slice;
 export const {cameraTargetChanged, cameraModeChanged} = actions;

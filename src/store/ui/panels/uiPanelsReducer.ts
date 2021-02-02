@@ -5,7 +5,7 @@ import schemePanelReducer from "./scheme/schemePanel";
 const uiPanelReducer = () => {
     return combineReducers({
         pointCloud: pointCloudPanelReducer,
-        scheme: schemePanelReducer
+        activeScheme: schemePanelReducer
     })
 }
 

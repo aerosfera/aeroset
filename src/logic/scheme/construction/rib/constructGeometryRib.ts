@@ -2,19 +2,8 @@ import {Scene} from "@babylonjs/core/scene";
 import {Color3, Mesh, StandardMaterial, Vector3} from "@babylonjs/core";
 
 export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNodeVector: Vector3): Mesh | null => {
-    const tube = Mesh.CreateTube("tube",
-        [nodeVector, linkedNodeVector],
-        0.02,
-        // @ts-ignore
-        null,
-        null,
-        3,
-        scene,
-        true,
-        null,
-        null);
+    const box = Mesh.CreateBox("box", 0.3, scene, false);
 
-    tube.freezeNormals();//for speedup
     //tube.unfreezeNormals();
 
     // const tube = MeshBuilder.CreateTube("tube", {
@@ -26,7 +15,17 @@ export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNo
     const material = new StandardMaterial("rib_mat", scene)
     material.alpha = 1;
     material.diffuseColor = new Color3(255 / 255, 255 / 255, 255 / 255);
-    tube.material = material
+    box.material = material;
+
+    box.position = nodeVector;
+
+    const diffX = linkedNodeVector.x - nodeVector.x;
+    const diffY = linkedNodeVector.y - nodeVector.y;
+    const diffZ = linkedNodeVector.z - nodeVector.z;
+
+    box.scaling.x = diffX /linkedNodeVector.x
+    box.scaling.y = diffY /linkedNodeVector.y
+    box.scaling.z = diffZ /linkedNodeVector.z
 
     // let colors = new Array(2);
     // let color = Color3.Random();
@@ -57,7 +56,7 @@ export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNo
     //     tube.updateVerticesData(VertexBuffer.UVKind, uvs);
     // });
 
-    return tube
+    return box;
 }
 
 export default constructGeometryRib

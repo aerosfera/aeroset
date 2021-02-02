@@ -1,8 +1,8 @@
 import {all} from 'redux-saga/effects'
-import {schemeSaga} from "./scheme/schemeSaga";
+import entitySaga from "./entity/entitySaga";
 
 export default function* rootSaga() {
     yield all([
-        schemeSaga()
+        entitySaga()
     ]);
 }

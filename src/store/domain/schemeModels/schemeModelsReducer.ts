@@ -2,25 +2,22 @@
 import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
 import {ApplicationState} from "../../store";
 import produce from "immer";
-import Scheme from "../../../models/Scheme";
+import Scheme from "../../../models/scheme/Scheme";
 import {SchemeMode} from "../../../views/types/SchemeMode";
+import AirCalculationModel from "../../../models/calculation/air/AirCalculationModel";
 
-export interface SchemeState {
-    currentScheme: Scheme | null
-    availableSchemes: Scheme[]
-    recentSchemes: Scheme[]
-    isSchemeLoading: boolean
+export interface modelsSchemeState {
+    schemeId: string
+    air: AirCalculationModel[]
 }
 
-const defaultState: SchemeState = {
-    currentScheme: null,
-    availableSchemes: [],
-    recentSchemes: [],
-    isSchemeLoading: false
+const defaultState: modelsSchemeState = {
+    schemeId: string,
+    air: []
 }
 
 const slice = createSlice({
-    name: "schemeReducer",
+    name: "modelsReducer",
     initialState: defaultState,
     reducers: {
         currentSchemeChanged: (state: SchemeState, action: PayloadAction<Scheme | null>) =>
@@ -58,10 +55,10 @@ const slice = createSlice({
 });
 
 export const schemeChangedSelector: Selector<ApplicationState, Scheme | null> =
-    state => state.entities.scheme.currentScheme;
+    state => state.entity.activeScheme.activeScheme;
 
 export const schemeModeSelector: Selector<ApplicationState, SchemeMode> =
-    state => state.entities.scheme.currentScheme ? state.entities.scheme.currentScheme.mode : 0;
+    state => state.entity.activeScheme.activeScheme ? state.entity.activeScheme.activeScheme.mode : 0;
 
 const {actions, reducer} = slice;
 export const {

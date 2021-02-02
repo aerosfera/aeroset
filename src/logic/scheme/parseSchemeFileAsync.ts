@@ -1,4 +1,4 @@
-import Scheme from "../../models/Scheme";
+import Scheme from "../../models/scheme/Scheme";
 import jsonEscape from "../../utilities/string/jsonEscape";
 import {SchemeMode} from "../../views/types/SchemeMode";
 
@@ -10,7 +10,6 @@ export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
 
             const jsonText = jsonEscape(fileText);
             const scheme: Scheme = JSON.parse(jsonText);
-            scheme.mode = SchemeMode.Topology;
 
             resolve(scheme);
         };

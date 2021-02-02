@@ -77,7 +77,7 @@ const attachOwnPointerDragBehavior = (mesh: Mesh, scene: Scene) => {
 
         attachedNode.position.x += deltaX
         attachedNode.position.z += deltaZ
-        attachedNode.position.y += deltaY
+        //attachedNode.position.y += deltaY
 
         if (attachedNode.metadata)
             handleNodes.push(attachedNode)

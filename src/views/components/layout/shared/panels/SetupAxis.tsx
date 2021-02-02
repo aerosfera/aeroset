@@ -7,9 +7,9 @@ import {Checkbox, withStyles} from "@material-ui/core";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {green} from "@material-ui/core/colors";
 import {FormControlLabelStyled} from "./style";
-import {setTargetAxisVisibility, targetAxisVisibilitySelector} from "../../../../../store/entities/scene/sceneReducer";
+import {setTargetAxisVisibility, targetAxisVisibilitySelector} from "../../../../../store/ui/scene/sceneReducer";
 import showAxisOnTargetVector from "../../scene/code/constructAxis";
-import {cameraTargetSelector} from "../../../../../store/entities/camera/cameraReducer";
+import {cameraTargetSelector} from "../../../../../store/ui/camera/cameraReducer";
 import {Scene} from "@babylonjs/core/scene";
 import {AbstractMesh} from "@babylonjs/core";
 

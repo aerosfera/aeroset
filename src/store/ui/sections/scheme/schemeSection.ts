@@ -31,7 +31,7 @@ const slice = createSlice({
 ;
 
 export const schemeLoadFromFileSelector: Selector<ApplicationState, File | null> =
-    state => state.ui.sections.scheme.schemeFile;
+    state => state.ui.sections.activeScheme.schemeFile;
 
 const {actions, reducer} = slice;
 export const {schemeLoadFile, schemeFileLoadError} = actions;

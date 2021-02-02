@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {FormHelperText, MenuItem, Select} from "@material-ui/core";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {FormControlStyled, SelectStyled} from "./style";
-import {cameraModeChanged, cameraTargetModeSelector} from "../../../../../store/entities/camera/cameraReducer";
+import {cameraModeChanged, cameraTargetModeSelector} from "../../../../../store/ui/camera/cameraReducer";
 import {CameraMode} from "../../../../types/CameraMode";
 
 const SetupCameraMode: React.FC<{ theme: Theme }> = (_) => {

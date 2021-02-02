@@ -5,9 +5,9 @@ import {Scene} from "@babylonjs/core/scene";
 import {useSelector} from "react-redux";
 import {
     isSchemeLoading,
-    schemeChangedSelector,
-    schemeModeSelector
-} from "../../../../../store/entities/scheme/schemeReducer";
+    activeSchemeChangedSelector,
+    activeSchemeModeChangedSelector
+} from "../../../../../store/entity/scheme/activeSchemeReducer";
 import {ArcRotateCamera} from "@babylonjs/core";
 import {useAppDispatch} from "../../../../../store/store";
 import {buildSchemeAsync} from "../../../../../logic/scheme/buildSchemeAsync";
@@ -22,8 +22,8 @@ const AppSchemeCurrent: React.FC<{ theme: Theme, scene: Scene, camera: ArcRotate
     const dispatch = useAppDispatch();
 
     const {scene, camera} = props;
-    const currentScheme = useSelector(schemeChangedSelector);
-    const schemeMode = useSelector(schemeModeSelector);
+    const currentScheme = useSelector(activeSchemeChangedSelector);
+    const schemeMode = useSelector(activeSchemeModeChangedSelector);
 
     useEffect(() => {
         async function constructScheme() {

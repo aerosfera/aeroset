@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux'
 import uiReducer from "./ui/uiReducer";
-import entitiesReducer from "./entities/entitesReducers";
+import entityReducer from "./entity/entityReducer";
+import domainReducer from "./domain/domainReducer";
 
 export default function rootReducer() {
     return combineReducers({
         ui: uiReducer(),
-        entities: entitiesReducer()
+        entity: entityReducer(),
+        domain: domainReducer()
     });
 };

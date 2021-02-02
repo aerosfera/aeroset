@@ -29,7 +29,7 @@ const slice = createSlice({
 });
 
 export const schemePanelActivitySelector: Selector<ApplicationState, boolean> =
-    state => state.ui.panels.scheme.isActive;
+    state => state.ui.panels.activeScheme.isActive;
 
 
 const {actions, reducer} = slice;
