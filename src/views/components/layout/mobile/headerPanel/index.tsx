@@ -9,9 +9,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import DrawerLeftPanel from "../drawer/left";
-import IoC from "../../../../../environment/ioc/IoC";
+import IoC from "../../../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../../../../infrastructure/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT} from "../../../../../services/eventBus/EventTypes";
 import DrawerBottomPanel from "../drawer/bottom";
 import {

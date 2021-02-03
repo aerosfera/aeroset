@@ -1,5 +1,6 @@
 import {Scene} from "@babylonjs/core/scene";
 import {Color3, Matrix, Mesh, MeshBuilder, Quaternion, StandardMaterial, Vector3} from "@babylonjs/core";
+import {GradientMaterial} from "@babylonjs/materials";
 
 export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNodeVector: Vector3): Mesh | null => {
     //const box = Mesh.CreateBox("box", 0.3, scene, false);
@@ -17,7 +18,6 @@ export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNo
     // material.diffuseColor = new Color3(255 / 255, 255 / 255, 255 / 255);
     // box.material = material;
     //
-    // box.position = nodeVector;
     //
     // const diffX = linkedNodeVector.x - nodeVector.x;
     // const diffY = linkedNodeVector.y - nodeVector.y;
@@ -56,7 +56,17 @@ export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNo
     //     tube.updateVerticesData(VertexBuffer.UVKind, uvs);
     // });
 
-    return constructCuboid(scene, nodeVector, linkedNodeVector);
+    const rib = constructCuboid(scene, nodeVector, linkedNodeVector);
+
+    const gradientMaterial = new GradientMaterial("grad", scene);
+    gradientMaterial.topColor = new Color3(0, 0, 1);
+    gradientMaterial.bottomColor = new Color3(0, 0, 0);
+    gradientMaterial.offset = 0.5;
+    gradientMaterial.smoothness = 1;
+
+    rib.material = gradientMaterial;
+
+    return rib;
 }
 
 const constructCuboid = (scene: Scene, from: Vector3, to: Vector3): Mesh => {

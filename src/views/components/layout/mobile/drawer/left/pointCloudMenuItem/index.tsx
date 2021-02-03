@@ -14,9 +14,9 @@ import {
     pointCloudLoadFile
 } from "../../../../../../../store/ui/sections/pointCloud/pointCloudSection";
 import {useAppDispatch} from "../../../../../../../store/store";
-import IoC from "../../../../../../../environment/ioc/IoC";
+import IoC from "../../../../../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../../../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../../../../../../infrastructure/ioc/ServiceTypes";
 import {CLOSE_DRAWER_EVENT, OPEN_BOTTOM_DRAWER_EVENT} from "../../../../../../../services/eventBus/EventTypes";
 import {BottomDrawerContentType} from "../../bottom/code/BottomDrawerContentType";
 import {

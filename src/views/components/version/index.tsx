@@ -1,7 +1,7 @@
 import * as React from "react";
-import IoC from "../../../environment/ioc/IoC";
+import IoC from "../../../infrastructure/ioc/IoC";
 import VersionService from "../../../services/version/VersionService";
-import {VERSION_SERVICE} from "../../../environment/ioc/ServiceTypes";
+import {VERSION_SERVICE} from "../../../infrastructure/ioc/ServiceTypes";
 import {useTranslation} from "react-i18next";
 
 const loadVersion = () => {

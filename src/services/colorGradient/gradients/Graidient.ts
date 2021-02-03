@@ -1,4 +1,4 @@
-import {RGBA} from "../RGBA";
+import {RGBA} from "../../../views/types/RGBA";
 import {ColorLabel} from "../ColorLabel";
 
 export class Gradient {

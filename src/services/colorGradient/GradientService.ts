@@ -1,12 +1,13 @@
-import {RGBA} from "./RGBA";
+import {RGBA} from "../../views/types/RGBA";
 import {GradientDefault} from "./gradients/GradientDefault";
 import {GradientIron} from "./gradients/GradientIron";
 import {GradientAeroset} from "./gradients/GradientAeroset";
 import {Gradient} from "./gradients/Graidient";
 import {ColorLabel} from "./ColorLabel";
+import {injectable} from "inversify";
 
-
-export default class ColorGradientService {
+@injectable()
+class ColorGradientService {
     private gradientTypes: (GradientDefault | GradientIron | GradientAeroset)[];
     private Gradient: Gradient = new GradientDefault();
     private MinParameter: number = -100;
@@ -88,6 +89,6 @@ export default class ColorGradientService {
         return backgroundProperty;
 
     };
-
-
 }
+
+export default ColorGradientService;

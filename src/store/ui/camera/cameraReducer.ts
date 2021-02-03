@@ -2,7 +2,7 @@ import {createSlice, PayloadAction, Selector} from "@reduxjs/toolkit";
 import {ApplicationState} from "../../store";
 import produce from "immer";
 import {CameraMode} from "../../../views/types/CameraMode";
-import {Vector3D} from "../../../models/Vector3D";
+import {Vector3D} from "../../../data/Vector3D";
 
 export interface CameraState {
     target: Vector3D

@@ -1,4 +1,4 @@
-import Scheme from "../../models/scheme/Scheme";
+import Scheme from "../../data/scheme/Scheme";
 import jsonEscape from "../../utilities/string/jsonEscape";
 import {SchemeMode} from "../../views/types/SchemeMode";
 

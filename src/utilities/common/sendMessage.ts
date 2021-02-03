@@ -1,6 +1,6 @@
-import IoC from "../../environment/ioc/IoC";
+import IoC from "../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../infrastructure/ioc/ServiceTypes";
 import {SHOW_BACKDROP_EVENT} from "../../services/eventBus/EventTypes";
 import i18next from "i18next";
 

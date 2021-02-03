@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {RGBA} from "../RGBA";
+import {RGBA} from "../../../views/types/RGBA";
 import {ColorLabel} from "../ColorLabel";
 import {Gradient} from "./Graidient";
 

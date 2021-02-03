@@ -1,8 +1,8 @@
-import IoC from "../../environment/ioc/IoC";
+import IoC from "../../infrastructure/ioc/IoC";
 import {injectable} from "inversify";
 import "reflect-metadata";
 import {EventBusService} from "../eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../infrastructure/ioc/ServiceTypes";
 import {KEY_PRESSED_EVENT, KEY_UNPRESSED_EVENT} from "../eventBus/EventTypes";
 
 @injectable()

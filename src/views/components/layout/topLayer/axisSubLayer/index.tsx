@@ -9,9 +9,9 @@ import {targetAxisVisibilitySelector} from "../../../../../store/ui/scene/sceneR
 import constructAxis from "../../scene/code/constructAxis";
 import {OnCanvasContainer} from "../../shared/style";
 import {useEffect} from "react";
-import IoC from "../../../../../environment/ioc/IoC";
+import IoC from "../../../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../../../../infrastructure/ioc/ServiceTypes";
 import {
     CANVAS_MOUSE_CLICK_EVENT,
     KEY_PRESSED_EVENT,

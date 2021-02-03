@@ -1,7 +1,7 @@
 import NodeValuePair from "./NodeValuePair";
 import Scheme from "../scheme/Scheme";
 
-export default interface CalculationModel {
+export default interface SchemeModel {
     id: string
     name: string
     created: Date,

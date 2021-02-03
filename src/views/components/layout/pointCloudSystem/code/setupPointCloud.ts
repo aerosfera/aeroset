@@ -1,9 +1,9 @@
 import {Color4, Particle, PointsCloudSystem, Scene, Vector3} from "@babylonjs/core";
 import {PointCloudPanelState} from "../../../../../store/ui/panels/pointCloud/pointCloudPanel";
 import {filterPointCloudAsync} from "../../../../../workers/filterPointCloud.worker";
-import IoC from "../../../../../environment/ioc/IoC";
+import IoC from "../../../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../../../../infrastructure/ioc/ServiceTypes";
 import {SnackbarEvent} from "../../../snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 import {SHOW_SNACKBAR_EVENT} from "../../../../../services/eventBus/EventTypes";

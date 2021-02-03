@@ -1,4 +1,4 @@
-import Scheme from "../../../../../models/scheme/Scheme";
+import Scheme from "../../../../../data/scheme/Scheme";
 import {call, put} from 'redux-saga/effects'
 import {parseSchemeFileAsync} from "../../../../../logic/scheme/parseSchemeFileAsync";
 import {activeSchemeChanged, isSchemeLoading} from "../../../../entity/scheme/activeSchemeReducer";

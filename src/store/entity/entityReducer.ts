@@ -1,11 +1,11 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import activeSchemeReducer from "./scheme/activeSchemeReducer";
-import availableSchemesReducer from "./scheme/availableSchemesReducer";
+import modelsReducer from "./models/modelsReducer";
 
 const entityReducer = () => {
     return combineReducers({
             activeScheme: activeSchemeReducer,
-            availableSchemes: availableSchemesReducer,
+            models: modelsReducer(),
         }
     )
 }

@@ -17,10 +17,11 @@ import setupZoom from "./code/setupZoom";
 import AppScheme from "../scheme";
 import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitialization";
 import TopLayer from "../topLayer";
-import IoC from "../../../../environment/ioc/IoC";
+import IoC from "../../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../../../infrastructure/ioc/ServiceTypes";
 import {CANVAS_MOUSE_CLICK_EVENT} from "../../../../services/eventBus/EventTypes";
+import setupEnvironment from "./code/setupEnvironment";
 
 const AppScene: React.FC<{ theme: Theme }> = (props) => {
     const pointCloudEl = useRef<DelayedInitialization>(null)
@@ -50,6 +51,7 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         const scene: Scene = setupScene(engine, canvas, bgColor);
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
         const light = setupLight(scene, camera);
+        //setupEnvironment(scene);
 
         setupZoom(scene, engine, camera);
 

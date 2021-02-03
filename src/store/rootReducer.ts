@@ -7,6 +7,6 @@ export default function rootReducer() {
     return combineReducers({
         ui: uiReducer(),
         entity: entityReducer(),
-        domain: domainReducer()
+        //domain: domainReducer()
     });
 };

@@ -3,9 +3,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {createMuiTheme, Theme} from "@material-ui/core";
 import {ThemeProvider, withTheme} from "styled-components";
-import IoC from "../../../environment/ioc/IoC";
+import IoC from "../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../environment/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "../../../infrastructure/ioc/ServiceTypes";
 import {
     CLOSE_BACKDROP_EVENT,
     SHOW_BACKDROP_EVENT

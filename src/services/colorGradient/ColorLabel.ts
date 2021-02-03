@@ -1,4 +1,4 @@
-import {RGBA} from "./RGBA";
+import {RGBA} from "../../views/types/RGBA";
 
 export class ColorLabel {
     public position: number;
