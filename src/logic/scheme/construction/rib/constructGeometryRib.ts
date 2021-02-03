@@ -61,20 +61,19 @@ export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNo
 
 const constructCuboid = (scene: Scene, from: Vector3, to: Vector3): Mesh => {
     const vectorStart = from;
-    const vEnd = to;
-    const distance = Vector3.Distance(vectorStart, vEnd);
+    const vectorEnd = to;
+    const distance = Vector3.Distance(vectorStart, vectorEnd);
 
     const material = new StandardMaterial("kosh", scene);
     const box = MeshBuilder.CreateBox("box", {width: 0.1, height: distance, depth: 0.1}, scene);
 
-    // First of all we have to set the pivot not in the center of the box:
-    box.setPivotMatrix(Matrix.Translation(0, -distance / 2, 0));
+    const mid = Vector3.Lerp(vectorStart, vectorEnd, 0.5);
 
     // Then move the box to red sphere
-    box.position = to;
+    box.position = mid;
 
     // Then find the vector between spheres
-    const v1 = vEnd.subtract(vectorStart);
+    const v1 = vectorEnd.subtract(vectorStart);
     v1.normalize();
     const v2 = new Vector3(0, 1, 0);
 
