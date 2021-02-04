@@ -2,7 +2,6 @@ import React, {forwardRef, Ref, useImperativeHandle, useState} from 'react';
 import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitialization";
 import withTheme from "@material-ui/core/styles/withTheme";
 import withStyles from "@material-ui/core/styles/withStyles";
-import AppSchemeCurrent from "./current";
 import {Scene} from '@babylonjs/core/scene';
 import {ArcRotateCamera} from "@babylonjs/core";
 
@@ -23,8 +22,6 @@ const AppScheme = forwardRef((props, ref: Ref<DelayedInitialization>) => {
 
     return (
         <React.Fragment>
-            // @ts-ignore
-            <AppSchemeCurrent scene={scene} camera={camera} />
         </React.Fragment>
     )
 });

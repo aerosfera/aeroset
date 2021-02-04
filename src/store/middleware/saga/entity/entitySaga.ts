@@ -1,5 +1,5 @@
 import {all} from "redux-saga/effects";
-import {schemeSaga} from "./scheme/schemeSaga";
+import {schemeSaga} from "../domain/scheme/schemeSaga";
 
 export default function* entitySaga() {
     yield all([

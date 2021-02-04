@@ -7,9 +7,10 @@ import {SchemeMode} from "../../../views/types/SchemeMode";
 import {airModelsById} from "../../entity/models/air/airModelsReducer";
 import {SchemeUI} from "../../../data/ui/SchemeUI";
 import {schemesByIdSelector} from "../../entity/schemes/schemesReducer";
+import AirModel from "../../../data/models/air/AirModel";
 
 export interface SchemeState {
-    activeSchemeId: string
+    activeSchemeId: string | null
     activeSchemeUI: SchemeUI | null
     activeSchemeMode: SchemeMode
     activeSchemeModelsId: string[]
@@ -37,13 +38,13 @@ const slice = createSlice({
                 const index = draft.activeSchemeModelsId.indexOf((action.payload))
                 draft.activeSchemeModelsId.splice(index, 1);
             }),
-        activeSchemeChanged: (state: SchemeState, action: PayloadAction<Scheme | null>) =>
+        activeSchemeIdChanged: (state: SchemeState, action: PayloadAction<string | null>) =>
             produce(state, (draft) => {
-                draft.activeScheme = action.payload;
+                draft.activeSchemeId = action.payload;
             }),
         activeSchemeUIChanged: (state: SchemeState, action: PayloadAction<SchemeUI | null>) =>
             produce(state, (draft) => {
-                draft.activeSchemeUi = action.payload;
+                draft.activeSchemeUI = action.payload;
             }),
         schemeModeChanged: (state: SchemeState, action: PayloadAction<SchemeMode>) => {
             return produce(state, (draft) => {
@@ -79,13 +80,15 @@ const activeModelsIdChangedSelector: Selector<ApplicationState, string[]> =
 export const activeModelsChangedSelector = createSelector([activeModelsIdChangedSelector],
     (modelsId: string[]) => {
         const state = store.getState().entity.models.air
-        const airModels = modelsId.map(m => airModelsById(state, m));
-        return airModels;
+        const airModels: AirModel[] = modelsId.map(m => airModelsById(state, m));
+        return {
+            airModels: airModels
+        };
     });
 
 const {actions, reducer} = slice;
 export const {
-    activeSchemeChanged,
+    activeSchemeIdChanged,
     schemeModeChanged,
     isSchemeLoading,
     activeSchemeUIChanged,

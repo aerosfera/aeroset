@@ -1,9 +1,15 @@
-import {Mesh} from "@babylonjs/core";
+import {SchemeUI} from "../../data/ui/SchemeUI";
 
-export const disposeSchemeUI = (schemeUI: Mesh[]) => {
-    if (schemeUI && schemeUI.length > 0) {
-        for (const mesh of schemeUI) {
-            mesh.dispose();
+export const disposeSchemeUI = (schemeUI: SchemeUI) => {
+    if (schemeUI) {
+        for (const nodeMesh of schemeUI.nodes) {
+            nodeMesh.mesh.dispose();
         }
+
+        for (const nodeRib of schemeUI.ribs) {
+            nodeRib.mesh.dispose();
+        }
+
+        schemeUI.parent?.dispose();
     }
 }

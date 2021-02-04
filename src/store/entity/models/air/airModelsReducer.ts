@@ -1,5 +1,5 @@
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
-import AirModel from "../../../../data/models/SchemeModel";
+import AirModel from "../../../../data/models/air/AirModel";
 
 const airModelsAdapter = createEntityAdapter<AirModel>({
     selectId: (model) => model.id,

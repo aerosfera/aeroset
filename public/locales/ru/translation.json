@@ -32,5 +32,6 @@
   "camera" : "Камера",
   "orthographic" : "Ортогональная",
   "perspective" : "Перспективная",
-  "showAxisOnCameraTarget" : "Показывать оси"
+  "showAxisOnCameraTarget" : "Показывать оси",
+  "scheme_mode_changed" : "Режим отображения изменён"
 }

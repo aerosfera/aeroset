@@ -32,5 +32,6 @@
   "camera" : "Camera",
   "orthographic" : "Orthographic",
   "perspective" : "Perspective",
-  "showAxisOnCameraTarget" : "Show axis"
+  "showAxisOnCameraTarget" : "Show axis",
+  "scheme_mode_changed" : "Scheme mode changed"
 }

@@ -19,9 +19,10 @@ import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitiali
 import TopLayer from "../topLayer";
 import IoC from "../../../../infrastructure/ioc/IoC";
 import {EventBusService} from "../../../../services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE} from "../../../../infrastructure/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE, INFRASTRUCTURE_SERVICE} from "../../../../infrastructure/ioc/ServiceTypes";
 import {CANVAS_MOUSE_CLICK_EVENT} from "../../../../services/eventBus/EventTypes";
 import setupEnvironment from "./code/setupEnvironment";
+import InfrastructureService from "../../../../services/infrastructure/infrastructureService";
 
 const AppScene: React.FC<{ theme: Theme }> = (props) => {
     const pointCloudEl = useRef<DelayedInitialization>(null)
@@ -35,7 +36,8 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
             initialize(canvasEl.current)
 
         return () => {
-            canvas.onclick = null;
+            if (canvasEl.current)
+                canvasEl.current.onclick = null;
         }
     }, [])
 
@@ -51,8 +53,13 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         const scene: Scene = setupScene(engine, canvas, bgColor);
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
         const light = setupLight(scene, camera);
-
         setupZoom(scene, engine, camera);
+
+        const infrastructureService = IoC.get<InfrastructureService>(INFRASTRUCTURE_SERVICE);
+        infrastructureService.engine = engine;
+        infrastructureService.scene = scene;
+        infrastructureService.camera = camera;
+        infrastructureService.light = light;
 
         const engineData: GraphicData = {
             camera: camera,

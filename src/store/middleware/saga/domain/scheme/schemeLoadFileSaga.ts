@@ -1,8 +1,9 @@
 import Scheme from "../../../../../data/scheme/Scheme";
 import {call, put} from 'redux-saga/effects'
 import {parseSchemeFileAsync} from "../../../../../logic/scheme/parseSchemeFileAsync";
-import {activeSchemeChanged, isSchemeLoading} from "../../../../domain/scheme/activeSchemeReducer";
+import {activeSchemeIdChanged, isSchemeLoading} from "../../../../domain/scheme/activeSchemeReducer";
 import {schemeFileLoadError, schemeLoadFile} from "../../../../ui/sections/scheme/schemeSection";
+import {schemesAddOne} from "../../../../entity/schemes/schemesReducer";
 
 export function* schemeLoadFileSaga(action: { payload: File | null; }) {
     const file = action.payload;
@@ -12,7 +13,9 @@ export function* schemeLoadFileSaga(action: { payload: File | null; }) {
 
     try {
         const scheme: Scheme = yield call(parseSchemeFileAsync, file);
-        yield put(activeSchemeChanged(scheme));
+
+        yield put(schemesAddOne(scheme));
+        yield put(activeSchemeIdChanged(scheme.id));
     } catch (err) {
         yield put(schemeFileLoadError(err));
     }
