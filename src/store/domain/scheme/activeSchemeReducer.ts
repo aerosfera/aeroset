@@ -4,21 +4,21 @@ import {ApplicationState, store} from "../../store";
 import produce from "immer";
 import Scheme from "../../../data/scheme/Scheme";
 import {SchemeMode} from "../../../views/types/SchemeMode";
-import SchemeUI from "../../../data/scheme/SchemeUI";
-import {Mesh} from "@babylonjs/core";
 import {airModelsById} from "../../entity/models/air/airModelsReducer";
+import {SchemeUI} from "../../../data/ui/SchemeUI";
+import {schemesByIdSelector} from "../../entity/schemes/schemesReducer";
 
 export interface SchemeState {
-    activeScheme: Scheme | null
-    activeSchemeUi: Mesh[] | null
+    activeSchemeId: string
+    activeSchemeUI: SchemeUI | null
     activeSchemeMode: SchemeMode
     activeSchemeModelsId: string[]
     isSchemeLoading: boolean
 }
 
 const defaultState: SchemeState = {
-    activeScheme: null,
-    activeSchemeUi: null,
+    activeSchemeId: null,
+    activeSchemeUI: null,
     activeSchemeMode: 0,
     activeSchemeModelsId: [],
     isSchemeLoading: false
@@ -41,7 +41,7 @@ const slice = createSlice({
             produce(state, (draft) => {
                 draft.activeScheme = action.payload;
             }),
-        activeSchemeUIChanged: (state: SchemeState, action: PayloadAction<Mesh[] | null>) =>
+        activeSchemeUIChanged: (state: SchemeState, action: PayloadAction<SchemeUI | null>) =>
             produce(state, (draft) => {
                 draft.activeSchemeUi = action.payload;
             }),
@@ -57,11 +57,18 @@ const slice = createSlice({
     }
 });
 
-export const activeSchemeChangedSelector: Selector<ApplicationState, SchemeUI | null> =
-    state => state.domain.activeScheme.activeScheme;
+export const activeSchemeIdChangedSelector: Selector<ApplicationState, Scheme | null> =
+    state => state.domain.activeScheme.activeSchemeId;
 
-export const activeSchemeUiChangedSelector: Selector<ApplicationState, SchemeUI | null> =
-    state => state.domain.activeScheme.activeSchemeUi;
+export const activeSchemeChangedSelector = createSelector([activeSchemeIdChangedSelector],
+    (schemeId: string) => {
+        const state = store.getState().entity.schemes;
+        const scheme = schemesByIdSelector(state, schemeId);
+        return scheme;
+    });
+
+export const activeSchemeUIChangedSelector: Selector<ApplicationState, SchemeUI | null> =
+    state => state.domain.activeScheme.activeSchemeUI;
 
 export const activeSchemeModeChangedSelector: Selector<ApplicationState, SchemeMode> =
     state => state.domain.activeScheme.activeSchemeMode;

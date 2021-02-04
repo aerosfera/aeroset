@@ -1,5 +1,5 @@
 import Scheme from "../../data/scheme/Scheme";
-import Node from "../../data/Node";
+import Node from "../../data/base/Node";
 import {
     ArcRotateCamera,
     Mesh,
