@@ -1,10 +1,11 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import availableSchemesReducer from "./availableSchemes/availableSchemesReducer";
+import availableSchemesReducer from "../entity/schemes/schemesReducer";
+import activeSchemeReducer from "./scheme/activeSchemeReducer";
 
 const domainReducer = () => {
     return combineReducers({
-            availableSchemes: availableSchemesReducer,
+            activeScheme: activeSchemeReducer,
         }
     )
 }
-export default domainReducer
+export default domainReducer;

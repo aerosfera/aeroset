@@ -17,7 +17,7 @@ import {setCameraTargetToCenterOfMeshes} from "./construction/setCameraTargetToC
 import {store} from "../../store/store";
 import {cameraTargetChanged} from "../../store/ui/camera/cameraReducer";
 import {Scene} from "@babylonjs/core/scene";
-import {activeSchemeUIChanged} from "../../store/entity/scheme/activeSchemeReducer";
+import {activeSchemeUIChanged} from "../../store/domain/scheme/activeSchemeReducer";
 
 export const buildSchemeAsync = async (scheme: Scheme, scene: Scene, camera: ArcRotateCamera, schemeMode: SchemeMode): Promise<void> => {
     const nodes = new Array<Mesh>()

@@ -6,7 +6,7 @@ import Scheme from "../../../data/scheme/Scheme";
 import {SchemeMode} from "../../../views/types/SchemeMode";
 import SchemeUI from "../../../data/scheme/SchemeUI";
 import {Mesh} from "@babylonjs/core";
-import {airModelsById} from "../models/air/airModelsReducer";
+import {airModelsById} from "../../entity/models/air/airModelsReducer";
 
 export interface SchemeState {
     activeScheme: Scheme | null
@@ -58,16 +58,16 @@ const slice = createSlice({
 });
 
 export const activeSchemeChangedSelector: Selector<ApplicationState, SchemeUI | null> =
-    state => state.entity.activeScheme.activeScheme;
+    state => state.domain.activeScheme.activeScheme;
 
 export const activeSchemeUiChangedSelector: Selector<ApplicationState, SchemeUI | null> =
-    state => state.entity.activeScheme.activeSchemeUi;
+    state => state.domain.activeScheme.activeSchemeUi;
 
 export const activeSchemeModeChangedSelector: Selector<ApplicationState, SchemeMode> =
-    state => state.entity.activeScheme.activeSchemeMode;
+    state => state.domain.activeScheme.activeSchemeMode;
 
 const activeModelsIdChangedSelector: Selector<ApplicationState, string[]> =
-    state => state.entity.activeScheme.activeSchemeModelsId;
+    state => state.domain.activeScheme.activeSchemeModelsId;
 
 export const activeModelsChangedSelector = createSelector([activeModelsIdChangedSelector],
     (modelsId: string[]) => {

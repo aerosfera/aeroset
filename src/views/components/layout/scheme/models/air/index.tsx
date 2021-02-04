@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {
     activeModelsChangedSelector,
     activeSchemeUiChangedSelector
-} from "../../../../../../store/entity/scheme/activeSchemeReducer";
+} from "../../../../../../store/domain/scheme/activeSchemeReducer";
 import Scheme from "../../../../../../data/scheme/Scheme";
 
 const AirModel: React.FC<{ theme: Theme, scheme : Scheme }> = (props) => {

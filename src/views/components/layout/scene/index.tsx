@@ -46,12 +46,11 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
             return
         }
 
-        const bgColor = themeColor(ThemeColors.lightGraySecond)(props);
         const engine: Engine = new Engine(canvas, true);
+        const bgColor = themeColor(ThemeColors.lightGraySecond)(props);
         const scene: Scene = setupScene(engine, canvas, bgColor);
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
         const light = setupLight(scene, camera);
-        //setupEnvironment(scene);
 
         setupZoom(scene, engine, camera);
 

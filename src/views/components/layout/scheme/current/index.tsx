@@ -8,7 +8,7 @@ import {
     activeSchemeChangedSelector,
     activeSchemeModeChangedSelector,
     addActiveModelId
-} from "../../../../../store/entity/scheme/activeSchemeReducer";
+} from "../../../../../store/domain/scheme/activeSchemeReducer";
 import {ArcRotateCamera} from "@babylonjs/core";
 import {useAppDispatch} from "../../../../../store/store";
 import {buildSchemeAsync} from "../../../../../logic/scheme/buildSchemeAsync";

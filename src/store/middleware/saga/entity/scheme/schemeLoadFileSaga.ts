@@ -1,7 +1,7 @@
 import Scheme from "../../../../../data/scheme/Scheme";
 import {call, put} from 'redux-saga/effects'
 import {parseSchemeFileAsync} from "../../../../../logic/scheme/parseSchemeFileAsync";
-import {activeSchemeChanged, isSchemeLoading} from "../../../../entity/scheme/activeSchemeReducer";
+import {activeSchemeChanged, isSchemeLoading} from "../../../../domain/scheme/activeSchemeReducer";
 import {schemeFileLoadError, schemeLoadFile} from "../../../../ui/sections/scheme/schemeSection";
 
 export function* schemeLoadFileSaga(action: { payload: File | null; }) {
