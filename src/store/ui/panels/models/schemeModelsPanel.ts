@@ -52,5 +52,10 @@ export const schemeActiveModelSelector: Selector<ApplicationState, SchemeModel> 
 
 
 const {actions, reducer} = slice;
-export const {showSchemeModelsPanel, closeSchemeModelsPanel, colorGradientChanged} = actions;
+export const {
+    showSchemeModelsPanel,
+    closeSchemeModelsPanel,
+    colorGradientChanged,
+    setActiveModel
+} = actions;
 export default reducer;

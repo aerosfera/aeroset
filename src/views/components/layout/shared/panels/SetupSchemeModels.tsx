@@ -8,10 +8,9 @@ import {withTheme} from "styled-components";
 import {SchemeModel} from "../../../../types/SchemeModel";
 import {setActiveModelId} from "../../../../../store/domain/scheme/activeSchemeReducer";
 import {useSelector} from "react-redux";
-import {schemeActiveModelSelector} from "../../../../../store/ui/panels/models/schemeModelsPanel";
+import {schemeActiveModelSelector, setActiveModel} from "../../../../../store/ui/panels/models/schemeModelsPanel";
 import {pressureModelsAll} from "../../../../../store/entity/models/pressure/pressureModelsReducer";
 import _ from 'lodash';
-
 
 const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
     const dispatch = useAppDispatch()
@@ -31,10 +30,14 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
                     dispatch(setActiveModelId(lastModel));
                 break;
             case SchemeModel.Air:
+                dispatch(setActiveModelId(null));
+                break;
             case SchemeModel.None:
                 dispatch(setActiveModelId(null));
                 break;
         }
+
+        dispatch(setActiveModel(value));
     };
 
     return (
@@ -45,16 +48,15 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{'aria-label': 'Without label'}}>
-                    <MenuItem value={SchemeModel.Air}>{t('models_air')}</MenuItem>
-                    <MenuItem value={SchemeModel.Pressure}>{t('pressure')}</MenuItem>
                     <MenuItem value={SchemeModel.None}>{t('none')}</MenuItem>
+                    <MenuItem value={SchemeModel.Pressure}>{t('pressure')}</MenuItem>
+                    <MenuItem value={SchemeModel.Air}>{t('models_air')}</MenuItem>
                 </SelectStyled>
                 <FormHelperText>{t('model')}</FormHelperText>
             </FormControlStyled>
 
         </React.Fragment>
-    )
-
+    );
 }
 
-export default withTheme(SetupSchemeModels)
+export default withTheme(SetupSchemeModels);
