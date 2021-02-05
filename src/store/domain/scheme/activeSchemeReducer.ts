@@ -13,7 +13,7 @@ export interface SchemeState {
     activeSchemeId: string | null
     activeSchemeUI: SchemeUI | null
     activeSchemeMode: SchemeMode
-    activeSchemeModelsId: string[]
+    activeModelId: string | null
     isSchemeLoading: boolean
 }
 
@@ -21,7 +21,7 @@ const defaultState: SchemeState = {
     activeSchemeId: null,
     activeSchemeUI: null,
     activeSchemeMode: 0,
-    activeSchemeModelsId: [],
+    activeModelId: null,
     isSchemeLoading: false
 }
 
@@ -29,14 +29,9 @@ const slice = createSlice({
     name: "activeSchemeReducer",
     initialState: defaultState,
     reducers: {
-        addActiveModelId: (state: SchemeState, action: PayloadAction<string>) =>
+        setActiveModelId: (state: SchemeState, action: PayloadAction<string>) =>
             produce(state, (draft) => {
-                draft.activeSchemeModelsId.push(action.payload);
-            }),
-        removeActiveModelId: (state: SchemeState, action: PayloadAction<string>) =>
-            produce(state, (draft) => {
-                const index = draft.activeSchemeModelsId.indexOf((action.payload))
-                draft.activeSchemeModelsId.splice(index, 1);
+                draft.activeModelId = action.payload;
             }),
         activeSchemeIdChanged: (state: SchemeState, action: PayloadAction<string | null>) =>
             produce(state, (draft) => {
@@ -74,15 +69,15 @@ export const activeSchemeUIChangedSelector: Selector<ApplicationState, SchemeUI 
 export const activeSchemeModeChangedSelector: Selector<ApplicationState, SchemeMode> =
     state => state.domain.activeScheme.activeSchemeMode;
 
-const activeModelsIdChangedSelector: Selector<ApplicationState, string[]> =
-    state => state.domain.activeScheme.activeSchemeModelsId;
+const activeModelIdChangedSelector: Selector<ApplicationState, string> =
+    state => state.domain.activeScheme.activeModelId;
 
-export const activeModelsChangedSelector = createSelector([activeModelsIdChangedSelector],
-    (modelsId: string[]) => {
+export const activeModelsChangedSelector = createSelector([activeModelIdChangedSelector],
+    (modelId: string) => {
         const state = store.getState().entity.models.air
-        const airModels: AirModel[] = modelsId.map(m => airModelsById(state, m));
+        const airModel: AirModel = airModelsById(state, modelId);
         return {
-            airModels: airModels
+            model: airModel
         };
     });
 
@@ -92,6 +87,6 @@ export const {
     schemeModeChanged,
     isSchemeLoading,
     activeSchemeUIChanged,
-    addActiveModelId
+    setActiveModelId
 } = actions;
 export default reducer;

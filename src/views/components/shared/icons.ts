@@ -15,18 +15,19 @@ import BlurOffIcon from '@material-ui/icons/BlurOff';
 import DescriptionIcon from '@material-ui/icons/Description';
 import AppsIcon from '@material-ui/icons/Apps';
 import TuneIcon from '@material-ui/icons/Tune';
+import InvertColorsIcon from '@material-ui/icons/InvertColors';
 
 export const AppOpenPointCloudFiltersIcon = styled(DialpadIcon)`
-  color: ${themeColor(ThemeColors.white)}
+  color: ${themeColor(ThemeColors.darkGray)}
 `
 export const AppSettingsIcon = styled(TuneIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
 export const AppLoadSchemeFile = styled(DescriptionIcon)`
-  color: ${themeColor(ThemeColors.white)}
+  olor: ${themeColor(ThemeColors.darkGray)}
 `
 export const AppClearPointCloudIcon = styled(BlurOffIcon)`
-  color: ${themeColor(ThemeColors.white)}
+  color: ${themeColor(ThemeColors.darkGray)}
 `
 export const AppCloseIcon = styled(CloseIcon)`
   color: ${themeColor(ThemeColors.white)}
@@ -42,11 +43,14 @@ export const AppSchemeIcon = styled(AppsIcon)`
 export const AppExpandLess = styled(ExpandLess)`
   color: ${themeColor(ThemeColors.darkGray)}
 `
-export const AppExpandMore = styled(ExpandMore)`
+export const AppExpandMoreIcon = styled(ExpandMore)`
   color: ${themeColor(ThemeColors.darkGray)}
-
-
 `
+
+export const AppModelsIcon = styled(InvertColorsIcon)`
+  color: ${themeColor(ThemeColors.darkGray)}
+`
+
 export const AppPublishIcon = styled(PublishIcon)`
   ${props => props.theme.breakpoints.down("sm")} {
     color: ${themeColor(ThemeColors.mediumGray)}
@@ -59,6 +63,7 @@ export const AppPublishIcon = styled(PublishIcon)`
 
 export const AppListItemIcon = styled(ListItemIcon)`
 `
+
 
 export const AppMenuIcon = styled(MenuIcon)`
   font-size: 35px;

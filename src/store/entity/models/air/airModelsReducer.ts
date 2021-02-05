@@ -20,7 +20,10 @@ const slice = createSlice({
 });
 
 const airModelsSelectors = airModelsAdapter.getSelectors();
+
 export const airModelsById = airModelsSelectors.selectById;
+export const airModelsAll = airModelsSelectors.selectAll;
+
 
 const {actions, reducer} = slice;
 export const {

@@ -22,7 +22,7 @@
   "new_version" : "New version released",
   "update" : "Update",
   "version" : "version",
-  "load_file_with_scheme" : "Load file with scheme",
+  "scheme_models" : "Scheme models",
   "scheme_mode_topology" : "Topology",
   "scheme_mode_rib_geometry" : "Rib geometry",
   "mode" : "mode",
@@ -33,5 +33,12 @@
   "orthographic" : "Orthographic",
   "perspective" : "Perspective",
   "showAxisOnCameraTarget" : "Show axis",
-  "scheme_mode_changed" : "Scheme mode changed"
+  "scheme_mode_changed" : "Scheme mode changed",
+  "model" : "Model",
+  "models_air" : "Air",
+  "gradient" : "Gradient",
+  "default" : "default",
+  "iron" : "iron",
+  "pressure" : "Pressure",
+  "none" : "None"
 }

@@ -22,7 +22,7 @@ import {BottomDrawerContentType} from "../../bottom/code/BottomDrawerContentType
 import {
     AppListItemIcon,
     AppExpandLess,
-    AppExpandMore,
+    AppExpandMoreIcon,
     AppPublishIcon,
     AppOpenPointCloudFiltersIcon,
     AppPointCloudIcon,
@@ -57,7 +57,7 @@ const PointCloudMenuItem: React.FC<{ theme: Theme }> = (props) => {
                     <AppPointCloudIcon/>
                 </ListItemIcon>
                 <ListItemText primary={t('point_cloud')}/>
-                {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMore/>}
+                {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMoreIcon/>}
             </ListItem>
             <Collapse in={subMenuIsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>

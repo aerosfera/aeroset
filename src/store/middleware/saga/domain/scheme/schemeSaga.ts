@@ -1,9 +1,9 @@
 import {takeEvery, takeLatest} from "redux-saga/effects";
 import {
     activeSchemeIdChanged,
-    addActiveModelId,
     isSchemeLoading,
-    schemeModeChanged
+    schemeModeChanged,
+    setActiveModelId
 } from "../../../../domain/scheme/activeSchemeReducer";
 import {schemeLoadFile} from "../../../../ui/sections/scheme/schemeSection";
 import {schemeDisposeSaga} from "./schemeDisposeSaga";
@@ -21,5 +21,5 @@ export function* schemeSaga() {
     yield takeLatest(schemeModeChanged, changeSchemeUISaga);
     yield takeEvery(schemeLoadFile, schemeLoadFileSaga);
     // @ts-ignore
-    yield takeEvery(addActiveModelId, showSchemeModelSaga);
+    yield takeLatest(setActiveModelId, showSchemeModelSaga);
 }

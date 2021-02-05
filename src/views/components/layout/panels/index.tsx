@@ -8,6 +8,7 @@ import {forwardRef, Ref, useImperativeHandle, useState} from "react";
 import {DelayedInitialization, GraphicData} from "../../../types/DelayedInitialization";
 import {Scene} from "@babylonjs/core/scene";
 import {OnCanvasContainer, OnCanvasContainerWithEvents} from "../shared/style"
+import SchemeModelsPanel from "./models";
 
 const Panels = forwardRef((props, ref: Ref<DelayedInitialization>) => {
     useImperativeHandle(ref, () => ({initialize}));
@@ -23,6 +24,7 @@ const Panels = forwardRef((props, ref: Ref<DelayedInitialization>) => {
             <Hidden smDown>
                 <PointCloudPanel/>
                 <SchemePanel scene={scene}/>
+                <SchemeModelsPanel scene={scene}/>
             </Hidden>
         </OnCanvasContainerWithEvents>
     );

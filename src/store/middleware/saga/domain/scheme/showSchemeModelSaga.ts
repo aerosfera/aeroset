@@ -1,8 +1,11 @@
-export function* showSchemeModelSaga(action: { payload: string[] }) {
-    const activeModels = action.payload;
+export function* showSchemeModelSaga(action: { payload: string }) {
+    const activeModel = action.payload;
 
-    if (!activeModels || activeModels.length === 0)
+    if (!activeModel)
         return;
 
+    {
+
+    }
 
 }

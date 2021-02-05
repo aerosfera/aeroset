@@ -17,7 +17,7 @@ import {
     AppClearPointCloudIcon,
     AppSchemeIcon,
     AppExpandLess,
-    AppExpandMore,
+    AppExpandMoreIcon,
     AppListItemIcon,
     AppPublishIcon,
     AppSettingsIcon
@@ -52,7 +52,7 @@ const SchemeMenuItem: React.FC<{ theme: Theme }> = (props) => {
                     <AppSchemeIcon/>
                 </ListItemIcon>
                 <ListItemText primary={t('scheme')}/>
-                {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMore/>}
+                {subMenuIsOpen ? <AppExpandLess/> : <AppExpandMoreIcon/>}
             </ListItem>
             <Collapse in={subMenuIsOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>

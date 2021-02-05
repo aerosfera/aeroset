@@ -6,6 +6,7 @@ import AirModel from "../../data/models/air/AirModel";
 import NodeValuePair from "../../data/models/NodeValuePair";
 import {store} from "../../store/store";
 import {airModelsAddOne} from "../../store/entity/models/air/airModelsReducer";
+import {nanoid} from "@reduxjs/toolkit";
 
 export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
     return new Promise((resolve, reject) => {
@@ -28,8 +29,8 @@ export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
             const airModel: AirModel = {
                 created: new Date(),
                 updated: new Date(),
-                id: "fdsfafafa",
-                name: "sfsfaf",
+                id: nanoid(),
+                name: "AirModel",
                 scheme: scheme,
                 values: arr
             }
