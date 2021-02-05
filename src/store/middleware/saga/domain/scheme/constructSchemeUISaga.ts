@@ -29,16 +29,4 @@ export function* constructSchemeUISaga(action: { payload: string | null }) {
         alertType: "success"
     }
     eventBus.send(SHOW_SNACKBAR_EVENT, event);
-
-    //Todo: test/temp
-    // const modelId = "sdfasfasfasf"
-    // yield put(airModelsAddOne({
-    //     id: modelId,
-    //     name: "fdsfsf",
-    //     created: new Date(),
-    //     updated: new Date(),
-    //     values: [],
-    //     scheme: scheme
-    // }));
-    //yield put(addActiveModelId(modelId))
 }

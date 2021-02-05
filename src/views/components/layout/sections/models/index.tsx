@@ -6,8 +6,6 @@ import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core";
 import {useTranslation} from "react-i18next";
 import {AppLoadSchemeFile, AppModelsIcon, AppSettingsIcon} from "../../../shared/icons";
-import {schemeLoadFile} from "../../../../../store/ui/sections/scheme/schemeSection";
-import {showSchemePanel} from "../../../../../store/ui/panels/scheme/schemePanel";
 import {showSchemeModelsPanel} from "../../../../../store/ui/panels/models/schemeModelsPanel";
 
 const ModelsSection: React.FC<{ theme: Theme }> = (_) => {

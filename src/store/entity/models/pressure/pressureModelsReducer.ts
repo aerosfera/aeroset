@@ -1,7 +1,8 @@
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import AirModel from "../../../../data/models/air/AirModel";
+import PressureModel from "../../../../data/models/pressure/PressureModel";
 
-const pressureModelsAdapter = createEntityAdapter<AirModel>({
+const pressureModelsAdapter = createEntityAdapter<PressureModel>({
     selectId: (model) => model.id,
     sortComparer: (a, b) => a.updated < b.updated ? -1 : 1,
 })

@@ -27,7 +27,7 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
                 const allRPressureModels = pressureModelsAll(pressureModelsState);
                 const lastModel = _.last(allRPressureModels);
                 if (lastModel)
-                    dispatch(setActiveModelId(lastModel));
+                    dispatch(setActiveModelId(lastModel.id));
                 break;
             case SchemeModel.Air:
                 dispatch(setActiveModelId(null));
@@ -41,7 +41,7 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
     };
 
     return (
-        <React.Fragment>
+        <div>
             <FormControlStyled>
                 <SelectStyled
                     value={activeModel}
@@ -55,7 +55,7 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
                 <FormHelperText>{t('model')}</FormHelperText>
             </FormControlStyled>
 
-        </React.Fragment>
+        </div>
     );
 }
 

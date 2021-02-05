@@ -5,8 +5,9 @@ import {randomIntFromInterval} from "../../utilities/math/randomIntFromInterval"
 import AirModel from "../../data/models/air/AirModel";
 import NodeValuePair from "../../data/models/NodeValuePair";
 import {store} from "../../store/store";
-import {airModelsAddOne} from "../../store/entity/models/air/airModelsReducer";
+import {pressureModelsAddOne} from "../../store/entity/models/pressure/pressureModelsReducer";
 import {nanoid} from "@reduxjs/toolkit";
+import PressureModel from "../../data/models/pressure/PressureModel";
 
 export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
     return new Promise((resolve, reject) => {
@@ -26,7 +27,7 @@ export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
                     value: param
                 })
             }
-            const airModel: AirModel = {
+            const airModel: PressureModel = {
                 created: new Date(),
                 updated: new Date(),
                 id: nanoid(),
@@ -34,7 +35,7 @@ export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
                 scheme: scheme,
                 values: arr
             }
-            store.dispatch(airModelsAddOne(airModel));
+            store.dispatch(pressureModelsAddOne(airModel));
 
             resolve(scheme);
         };

@@ -20,7 +20,7 @@ const SetupSchemeMode: React.FC<{ theme: Theme }> = (_) => {
     };
 
     return (
-        <React.Fragment>
+        <div>
             <FormControlStyled>
                 <SelectStyled
                     value={schemeMode}
@@ -33,7 +33,7 @@ const SetupSchemeMode: React.FC<{ theme: Theme }> = (_) => {
                 <FormHelperText>{t('mode')}</FormHelperText>
             </FormControlStyled>
 
-        </React.Fragment>
+        </div>
     )
 
 }

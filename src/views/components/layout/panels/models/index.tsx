@@ -22,6 +22,7 @@ import {
 } from "../../../../../store/ui/panels/models/schemeModelsPanel";
 import SetupSchemeModels from "../../shared/panels/SetupSchemeModels";
 import SetupGradient from "../../shared/panels/SetupGradient";
+import ColorGradientView from "../../shared/panels/ColorGradientView";
 
 const SchemeModelsPanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const {scene} = props
@@ -32,8 +33,8 @@ const SchemeModelsPanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const onClose = () => dispatch(closeSchemeModelsPanel());
     return (
         <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}} grid={[25, 25]}>
-            <PanelContainer isActive={isActive} width={257} height={240}>
-                <section>
+            <PanelContainer isActive={isActive} width={257} height={340}>
+                <div>
                     <PanelHeaderContainer>
                         <PanelHeader>
                             <PanelHeaderText>
@@ -58,7 +59,8 @@ const SchemeModelsPanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
                     </PanelHeaderContainer>
                     <SetupSchemeModels/>
                     <SetupGradient/>
-                </section>
+                    <ColorGradientView/>
+                </div>
             </PanelContainer>
         </Draggable>
     )

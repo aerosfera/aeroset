@@ -25,7 +25,7 @@ const slice = createSlice({
             produce(state, (draft) => {
                 draft.isActive = true
             }),
-        colorGradientChanged: (state: SchemeModelsState, action) =>
+        colorGradientChanged: (state: SchemeModelsState, action: PayloadAction<ColorGradient> ) =>
             produce(state, (draft) => {
                 draft.gradient = action.payload
             }),

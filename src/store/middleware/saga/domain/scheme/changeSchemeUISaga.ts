@@ -15,6 +15,10 @@ export function* changeSchemeUISaga(action: { payload: SchemeMode }) {
 
     const schemeState = store.getState().entity.schemes;
     const activeSchemeID = <string>store.getState().domain.activeScheme.activeSchemeId;
+
+    if (!activeSchemeID)
+        return;
+
     const activeScheme = schemesByIdSelector(schemeState, activeSchemeID);
 
     // @ts-ignore

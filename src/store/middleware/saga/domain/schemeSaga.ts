@@ -13,16 +13,19 @@ import {changeSchemeUISaga} from "./scheme/changeSchemeUISaga";
 import {showSchemeModelSaga} from "./scheme/showSchemeModelSaga";
 import {colorGradientChanged} from "../../../ui/panels/models/schemeModelsPanel";
 import {colorGradientSaga} from "./scheme/colorGradientSaga";
+import {schemeModeChangedSaga} from "./scheme/schemeModeChangedSaga";
 
 export function* schemeSaga() {
+    yield takeEvery(colorGradientChanged, colorGradientSaga);
     // @ts-ignore
     yield takeLatest(isSchemeLoading, schemeDisposeSaga);
     // @ts-ignore
     yield takeLatest(activeSchemeIdChanged, constructSchemeUISaga);
     // @ts-ignore
     yield takeLatest(schemeModeChanged, changeSchemeUISaga);
+    // @ts-ignore
+    yield takeEvery(schemeModeChanged, schemeModeChangedSaga);
     yield takeEvery(schemeLoadFile, schemeLoadFileSaga);
     // @ts-ignore
     yield takeLatest(setActiveModelId, showSchemeModelSaga);
-    yield takeLatest(colorGradientChanged, colorGradientSaga);
 }

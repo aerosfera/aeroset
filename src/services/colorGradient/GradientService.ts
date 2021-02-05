@@ -7,11 +7,11 @@ import {ColorLabel} from "./ColorLabel";
 import {injectable} from "inversify";
 
 @injectable()
-class ColorGradientService {
+export class ColorGradientService {
     private gradientTypes: (GradientDefault | GradientIron | GradientAeroset)[];
     private Gradient: Gradient = new GradientDefault();
-    private MinParameter: number = -100;
-    private MaxParameter: number = 100;
+    private MinParameter: number = 1;
+    private MaxParameter: number = 10;
 
     constructor(gradientType = 'Default', minParameter = -100, maxParameter = 100) {
         this.gradientTypes = [

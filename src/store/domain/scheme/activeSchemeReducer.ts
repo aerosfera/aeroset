@@ -29,7 +29,7 @@ const slice = createSlice({
     name: "activeSchemeReducer",
     initialState: defaultState,
     reducers: {
-        setActiveModelId: (state: SchemeState, action: PayloadAction<string>) =>
+        setActiveModelId: (state: SchemeState, action: PayloadAction<string | null>) =>
             produce(state, (draft) => {
                 draft.activeModelId = action.payload;
             }),
