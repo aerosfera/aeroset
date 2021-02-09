@@ -1,6 +1,5 @@
 import {Scene} from "@babylonjs/core/scene";
 import {Color3, Matrix, Mesh, MeshBuilder, Quaternion, StandardMaterial, Vector3} from "@babylonjs/core";
-import {GradientMaterial} from "@babylonjs/materials";
 
 export const constructGeometryRib = (scene: Scene, nodeVector: Vector3, linkedNodeVector: Vector3): Mesh | null => {
     const rib = constructCuboid(scene, nodeVector, linkedNodeVector);

@@ -1,8 +1,6 @@
 import Scheme from "../../data/scheme/Scheme";
 import jsonEscape from "../../utilities/string/jsonEscape";
-import {SchemeMode} from "../../views/types/SchemeMode";
 import {randomIntFromInterval} from "../../utilities/math/randomIntFromInterval";
-import AirModel from "../../data/models/air/AirModel";
 import NodeValuePair from "../../data/models/NodeValuePair";
 import {store} from "../../store/store";
 import {pressureModelsAddOne} from "../../store/entity/models/pressure/pressureModelsReducer";
@@ -27,15 +25,17 @@ export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
                     value: param
                 })
             }
-            const airModel: PressureModel = {
+            const pressureModel: PressureModel = {
                 created: new Date(),
                 updated: new Date(),
-                id: nanoid(),
+                id: 'prs' + nanoid(),
                 name: "AirModel",
                 scheme: scheme,
-                values: arr
+                values: arr,
+                parameterMin: 1,
+                parameterMax: 10
             }
-            store.dispatch(pressureModelsAddOne(airModel));
+            store.dispatch(pressureModelsAddOne(pressureModel));
 
             resolve(scheme);
         };

@@ -4,17 +4,17 @@ import {ApplicationState} from "../../../store";
 import {PanelState} from "../PanelState";
 import {ColorGradient} from "../../../../views/types/ColorGradient";
 import {PointCloudPanelState} from "../pointCloud/pointCloudPanel";
-import {SchemeModel} from "../../../../views/types/SchemeModel";
+import {SchemeModelType} from "../../../../views/types/SchemeModelType";
 
 export interface SchemeModelsState extends PanelState {
     gradient: ColorGradient,
-    activeModel: SchemeModel
+    activeModel: SchemeModelType
 }
 
 const defaultState: SchemeModelsState = {
     isActive: false,
     gradient: ColorGradient.Default,
-    activeModel: SchemeModel.None
+    activeModel: SchemeModelType.None
 }
 
 const slice = createSlice({
@@ -29,7 +29,7 @@ const slice = createSlice({
             produce(state, (draft) => {
                 draft.gradient = action.payload
             }),
-        setActiveModel: (state: SchemeModelsState, action: PayloadAction<SchemeModel>) =>
+        setActiveModel: (state: SchemeModelsState, action: PayloadAction<SchemeModelType>) =>
             produce(state, (draft) => {
                 draft.activeModel = action.payload
             }),
@@ -47,7 +47,7 @@ export const schemeModelsPanelActivitySelector: Selector<ApplicationState, boole
 export const schemeModelsColorGradientSelector: Selector<ApplicationState, ColorGradient> =
     state => state.ui.panels.schemeModels.gradient;
 
-export const schemeActiveModelSelector: Selector<ApplicationState, SchemeModel> =
+export const schemeActiveModelSelector: Selector<ApplicationState, SchemeModelType> =
     state => state.ui.panels.schemeModels.activeModel;
 
 

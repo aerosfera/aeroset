@@ -1,4 +1,4 @@
-export enum SchemeModel {
+export enum SchemeModelType {
     Air,
     Pressure,
     None

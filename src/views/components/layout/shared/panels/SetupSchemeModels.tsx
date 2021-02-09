@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {FormControlStyled, SelectStyled} from "./style";
 import {FormHelperText, MenuItem} from "@material-ui/core";
 import {withTheme} from "styled-components";
-import {SchemeModel} from "../../../../types/SchemeModel";
+import {SchemeModelType} from "../../../../types/SchemeModelType";
 import {setActiveModelId} from "../../../../../store/domain/scheme/activeSchemeReducer";
 import {useSelector} from "react-redux";
 import {schemeActiveModelSelector, setActiveModel} from "../../../../../store/ui/panels/models/schemeModelsPanel";
@@ -18,21 +18,21 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
 
     const activeModel = useSelector(schemeActiveModelSelector);
 
-    const handleChange = (event: React.ChangeEvent<{ value: SchemeModel }>) => {
+    const handleChange = (event: React.ChangeEvent<{ value: SchemeModelType }>) => {
         const value = event.target.value;
 
         switch (value) {
-            case SchemeModel.Pressure:
+            case SchemeModelType.Pressure:
                 const pressureModelsState = store.getState().entity.models.pressure;
                 const allRPressureModels = pressureModelsAll(pressureModelsState);
                 const lastModel = _.last(allRPressureModels);
                 if (lastModel)
                     dispatch(setActiveModelId(lastModel.id));
                 break;
-            case SchemeModel.Air:
+            case SchemeModelType.Air:
                 dispatch(setActiveModelId(null));
                 break;
-            case SchemeModel.None:
+            case SchemeModelType.None:
                 dispatch(setActiveModelId(null));
                 break;
         }
@@ -48,9 +48,9 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{'aria-label': 'Without label'}}>
-                    <MenuItem value={SchemeModel.None}>{t('none')}</MenuItem>
-                    <MenuItem value={SchemeModel.Pressure}>{t('pressure')}</MenuItem>
-                    <MenuItem value={SchemeModel.Air}>{t('models_air')}</MenuItem>
+                    <MenuItem value={SchemeModelType.None}>{t('none')}</MenuItem>
+                    <MenuItem value={SchemeModelType.Pressure}>{t('pressure')}</MenuItem>
+                    <MenuItem value={SchemeModelType.Air}>{t('models_air')}</MenuItem>
                 </SelectStyled>
                 <FormHelperText>{t('model')}</FormHelperText>
             </FormControlStyled>

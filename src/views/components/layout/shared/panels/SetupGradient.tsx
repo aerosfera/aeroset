@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {FormControlStyled, SelectStyled} from "./style";
 import {FormHelperText, MenuItem} from "@material-ui/core";
 import {withTheme} from "styled-components";
-import {SchemeModel} from "../../../../types/SchemeModel";
+import {SchemeModelType} from "../../../../types/SchemeModelType";
 import {
     activeSchemeModeChangedSelector,
     addActiveModelId

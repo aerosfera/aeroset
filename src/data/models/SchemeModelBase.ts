@@ -7,5 +7,7 @@ export default interface SchemeModelBase {
     created: Date,
     updated: Date,
     values: NodeValuePair[],
-    scheme : Scheme
+    scheme : Scheme,
+    parameterMin : number,
+    parameterMax : number
 }
