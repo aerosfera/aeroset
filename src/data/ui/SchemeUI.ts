@@ -5,5 +5,5 @@ import {RibMesh} from "./RibMesh";
 export interface SchemeUI {
     nodes: NodeMesh[]
     ribs: RibMesh[],
-    parent: Mesh | null
+    parent: Mesh
 }

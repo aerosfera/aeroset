@@ -22,7 +22,8 @@ import {EventBusService} from "../../../../services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE, INFRASTRUCTURE_SERVICE} from "../../../../infrastructure/ioc/ServiceTypes";
 import {CANVAS_MOUSE_CLICK_EVENT} from "../../../../services/eventBus/EventTypes";
 import setupEnvironment from "./code/setupEnvironment";
-import InfrastructureService from "../../../../services/infrastructure/infrastructureService";
+import InfrastructureService from "../../../../services/infrastructure/InfrastructureService";
+import setupResources from "./code/setupResources";
 
 const AppScene: React.FC<{ theme: Theme }> = (props) => {
     const pointCloudEl = useRef<DelayedInitialization>(null)
@@ -53,6 +54,7 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         const scene: Scene = setupScene(engine, canvas, bgColor);
         const camera: ArcRotateCamera = setupCamera(canvas, scene);
         const light = setupLight(scene, camera);
+        const resources = setupResources(scene);
         setupZoom(scene, engine, camera);
 
         const infrastructureService = IoC.get<InfrastructureService>(INFRASTRUCTURE_SERVICE);
@@ -60,6 +62,7 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
         infrastructureService.scene = scene;
         infrastructureService.camera = camera;
         infrastructureService.light = light;
+        infrastructureService.resources = resources;
 
         const engineData: GraphicData = {
             camera: camera,

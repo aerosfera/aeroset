@@ -12,7 +12,7 @@ import {
 import VersionService from "../../services/version/VersionService";
 import Keyboard from "../../services/keyboard/Keyboard";
 import ColorGradientService from "../../services/colorGradient/GradientService";
-import InfrastructureService from "../../services/infrastructure/infrastructureService";
+import InfrastructureService from "../../services/infrastructure/InfrastructureService";
 
 const IoC = new Container({
     autoBindInjectable: true,

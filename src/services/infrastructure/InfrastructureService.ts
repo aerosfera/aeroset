@@ -2,6 +2,7 @@ import {injectable} from "inversify";
 import {Engine} from "@babylonjs/core/Engines/engine";
 import {Scene} from "@babylonjs/core/scene";
 import {ArcRotateCamera, Light} from "@babylonjs/core";
+import {Resources} from "./Resources";
 
 @injectable()
 class InfrastructureService {
@@ -9,6 +10,15 @@ class InfrastructureService {
     private _scene!: Scene;
     private _camera!: ArcRotateCamera;
     private _light!: Light;
+    private _resources!: Resources;
+
+    get resources(): Resources {
+        return this._resources;
+    }
+
+    set resources(value: Resources) {
+        this._resources = value;
+    }
 
     get light(): Light {
         return this._light;

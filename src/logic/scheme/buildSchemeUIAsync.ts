@@ -16,6 +16,9 @@ import {Scene} from "@babylonjs/core/scene";
 import {SchemeUI} from "../../data/ui/SchemeUI";
 import {NodeMesh} from "../../data/ui/NodeMesh";
 import {RibMesh} from "../../data/ui/RibMesh";
+import IoC from "../../infrastructure/ioc/IoC";
+import InfrastructureService from "../../services/infrastructure/InfrastructureService";
+import {INFRASTRUCTURE_SERVICE} from "../../infrastructure/ioc/ServiceTypes";
 
 export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: ArcRotateCamera, schemeMode: SchemeMode): Promise<SchemeUI> => {
     const ribs = new Array<SchemeNodeMetadata>()
@@ -39,12 +42,15 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
     }
 
 
+    const infrastructureService = IoC.get<InfrastructureService>(INFRASTRUCTURE_SERVICE);
     let parent = new Mesh("parent", scene);
 
     for (const node of scheme.nodes) {
         const nodeId = node.id.toString();
 
-        const nodeMesh: Mesh = constructNode(scene, nodeId)
+        const nodeMaterial = infrastructureService.resources.materials.nodeMaterial;
+        const nodeBaseMesh = infrastructureService.resources.baseMeshes.nodeBaseMesh;
+        const nodeMesh: Mesh = constructNode(scene, nodeId, nodeMaterial, nodeBaseMesh);
         nodeMesh.setParent(parent)
 
         nodeMeshes.push({
@@ -77,7 +83,8 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
                 const linkedNodePoint = linkedNode.point
                 const linkedNodeVector = new Vector3(linkedNodePoint.x / 150, linkedNodePoint.z / 10, linkedNodePoint.y / 150);
 
-                const rib: Mesh = constructRib(scene, nodeVector, linkedNodeVector);
+                const ribMaterial = infrastructureService.resources.materials.ribMaterial;
+                const rib: Mesh = constructRib(scene, nodeVector, linkedNodeVector, ribMaterial);
 
                 ribMeshes.push({
                     node1Id: linkedNodeId,
@@ -112,8 +119,8 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
     }
 
     return {
-        nodes : nodeMeshes,
-        ribs : ribMeshes,
-        parent : parent
+        nodes: nodeMeshes,
+        ribs: ribMeshes,
+        parent: parent
     }
 }

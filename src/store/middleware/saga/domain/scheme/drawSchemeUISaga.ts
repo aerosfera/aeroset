@@ -12,7 +12,7 @@ import {Vector3D} from "../../../../../data/base/Vector3D";
 import {setCameraTargetToCenterOfMeshes} from "../../../../../logic/scheme/construction/setCameraTargetToCenterOfMeshes";
 import {cameraTargetChanged} from "../../../../ui/camera/cameraReducer";
 import IoC from "../../../../../infrastructure/ioc/IoC";
-import InfrastructureService from "../../../../../services/infrastructure/infrastructureService";
+import InfrastructureService from "../../../../../services/infrastructure/InfrastructureService";
 import {INFRASTRUCTURE_SERVICE} from "../../../../../infrastructure/ioc/ServiceTypes";
 
 export function* drawSchemeUISaga(scheme: Scheme, cameraMode: CameraMode) {
@@ -23,7 +23,7 @@ export function* drawSchemeUISaga(scheme: Scheme, cameraMode: CameraMode) {
     yield put(isSchemeLoading(true));
     // @ts-ignore
     const schemeUI: SchemeUI = yield call(buildSchemeUIAsync, scheme, scene, camera, cameraMode);
-    yield call(delay, 100); //wait scheme render
+    yield call(delay, 300); //wait when scheme render
 
     const cameraTarget: Vector3D = setCameraTargetToCenterOfMeshes(<Mesh>schemeUI.parent, <ArcRotateCamera>camera, 150);
     yield put(cameraTargetChanged(cameraTarget));

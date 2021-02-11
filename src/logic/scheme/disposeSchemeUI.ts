@@ -10,6 +10,8 @@ export const disposeSchemeUI = (schemeUI: SchemeUI) => {
             nodeRib.mesh.dispose();
         }
 
-        schemeUI.parent?.dispose();
+        schemeUI.parent.dispose();
     }
+
+    //global.gc();
 }
