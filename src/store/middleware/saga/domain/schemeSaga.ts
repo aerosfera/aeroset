@@ -3,7 +3,8 @@ import {
     activeSchemeIdChanged,
     isSchemeLoading,
     schemeModeChanged,
-    setActiveModelId
+    setActiveModelId,
+    setActiveScaleFactor
 } from "../../../domain/scheme/activeSchemeReducer";
 import {schemeLoadFile} from "../../../ui/sections/scheme/schemeSection";
 import {schemeDisposeSaga} from "./scheme/schemeDisposeSaga";
@@ -14,6 +15,7 @@ import {showSchemeModelSaga} from "./scheme/showSchemeModelSaga";
 import {colorGradientChanged} from "../../../ui/panels/models/schemeModelsPanel";
 import {colorGradientSaga} from "./scheme/colorGradientSaga";
 import {schemeModeChangedSaga} from "./scheme/schemeModeChangedSaga";
+import {changeScaleFactorSaga} from "./scheme/changeScaleFactorSaga";
 
 export function* schemeSaga() {
     yield takeEvery(colorGradientChanged, colorGradientSaga);
@@ -28,4 +30,6 @@ export function* schemeSaga() {
     yield takeEvery(schemeLoadFile, schemeLoadFileSaga);
     // @ts-ignore
     yield takeLatest(setActiveModelId, showSchemeModelSaga);
+    // @ts-ignore
+    yield takeLatest(setActiveScaleFactor, changeScaleFactorSaga);
 }

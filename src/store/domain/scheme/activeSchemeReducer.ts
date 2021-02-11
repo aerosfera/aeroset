@@ -8,11 +8,13 @@ import {airModelsById} from "../../entity/models/air/airModelsReducer";
 import {SchemeUI} from "../../../data/ui/SchemeUI";
 import {schemesByIdSelector} from "../../entity/schemes/schemesReducer";
 import AirModel from "../../../data/models/air/AirModel";
+import {Vector3D} from "../../../data/base/Vector3D";
 
 export interface SchemeState {
     activeSchemeId: string | null
     activeSchemeUI: SchemeUI | null
     activeSchemeMode: SchemeMode
+    activeScaleFactor: Vector3D
     activeModelId: string | null
     isSchemeLoading: boolean
 }
@@ -22,6 +24,7 @@ const defaultState: SchemeState = {
     activeSchemeUI: null,
     activeSchemeMode: 0,
     activeModelId: null,
+    activeScaleFactor: {x: 1, y: 1, z: 1},
     isSchemeLoading: false
 }
 
@@ -32,6 +35,10 @@ const slice = createSlice({
         setActiveModelId: (state: SchemeState, action: PayloadAction<string | null>) =>
             produce(state, (draft) => {
                 draft.activeModelId = action.payload;
+            }),
+        setActiveScaleFactor: (state: SchemeState, action: PayloadAction<Vector3D>) =>
+            produce(state, (draft) => {
+                draft.activeScaleFactor = action.payload;
             }),
         activeSchemeIdChanged: (state: SchemeState, action: PayloadAction<string | null>) =>
             produce(state, (draft) => {
@@ -66,6 +73,9 @@ export const activeSchemeChangedSelector = createSelector([activeSchemeIdChanged
 export const activeSchemeUIChangedSelector: Selector<ApplicationState, SchemeUI | null> =
     state => state.domain.activeScheme.activeSchemeUI;
 
+export const activeScaleFactorChangedSelector: Selector<ApplicationState, Vector3D> =
+    state => state.domain.activeScheme.activeScaleFactor;
+
 export const activeSchemeModeChangedSelector: Selector<ApplicationState, SchemeMode> =
     state => state.domain.activeScheme.activeSchemeMode;
 
@@ -87,6 +97,7 @@ export const {
     schemeModeChanged,
     isSchemeLoading,
     activeSchemeUIChanged,
-    setActiveModelId
+    setActiveModelId,
+    setActiveScaleFactor
 } = actions;
 export default reducer;

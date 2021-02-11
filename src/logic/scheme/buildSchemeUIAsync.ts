@@ -118,6 +118,60 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
         }
     }
 
+    // for (const mesh of ribMeshes) {
+    //     // @ts-ignore
+    //     const _sx = 1 / mesh.mesh.scaling.x;
+    //     const _sy = 1 / mesh.mesh.scaling.y;
+    //     const _sz = 3 / mesh.mesh.scaling.z;
+    //
+    //     mesh.mesh.scaling.z = 1;
+    //
+    //     const pivotPoint = new Vector3(-41, -41, 29);
+    //
+    //     mesh.mesh.position = new Vector3(pivotPoint.x + _sx * (mesh.mesh.position.x - pivotPoint.x),
+    //         pivotPoint.y + _sy * (mesh.mesh.position.y - pivotPoint.y),
+    //         pivotPoint.z + _sz * (mesh.mesh.position.z - pivotPoint.z));
+    //
+    //
+    //     mesh.mesh.computeWorldMatrix();
+    // }
+    //
+    // for (const rib of nodeMeshes) {
+    //     // @ts-ignore
+    //     const _sx = 1 / rib.mesh.scaling.x;
+    //     const _sy = 1 / rib.mesh.scaling.y;
+    //     const _sz = 3 / rib.mesh.scaling.z;
+    //
+    //     const mesh = rib.mesh;
+    //
+    //     const pivotPoint = new Vector3(-41, -41, 29);
+    //
+    //     const matrix = mesh.computeWorldMatrix(true);  // force calculation of world matrix
+    //     const local_pos = new Vector3(0, 0, 0); //top middle of box relative to box
+    //     local_pos.addInPlace(new Vector3(1, 1, 1)); //translate by (1, 1, 1)
+    //     const global_pos = Vector3.TransformCoordinates(local_pos, matrix); //calculate world position
+    //     sphere.position = global_pos; //position sphere relative to world
+    //
+    //     const path =
+    //
+    //     // @ts-ignore
+    //     const scaledTube = Mesh.CreateTube(null, path,
+    //         null,
+    //         null,
+    //         null,
+    //         null,
+    //         null,
+    //         null,
+    //         rib.mesh);
+    //
+    //     rib.mesh.position = new Vector3(pivotPoint.x + _sx * (rib.mesh.position.x - pivotPoint.x),
+    //         pivotPoint.y + _sy * (rib.mesh.position.y - pivotPoint.y),
+    //         pivotPoint.z + _sz * (rib.mesh.position.z - pivotPoint.z));
+    //
+    //
+    //     rib.mesh.computeWorldMatrix();
+    // }
+
     return {
         nodes: nodeMeshes,
         ribs: ribMeshes,
