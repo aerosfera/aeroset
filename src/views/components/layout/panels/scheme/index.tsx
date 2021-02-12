@@ -20,6 +20,7 @@ import SetupSchemeMode from "../../shared/panels/SetupSchemeMode";
 import SetupCameraMode from "../../shared/panels/SetupCameraMode";
 import GreenCheckbox from "../../shared/panels/SetupAxis";
 import {Scene} from "@babylonjs/core/scene";
+import SetupScaleFactor from "../../shared/panels/SetupScaleFactor";
 
 const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const {scene} = props
@@ -30,7 +31,7 @@ const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const onClose = () => dispatch(closeSchemePanel());
     return (
         <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}} grid={[25,25]}>
-            <PanelContainer isActive={isActive} width={257} height={240}>
+            <PanelContainer isActive={isActive} width={300} height={500}>
                 <section>
                     <PanelHeaderContainer>
                         <PanelHeader>
@@ -57,6 +58,7 @@ const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
                     <SetupSchemeMode/>
                     <SetupCameraMode/>
                     <GreenCheckbox scene={scene}/>
+                    <SetupScaleFactor/>
                 </section>
             </PanelContainer>
         </Draggable>

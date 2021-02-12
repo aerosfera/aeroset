@@ -90,6 +90,8 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
                     node1Id: linkedNodeId,
                     node2Id: nodeId,
                     mesh: rib,
+                    node1Point: nodeVector,
+                    node2Point: linkedNodeVector
                 })
 
                 const nodeMetadata = {mesh: rib, nodeVector: nodeVector, linkedNodeVector: linkedNodeVector};
@@ -118,7 +120,7 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
         }
     }
 
-    // for (const mesh of ribMeshes) {
+    // for (const mesh of nodeMeshes) {
     //     // @ts-ignore
     //     const _sx = 1 / mesh.mesh.scaling.x;
     //     const _sy = 1 / mesh.mesh.scaling.y;
@@ -134,8 +136,8 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
     //
     //
     //     mesh.mesh.computeWorldMatrix();
-    // }
-    //
+    //}
+
     // for (const rib of nodeMeshes) {
     //     // @ts-ignore
     //     const _sx = 1 / rib.mesh.scaling.x;
