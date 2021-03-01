@@ -48,6 +48,10 @@ const slice = createSlice({
             produce(state, (draft) => {
                 draft.activeSchemeUI = action.payload;
             }),
+        activeSchemeUIUpdated: (state: SchemeState, action: PayloadAction<SchemeUI>) =>
+            produce(state, (draft) => {
+                draft.activeSchemeUI = action.payload;
+            }),
         schemeModeChanged: (state: SchemeState, action: PayloadAction<SchemeMode>) => {
             return produce(state, (draft) => {
                 draft.activeSchemeMode = action.payload;
@@ -98,6 +102,7 @@ export const {
     isSchemeLoading,
     activeSchemeUIChanged,
     setActiveModelId,
-    setActiveScaleFactor
+    setActiveScaleFactor,
+    activeSchemeUIUpdated
 } = actions;
 export default reducer;

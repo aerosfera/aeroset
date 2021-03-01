@@ -2,7 +2,7 @@ import {SchemeUI} from "../../data/ui/SchemeUI";
 import {Vector3D} from "../../data/base/Vector3D";
 import {Mesh, Vector3} from "@babylonjs/core";
 
-export const scaleScheme = (schemeUI: SchemeUI, scaleFactor: Vector3D, schemeCenter: Vector3D) : SchemeUI => {
+export const scaleScheme = (schemeUI: SchemeUI, scaleFactor: Vector3D, schemeCenter: Vector3D) : SchemeUI | null => {
     const xScale = scaleFactor.x;
     const yScale = scaleFactor.y;
     const zScale = scaleFactor.z;
@@ -112,4 +112,6 @@ export const scaleScheme = (schemeUI: SchemeUI, scaleFactor: Vector3D, schemeCen
 
         nodeMesh.computeWorldMatrix();
     }
+
+    return null;
 }

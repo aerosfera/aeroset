@@ -58,11 +58,13 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
             nodeId: nodeId
         })
 
-        attachOwnPointerDragBehavior(nodeMesh, scene);
+        //attachOwnPointerDragBehavior(nodeMesh, scene);
 
-        nodeMesh.position.x = node.point.x / 150
-        nodeMesh.position.y = node.point.z / 10
-        nodeMesh.position.z = node.point.y / 150
+        const xyScale = 100;
+        const zScale = 10;
+        nodeMesh.position.x = node.point.x / xyScale
+        nodeMesh.position.y = node.point.z / zScale
+        nodeMesh.position.z = node.point.y / xyScale
 
         const nodesIdToDrawingLine = node
             .linkedNodes
@@ -71,7 +73,7 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
         const linkedRibsMetadata = new Array<SchemeNodeMetadata>()
 
         const nodePoint = node.point;
-        const nodeVector = new Vector3(nodePoint.x / 150, nodePoint.z / 10, nodePoint.y / 150);
+        const nodeVector = new Vector3(nodePoint.x / xyScale, nodePoint.z / zScale, nodePoint.y / xyScale);
 
         if (nodesIdToDrawingLine.length > 0) {
             for (const linkedNodeId of nodesIdToDrawingLine) {
@@ -81,7 +83,7 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
                     continue
 
                 const linkedNodePoint = linkedNode.point
-                const linkedNodeVector = new Vector3(linkedNodePoint.x / 150, linkedNodePoint.z / 10, linkedNodePoint.y / 150);
+                const linkedNodeVector = new Vector3(linkedNodePoint.x / xyScale, linkedNodePoint.z / zScale, linkedNodePoint.y / xyScale);
 
                 const ribMaterial = infrastructureService.resources.materials.ribMaterial;
                 const rib: Mesh = constructRib(scene, nodeVector, linkedNodeVector, ribMaterial);

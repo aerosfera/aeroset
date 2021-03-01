@@ -31,7 +31,7 @@ const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
     const onClose = () => dispatch(closeSchemePanel());
     return (
         <Draggable bounds="parent" handle="strong" defaultPosition={{x: 16, y: 16}} grid={[25,25]}>
-            <PanelContainer isActive={isActive} width={300} height={500}>
+            <PanelContainer isActive={isActive} width={264} height={250}>
                 <section>
                     <PanelHeaderContainer>
                         <PanelHeader>
@@ -58,7 +58,7 @@ const SchemePanel: React.FC<{ theme: Theme, scene: Scene }> = (props) => {
                     <SetupSchemeMode/>
                     <SetupCameraMode/>
                     <GreenCheckbox scene={scene}/>
-                    <SetupScaleFactor/>
+                    {/*<SetupScaleFactor/>*/}
                 </section>
             </PanelContainer>
         </Draggable>
