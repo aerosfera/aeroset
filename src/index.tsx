@@ -14,6 +14,7 @@ import {EventBusService} from "./services/eventBus/EventBusService";
 import {EVENT_BUS_SERVICE, KEYBOARD_SERVICE, VERSION_SERVICE} from "./infrastructure/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
+// @ts-ignore
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import 'pepjs';
 import AppBackdrop from "./views/components/backdrop";

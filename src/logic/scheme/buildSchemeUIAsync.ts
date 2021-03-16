@@ -5,7 +5,7 @@ import {
     Mesh,
     Vector3,
 } from "@babylonjs/core";
-import {SchemeMode} from "../../views/types/SchemeMode";
+import {SchemeMode} from "../../data/scheme/SchemeMode";
 import constructGeometryNode from "./construction/node/constructGeometryNode";
 import constructTopologyNode from "./construction/node/constructTopologyNode";
 import constructTopologyRib from "./construction/rib/constructTopologyRib";

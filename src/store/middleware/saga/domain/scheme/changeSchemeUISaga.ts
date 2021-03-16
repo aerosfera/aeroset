@@ -7,7 +7,7 @@ import {SnackbarEvent} from "../../../../../views/components/snackbar/code/Snack
 import i18next from "i18next";
 import {SHOW_SNACKBAR_EVENT} from "../../../../../services/eventBus/EventTypes";
 import {call} from "redux-saga/effects";
-import {SchemeMode} from "../../../../../views/types/SchemeMode";
+import {SchemeMode} from "../../../../../data/scheme/SchemeMode";
 import {drawSchemeUISaga} from "./drawSchemeUISaga";
 
 export function* changeSchemeUISaga(action: { payload: SchemeMode }) {

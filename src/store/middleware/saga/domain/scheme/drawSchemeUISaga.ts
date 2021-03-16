@@ -1,4 +1,4 @@
-import {SchemeMode} from "../../../../../views/types/SchemeMode";
+import {SchemeMode} from "../../../../../data/scheme/SchemeMode";
 import Scheme from "../../../../../data/scheme/Scheme";
 import {Scene} from "@babylonjs/core/scene";
 import {ArcRotateCamera, Camera, Mesh} from "@babylonjs/core";

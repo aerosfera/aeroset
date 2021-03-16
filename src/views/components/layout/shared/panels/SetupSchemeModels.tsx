@@ -6,10 +6,8 @@ import {FormControlStyled, SelectStyled} from "./style";
 import {FormHelperText, MenuItem} from "@material-ui/core";
 import {withTheme} from "styled-components";
 import {SchemeModelType} from "../../../../types/SchemeModelType";
-import {setActiveModelId} from "../../../../../store/domain/scheme/activeSchemeReducer";
 import {useSelector} from "react-redux";
 import {schemeActiveModelSelector, setActiveModel} from "../../../../../store/ui/panels/models/schemeModelsPanel";
-import {pressureModelsAll} from "../../../../../store/entity/models/pressure/pressureModelsReducer";
 import _ from 'lodash';
 
 const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
@@ -23,17 +21,10 @@ const SetupSchemeModels: React.FC<{ theme: Theme }> = (props) => {
 
         switch (value) {
             case SchemeModelType.Pressure:
-                const pressureModelsState = store.getState().entity.models.pressure;
-                const allRPressureModels = pressureModelsAll(pressureModelsState);
-                const lastModel = _.last(allRPressureModels);
-                if (lastModel)
-                    dispatch(setActiveModelId(lastModel.id));
                 break;
             case SchemeModelType.Air:
-                dispatch(setActiveModelId(null));
                 break;
             case SchemeModelType.None:
-                dispatch(setActiveModelId(null));
                 break;
         }
 

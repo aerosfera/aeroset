@@ -1,11 +1,11 @@
 import {Scene} from "@babylonjs/core/scene";
-import PressureModel from "../../data/models/pressure/PressureModel";
 import {SchemeUI} from "../../data/ui/SchemeUI";
 import {Color3, Mesh} from "@babylonjs/core";
 import ColorGradientService from "../../services/colorGradient/GradientService";
 import {GradientMaterial} from "@babylonjs/materials/gradient/gradientMaterial";
+import SchemeModel from "../../data/scheme/history/SchemeModel";
 
-export const drawPressureSchemeModelAsync = async (model: PressureModel,
+export const drawPressureSchemeModelAsync = async (model: SchemeModel,
                                                    ui: SchemeUI,
                                                    ribGradientMaterial: GradientMaterial,
                                                    gradientService: ColorGradientService): Promise<void> => {

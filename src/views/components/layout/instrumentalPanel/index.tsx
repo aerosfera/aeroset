@@ -8,7 +8,7 @@ import SchemeSection from "../sections/scheme";
 import ModelsSection from "../sections/models";
 import {useSelector} from "react-redux";
 import {activeSchemeModeChangedSelector} from "../../../../store/domain/scheme/activeSchemeReducer";
-import {SchemeMode} from "../../../types/SchemeMode";
+import {SchemeMode} from "../../../../data/scheme/SchemeMode";
 
 const InstrumentalPanel: React.FC<{ theme: Theme }> = (props) => {
     const schemeMode = useSelector(activeSchemeModeChangedSelector);

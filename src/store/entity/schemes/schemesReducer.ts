@@ -3,7 +3,7 @@ import Scheme from "../../../data/scheme/Scheme";
 
 const schemesAdapter = createEntityAdapter<Scheme>({
     selectId: (model) => model.id,
-    sortComparer: (a, b) => a.updated < b.updated ? -1 : 1,
+    sortComparer: (a, b) => -1
 })
 
 const slice = createSlice({

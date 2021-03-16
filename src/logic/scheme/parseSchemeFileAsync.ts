@@ -1,11 +1,9 @@
 import Scheme from "../../data/scheme/Scheme";
 import jsonEscape from "../../utilities/string/jsonEscape";
 import {randomIntFromInterval} from "../../utilities/math/randomIntFromInterval";
-import NodeValuePair from "../../data/models/NodeValuePair";
+import NodeValuePair from "../../data/scheme/NodeValuePair";
 import {store} from "../../store/store";
-import {pressureModelsAddOne} from "../../store/entity/models/pressure/pressureModelsReducer";
 import {nanoid} from "@reduxjs/toolkit";
-import PressureModel from "../../data/models/pressure/PressureModel";
 
 export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
     return new Promise((resolve, reject) => {
@@ -25,17 +23,6 @@ export const parseSchemeFileAsync = (file: File): Promise<Scheme> => {
                     value: param
                 })
             }
-            const pressureModel: PressureModel = {
-                created: new Date(),
-                updated: new Date(),
-                id: 'prs' + nanoid(),
-                name: "AirModel",
-                scheme: scheme,
-                values: arr,
-                parameterMin: 1,
-                parameterMax: 10
-            }
-            store.dispatch(pressureModelsAddOne(pressureModel));
 
             resolve(scheme);
         };

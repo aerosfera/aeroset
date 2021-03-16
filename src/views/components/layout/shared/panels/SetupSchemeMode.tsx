@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {schemeModeChanged, activeSchemeModeChangedSelector} from "../../../../../store/domain/scheme/activeSchemeReducer";
 import {FormHelperText, MenuItem} from "@material-ui/core";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
-import {SchemeMode} from "../../../../types/SchemeMode";
+import {SchemeMode} from "../../../../../data/scheme/SchemeMode";
 import { FormControlStyled, SelectStyled } from "./style";
 
 const SetupSchemeMode: React.FC<{ theme: Theme }> = (_) => {

@@ -1,6 +1,5 @@
 import {SchemeUI} from "../../../../../data/ui/SchemeUI";
 import {selectState} from "../../../../../utilities/saga/selectState";
-import {pressureModelsById} from "../../../../entity/models/pressure/pressureModelsReducer";
 import {store} from "../../../../store";
 import {call} from "redux-saga/effects";
 import {drawPressureSchemeModelAsync} from "../../../../../logic/models/drawPressureSchemeModel";
@@ -28,26 +27,20 @@ export function* showSchemeModelSaga(action: { payload: string | null }) {
         return;
     }
 
-    const pressureModelsState = store.getState().entity.models.pressure;
-    const model = pressureModelsById(pressureModelsState, activeModelId);
-
-    if (!model)
-        return;
-
     const gradientService = IoC.get<ColorGradientService>(COLOR_GRADIENT_SERVICE);
 
     const schemeType = defineModelTypeById(activeModelId);
 
     const ribGradientMaterial = infrastructureService.resources.materials.ribGradientMaterial;
 
-    switch (schemeType) {
-        case SchemeModelType.Air:
-            // @ts-ignore
-            yield call(drawAirSchemeModelAsync, model,  activeSchemeUI, ribGradientMaterial, gradientService);
-            break;
-        case SchemeModelType.Pressure:
-            // @ts-ignore
-            yield call(drawPressureSchemeModelAsync, model, activeSchemeUI, ribGradientMaterial, gradientService);
-            break;
-    }
+    // switch (schemeType) {
+    //     case SchemeModelType.Air:
+    //         // @ts-ignore
+    //         yield call(drawAirSchemeModelAsync, model,  activeSchemeUI, ribGradientMaterial, gradientService);
+    //         break;
+    //     case SchemeModelType.Pressure:
+    //         // @ts-ignore
+    //         yield call(drawPressureSchemeModelAsync, model, activeSchemeUI, ribGradientMaterial, gradientService);
+    //         break;
+    // }
 }

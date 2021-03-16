@@ -10,7 +10,7 @@ import {
     activeSchemeModeChangedSelector,
     addActiveModelId
 } from "../../../../../store/domain/scheme/activeSchemeReducer";
-import {SchemeMode} from "../../../../types/SchemeMode";
+import {SchemeMode} from "../../../../../data/scheme/SchemeMode";
 import {ColorGradient} from "../../../../types/ColorGradient";
 import {
     colorGradientChanged,
