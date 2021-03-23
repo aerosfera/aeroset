@@ -22,8 +22,8 @@ const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera =
     camera.minZ = 0.01;
     camera.maxZ = 1000;
 
-    camera.lowerRadiusLimit = camera.radius;
-    camera.upperRadiusLimit = camera.radius;
+    camera.lowerRadiusLimit = 1;
+    camera.upperRadiusLimit = 1000;
 
     let plane: Plane;
     let pickOrigin: PickingInfo;

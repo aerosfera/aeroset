@@ -25,7 +25,7 @@ export function* drawSchemeUISaga(scheme: Scheme, cameraMode: CameraMode) {
     const schemeUI: SchemeUI = yield call(buildSchemeUIAsync, scheme, scene, camera, cameraMode);
     yield call(delay, 300); //wait when scheme render
 
-    const cameraTarget: Vector3D = setCameraTargetToCenterOfMeshes(<Mesh>schemeUI.parent, <ArcRotateCamera>camera, 150);
+    const cameraTarget: Vector3D = setCameraTargetToCenterOfMeshes(<Mesh>schemeUI.parent, <ArcRotateCamera>camera, 20);
     yield put(cameraTargetChanged(cameraTarget));
 
     yield put(activeSchemeUIChanged(schemeUI));
