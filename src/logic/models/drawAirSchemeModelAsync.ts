@@ -32,6 +32,7 @@ export const drawAirSchemeModelAsync = async (model: SchemeModel,
             gradientMaterial.offset = 0.5;
             gradientMaterial.smoothness = 1;
 
+            // @ts-ignore
             ribMesh.material = gradientMaterial;
         }
     } finally {
