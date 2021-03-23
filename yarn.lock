@@ -1991,12 +1991,19 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@4.2.0", "@babylonjs/core@^4.2.0":
+"@babylonjs/core@4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-4.2.0.tgz#d1cfd43d7e3d2e58cde79083f04eeb607f6c8f18"
   integrity sha512-sZQigPvMDc0pcgwlKvTF5gsMzGwT8gelQIOyxELrohdFu12pHGhIr61+yVxxq9tpCdzyYD9kS8LM0w2y+5ypkg==
   dependencies:
     tslib ">=1.10.0"
+
+"@babylonjs/core@^5.0.0-alpha.15":
+  version "5.0.0-alpha.15"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.0.0-alpha.15.tgz#2df11b23bf45e2231c8a26abb017820511a5e4b9"
+  integrity sha512-owKAgzBBnLsBoGioOZxpL1O2tjv6GFf1XeAGYQgpqc6UGWf7D8oQnpw9/hC+IHXxpg8A3c9d4MKP5xJ6WT0V7Q==
+  dependencies:
+    tslib "^2.1.0"
 
 "@babylonjs/materials@^4.2.0":
   version "4.2.0"

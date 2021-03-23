@@ -21,6 +21,7 @@
     "create-react-app": "^4.0.3",
     "events": "^3.3.0",
     "firebase": "^8.3.1",
+    "firebaseui": "^4.8.0",
     "fontsource-roboto": "^3.0.3",
     "gh-pages": "^3.1.0",
     "hammerjs": "^2.0.8",
@@ -97,7 +98,7 @@
     ]
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/core": "^5.0.0-alpha.15",
     "@babylonjs/materials": "^4.2.0",
     "@babylonjs/serializers": "^4.2.0",
     "@loopmode/cra-workbox-refresh": "^0.0.5",
