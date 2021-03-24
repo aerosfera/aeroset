@@ -19,10 +19,14 @@ const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const signOut = () => {
+        handleMenuClose();
         dispatch(setAuthUser(null));
-    };``
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <HeaderPanelContainer>
@@ -48,8 +52,8 @@ const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
                         horizontal: 'right',
                     }}
                     open={menuIsOpen}
-                    onClose={handleClose}>
-                    <MenuItem onClick={handleClose}>{t('sign_out')}</MenuItem>
+                    onClose={handleMenuClose}>
+                    <MenuItem onClick={signOut}>{t('sign_out')}</MenuItem>
                 </Menu>
             </div>
         </HeaderPanelContainer>

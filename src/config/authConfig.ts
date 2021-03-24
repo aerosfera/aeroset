@@ -11,8 +11,7 @@ const authConfig : firebaseui.auth.Config = {
             return false;  // Do not redirect.
         },
         uiShown: function () {
-            // @ts-ignore
-            document.getElementById('root').style.display = 'none';
+            document.getElementById('root')!.style.display = 'none';
         }
     },
     signInFlow: 'popup',  // Opens IDP Providers sign-in flow in a popup.
@@ -21,7 +20,7 @@ const authConfig : firebaseui.auth.Config = {
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
         firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-        firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+        //firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
     ],
     // tosUrl and privacyPolicyUrl accept either url string or a callback
     // function.

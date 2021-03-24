@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 
 const loadVersion = () => {
     const versionService = IoC.get<VersionService>(VERSION_SERVICE)
-    return versionService.GetVersion()
+    return versionService.GetVersion();
 }
 const Version: React.FC<{ isDark: boolean }> = (props) => {
     const {t} = useTranslation()

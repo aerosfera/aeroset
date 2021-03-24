@@ -22,6 +22,7 @@ const userBehaviorObserver = async (user: AeroUser) => {
 };
 
 const authStateManager = () => {
+    document.getElementById('root')!.style.display = 'none';
     const auth = firebase.auth();
     auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 
