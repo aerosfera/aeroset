@@ -43,5 +43,6 @@
   "none" : "None",
   "scale_scheme_by_x": "Scale scheme by X",
   "scale_scheme_by_y" : "Scale scheme by Y",
-  "scale_scheme_by_z" : "Scale scheme by Z"
+  "scale_scheme_by_z" : "Scale scheme by Z",
+  "sign_out" : "Sign out"
 }
