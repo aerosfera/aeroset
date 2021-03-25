@@ -95,9 +95,9 @@
     ]
   },
   "devDependencies": {
-    "@babylonjs/core": "^4.2.0",
-    "@babylonjs/materials": "^4.2.0",
-    "@babylonjs/serializers": "^4.2.0",
+    "@babylonjs/core": "^5.0.0-alpha.15",
+    "@babylonjs/materials": "^5.0.0-alpha.15",
+    "@babylonjs/serializers": "^5.0.0-alpha.15",
     "@loopmode/cra-workbox-refresh": "^0.0.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@testing-library/jest-dom": "^5.11.9",

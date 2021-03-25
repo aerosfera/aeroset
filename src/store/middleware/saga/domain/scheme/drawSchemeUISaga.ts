@@ -30,5 +30,4 @@ export function* drawSchemeUISaga(scheme: Scheme, cameraMode: CameraMode) {
 
     yield put(activeSchemeUIChanged(schemeUI));
     yield put(isSchemeLoading(false));
-
 }
