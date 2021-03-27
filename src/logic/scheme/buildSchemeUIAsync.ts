@@ -41,37 +41,6 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
             break;
     }
 
-    let maxX: number = scheme.nodes[0].point.x / 100;
-    let minX: number = scheme.nodes[0].point.x / 100;
-    let maxY: number = scheme.nodes[0].point.y / 100;
-    let minY: number = scheme.nodes[0].point.y / 100;
-    let maxZ: number = scheme.nodes[0].point.z / 10;
-    let minZ: number = scheme.nodes[0].point.z / 10;
-    scheme.nodes.forEach((item) => {
-        if (item.point.x / 100 > maxX) {
-            maxX = item.point.x / 100
-        }
-        if (item.point.x / 100 < minX) {
-            minX = item.point.x / 100
-        }
-        if (item.point.y / 100 > maxY) {
-            maxY = item.point.y / 100
-        }
-        if (item.point.y / 100 < minY) {
-            minY = item.point.y / 100
-        }
-        if (item.point.z / 10> maxZ) {
-            maxZ = item.point.z / 10
-        }
-        if (item.point.z / 10 < minZ) {
-            minZ = item.point.z / 10
-        }
-    });  
-
-    const meanPositionX: number = (maxX + minX) / 2;
-    const meanPpositionY: number = (maxY + minY) / 2;
-    const meanPpositionZ: number = (maxZ + minZ) / 2;
-
     const infrastructureService = IoC.get<InfrastructureService>(INFRASTRUCTURE_SERVICE);
     let parent = new Mesh("parent", scene);
 
@@ -92,9 +61,9 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
 
         const xyScale = 100;
         const zScale = 10;
-        nodeMesh.position.x = node.point.x / xyScale - meanPositionX
-        nodeMesh.position.y = node.point.z / zScale - meanPpositionZ
-        nodeMesh.position.z = node.point.y / xyScale - meanPpositionY
+        nodeMesh.position.x = node.point.x / xyScale
+        nodeMesh.position.y = node.point.z / zScale
+        nodeMesh.position.z = node.point.y / xyScale
 
         const nodesIdToDrawingLine = node
             .linkedNodes
@@ -103,7 +72,7 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
         const linkedRibsMetadata = new Array<SchemeNodeMetadata>()
 
         const nodePoint = node.point;
-        const nodeVector = new Vector3(nodePoint.x / xyScale - meanPositionX, nodePoint.z / zScale - meanPpositionZ, nodePoint.y / xyScale - meanPpositionY);
+        const nodeVector = new Vector3(nodePoint.x / xyScale, nodePoint.z / zScale, nodePoint.y / xyScale);
 
         if (nodesIdToDrawingLine.length > 0) {
             for (const linkedNodeId of nodesIdToDrawingLine) {
@@ -113,7 +82,7 @@ export const buildSchemeUIAsync = async (scheme: Scheme, scene: Scene, camera: A
                     continue
 
                 const linkedNodePoint = linkedNode.point
-                const linkedNodeVector = new Vector3(linkedNodePoint.x / xyScale - meanPositionX, linkedNodePoint.z / zScale - meanPpositionZ, linkedNodePoint.y / xyScale - meanPpositionY);
+                const linkedNodeVector = new Vector3(linkedNodePoint.x / xyScale, linkedNodePoint.z / zScale, linkedNodePoint.y / xyScale);
 
                 const ribMaterial = infrastructureService.resources.materials.ribMaterial;
                 const rib: Mesh = constructRib(scene, nodeVector, linkedNodeVector, ribMaterial);

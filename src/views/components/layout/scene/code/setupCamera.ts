@@ -2,12 +2,8 @@ import {ArcRotateCamera, Camera, Matrix, Plane, Scene, Vector3} from "@babylonjs
 import {PickingInfo} from "@babylonjs/core/Collisions/pickingInfo";
 
 const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera => {
-    // @ts-ignore
-    const camera: ArcRotateCamera = new BABYLON.ArcRotateCamera('Camera', 0, 0, -100, Vector3.Zero(), scene);
-    // @ts-ignore
-    camera.zoomToMouseLocation = true;
-    camera.inertia = 0.8;
-    camera.inputs.addMouseWheel();
+    const camera: ArcRotateCamera = new ArcRotateCamera('Camera', 0, 0, -100, new Vector3(1, 2, -3), scene);
+
     camera.setPosition(new Vector3(0, 0, -100));
     camera.target = new Vector3(0, 0, 0);
     camera.panningSensibility = 200;
@@ -16,7 +12,7 @@ const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera =
     const ratio = canvas.height / canvas.width;
     camera.orthoTop = camera.orthoRight * ratio;
     camera.orthoBottom = camera.orthoLeft * ratio;
-
+    camera.inputs.addMouseWheel();
     camera.attachControl(true);
     camera.alpha += Math.PI; // camera +180°
     camera.mode = Camera.ORTHOGRAPHIC_CAMERA;
@@ -66,7 +62,6 @@ const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera =
             camera.target.subtractInPlace(diff);
         }
     };
-
 
     return camera;
 }
