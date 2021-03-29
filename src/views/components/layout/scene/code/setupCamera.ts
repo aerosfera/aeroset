@@ -12,8 +12,7 @@ const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera =
     const ratio = canvas.height / canvas.width;
     camera.orthoTop = camera.orthoRight * ratio;
     camera.orthoBottom = camera.orthoLeft * ratio;
-    // @ts-ignore
-    camera.zoomToMouseLocation = true;
+    camera.inputs.addMouseWheel();
 
     camera.attachControl(canvas, false);
     camera.alpha += Math.PI; // camera +180°
