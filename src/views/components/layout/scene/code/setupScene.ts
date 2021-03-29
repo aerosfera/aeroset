@@ -1,26 +1,41 @@
-import constructAxis from "./constructAxis";
 import {hexToRgb} from "../../../../../utilities/color/hexToRgb";
-import {Color4, Engine, Scene} from "@babylonjs/core";
-import {VRExperienceHelper} from "@babylonjs/core/Cameras/VR/vrExperienceHelper";
+import {Color4, double, Engine, Scene} from "@babylonjs/core";
 
 export default (engine: Engine, canvas: HTMLCanvasElement, bgColor: string): Scene => {
     const scene: Scene = new Scene(engine);
 
     const colorHex = bgColor
     const color = hexToRgb(colorHex);
-    if(color && color !== null)
+    if (color && color !== null)
         scene.clearColor = new Color4(color.r / 255, color.g / 255, color.b / 255, 1);
 
     engine.runRenderLoop(() => {
         scene.render();
     });
 
-    canvas.onresize = function() {
+    function resizeEngine(diff: double = 0) {
+        const width = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+
+        const height = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
+        canvas.setAttribute('width', (width - diff).toString());
+        canvas.setAttribute('height', (height - diff).toString());
         engine.resize();
+    }
+
+    canvas.onresize = function () {
+        resizeEngine();
     };
-    window.onresize = function() {
-        engine.resize();
+    window.onresize = function () {
+        resizeEngine();
     };
+
+
+    resizeEngine(1);   //Todo: remove late & hack
+    resizeEngine(0);   //Todo: remove late & hack
 
     //const helper : VRExperienceHelper = scene.createDefaultVRExperience(); //VR test
     return scene;
