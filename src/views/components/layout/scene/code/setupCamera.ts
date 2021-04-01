@@ -1,6 +1,59 @@
 import {ArcRotateCamera, Camera, Matrix, Plane, Scene, Vector3} from "@babylonjs/core";
 import {PickingInfo} from "@babylonjs/core/Collisions/pickingInfo";
 
+ArcRotateCamera.prototype._getViewMatrix = function () {
+
+    var cosa = Math.cos(this.alpha);
+    var sina = Math.sin(this.alpha);
+    var cosb = Math.cos(this.beta);
+    var sinb = Math.sin(this.beta);
+    
+    if (sinb === 0) {
+        sinb = 0.0001;
+    }
+    // @ts-ignore
+    var target = this._getTargetPosition();
+    // @ts-ignore
+    target.addToRef(new Vector3(this.radius * cosa * sinb, this.radius * cosb, this.radius * sina * sinb), this._newPosition);
+    if (this.getScene().collisionsEnabled && this.checkCollisions) {
+        // @ts-ignore
+        this._collider.radius = this.collisionRadius;
+        // @ts-ignore
+        this._newPosition.subtractToRef(this.position, this._collisionVelocity);
+        // @ts-ignore
+        this._collisionTriggered = true;
+        // @ts-ignore
+        this.getScene().collisionCoordinator.getNewPosition(this.position, this._collisionVelocity, this._collider, 3, null, this._onCollisionPositionChange, this.uniqueId);
+    }
+    else {
+        // @ts-ignore
+        this.position.copyFrom(this._newPosition);
+        var up = this.upVector;
+        if (this.allowUpsideDown && this.beta < 0) {
+            up = up.clone();
+            up = up.negate();
+        }
+        
+        if (this.radius < 0) {
+            
+            var vec = this.position.subtract(target);
+            vec.normalize();
+            
+            Matrix.LookAtLHToRef(this.position, this.position.add(vec), up, this._viewMatrix);
+            
+        } else {
+
+            Matrix.LookAtLHToRef(this.position, target, up, this._viewMatrix);
+        }
+        // @ts-ignore
+        this._viewMatrix.m[12] += this.targetScreenOffset.x;
+        // @ts-ignore
+        this._viewMatrix.m[13] += this.targetScreenOffset.y;
+        
+    }
+    return this._viewMatrix;
+};
+
 const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera => {
     const camera : ArcRotateCamera = new ArcRotateCamera('Camera', 0, 0, -100, new Vector3(1, 2, -3), scene);
 
@@ -23,8 +76,8 @@ const setupCamera = (canvas: HTMLCanvasElement, scene: Scene): ArcRotateCamera =
     camera.minZ = 0.01;
     camera.maxZ = 1000;
 
-    camera.lowerRadiusLimit = 1;
-    camera.upperRadiusLimit = 1000;
+    camera.lowerRadiusLimit = 20;
+    camera.upperRadiusLimit = 20;
 
     let plane: Plane;
     let pickOrigin: PickingInfo;
