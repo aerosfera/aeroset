@@ -6,12 +6,10 @@ import {useTranslation} from "react-i18next";
 import {HeaderPanelContainer} from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import {AppUserAccountIcon} from "../../shared/icons";
-import {useAppDispatch} from "../../../../store/store";
-import {setAuthUser} from "../../../../store/auth/authReducer";
+import {setAuthUUID} from "../../../../logic/auth/authStateManager";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();
-    const dispatch = useAppDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const menuIsOpen = Boolean(anchorEl);
 
@@ -21,7 +19,7 @@ const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
 
     const signOut = () => {
         handleMenuClose();
-        dispatch(setAuthUser(null));
+        setAuthUUID(null);
     };
 
     const handleMenuClose = () => {

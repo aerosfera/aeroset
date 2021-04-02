@@ -7,12 +7,7 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './middleware/saga/rootSaga';
 import {reduxFirestore} from "redux-firestore";
-import firebaseConfig from "../config/firebaseConfig";
-import showAuthScreen from "../views/auth/showAuthScreen";
 import firebase from "firebase";
-import authStateManager from '../logic/auth/authStateManager';
-
-firebase.initializeApp(firebaseConfig);
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({
@@ -32,13 +27,9 @@ export const store = configureStore({
     preloadedState: loadState(),
     middleware: middleware,
     devTools: devMode,
-    // @ts-ignore
-    enhancers: [reduxFirestore(firebase)]
 });
 
 sagaMiddleware.run(rootSaga);
-
-//authStateManager();
 
 export type AppDispatch = typeof store.dispatch;
 export type ApplicationState = ReturnType<typeof store.getState>;
