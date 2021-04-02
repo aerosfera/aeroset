@@ -11,8 +11,12 @@ export function* changeCameraModeSaga(action: { payload: CameraMode }) {
     if (action.payload === CameraMode.Perspective) {
         camera.mode = Camera.PERSPECTIVE_CAMERA;
         camera.inertia = 0.5;
+        camera.lowerRadiusLimit = -1000;
+        camera.upperRadiusLimit = 1000;
     } else {
         camera.mode = Camera.ORTHOGRAPHIC_CAMERA;
         camera.inertia = 0.3;
+        camera.lowerRadiusLimit = camera.radius;
+        camera.upperRadiusLimit = camera.radius;
     }
 }

@@ -1,10 +1,8 @@
-import {Vector3D} from "../../data/base/Vector3D";
+import {Vector3D} from "../../../../../data/base/Vector3D";
 import {ArcRotateCamera, Plane, Vector2, Scene, Vector3, PointerEventTypes, Matrix, Epsilon} from "@babylonjs/core";
 
 export function setupZoomForPerspectiveCamera(scene: Scene, camera: ArcRotateCamera, centralVector: Vector3D) {
-    camera.inertia = 0.3;
-    camera.lowerRadiusLimit = 1;
-    camera.upperRadiusLimit = 1000;
+    camera.inertia = 0.5;
     camera.upperBetaLimit = Math.PI - 0.1;
     camera.angularSensibilityX = camera.angularSensibilityY = 1500;
 
@@ -21,7 +19,7 @@ export function setupZoomForPerspectiveCamera(scene: Scene, camera: ArcRotateCam
     };
 
     const wheelPrecisionFn = () => {
-        camera.wheelPrecision = 1 / camera.radius * 1000;
+        camera.wheelPrecision = 50;
     };
 
     const zoomFn = (p: any) => {
