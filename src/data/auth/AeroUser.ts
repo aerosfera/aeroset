@@ -1,15 +1,25 @@
 import {UserStatus} from "./UserStatus";
-import firebase from "firebase";
+import {UserRole} from "./UserRole";
 
 class AeroUser {
     readonly status: UserStatus
-    readonly value: firebase.User | undefined | null
-    constructor(value: firebase.User | undefined | null) {
+    readonly uuid: string | null | undefined
+    private _role: UserRole = UserRole.User;
+
+    get role(): UserRole {
+        return this._role;
+    }
+
+    set role(value: UserRole) {
+        this._role = value;
+    }
+
+    constructor(uuid: string | null | undefined) {
         this.status =
-            value === undefined ? UserStatus.Unknown :
-                value === null ? UserStatus.SignedOut :
+            uuid === undefined ? UserStatus.Unknown :
+                uuid === null ? UserStatus.SignedOut :
                     UserStatus.SignedIn
-        this.value = value
+        this.uuid = uuid
     }
 }
 

@@ -10,51 +10,6 @@
       name="Software for designing and simulating underground mine ventilation"
       content="Aeroset"
     />
-    <style>
-      #bg-container {
-        background-image: url(mining.jpg);
-        background-position: left center;
-        background-repeat: no-repeat;
-        filter: blur(2px);
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        background-size: cover;
-        left: 0;
-        top: 0;
-      }
-
-      #logo-container {
-        transform: rotate(90deg);
-        background-image: url(logo-en.png);
-        background-position: left center;
-        background-repeat: no-repeat;
-        z-index: -1;
-        width: 100px;
-        height: 300px;
-        position: absolute;
-        background-size: cover;
-        left: 130px;
-        top: -70px;
-      }
-
-      #firebaseui-auth-container {
-          max-width: 300px;
-          margin: auto auto;
-          text-align: center;
-          background: #f7f7f7;
-          border-radius: 10px;
-          padding-top: 10px;
-      }
-
-      #firebaseui-container {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-      }
-    </style>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -74,12 +29,6 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="firebaseui-container">
-      <div id="firebaseui-auth-container"></div>
-    </div>
-    <div id="bg-container"></div>
-    <div id="logo-container"></div>
-    <div id="status-wait-container"></div>
     <div id="root"></div>
     <script src="https://preview.babylonjs.com/earcut.min.js"></script>
     <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>

@@ -38,12 +38,7 @@ export const store = configureStore({
 
 sagaMiddleware.run(rootSaga);
 
-authStateManager();
-
-setTimeout(() => {
-    if(!store.getState().auth.user)
-        showAuthScreen()
-}, 1200);
+//authStateManager();
 
 export type AppDispatch = typeof store.dispatch;
 export type ApplicationState = ReturnType<typeof store.getState>;

@@ -22,18 +22,13 @@ import Keyboard from "./services/keyboard/Keyboard";
 
 ReactDOM.render(
     <Provider store={store}>
-        {/*<BrowserRouter>*/}
-        {/*<React.StrictMode>*/}
             <GlobalStyle/>
             <CssBaseline/>
             <Theme>
                 <Suspense fallback="">
                     <App/>
-                    <AppBackdrop/>
                 </Suspense>
             </Theme>
-        {/*</React.StrictMode>*/}
-        {/*</BrowserRouter>*/}
     </Provider>,
     document.getElementById('root')
 );

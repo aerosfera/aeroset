@@ -23,19 +23,16 @@ const userBehaviorObserver = async (user: AeroUser) => {
 
 const authStateManager = () => {
     document.getElementById('root')!.style.display = 'none';
-    const auth = firebase.auth();
-    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 
-    const userBehaviorSubject = new BehaviorSubject<AeroUser>(new AeroUser(undefined));
-    const authStateObserver = (user: firebase.User | null) => {
-        if (user) {
-            userBehaviorSubject.next(new AeroUser(user)) //sign in
-        } else {
-            userBehaviorSubject.next(new AeroUser(null)) //sign out
-        }
-    }
-    auth.onAuthStateChanged(authStateObserver);
-    userBehaviorSubject.subscribe(userBehaviorObserver);
+    // const userBehaviorSubject = new BehaviorSubject<AeroUser>(new AeroUser(undefined));
+    // const authStateObserver = (userUUID: string | null) => {
+    //     if (userUUID) {
+    //         userBehaviorSubject.next(new AeroUser(userUUID)) //sign in
+    //     } else {
+    //         userBehaviorSubject.next(new AeroUser(null)) //sign out
+    //     }
+    // }
+    // userBehaviorSubject.subscribe(userBehaviorObserver);
 }
 
 export default authStateManager;

@@ -33,6 +33,7 @@
     "pepjs": "^0.5.3",
     "pino": "^6.11.2",
     "pino-pretty": "^4.7.1",
+    "pouchdb-authentication": "git://github.com/leonid-shevtsov/pouchdb-authentication.git#pouchdb-7-compatibility",
     "protobufjs": "^6.10.2",
     "ramda": "^0.27.1",
     "react": "^17.0.2",
