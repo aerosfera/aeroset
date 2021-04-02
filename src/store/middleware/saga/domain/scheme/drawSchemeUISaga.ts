@@ -14,7 +14,7 @@ import {cameraTargetChanged} from "../../../../ui/camera/cameraReducer";
 import IoC from "../../../../../infrastructure/ioc/IoC";
 import InfrastructureService from "../../../../../services/infrastructure/InfrastructureService";
 import {INFRASTRUCTURE_SERVICE} from "../../../../../infrastructure/ioc/ServiceTypes";
-import {setupZoomForPerspectiveCamera} from '../../../../../logic/camera/setupZoomForPerspectiveCamera';
+import {setupZoomForPerspectiveCamera} from '../../../../../views/components/layout/scene/code/setupZoomForPerspectiveCamera';
 import {store} from "../../../../store";
 
 export function* drawSchemeUISaga(scheme: Scheme, cameraMode: CameraMode) {
