@@ -1,4 +1,4 @@
-import Keycloak from 'keycloak-js'
+import Keycloak, {KeycloakInstance} from 'keycloak-js'
 
 const keycloakConfig = {
     url: 'http://localhost:8080/auth/',
@@ -6,6 +6,6 @@ const keycloakConfig = {
     clientId: 'aeroset-client'
 };
 
-const keycloak = Keycloak(keycloakConfig);
+const keycloak : KeycloakInstance = Keycloak(keycloakConfig);
 
 export default keycloak

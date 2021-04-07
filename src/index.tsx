@@ -20,8 +20,8 @@ import 'pepjs';
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import keycloak from "./config/keycloak";
 
+// @ts-ignore
 ReactDOM.render(
-    <ReactKeycloakProvider keycloak={keycloak}>
         <Provider store={store}>
             <GlobalStyle/>
             <CssBaseline/>
@@ -30,8 +30,7 @@ ReactDOM.render(
                     <App/>
                 </Suspense>
             </Theme>
-        </Provider>
-    </ReactKeycloakProvider>,
+        </Provider>,
     document.getElementById('root')
 );
 

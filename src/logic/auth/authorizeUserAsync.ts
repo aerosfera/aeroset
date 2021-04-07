@@ -1,29 +1,31 @@
 import {setAuthUUID} from "./authStateManager";
 import {nanoid} from "@reduxjs/toolkit";
-import PouchDB from 'pouchdb';
 import axios from "axios";
-
+import * as Querystring from "querystring";
 
 export const authorizeUserAsync = async (login: string, password: string): Promise<void> => {
 
     //setup once
-    // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-    // axios.defaults.headers.common['Accept'] = 'application/json';
+    //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     //axios.defaults.withCredentials = true;
+    //    axios.defaults.baseURL = axiosDefaultConfiguration.baseUrl;
+    //     axios.defaults.headers.Authorization = `Bearer ${UserService.getToken()}`
 
     const authParams = {
-        name : login,
-        password: password
+        client_id: 'aeroset-client',
+        username: login,
+        password: password,
+        grant_type: "password"
     };
 
     try {
-        const resp = await axios.post("http://127.0.0.1:5984/_session", authParams);
-        console.log(resp);
+        const resp = axios.post("http://localhost:8080/auth/realms/Aeroset/protocol/openid-connect/token",
+            Querystring.stringify(authParams)
+        ).then(console.log).catch(console.log);
 
         //const cookie = resp.headers["set-cookie"][0]; // get cookie from request
         //console.log(cookie);
-    }
-    catch (ex){
+    } catch (ex) {
         console.error(ex);
     }
     //axiosInstance.defaults.headers.Cookie = cookie;   // attach
