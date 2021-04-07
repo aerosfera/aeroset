@@ -8,20 +8,21 @@ import {store} from "./store/store";
 import {GlobalStyle} from "./globalStyle";
 import Theme from "./views/components/theme";
 import App from "./views/components/app";
-import {CssBaseline, Hidden} from "@material-ui/core";
+import {CssBaseline} from "@material-ui/core";
 import IoC from "./infrastructure/ioc/IoC";
 import {EventBusService} from "./services/eventBus/EventBusService";
-import {EVENT_BUS_SERVICE, KEYBOARD_SERVICE, VERSION_SERVICE} from "./infrastructure/ioc/ServiceTypes";
+import {EVENT_BUS_SERVICE} from "./infrastructure/ioc/ServiceTypes";
 import {SnackbarEvent} from "./views/components/snackbar/code/SnackbarEvent";
 import i18next from "i18next";
 // @ts-ignore
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import 'pepjs';
-import AppBackdrop from "./views/components/backdrop";
-import Keyboard from "./services/keyboard/Keyboard";
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import keycloak from "./config/keycloak";
 
 ReactDOM.render(
-    <Provider store={store}>
+    <ReactKeycloakProvider keycloak={keycloak}>
+        <Provider store={store}>
             <GlobalStyle/>
             <CssBaseline/>
             <Theme>
@@ -29,7 +30,8 @@ ReactDOM.render(
                     <App/>
                 </Suspense>
             </Theme>
-    </Provider>,
+        </Provider>
+    </ReactKeycloakProvider>,
     document.getElementById('root')
 );
 

@@ -35,7 +35,6 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
                         inputRef={loginRef}
                         variant="standard"
                         margin="normal"
-                        required
                         id="email"
                         label="Email"
                         name="email"
@@ -46,7 +45,6 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
                         inputRef={passwordRef}
                         variant="standard"
                         margin="normal"
-                        required
                         name="password"
                         label="Password"
                         type="password"

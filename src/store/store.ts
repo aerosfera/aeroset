@@ -7,7 +7,6 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './middleware/saga/rootSaga';
 import {reduxFirestore} from "redux-firestore";
-import firebase from "firebase";
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({
