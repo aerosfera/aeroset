@@ -38,6 +38,7 @@
     "pino": "^6.11.2",
     "pino-pretty": "^4.7.1",
     "pouchdb": "^7.2.2",
+    "pouchdb-adapter-http-jwt": "git+https://github.com/gyetvan-andras/pouchdb-adapter-http-jwt.git",
     "pouchdb-authentication": "git://github.com/leonid-shevtsov/pouchdb-authentication.git#pouchdb-7-compatibility",
     "pouchdb-browser": "^7.2.2",
     "protobufjs": "^6.10.2",

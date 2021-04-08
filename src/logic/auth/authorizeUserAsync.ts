@@ -5,6 +5,11 @@ import * as Querystring from "querystring";
 import {keycloakUrl} from "../../config/auth.config";
 import KcAdminClient from 'keycloak-admin';
 import jwt_decode from "jwt-decode";
+
+var PouchDB = require('pouchdb-core')
+    .plugin(require('pouchdb-adapter-http-jwt'))
+    .plugin(require('pouchdb-mapreduce'))
+    .plugin(require('pouchdb-replication'));
 // or
 // const KcAdminClient = require('keycloak-admin').default;
 
@@ -29,7 +34,7 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
 
     const kcAdminClient = new KcAdminClient({
         realmName: "Aeroset",
-        requestConfig : {
+        requestConfig: {
             paramsSerializer: function (params) {
                 return Querystring.stringify(params)
             },
@@ -42,7 +47,6 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
         password: password,
         grantType: 'password',
         clientId: 'aeroset-client',
-        //totp: '123456', // optional Time-based One-time Password if OTP is required in authentication flow
     });
 
     const token = kcAdminClient.accessToken;
@@ -50,13 +54,48 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
 
     const decodedToken = jwt_decode(token);
     // @ts-ignore
-    const idUser : string = decodedToken.sub;
+    const idUser: string = decodedToken.sub;
 
     const user = await kcAdminClient.users.findOne({
         id: idUser
     });
 
     console.log(user);
+
+    const userAttributes: Record<string, any> = user.attributes as Record<string, any>;
+    const organization: string = userAttributes['organization'];
+
+    console.log(organization);
+
+
+    //axios.defaults.baseURL = 'http://localhost:5984'
+    //axios.defaults.headers.common = {'Authorization': `bearer ${token}`}
+
+    // const organizationDb = new PouchDB(`http://localhost:5984/${organization}`, {
+    //     skip_setup: true,
+    //     fetch: function (url: string | Request,
+    //                      opts?: RequestInit) {
+    //         (<Headers>opts!.headers).set('Authorization', `Bearer ${token}`);
+    //         return PouchDB.fetch(url, opts);
+    //     }
+    //});
+
+    const organizationDb = new PouchDB(`http://localhost:5984/${organization}`, {jwtauth: {token: () => token}});
+
+
+    organizationDb.allDocs().then((res: any) => {
+        res.rows.forEach((row: any) => {
+            console.log(row)
+        })
+    }).catch((err: any) => {
+        console.log('Error', err)
+    });
+
+    organizationDb.info().then(function (result : any) {
+        console.log(result);
+    }).catch(function (err: any) {
+        console.log(err);
+    });
 
     // const authParams = {
     //     client_id: 'aeroset-client',
