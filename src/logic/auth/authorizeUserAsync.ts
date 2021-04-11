@@ -4,6 +4,7 @@ import kcAdminClient from "../../infrastructure/keycloak/keyCloakAdminClient";
 import PouchDB from "../../infrastructure/pounchDB/pounchDB";
 import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
 import {META_DB_CONNECTION_STRING} from "../../config/connection";
+import {initializeInfrastructureServices} from "./initializeInfrastructureServices";
 
 export const authorizeUserAsync = async (login: string, password: string): Promise<void> => {
     try {
@@ -27,17 +28,14 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
         const isSolo = organization === "solo"
         const metaDatabaseName: string = userAttributes['database'];
 
-        const metaDatabase = new PouchDB(`${META_DB_CONNECTION_STRING}/${organization}`,
-            {
-                jwtauth: {token: () => token},
-                adapter: 'worker'
-            });
+        await initializeInfrastructureServices(organization, token);
 
         setAuthenticationUserInfo({
             userInfo: user,
             isSolo: isSolo,
             metaDatabase: metaDatabaseName
         });
+
         return Promise.resolve();
 
     } catch (ex) {

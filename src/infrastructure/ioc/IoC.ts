@@ -6,13 +6,14 @@ import {
     COLOR_GRADIENT_SERVICE,
     EVENT_BUS_SERVICE,
     INFRASTRUCTURE_SERVICE,
-    KEYBOARD_SERVICE,
+    KEYBOARD_SERVICE, REPLICATION_SERVICE,
     VERSION_SERVICE
 } from "./ServiceTypes";
 import VersionService from "../../services/version/VersionService";
 import Keyboard from "../../services/keyboard/Keyboard";
 import ColorGradientService from "../../services/colorGradient/GradientService";
 import InfrastructureService from "../../services/infrastructure/InfrastructureService";
+import ReplicationService from "../../services/replicationService/ReplicationService";
 
 const IoC = new Container({
     autoBindInjectable: true,
@@ -25,5 +26,6 @@ IoC.bind<VersionService>(VERSION_SERVICE).to(VersionService).inSingletonScope();
 IoC.bind<Keyboard>(KEYBOARD_SERVICE).to(Keyboard).inSingletonScope();
 IoC.bind<ColorGradientService>(COLOR_GRADIENT_SERVICE).to(ColorGradientService).inSingletonScope();
 IoC.bind<InfrastructureService>(INFRASTRUCTURE_SERVICE).to(InfrastructureService).inSingletonScope();
+IoC.bind<ReplicationService>(REPLICATION_SERVICE).to(ReplicationService).inSingletonScope();
 
 export default IoC;
