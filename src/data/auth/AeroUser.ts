@@ -1,25 +1,58 @@
 import {UserStatus} from "./UserStatus";
 import {UserRole} from "./UserRole";
+import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
+import {UserMetaInfo} from "./UserMetaInfo";
 
 class AeroUser {
     readonly status: UserStatus
-    readonly uuid: string | null | undefined
-    private _role: UserRole = UserRole.User;
+    readonly userInfo: UserRepresentation | null | undefined
+    private readonly _role: UserRole[] = [];
+    private readonly _isSolo: boolean = true;
+    private readonly _metaDatabase: string = "";
 
-    get role(): UserRole {
+    get role(): UserRole[] {
         return this._role;
     }
 
-    set role(value: UserRole) {
-        this._role = value;
+    get isSolo(): boolean {
+        return this._isSolo;
     }
 
-    constructor(uuid: string | null | undefined) {
+    get MetaDatabase(): string {
+        return this._metaDatabase;
+    }
+
+    constructor(userMetaInfo: UserMetaInfo | null | undefined) {
         this.status =
-            uuid === undefined ? UserStatus.Unknown :
-                uuid === null ? UserStatus.SignedOut :
+            userMetaInfo === undefined ? UserStatus.Unknown :
+                userMetaInfo === null ? UserStatus.SignedOut :
                     UserStatus.SignedIn
-        this.uuid = uuid
+
+        if (this.status === UserStatus.SignedIn) {
+            const {userInfo, isSolo, metaDatabase} = <UserMetaInfo>userMetaInfo;
+
+            this._isSolo = isSolo;
+            this._metaDatabase = metaDatabase;
+            this.userInfo = userInfo;
+
+            if (userInfo.realmRoles) {
+                for (const userRole of userInfo.realmRoles) {
+                    switch (userRole) {
+                        case "Admin" :
+                            break;
+                            this._role.push(UserRole.Admin);
+                        case "SuperAdmin" :
+                            break;
+                            this._role.push(UserRole.SuperAdmin);
+                        case "User" :
+                            break;
+                            this._role.push(UserRole.User);
+                    }
+                }
+            } else {
+                this._role = [];
+            }
+        }
     }
 }
 

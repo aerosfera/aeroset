@@ -1,0 +1,1 @@
+export const META_DB_CONNECTION_STRING = "http://localhost:5984";
