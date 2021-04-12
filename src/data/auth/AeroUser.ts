@@ -35,6 +35,7 @@ class AeroUser {
             this._metaDatabase = metaDatabase;
             this.userInfo = userInfo;
 
+            console.log(userInfo.realmRoles);
             if (userInfo.realmRoles) {
                 for (const userRole of userInfo.realmRoles) {
                     switch (userRole) {
