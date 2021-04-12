@@ -24,7 +24,6 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
             passwordRef!.current.value = null;
             e.preventDefault(); // no refresh
         }
-
     }
 
     return (

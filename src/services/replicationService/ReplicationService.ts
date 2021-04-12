@@ -4,11 +4,16 @@ import PouchDB from "../../infrastructure/pounchDB/pounchDB";
 @injectable()
 class ReplicationService {
     private isIndividual: boolean = false;
+
     private metaDatabase: any;
     private schemeDatabase: any;
 
-    public ConnectMetaDatabase(metaDBConnectionString: string, token: string, isIndividual: boolean) {
+    public async ConnectMetaDatabaseAsync(metaDBConnectionString: string, token: string, isIndividual: boolean): Promise<void> {
         this.isIndividual = isIndividual;
+
+        if (this.metaDatabase) {
+            await this.metaDatabase.close();
+        }
 
         this.metaDatabase = new PouchDB(metaDBConnectionString,
             {
@@ -17,7 +22,11 @@ class ReplicationService {
             });
     }
 
-    public ConnectSchemeDatabase(schemeConnectionString: string, token: string) {
+    public async ConnectSchemeDatabaseAsync(schemeConnectionString: string, token: string): Promise<void> {
+        if (this.schemeDatabase) {
+            await this.schemeDatabase.close();
+        }
+
         this.schemeDatabase = new PouchDB(schemeConnectionString,
             {
                 jwtauth: {token: () => token},
@@ -26,8 +35,15 @@ class ReplicationService {
     }
 
     public async CloseAsync(): Promise<void> {
-        await this.metaDatabase.close();
-        await this.schemeDatabase.close();
+        let p1;
+        if (this.metaDatabase)
+            p1 = this.metaDatabase.close();
+
+        let p2;
+        if (this.schemeDatabase)
+            p2 = this.schemeDatabase.close();
+
+        await Promise.all([p1, p2]);
     }
 }
 

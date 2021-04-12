@@ -18,7 +18,7 @@ const userBehaviorObserver = async (user: AeroUser) => {
             const organization: string = userAttributes['organization'];
             const database: string = userAttributes['database'];
 
-            replicationService.ConnectMetaDatabase(`${META_DB_CONNECTION_STRING}/${database}`, <string>user.token, organization === "individual");
+            await replicationService.ConnectMetaDatabaseAsync(`${META_DB_CONNECTION_STRING}/${database}`, <string>user.token, organization === "individual");
 
             store.dispatch(setAuthUser(user));
             console.log("User status - SignedIn");
