@@ -23,6 +23,8 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
             id: userId
         });
 
+        console.log(user);
+
         const userAttributes: Record<string, any> = user.attributes as Record<string, any>;
         const organization: string = userAttributes['organization'];
         const isSolo = organization === "solo"
@@ -39,6 +41,6 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
         return Promise.resolve();
 
     } catch (ex) {
-
+        console.error(ex);
     }
 }
