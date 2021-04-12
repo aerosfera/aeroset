@@ -3,16 +3,30 @@ import {UserStatus} from "../../data/auth/UserStatus";
 import {BehaviorSubject} from "rxjs";
 import {setAuthUser} from "../../store/auth/authReducer";
 import {store} from "../../store/store";
-import {UserMetaInfo} from "../../data/auth/UserMetaInfo";
+import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
+import IoC from "../../infrastructure/ioc/IoC";
+import ReplicationService from "../../services/replicationService/ReplicationService";
+import {REPLICATION_SERVICE} from "../../infrastructure/ioc/ServiceTypes";
+import {META_DB_CONNECTION_STRING} from "../../config/connection";
 
 const userBehaviorObserver = async (user: AeroUser) => {
+    const replicationService = IoC.get<ReplicationService>(REPLICATION_SERVICE);
+
     switch (user.status) {
         case UserStatus.SignedIn:
+            const userAttributes: Record<string, any> = (<UserRepresentation>user.userInfo).attributes as Record<string, any>;
+            const organization: string = userAttributes['organization'];
+
+            replicationService.setMetaDatabaseConnectionString(`${META_DB_CONNECTION_STRING}/${organization}`, <string>user.token);
+
             store.dispatch(setAuthUser(user));
             console.log("User status - SignedIn");
             break;
         case UserStatus.SignedOut:
             store.dispatch(setAuthUser(null));
+            await replicationService.CleanUp();
+
+
             console.log("User status - SignedOut");
             break;
         default:
@@ -20,9 +34,6 @@ const userBehaviorObserver = async (user: AeroUser) => {
             break;
     }
 };
-const userBehaviorSubject = new BehaviorSubject<AeroUser>(new AeroUser(undefined));
-userBehaviorSubject.subscribe(userBehaviorObserver);
 
-export const setAuthenticationUserInfo = (userMetaInfo: UserMetaInfo | null | undefined) => {
-    userBehaviorSubject.next(new AeroUser(userMetaInfo));
-}
+export const userBehaviorSubject = new BehaviorSubject<AeroUser>(new AeroUser(undefined));
+userBehaviorSubject.subscribe(userBehaviorObserver);

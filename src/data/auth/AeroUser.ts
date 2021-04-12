@@ -1,58 +1,33 @@
 import {UserStatus} from "./UserStatus";
-import {UserRole} from "./UserRole";
 import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
-import {UserMetaInfo} from "./UserMetaInfo";
+import Timeout = NodeJS.Timeout;
 
 class AeroUser {
-    readonly status: UserStatus
-    readonly userInfo: UserRepresentation | null | undefined
-    private readonly _role: UserRole[] = [];
-    private readonly _isSolo: boolean = true;
-    private readonly _metaDatabase: string = "";
+    readonly status: UserStatus;
+    readonly token: string | undefined;
+    static refreshTokenIntervalId: Timeout | undefined;
+    readonly userInfo: UserRepresentation | null | undefined;
 
-    get role(): UserRole[] {
-        return this._role;
-    }
-
-    get isSolo(): boolean {
-        return this._isSolo;
-    }
-
-    get MetaDatabase(): string {
-        return this._metaDatabase;
-    }
-
-    constructor(userMetaInfo: UserMetaInfo | null | undefined) {
+    constructor(user: UserRepresentation | null | undefined, token: string | undefined = undefined, refreshTokenIntervalId: Timeout | undefined = undefined) {
         this.status =
-            userMetaInfo === undefined ? UserStatus.Unknown :
-                userMetaInfo === null ? UserStatus.SignedOut :
+            user === undefined ? UserStatus.Unknown :
+                user === null ? UserStatus.SignedOut :
                     UserStatus.SignedIn
 
-        if (this.status === UserStatus.SignedIn) {
-            const {userInfo, isSolo, metaDatabase} = <UserMetaInfo>userMetaInfo;
-
-            this._isSolo = isSolo;
-            this._metaDatabase = metaDatabase;
-            this.userInfo = userInfo;
-
-            console.log(userInfo.realmRoles);
-            if (userInfo.realmRoles) {
-                for (const userRole of userInfo.realmRoles) {
-                    switch (userRole) {
-                        case "Admin" :
-                            break;
-                            this._role.push(UserRole.Admin);
-                        case "SuperAdmin" :
-                            break;
-                            this._role.push(UserRole.SuperAdmin);
-                        case "User" :
-                            break;
-                            this._role.push(UserRole.User);
-                    }
+        switch (this.status) {
+            case UserStatus.SignedIn:
+                this.userInfo = user;
+                this.token = token;
+                AeroUser.refreshTokenIntervalId = refreshTokenIntervalId;
+                break;
+            case UserStatus.Unknown:
+            case UserStatus.SignedOut:
+                if (AeroUser.refreshTokenIntervalId){
+                    clearInterval(AeroUser.refreshTokenIntervalId);
+                    AeroUser.refreshTokenIntervalId = undefined;
                 }
-            } else {
-                this._role = [];
-            }
+                break;
+
         }
     }
 }

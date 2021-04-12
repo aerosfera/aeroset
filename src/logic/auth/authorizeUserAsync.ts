@@ -1,18 +1,18 @@
-import {setAuthenticationUserInfo} from "./authStateManager";
+import {userBehaviorSubject} from "./authStateManager";
 import jwt_decode from "jwt-decode";
 import kcAdminClient from "../../infrastructure/keycloak/keyCloakAdminClient";
-import PouchDB from "../../infrastructure/pounchDB/pounchDB";
 import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
-import {META_DB_CONNECTION_STRING} from "../../config/connection";
-import {initializeInfrastructureServices} from "./initializeInfrastructureServices";
+import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../config/connection";
+import {setUpTokenRefresh} from "./setUpTokenRefresh";
+import AeroUser from "../../data/auth/AeroUser";
 
 export const authorizeUserAsync = async (login: string, password: string): Promise<void> => {
     try {
         await kcAdminClient.auth({
             username: login,
             password: password,
-            grantType: 'password',
-            clientId: 'aeroset-client',
+            grantType: KEYCLOAK_GRANT_TYPE,
+            clientId: KEYCLOAK_CLIENT,
         });
 
         const token: string = kcAdminClient.accessToken;
@@ -23,24 +23,14 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
             id: userId
         });
 
+        const refreshTokenIntervalId = await setUpTokenRefresh(login, password);
+        userBehaviorSubject.next(new AeroUser(user, token, refreshTokenIntervalId));
+
         console.log(user);
-
-        const userAttributes: Record<string, any> = user.attributes as Record<string, any>;
-        const organization: string = userAttributes['organization'];
-        const isSolo = organization === "solo"
-        const metaDatabaseName: string = userAttributes['database'];
-
-        await initializeInfrastructureServices(organization, token);
-
-        setAuthenticationUserInfo({
-            userInfo: user,
-            isSolo: isSolo,
-            metaDatabase: metaDatabaseName
-        });
-
         return Promise.resolve();
 
     } catch (ex) {
+        //Todo: handle this
         console.error(ex);
     }
 }

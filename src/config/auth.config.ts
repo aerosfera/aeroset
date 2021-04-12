@@ -1,1 +1,0 @@
-export const keycloakUrl = 'http://localhost:8080/auth/realms/Aeroset/protocol/openid-connect/token';

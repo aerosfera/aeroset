@@ -20,9 +20,9 @@ const userBehaviorObserver = async (user: AeroUser) => {
             break;
     }
 };
-const userBehaviorSubject = new BehaviorSubject<AeroUser>(new AeroUser(undefined));
+const userBehaviorSubject = new BehaviorSubject<AeroUser>(new AeroUser(undefined, token, refreshTokenIntervalId));
 userBehaviorSubject.subscribe(userBehaviorObserver);
 
 export const setAuthenticationUserInfo = (userMetaInfo: UserMetaInfo | null | undefined) => {
-    userBehaviorSubject.next(new AeroUser(userMetaInfo));
+    userBehaviorSubject.next(new AeroUser(userMetaInfo, token, refreshTokenIntervalId));
 }

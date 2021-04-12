@@ -5,7 +5,7 @@ import PouchDB from "../../infrastructure/pounchDB/pounchDB";
 class ReplicationService {
     private metaDataBase: any;
 
-    public setMetaDataBaseConnectionString(metaDBConnectionString: string, token: string) {
+    public setMetaDatabaseConnectionString(metaDBConnectionString: string, token: string) {
         this.metaDataBase = new PouchDB(metaDBConnectionString,
             {
                 jwtauth: {token: () => token},
@@ -13,8 +13,8 @@ class ReplicationService {
             });
     }
 
-    public CleanUp() {
-        //cleanUp metaDataBase
+    public async CleanUp(): Promise<void> {
+        await this.metaDataBase.close();
     }
 }
 

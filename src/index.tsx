@@ -17,8 +17,6 @@ import i18next from "i18next";
 // @ts-ignore
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import 'pepjs';
-import { ReactKeycloakProvider } from '@react-keycloak/web'
-import keycloak from "./config/keycloak";
 
 // @ts-ignore
 ReactDOM.render(

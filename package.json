@@ -33,6 +33,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "normalizr": "^3.6.1",
+    "openid-client": "^4.6.0",
     "p-cancelable": "^2.1.0",
     "pepjs": "^0.5.3",
     "pino": "^6.11.2",
