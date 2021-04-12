@@ -11,9 +11,7 @@ class ReplicationService {
     public async ConnectMetaDatabaseAsync(metaDBConnectionString: string, token: string, isIndividual: boolean): Promise<void> {
         this.isIndividual = isIndividual;
 
-        if (this.metaDatabase) {
-            await this.metaDatabase.close();
-        }
+        await this.CloseAsync();
 
         this.metaDatabase = new PouchDB(metaDBConnectionString,
             {
