@@ -3,18 +3,31 @@ import PouchDB from "../../infrastructure/pounchDB/pounchDB";
 
 @injectable()
 class ReplicationService {
-    private metaDataBase: any;
+    private isIndividual: boolean = false;
+    private metaDatabase: any;
+    private schemeDatabase: any;
 
-    public setMetaDatabaseConnectionString(metaDBConnectionString: string, token: string) {
-        this.metaDataBase = new PouchDB(metaDBConnectionString,
+    public ConnectMetaDatabase(metaDBConnectionString: string, token: string, isIndividual: boolean) {
+        this.isIndividual = isIndividual;
+
+        this.metaDatabase = new PouchDB(metaDBConnectionString,
             {
                 jwtauth: {token: () => token},
                 adapter: 'worker'
             });
     }
 
-    public async CleanUp(): Promise<void> {
-        await this.metaDataBase.close();
+    public ConnectSchemeDatabase(schemeConnectionString: string, token: string) {
+        this.schemeDatabase = new PouchDB(schemeConnectionString,
+            {
+                jwtauth: {token: () => token},
+                adapter: 'worker'
+            });
+    }
+
+    public async CloseAsync(): Promise<void> {
+        await this.metaDatabase.close();
+        await this.schemeDatabase.close();
     }
 }
 

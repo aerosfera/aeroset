@@ -16,15 +16,16 @@ const userBehaviorObserver = async (user: AeroUser) => {
         case UserStatus.SignedIn:
             const userAttributes: Record<string, any> = (<UserRepresentation>user.userInfo).attributes as Record<string, any>;
             const organization: string = userAttributes['organization'];
+            const database: string = userAttributes['database'];
 
-            replicationService.setMetaDatabaseConnectionString(`${META_DB_CONNECTION_STRING}/${organization}`, <string>user.token);
+            replicationService.ConnectMetaDatabase(`${META_DB_CONNECTION_STRING}/${database}`, <string>user.token, organization === "individual");
 
             store.dispatch(setAuthUser(user));
             console.log("User status - SignedIn");
             break;
         case UserStatus.SignedOut:
             store.dispatch(setAuthUser(null));
-            await replicationService.CleanUp();
+            await replicationService.CloseAsync();
 
 
             console.log("User status - SignedOut");

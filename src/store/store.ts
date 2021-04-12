@@ -6,7 +6,6 @@ import {useDispatch} from "react-redux";
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './middleware/saga/rootSaga';
-import {reduxFirestore} from "redux-firestore";
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [...getDefaultMiddleware({

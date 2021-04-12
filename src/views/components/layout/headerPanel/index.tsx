@@ -6,7 +6,8 @@ import {useTranslation} from "react-i18next";
 import {HeaderPanelContainer} from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import {AppUserAccountIcon} from "../../shared/icons";
-import {setAuthenticationUserInfo} from "../../../../logic/auth/authStateManager";
+import {userBehaviorSubject} from "../../../../logic/auth/authStateManager";
+import AeroUser from "../../../../data/auth/AeroUser";
 
 const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
     const {t} = useTranslation();
@@ -19,7 +20,7 @@ const HeaderPanel: React.FC<{ theme: Theme }> = (_) => {
 
     const signOut = () => {
         handleMenuClose();
-        setAuthenticationUserInfo(null);
+        userBehaviorSubject.next(new AeroUser(null));
     };
 
     const handleMenuClose = () => {
