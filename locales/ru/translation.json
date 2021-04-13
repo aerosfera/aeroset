@@ -43,5 +43,6 @@
   "none" : "None",
   "scale_scheme_by_x": "Масштаб по оси X",
   "scale_scheme_by_y" : "Масштаб по оси Y",
-  "scale_scheme_by_z" : "Масштаб по оси Z"
+  "scale_scheme_by_z" : "Масштаб по оси Z",
+  "sign_out" : "Выйти"
 }
