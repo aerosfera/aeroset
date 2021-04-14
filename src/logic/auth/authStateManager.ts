@@ -1,13 +1,14 @@
 import AeroUser from "../../data/auth/AeroUser";
 import {UserStatus} from "../../data/auth/UserStatus";
 import {BehaviorSubject} from "rxjs";
-import {setAuthUser} from "../../store/auth/authReducer";
+import {setAuthUser, setRole} from "../../store/auth/authReducer";
 import {store} from "../../store/store";
 import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
 import IoC from "../../infrastructure/ioc/IoC";
 import ReplicationService from "../../services/replicationService/ReplicationService";
 import {REPLICATION_SERVICE} from "../../infrastructure/ioc/ServiceTypes";
 import {META_DB_CONNECTION_STRING} from "../../config/connection";
+import {UserRole} from "../../data/auth/UserRole";
 
 const userBehaviorObserver = async (user: AeroUser) => {
     const replicationService = IoC.get<ReplicationService>(REPLICATION_SERVICE);
@@ -20,8 +21,17 @@ const userBehaviorObserver = async (user: AeroUser) => {
 
             const isIndividual = organization === "individual";
             const userDocumentName: string = userAttributes['userDocumentName'];
+            const userId: string = userAttributes['userId'];
+            const userRoleString: string = userAttributes['role'];
 
-            await replicationService.ConnectMetaDatabaseAsync(`${META_DB_CONNECTION_STRING}/${database}`, <string>user.token, isIndividual, userDocumentName);
+            const userRole: UserRole = UserRole[userRoleString as keyof typeof UserRole];
+            store.dispatch(setRole(userRole));
+
+            await replicationService.ConnectMetaDatabaseAsync(`${META_DB_CONNECTION_STRING}/${database}`,
+                <string>user.token,
+                isIndividual,
+                userDocumentName,
+                userId);
 
             store.dispatch(setAuthUser(user));
             console.log("User status - SignedIn");

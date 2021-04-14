@@ -15,7 +15,7 @@ export interface AuthState {
     isAuthorizing: boolean,
     organization: UserOrganization | null,
     meta: UserMeta | null
-    roles: UserRole[],
+    role: UserRole,
     modules: UserModule[],
     schemes: UserScheme[],
     familiarUsers: FamiliarUser[]
@@ -26,7 +26,7 @@ const defaultState: AuthState = {
     isAuthorizing: false,
     organization: null,
     schemes: [],
-    roles: [],
+    role: UserRole.User,
     meta: null,
     modules: [],
     familiarUsers: []
@@ -52,12 +52,12 @@ const slice = createSlice({
                 draft.organization = action.payload;
             }),
         // @ts-ignore
-        setRoles: (state: AuthState, action: PayloadAction<UserRole[]>) =>
+        setRole: (state: AuthState, action: PayloadAction<UserRole>) =>
             produce(state, (draft) => {
-                draft.roles = action.payload;
+                draft.role = action.payload;
             }),
         // @ts-ignore
-        setMeta: (state: AuthState, action: PayloadAction<UserMeta>) =>
+        setMeta: (state: AuthState, action: PayloadAction<UserMeta | null>) =>
             produce(state, (draft) => {
                 draft.meta = action.payload;
             }),
@@ -75,7 +75,7 @@ const slice = createSlice({
         deleteFamiliarUser: (state: AuthState, action: PayloadAction<FamiliarUser>) =>
             produce(state, (draft) => {
                 const index = draft.familiarUsers.findIndex(user => user.id === action.payload.id);
-                if (index !== -1) draft.familiarUsers.slice(index,1);
+                if (index !== -1) draft.familiarUsers.slice(index, 1);
             }),
         // @ts-ignore
         addFamiliarUser: (state: AuthState, action: PayloadAction<FamiliarUser>) =>
@@ -97,7 +97,7 @@ const slice = createSlice({
         deleteUserScheme: (state: AuthState, action: PayloadAction<UserScheme>) =>
             produce(state, (draft) => {
                 const index = draft.schemes.findIndex(user => user.id === action.payload.id);
-                if (index !== -1) draft.schemes.slice(index,1);
+                if (index !== -1) draft.schemes.slice(index, 1);
             }),
         // @ts-ignore
         addUserScheme: (state: AuthState, action: PayloadAction<UserScheme>) =>
@@ -122,8 +122,8 @@ export const aeroUserFamiliarUsers: Selector<ApplicationState, FamiliarUser[]> =
 export const aeroUserSchemes: Selector<ApplicationState, UserScheme[]> =
     state => state.auth.schemes;
 
-export const aeroUserUserRoles: Selector<ApplicationState, UserRole[]> =
-    state => state.auth.roles;
+export const aeroUserUserRole: Selector<ApplicationState, UserRole> =
+    state => state.auth.role;
 
 export const aeroUserOrganization: Selector<ApplicationState, UserOrganization | null> =
     state => state.auth.organization;
@@ -148,7 +148,7 @@ export const {
     setMeta,
     setModules,
     setOrganization,
-    setRoles,
+    setRole,
     setUserSchemes,
     updateFamiliarUser,
     updateUserScheme

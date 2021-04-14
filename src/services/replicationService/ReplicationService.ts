@@ -91,10 +91,18 @@ class ReplicationService {
             await this.metaDatabase.close();
             this.metaDatabase = null;
 
-            //Todo: cleanUp
             const dispatch = store.dispatch;
             if (this.isIndividual) {
+                dispatch(setMeta(null));
+                dispatch(setModules([]));
+                dispatch(setUserSchemes([]));
+                dispatch(setFamiliarUsers([]));
             } else {
+                dispatch(setMeta(null));
+                dispatch(setModules([]));
+                dispatch(setUserSchemes([]));
+                dispatch(setFamiliarUsers([]));
+                dispatch(setOrganization(null));
             }
         }
     }
