@@ -1,3 +1,8 @@
 export interface UserScheme {
-    id: string
+    id: string,
+    name: string,
+    database: string,
+    creatorId: string,
+    directory : string,
+    memberIDs : string[]
 }
