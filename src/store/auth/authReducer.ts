@@ -7,8 +7,9 @@ import {UserRole} from "../../data/auth/UserRole";
 import {UserOrganization} from "../../data/auth/UserOrganization";
 import {UserScheme} from "../../data/auth/UserScheme";
 import {UserMeta} from "../../data/auth/UserMeta";
-import {UserModule} from "../../data/auth/UserModule";
 import {FamiliarUser} from "../../data/auth/FamiliarUser";
+import {AppModule} from "../../data/auth/AppModule";
+import {UserSettings} from "../../data/auth/UserSettings";
 
 export interface AuthState {
     user: AeroUser | null,
@@ -16,9 +17,10 @@ export interface AuthState {
     organization: UserOrganization | null,
     meta: UserMeta | null
     role: UserRole,
-    modules: UserModule[],
+    modules: AppModule[],
     schemes: UserScheme[],
-    familiarUsers: FamiliarUser[]
+    familiarUsers: FamiliarUser[],
+    uiSettings: UserSettings | null
 }
 
 const defaultState: AuthState = {
@@ -29,7 +31,8 @@ const defaultState: AuthState = {
     role: UserRole.User,
     meta: null,
     modules: [],
-    familiarUsers: []
+    familiarUsers: [],
+    uiSettings: null
 }
 
 const slice = createSlice({
@@ -50,6 +53,11 @@ const slice = createSlice({
         setOrganization: (state: AuthState, action: PayloadAction<UserOrganization | null>) =>
             produce(state, (draft) => {
                 draft.organization = action.payload;
+            }),
+        // @ts-ignore
+        setUISettings: (state: AuthState, action: PayloadAction<UserSettings | null>) =>
+            produce(state, (draft) => {
+                draft.uiSettings = action.payload;
             }),
         // @ts-ignore
         setRole: (state: AuthState, action: PayloadAction<UserRole>) =>
@@ -113,7 +121,7 @@ const slice = createSlice({
     }
 });
 
-export const aeroUserModules: Selector<ApplicationState, UserModule[]> =
+export const aeroUserModules: Selector<ApplicationState, AppModule[]> =
     state => state.auth.modules;
 
 export const aeroUserFamiliarUsers: Selector<ApplicationState, FamiliarUser[]> =
@@ -151,7 +159,8 @@ export const {
     setRole,
     setUserSchemes,
     updateFamiliarUser,
-    updateUserScheme
+    updateUserScheme,
+    setUISettings
 } = actions;
 
 export default reducer;

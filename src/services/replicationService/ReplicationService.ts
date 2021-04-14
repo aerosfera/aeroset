@@ -3,7 +3,14 @@ import PouchDB from "../../infrastructure/pounchDB/pounchDB";
 import {OrganizationMetaDocument} from "../../data/storage/OrganizationMetaDocument";
 import {IndividualMetaDocument} from "../../data/storage/IndividualMetaDocument";
 import {store} from "../../store/store";
-import {setFamiliarUsers, setMeta, setModules, setOrganization, setUserSchemes} from "../../store/auth/authReducer";
+import {
+    setFamiliarUsers,
+    setMeta,
+    setModules,
+    setOrganization,
+    setUISettings,
+    setUserSchemes
+} from "../../store/auth/authReducer";
 import _ from 'lodash';
 
 //Todo: handle errors
@@ -44,6 +51,7 @@ class ReplicationService {
                 dispatch(setModules(individualMetaDocument.modules));
                 dispatch(setUserSchemes(individualMetaDocument.schemes));
                 dispatch(setFamiliarUsers(individualMetaDocument.familiarUsers));
+                dispatch(setUISettings(individualMetaDocument.settings));
             });
         } else { //member of organization
             this.metaDatabase.get('meta').then(function (organizationMetaDocument: OrganizationMetaDocument) {
@@ -53,11 +61,14 @@ class ReplicationService {
                 const userId: string = userMeta.id;
                 const userSchemes = organizationMetaDocument.schemes.filter(s => s.creatorId === userId || _.includes(s.memberIDs, userId));
 
+                const userSetting = organizationMetaDocument.userSettings[userId];
+
                 dispatch(setMeta(userMeta));
                 dispatch(setModules(organizationMetaDocument.modules));
                 dispatch(setUserSchemes(userSchemes));
                 dispatch(setFamiliarUsers(members));
                 dispatch(setOrganization(organizationMetaDocument.organization));
+                dispatch(setUISettings(userSetting));
             });
         }
     }
@@ -106,7 +117,6 @@ class ReplicationService {
             }
         }
     }
-
 
     public async CloseAsync(): Promise<void> {
         let p1;
