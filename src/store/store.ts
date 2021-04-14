@@ -1,6 +1,5 @@
 import rootReducer from './rootReducer'
 import {createStore, compose} from 'redux';
-import loadState from "./loadState";
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import {useDispatch} from "react-redux";
 import logger from 'redux-logger';
@@ -22,7 +21,6 @@ if (devMode) {
 
 export const store = configureStore({
     reducer: rootReducer(),
-    preloadedState: loadState(),
     middleware: middleware,
     devTools: devMode,
 });
