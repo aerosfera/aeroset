@@ -16,6 +16,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import AppsIcon from '@material-ui/icons/Apps';
 import TuneIcon from '@material-ui/icons/Tune';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import ErrorIcon from "@material-ui/icons/Error";
 
 export const AppOpenPointCloudFiltersIcon = styled(DialpadIcon)`
   color: ${themeColor(ThemeColors.darkGray)}
@@ -23,6 +24,11 @@ export const AppOpenPointCloudFiltersIcon = styled(DialpadIcon)`
 export const AppSettingsIcon = styled(TuneIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
+
+export const AppErrorIcon = styled(ErrorIcon)`
+  color: ${themeColor(ThemeColors.darkGray)}
+`
+
 export const AppLoadSchemeFile = styled(DescriptionIcon)`
   olor: ${themeColor(ThemeColors.darkGray)}
 `

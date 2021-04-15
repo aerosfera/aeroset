@@ -6,12 +6,19 @@ import {themeColor} from "../../theme/themeAccessors";
 import {ThemeColors} from "../../theme/ThemeColors";
 
 export const SignInFormContainer = styled.div<Theme>`
-  max-width: 300px;
+  ${props => props.theme.breakpoints.up("sm")} {
+    width: 448px;
+  }
+
+  ${props => props.theme.breakpoints.down("sm")} {
+    width: 448px;
+  }
+  
   margin: auto auto;
   text-align: center;
   background: #f7f7f7;
-  border-radius: 10px;
-  padding-top: 10px;
+  border-radius: 4px;
+  height: 345px;
 `
 
 export const SubmitButton = styled(Button)<Theme>`

@@ -1,13 +1,31 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {withTheme} from "styled-components";
-import {SignInFormContainer, SubmitButton} from './style';
-import {TextField} from "@material-ui/core";
+import {SignInFormContainer} from './style';
 import {useAppDispatch} from "../../../../store/store";
 import {signInAction} from "../../../../store/auth/authReducer";
+import {AuthState} from "./code/AuthState";
+import {useTranslation} from "react-i18next";
+import EmailForm from "./email";
+import {TextField} from "@material-ui/core";
 
 const SignInForm: React.FC<{ theme: Theme }> = (props) => {
-    const dispatch = useAppDispatch();
+    const {t} = useTranslation()
+    const dispatch = useAppDispatch()
+
+    const [state, setState] = useState<{
+        state: AuthState,
+        email: string,
+        password: string,
+        name: string,
+        surname: string,
+    }>({
+        state: AuthState.email,
+        email: "",
+        password: "",
+        name: "",
+        surname: "",
+    })
 
     const loginRef = useRef();
     const passwordRef = useRef();
@@ -18,44 +36,25 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
 
         try {
             dispatch(signInAction({login, password}));
-        }
-        finally {
+        } finally {
             loginRef!.current.value = null;
             passwordRef!.current.value = null;
             e.preventDefault(); // no refresh
         }
     }
 
+    const handleNext = (login: string) => {
+        alert("next");
+    }
+
+    const createAccount = () => {
+        alert("createAccount");
+    }
+
     return (
         <SignInFormContainer>
-            <div style={{height: 250}}>
-                <form noValidate no>
-                    <TextField
-                        inputRef={loginRef}
-                        variant="standard"
-                        margin="normal"
-                        id="email"
-                        label="Email"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                    <TextField
-                        inputRef={passwordRef}
-                        variant="standard"
-                        margin="normal"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    <SubmitButton
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        onClick={handleSignIn}>Sign In</SubmitButton>
-                </form>
+            <div style={{height: '100%'}}>
+                <EmailForm Next={handleNext} CreateAccount={createAccount}/>
             </div>
         </SignInFormContainer>
     )
