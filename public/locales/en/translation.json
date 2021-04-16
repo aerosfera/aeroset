@@ -47,5 +47,8 @@
   "sign_out" : "Sign out",
   "enter" : "Enter",
   "create_account" : "Create account",
-  "next" : "Next"
+  "next" : "Next",
+  "welcome" : "Welcome!",
+  "create_account" : "Create account",
+  "forgot_password" : "Forgot password?"
 }

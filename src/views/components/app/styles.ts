@@ -15,12 +15,10 @@ export const Area = styled.main<Theme>`
   background: ${themeColor(ThemeColors.lightBlue)};
 `
 
-export const AuthContainer = styled.section<{ theme: Theme, isAuthenticated: boolean }>`
-  visibility: ${props => props.isAuthenticated ? `none` : 'block'};
+export const AuthContainer = styled.section<{ theme: Theme }>`
   width: 100vw;
   height: 100vh;
 `
 
-export const AppMainSection = styled.section<{ theme: Theme, isAuthenticated: boolean }>`
-  display : ${props => props.isAuthenticated ? 'block' : `none`};
+export const AppMainSection = styled.section<{ theme: Theme }>`
 `

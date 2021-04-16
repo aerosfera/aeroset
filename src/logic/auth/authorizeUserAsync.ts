@@ -5,8 +5,9 @@ import UserRepresentation from "keycloak-admin/lib/defs/userRepresentation";
 import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../config/connection";
 import {setUpTokenRefresh} from "./setUpTokenRefresh";
 import AeroUser from "../../data/auth/AeroUser";
+import {AuthError} from "../../data/auth/error/AuthError";
 
-export const authorizeUserAsync = async (login: string, password: string): Promise<void> => {
+export const authorizeUserAsync = async (login: string, password: string): Promise<AuthError> => {
     try {
         await kcAdminClient.auth({
             username: login,
@@ -27,10 +28,10 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
         userBehaviorSubject.next(new AeroUser(user, token, refreshTokenIntervalId));
 
         console.log(user);
+        return AuthError.none;
     } catch (ex) {
         //Todo: handle this
         console.error(ex);
+        return AuthError.invalidEmail;
     }
-
-    return Promise.resolve();
 }

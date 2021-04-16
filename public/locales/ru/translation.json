@@ -47,5 +47,8 @@
   "sign_out" : "Выйти",
   "enter" : "Вход",
   "create_account" : "Создать аккаунт",
-  "next" : "Далее"
+  "next" : "Далее",
+  "welcome" : "Добро пожаловать!",
+  "create_account" : "Создать аккаунт",
+  "forgot_password" : "Забыли пароль?"
 }

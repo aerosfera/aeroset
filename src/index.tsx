@@ -17,9 +17,11 @@ import i18next from "i18next";
 // @ts-ignore
 import initWorkboxRefresh from '@loopmode/cra-workbox-refresh';
 import 'pepjs';
+import {BrowserRouter} from "react-router-dom";
 
 // @ts-ignore
 ReactDOM.render(
+    <BrowserRouter>
         <Provider store={store}>
             <GlobalStyle/>
             <CssBaseline/>
@@ -28,7 +30,8 @@ ReactDOM.render(
                     <App/>
                 </Suspense>
             </Theme>
-        </Provider>,
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 
