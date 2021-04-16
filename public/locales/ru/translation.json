@@ -49,6 +49,9 @@
   "create_account" : "Создать аккаунт",
   "next" : "Далее",
   "welcome" : "Добро пожаловать!",
-  "create_account" : "Создать аккаунт",
-  "forgot_password" : "Забыли пароль?"
+  "enter_email" : "Введите электронную почту",
+  "forgot_password" : "Забыли пароль?",
+  "error" : "Ошибка",
+  "emailNonExist" : "Пользователь с таким Email не найден",
+  "networkError" : "Ошибка связи с сервером"
 }

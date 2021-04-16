@@ -8,4 +8,5 @@ export enum ThemeColors {
     mediumBlue,
     darkBlue,
     lightGreen,
+    red
 }

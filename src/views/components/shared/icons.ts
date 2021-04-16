@@ -26,7 +26,7 @@ export const AppSettingsIcon = styled(TuneIcon)`
 `
 
 export const AppErrorIcon = styled(ErrorIcon)`
-  color: ${themeColor(ThemeColors.darkGray)}
+  color: ${themeColor(ThemeColors.red)}
 `
 
 export const AppLoadSchemeFile = styled(DescriptionIcon)`

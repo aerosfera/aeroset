@@ -15,6 +15,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                     mediumBlue: string,
                     darkBlue: string,
                     lightGreen: string,
+                    red: string,
                 },
                 palette: {
                     black: string,
@@ -91,6 +92,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                     mediumBlue: string,
                     darkBlue: string,
                     lightGreen: string,
+                    red: string,
                 },
                 palette: {
                     black: string,

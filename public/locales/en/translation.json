@@ -49,6 +49,9 @@
   "create_account" : "Create account",
   "next" : "Next",
   "welcome" : "Welcome!",
-  "create_account" : "Create account",
-  "forgot_password" : "Forgot password?"
+  "enter_email" : "Enter email",
+  "forgot_password" : "Forgot password?",
+  "error" : "Error",
+  "emailNonExist" : "No user with this Email found",
+  "networkError" : "Network error"
 }

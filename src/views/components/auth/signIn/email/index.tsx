@@ -1,37 +1,62 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {useTranslation} from "react-i18next";
 import {withTheme} from "styled-components";
-import {LogoContainer} from "./style";
 import Typography from "@material-ui/core/Typography";
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import ErrorIcon from '@material-ui/icons/Error';
 import kcAdminClient from "../../../../../infrastructure/keycloak/keyCloakAdminClient";
-import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 import PasswordForm from "../password";
+import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../../../../config/connection";
+import i18next from "i18next";
+import {AppErrorIcon} from "../../../shared/icons";
 
 const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const loginRef = useRef();
     const history = useHistory();
-    const location = useLocation();
-    const {url, path} = useRouteMatch();
+    const {path} = useRouteMatch();
+
+    const [state, setState] = useState<{ errorText: string, email: string }>({errorText: "", email: ""});
+    const {errorText, email} = state;
+    const hasError = errorText !== "";
 
     const validateAsync = async (login: string): Promise<boolean> => {
+        await kcAdminClient.auth({
+            username: "aero",
+            password: "aero",
+            grantType: KEYCLOAK_GRANT_TYPE,
+            clientId: KEYCLOAK_CLIENT
+        });
+
+        let hasUser = false;
         const userWithEmail = await kcAdminClient.users.count({email: login});
-        const hasUser = userWithEmail > 0;
+        hasUser = userWithEmail > 0;
+
         return Promise.resolve(hasUser);
     }
 
     const handleNext = async (e: any): Promise<void> => {
-        //@ts-ignore
-        const login = loginRef!.current.value;
-        //const validationResult = await validateAsync(login);
-        const validationResult = true;
 
-        if (validationResult)
-            history.push(`${path}/password`)
+        const loginTextField = loginRef!.current;
+        //@ts-ignore
+        const login = loginTextField.value;
+
+        const validationResult = await validateAsync(login).catch(ex => {
+            if (ex.response.status === 401) {
+                setState({...state, errorText: i18next.t('emailNonExist')});
+            } else {
+                setState({...state, errorText: i18next.t('networkError')});
+            }
+        });
+
+        if (validationResult) {
+            history.push(`${path}/password`);
+            setState({...state, email: login});
+        } else {
+            setState({...state, errorText: i18next.t('emailNonExist')});
+        }
     }
 
 
@@ -41,7 +66,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     }
 
     const handleBackFromPassword = (e: any) => {
-        alert('back');
+        history.push(`${path}`);
     }
 
     return (
@@ -58,16 +83,17 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
                     <div style={{display: "table-row", height: '25%'}}>
                         <div style={{display: "flex"}}>
                             <TextField
-                                error
+                                error={hasError}
                                 inputRef={loginRef}
                                 style={{flex: "1", marginLeft: 48, marginRight: 48}}
                                 id="outlined-error-helper-text"
-                                label="Error"
-                                defaultValue="Hello World"
-                                helperText="Incorrect entry."
+                                label={hasError ? t('error') : null}
+                                placeholder={t('enter_email')}
+                                helperText={errorText}
                                 variant="outlined"
+                                defaultValue={email !== "" ? email : undefined}
                                 InputProps={{
-                                    endAdornment: <ErrorIcon/>
+                                    endAdornment: hasError ? <AppErrorIcon/> : null
                                 }}
                             />
                         </div>
