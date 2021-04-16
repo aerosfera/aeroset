@@ -53,5 +53,6 @@
   "forgot_password" : "Forgot password?",
   "error" : "Error",
   "emailNonExist" : "No user with this Email found",
-  "networkError" : "Network error"
+  "networkError" : "Network error",
+  "emailNotValid" : "Email not valid"
 }

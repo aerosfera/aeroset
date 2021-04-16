@@ -11,6 +11,7 @@ import PasswordForm from "../password";
 import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../../../../config/connection";
 import i18next from "i18next";
 import {AppErrorIcon} from "../../../shared/icons";
+import * as EmailValidator from 'email-validator';
 
 const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -22,7 +23,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     const {errorText, email} = state;
     const hasError = errorText !== "";
 
-    const validateAsync = async (login: string): Promise<boolean> => {
+    const validateAsync = async (email: string): Promise<boolean> => {
         await kcAdminClient.auth({
             username: "aero",
             password: "aero",
@@ -31,7 +32,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
         });
 
         let hasUser = false;
-        const userWithEmail = await kcAdminClient.users.count({email: login});
+        const userWithEmail = await kcAdminClient.users.count({email: email});
         hasUser = userWithEmail > 0;
 
         return Promise.resolve(hasUser);
@@ -43,12 +44,19 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
         //@ts-ignore
         const login = loginTextField.value;
 
+        const isEmailValidFormat = EmailValidator.validate(login);
+        if (!isEmailValidFormat) {
+            setState({...state, errorText: i18next.t('emailNotValid')});
+            return;
+        }
+
         const validationResult = await validateAsync(login).catch(ex => {
-            if (ex.response.status === 401) {
+            if (ex.response.status && ex.response.status === 401) {
                 setState({...state, errorText: i18next.t('emailNonExist')});
             } else {
                 setState({...state, errorText: i18next.t('networkError')});
             }
+            return;
         });
 
         if (validationResult) {

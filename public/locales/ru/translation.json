@@ -53,5 +53,6 @@
   "forgot_password" : "Забыли пароль?",
   "error" : "Ошибка",
   "emailNonExist" : "Пользователь с таким Email не найден",
-  "networkError" : "Ошибка связи с сервером"
+  "networkError" : "Ошибка связи с сервером",
+  "emailNotValid" : "Email введен не правильно"
 }
