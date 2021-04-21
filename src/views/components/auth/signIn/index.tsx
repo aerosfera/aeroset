@@ -6,6 +6,7 @@ import EmailForm from "./email";
 import {SignInFormContainer} from "./style";
 import DebugRouter from "../../debug/DebugRouter";
 import SignUpForm from "./signup";
+import PasswordForm from "./password";
 
 const SignInForm: React.FC<{ theme: Theme }> = (props) => {
     const history = useHistory();
@@ -20,12 +21,16 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
     }, [path]);
 
 
-    const handleToEmail = () => {
+    const handleCreateAccount = () => {
         history.push(signupPath);
     }
 
-    const handleCreateAccount = () => {
+    const handleSignIn = () => {
         history.push(emailPath);
+    }
+
+    const handleBackFromPassword = (e: any) => {
+        handleSignIn();
     }
 
     return (
@@ -33,10 +38,13 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
             <DebugRouter>
                 <Switch>
                     <Route path={emailPath}>
-                        <EmailForm Back={handleToEmail}/>
+                        <EmailForm CreateAccount={handleCreateAccount}/>
                     </Route>
                     <Route exact path={'/signup'}>
-                        <SignUpForm Back={handleCreateAccount}/>
+                        <SignUpForm SignIn={handleSignIn}/>
+                    </Route>
+                    <Route exact path={`${path}/password`}>
+                        <PasswordForm Back={handleBackFromPassword}/>
                     </Route>
                 </Switch>
             </DebugRouter>

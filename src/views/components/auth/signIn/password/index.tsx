@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {useTranslation} from "react-i18next";
 import Typography from "@material-ui/core/Typography";
@@ -8,21 +8,38 @@ import Button from "@material-ui/core/Button";
 import {withTheme} from "styled-components";
 import {authorizeUserAsync} from "../../../../../logic/auth/authorizeUserAsync";
 import {AuthError} from "../../../../../data/auth/error/AuthError";
+import {useHistory} from "react-router-dom";
+import {AppErrorIcon} from "../../../shared/icons";
+import i18next from "i18next";
 
 const PasswordForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
-    const loginRef = useRef();
+    const passwordRef = useRef();
     // @ts-ignore
     const {email} = props;
+    const history = useHistory();
 
-    const handleNext = async (e: any): Promise<void> => {
-        const password = loginRef!.current.value;
-        const error = await authorizeUserAsync(email, password);
+    const [state, setState] = useState<{ errorText: string }>({errorText: ""});
+    const {errorText} = state;
+    const hasError = errorText !== "";
 
-        if (error !== AuthError.none)
-            return;
+    const handleAuthorize = async (e: any): Promise<void> => {
+        // @ts-ignore
+        const password = passwordRef!.current.value;
+        const error : AuthError = await authorizeUserAsync(email, password);
 
-        //Todo: handle this
+        switch (error) {
+            case AuthError.none:
+                history.push("/");
+                break;
+            case AuthError.wrongPassword:
+                setState({...state, errorText: i18next.t('wrongPassword')});
+                break;
+            case AuthError.connectionError:
+                setState({...state, errorText: i18next.t('connectionError')});
+                break;
+
+        }
     }
 
 
@@ -43,16 +60,16 @@ const PasswordForm: React.FC<{ theme: Theme }> = (props) => {
             <div style={{display: "table-row", height: '25%'}}>
                 <div style={{display: "flex"}}>
                     <TextField
-                        error
-                        inputRef={loginRef}
+                        error={hasError}
+                        inputRef={passwordRef}
                         style={{flex: "1", marginLeft: 48, marginRight: 48}}
                         id="outlined-error-helper-text"
-                        label="Error"
-                        defaultValue="Hello World"
-                        helperText="Incorrect entry."
+                        label={t('password')}
+                        helperText={errorText}
+                        type="password"
                         variant="outlined"
                         InputProps={{
-                            endAdornment: <ErrorIcon/>
+                            endAdornment: hasError ? <AppErrorIcon/> : null
                         }}
                     />
                 </div>
@@ -64,7 +81,7 @@ const PasswordForm: React.FC<{ theme: Theme }> = (props) => {
                     </div>
                     <div style={{width: '100%'}}>
                         <Button color="primary" disableElevation variant="contained"
-                                onClick={handleNext}>{t('next')}</Button>
+                                onClick={handleAuthorize}>{t('next')}</Button>
                     </div>
                 </div>
             </div>

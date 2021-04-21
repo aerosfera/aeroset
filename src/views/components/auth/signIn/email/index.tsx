@@ -7,7 +7,6 @@ import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import kcAdminClient from "../../../../../infrastructure/keycloak/keyCloakAdminClient";
 import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
-import PasswordForm from "../password";
 import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../../../../config/connection";
 import i18next from "i18next";
 import {AppErrorIcon} from "../../../shared/icons";
@@ -25,8 +24,8 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
 
     const validateAsync = async (email: string): Promise<boolean> => {
         await kcAdminClient.auth({
-            username: "aero",
-            password: "aero",
+            username: "auth_client",
+            password: "auth",
             grantType: KEYCLOAK_GRANT_TYPE,
             clientId: KEYCLOAK_CLIENT
         });
@@ -60,7 +59,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
         });
 
         if (validationResult) {
-            history.push(`${path}/password`);
+            history.push(`password`);
             setState({...state, email: login});
         } else {
             setState({...state, errorText: i18next.t('emailNonExist')});
@@ -70,11 +69,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
 
     const handleCreateAccount = (e: any) => {
         // @ts-ignore
-        props.Back();
-    }
-
-    const handleBackFromPassword = (e: any) => {
-        history.push(`${path}`);
+        props.CreateAccount();
     }
 
     return (
@@ -118,9 +113,6 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
                         </div>
                     </div>
                 </div>
-            </Route>
-            <Route exact path={`${path}/password`}>
-                <PasswordForm Back={handleBackFromPassword}/>
             </Route>
         </Switch>
     )

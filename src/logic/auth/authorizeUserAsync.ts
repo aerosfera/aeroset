@@ -30,8 +30,10 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
         console.log(user);
         return AuthError.none;
     } catch (ex) {
-        //Todo: handle this
-        console.error(ex);
-        return AuthError.invalidEmail;
+        if (ex.response.status && ex.response.status === 401) {
+            return AuthError.wrongPassword;
+        } else {
+            return AuthError.connectionError;
+        }
     }
 }

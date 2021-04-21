@@ -11,14 +11,9 @@ const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const loginRef = useRef();
 
-    const handleCreateAccount = (e: any) => {
-        // @ts-ignore
-        props.CreateAccount();
-    }
-
     const handleBack = (e: any) => {
         // @ts-ignore
-        props.Back();
+        props.SignIn();
     }
 
     return (

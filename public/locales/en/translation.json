@@ -54,5 +54,8 @@
   "error" : "Error",
   "emailNonExist" : "No user with this Email found",
   "networkError" : "Network error",
-  "emailNotValid" : "Email not valid"
+  "emailNotValid" : "Email not valid",
+  "wrongPassword" : "Wrong password",
+  "connectionError" : "Connection error",
+  "password" : "Password"
 }

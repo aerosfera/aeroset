@@ -54,5 +54,8 @@
   "error" : "Ошибка",
   "emailNonExist" : "Пользователь с таким Email не найден",
   "networkError" : "Ошибка связи с сервером",
-  "emailNotValid" : "Email введен не правильно"
+  "emailNotValid" : "Email введен не правильно",
+  "wrongPassword" : "Неправильный пароль",
+  "connectionError" : "Ошибка связи",
+  "password" : "Пароль"
 }
