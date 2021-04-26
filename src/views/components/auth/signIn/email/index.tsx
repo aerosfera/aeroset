@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import {CircularProgress, TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import kcAdminClient from "../../../../../infrastructure/keycloak/keyCloakAdminClient";
-import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
+import {Route, Switch, useRouteMatch} from "react-router-dom";
 import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../../../../config/connection";
 import i18next from "i18next";
 import {AppErrorIcon} from "../../../shared/icons";
@@ -90,20 +90,20 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
             <Route exact path={path}>
                 <TableStyled>
                     <TableRowStyled
+                        height={30}
                         style={{
-                            height: '30%',
                             textAlign: "left"
                         }}>
                         <AerosetLogoContainer>
                             <AerosetLogo/>
                         </AerosetLogoContainer>
                     </TableRowStyled>
-                    <TableRowStyled style={{height: '20%'}}>
+                    <TableRowStyled height={20}>
                         <Typography variant="h5">
                             {t('enter')}
                         </Typography>
                     </TableRowStyled>
-                    <TableRowStyled style={{height: '30%'}}>
+                    <TableRowStyled height={30}>
                         <div style={{display: "flex", marginLeft: 48, marginRight: 48}}>
                             <TextField
                                 error={hasError}
@@ -127,27 +127,23 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
                             />
                         </div>
                     </TableRowStyled>
-                    <TableRowStyled style={{height: '20%'}}>
+                    <TableRowStyled height={20}>
                         <SpaceBetween>
-                            <div>
-                                <Button color="primary"
-                                        disabled={emailConnectionValidate}
-                                        onClick={handleCreateAccount}>
-                                    {t('create_account')}
-                                </Button>
-                            </div>
-                            <div style={{visibility: (emailConnectionValidate ? "visible" : "collapse")}}>
-                                <CircularProgress size={30}/>
-                            </div>
-                            <div>
-                                <Button color="primary"
-                                        disabled={emailConnectionValidate}
-                                        disableElevation
-                                        variant="contained"
-                                        onClick={handleNext}>
-                                    {t('next')}
-                                </Button>
-                            </div>
+                            <Button color="primary"
+                                    disabled={emailConnectionValidate}
+                                    onClick={handleCreateAccount}>
+                                {t('create_account')}
+                            </Button>
+
+                            <CircularProgress size={30}
+                                              style={{visibility: (emailConnectionValidate ? "visible" : "collapse")}}/>
+                            <Button color="primary"
+                                    disabled={emailConnectionValidate}
+                                    disableElevation
+                                    variant="contained"
+                                    onClick={handleNext}>
+                                {t('next')}
+                            </Button>
                         </SpaceBetween>
                     </TableRowStyled>
                 </TableStyled>

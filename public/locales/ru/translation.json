@@ -58,5 +58,6 @@
   "wrongPassword" : "Неправильный пароль",
   "connectionError" : "Ошибка связи",
   "password" : "Пароль",
-  "emailEmpty" : "Пустой email"
+  "emailEmpty" : "Пустой email",
+  "passwordEmpty" : "Пустой пароль"
 }

@@ -8,8 +8,9 @@ export const TableStyled = styled.div<Theme>`
   width: 100%;
 `
 
-export const TableRowStyled = styled.div<Theme>`
+export const TableRowStyled = styled.div<{ height: number, theme: Theme }>`
   display: table-row;
+  height: ${props => props.height}%;
 `
 
 export const AerosetLogoContainer = styled.div<Theme>`
