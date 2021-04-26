@@ -1,5 +1,6 @@
 import {createMuiTheme, Theme, ThemeOptions} from "@material-ui/core";
 import {defaultAppThemeValues} from "./defaultAppThemeValues";
+import {red} from "@material-ui/core/colors";
 
 declare module '@material-ui/core/styles/createMuiTheme' {
     interface Theme {
@@ -16,66 +17,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                     darkBlue: string,
                     lightGreen: string,
                     red: string,
-                },
-                palette: {
-                    black: string,
-                    gray: string,
-                    white: string,
-                    red: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    orange: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    yellow: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    green: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    blue1: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    blue2: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    blue3: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    purple1: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    purple2: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    }
                 }
             },
             font: string,
             sizes: {
-                header : number,
-                headerMobile:number,
-                instrumentalPanel : number,
-                footer : number
+                header: number,
+                headerMobile: number,
+                instrumentalPanel: number,
+                footer: number
             },
-            lang : string
+            lang: string
         }
     }
 
@@ -93,73 +44,33 @@ declare module '@material-ui/core/styles/createMuiTheme' {
                     darkBlue: string,
                     lightGreen: string,
                     red: string,
-                },
-                palette: {
-                    black: string,
-                    gray: string,
-                    white: string,
-                    red: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    orange: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    yellow: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    green: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    blue1: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    blue2: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    blue3: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    purple1: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    },
-                    purple2: {
-                        light: string,
-                        medium: string,
-                        dark: string,
-                    }
                 }
             },
             font: string,
             sizes: {
-                header : number,
+                header: number,
                 headerMobile: number,
-                instrumentalPanel : number,
-                footer : number
+                instrumentalPanel: number,
+                footer: number
             },
-            lang : string
+            lang: string
         }
     }
 }
 
-export default function createAppTheme(options: ThemeOptions) : Theme {
+export default function createAppTheme(options: ThemeOptions): Theme {
     return createMuiTheme({
-        ...options,
+        palette: {
+            primary: {
+                main: "#3A3A3A"
+            },
+            secondary: {
+                main: "#006E81"
+            },
+            error: {
+                main: "#B00020"
+            },
+        },
         ...defaultAppThemeValues
     })
 }

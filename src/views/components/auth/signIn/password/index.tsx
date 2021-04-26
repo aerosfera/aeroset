@@ -2,43 +2,55 @@ import React, {useRef, useState} from "react";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {useTranslation} from "react-i18next";
 import Typography from "@material-ui/core/Typography";
-import {TextField} from "@material-ui/core";
-import ErrorIcon from "@material-ui/icons/Error";
+import {InputAdornment, TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {withTheme} from "styled-components";
-import {authorizeUserAsync} from "../../../../../logic/auth/authorizeUserAsync";
+import {AuthorizeException, authorizeUserAsync} from "../../../../../logic/auth/authorizeUserAsync";
 import {AuthError} from "../../../../../data/auth/error/AuthError";
-import {useHistory} from "react-router-dom";
-import {AppErrorIcon} from "../../../shared/icons";
+import {AppVisibilityIcon, AppVisibilityOffIcon} from "../../../shared/icons";
 import i18next from "i18next";
+import IconButton from "@material-ui/core/IconButton";
+import {setUpTokenRefresh} from "../../../../../logic/auth/setUpTokenRefresh";
+import {userBehaviorSubject} from "../../../../../logic/auth/authStateManager";
+import AeroUser from "../../../../../data/auth/AeroUser";
 
 const PasswordForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const passwordRef = useRef();
     // @ts-ignore
     const {email} = props;
-    const history = useHistory();
 
-    const [state, setState] = useState<{ errorText: string }>({errorText: ""});
-    const {errorText} = state;
+    const [state, setState] = useState<{ errorText: string, showPassword: boolean }>({
+        errorText: "",
+        showPassword: false
+    });
+    const {errorText, showPassword} = state;
     const hasError = errorText !== "";
+
+    const handleClickShowPassword = () => setState({...state, showPassword: true});
+    const handleMouseDownPassword = () => setState({...state, showPassword: false});
 
     const handleAuthorize = async (e: any): Promise<void> => {
         // @ts-ignore
         const password = passwordRef!.current.value;
-        const error : AuthError = await authorizeUserAsync(email, password);
 
-        switch (error) {
-            case AuthError.none:
-                history.push("/");
-                break;
-            case AuthError.wrongPassword:
-                setState({...state, errorText: i18next.t('wrongPassword')});
-                break;
-            case AuthError.connectionError:
-                setState({...state, errorText: i18next.t('connectionError')});
-                break;
+        try {
+            const {token, user} = await authorizeUserAsync(email, password);
+            const refreshTokenIntervalId = await setUpTokenRefresh(email, password);
+            userBehaviorSubject.next(new AeroUser(user, token, refreshTokenIntervalId));
 
+        } catch (ex) {
+            if (ex instanceof AuthorizeException) {
+                switch (ex.error) {
+                    case AuthError.wrongPassword:
+                        setState({...state, errorText: i18next.t('wrongPassword')});
+                        break;
+                    case AuthError.connectionError:
+                        setState({...state, errorText: i18next.t('connectionError')});
+                        break;
+
+                }
+            }
         }
     }
 
@@ -66,10 +78,20 @@ const PasswordForm: React.FC<{ theme: Theme }> = (props) => {
                         id="outlined-error-helper-text"
                         label={t('password')}
                         helperText={errorText}
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         variant="outlined"
                         InputProps={{
-                            endAdornment: hasError ? <AppErrorIcon/> : null
+                            endAdornment:
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <AppVisibilityIcon/> : <AppVisibilityOffIcon/>}
+                                    </IconButton>
+                                    {/*(hasError ? <AppErrorIcon/> : null)*/}
+                                </InputAdornment>
                         }}
                     />
                 </div>

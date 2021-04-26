@@ -1,25 +1,30 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {withTheme} from "styled-components";
 import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import EmailForm from "./email";
 import {SignInFormContainer} from "./style";
 import DebugRouter from "../../debug/DebugRouter";
-import SignUpForm from "./signup";
 import PasswordForm from "./password";
+import SignUpForm from "../signup";
 
 const SignInForm: React.FC<{ theme: Theme }> = (props) => {
     const history = useHistory();
-    const location = useLocation();
     let {path, url} = useRouteMatch();
-
     const emailPath = `${path}/email`;
     const signupPath = `${path}/signup`;
+    const passwordPath = `${path}/password`;
+
+    const [state, setState] = useState<{ email: string }>({email: ""});
+    const {email} = state;
 
     useEffect(() => {
-        history.push(emailPath);
-    }, [path]);
-
+        if (email !== "") {
+            history.push(passwordPath);
+        } else {
+            history.push(emailPath);
+        }
+    }, [email]);
 
     const handleCreateAccount = () => {
         history.push(signupPath);
@@ -30,7 +35,11 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
     }
 
     const handleBackFromPassword = (e: any) => {
-        handleSignIn();
+        setState({email: ""});
+    }
+
+    const handleEmailNext = (email: string) => {
+        setState({email: email});
     }
 
     return (
@@ -38,13 +47,13 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
             <DebugRouter>
                 <Switch>
                     <Route path={emailPath}>
-                        <EmailForm CreateAccount={handleCreateAccount}/>
+                        <EmailForm CreateAccount={handleCreateAccount} Next={handleEmailNext}/>
                     </Route>
                     <Route exact path={'/signup'}>
                         <SignUpForm SignIn={handleSignIn}/>
                     </Route>
                     <Route exact path={`${path}/password`}>
-                        <PasswordForm Back={handleBackFromPassword}/>
+                        <PasswordForm Back={handleBackFromPassword} email={email}/>
                     </Route>
                 </Switch>
             </DebugRouter>

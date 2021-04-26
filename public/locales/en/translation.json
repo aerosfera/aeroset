@@ -57,5 +57,6 @@
   "emailNotValid" : "Email not valid",
   "wrongPassword" : "Wrong password",
   "connectionError" : "Connection error",
-  "password" : "Password"
+  "password" : "Password",
+  "emailEmpty" : "Empty email"
 }

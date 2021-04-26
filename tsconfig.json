@@ -37,6 +37,7 @@
     "firebase"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/custom.d.ts"
   ]
 }

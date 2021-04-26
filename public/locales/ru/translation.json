@@ -57,5 +57,6 @@
   "emailNotValid" : "Email введен не правильно",
   "wrongPassword" : "Неправильный пароль",
   "connectionError" : "Ошибка связи",
-  "password" : "Пароль"
+  "password" : "Пароль",
+  "emailEmpty" : "Пустой email"
 }

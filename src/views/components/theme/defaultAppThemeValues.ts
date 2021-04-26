@@ -1,3 +1,5 @@
+import grey from '@material-ui/core/colors/grey';
+
 export const defaultAppThemeValues = {
     app: {
         colors: {
@@ -14,6 +16,12 @@ export const defaultAppThemeValues = {
                 red: "#FF0000",
             },
             palette: {
+                primary: {
+                    main: "#3A3A3A",
+                },
+                secondary: {
+                    main: "#006E81"
+                },
                 white: "#ffffff",
                 black: "",
                 gray: "",

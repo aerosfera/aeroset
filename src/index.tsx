@@ -23,10 +23,10 @@ import {BrowserRouter} from "react-router-dom";
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <GlobalStyle/>
-            <CssBaseline/>
             <Theme>
                 <Suspense fallback="">
+                    <GlobalStyle/>
+                    <CssBaseline/>
                     <App/>
                 </Suspense>
             </Theme>

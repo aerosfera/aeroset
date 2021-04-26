@@ -9,7 +9,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import {ListItemIcon} from "@material-ui/core";
 import BlurOnIcon from "@material-ui/icons/BlurOn";
 import MenuIcon from '@material-ui/icons/Menu';
-import {ExpandLess, ExpandMore} from "@material-ui/icons";
+import {ExpandLess, ExpandMore, Visibility, VisibilityOff} from "@material-ui/icons";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import BlurOffIcon from '@material-ui/icons/BlurOff';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -26,7 +26,7 @@ export const AppSettingsIcon = styled(TuneIcon)`
 `
 
 export const AppErrorIcon = styled(ErrorIcon)`
-  color: ${themeColor(ThemeColors.red)}
+  color: ${"#B00020"}
 `
 
 export const AppLoadSchemeFile = styled(DescriptionIcon)`
@@ -38,6 +38,15 @@ export const AppClearPointCloudIcon = styled(BlurOffIcon)`
 export const AppCloseIcon = styled(CloseIcon)`
   color: ${themeColor(ThemeColors.white)}
 `
+
+export const AppVisibilityIcon = styled(Visibility)`
+  color: ${themeColor(ThemeColors.mediumGray)}
+`
+
+export const AppVisibilityOffIcon = styled(VisibilityOff)`
+  color: ${themeColor(ThemeColors.mediumGray)}
+`
+
 export const AppArrowCloseLeft = styled(ChevronLeftIcon)`
 `
 export const AppPointCloudIcon = styled(BlurOnIcon)`

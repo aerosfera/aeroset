@@ -7,7 +7,19 @@ import {setUpTokenRefresh} from "./setUpTokenRefresh";
 import AeroUser from "../../data/auth/AeroUser";
 import {AuthError} from "../../data/auth/error/AuthError";
 
-export const authorizeUserAsync = async (login: string, password: string): Promise<AuthError> => {
+export class AuthorizeException {
+    private readonly _error: AuthError;
+
+    get error(): AuthError {
+        return this._error;
+    }
+
+    constructor(authError: AuthError) {
+        this._error = authError;
+    }
+}
+
+export const authorizeUserAsync = async (login: string, password: string): Promise<{ user: UserRepresentation, token: string }> => {
     try {
         await kcAdminClient.auth({
             username: login,
@@ -24,16 +36,19 @@ export const authorizeUserAsync = async (login: string, password: string): Promi
             id: userId
         });
 
+
         const refreshTokenIntervalId = await setUpTokenRefresh(login, password);
         userBehaviorSubject.next(new AeroUser(user, token, refreshTokenIntervalId));
 
-        console.log(user);
-        return AuthError.none;
+        return {user: user, token: token};
     } catch (ex) {
-        if (ex.response.status && ex.response.status === 401) {
-            return AuthError.wrongPassword;
+        let error = new Error('Email authorization error');
+        if (ex.response.status && (ex.response.status === 401)) {
+            throw new AuthorizeException(AuthError.wrongPassword);
+        } else if (ex.response.status && (ex.response.status === 403)) {
+            throw new AuthorizeException(AuthError.userNotRegistered);
         } else {
-            return AuthError.connectionError;
+            throw new AuthorizeException(AuthError.connectionError);
         }
     }
 }
