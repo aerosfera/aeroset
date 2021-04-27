@@ -10,6 +10,12 @@ export const TableStyled = styled.div<Theme>`
 
 export const TableRowStyled = styled.div<{ height: number, theme: Theme }>`
   display: table-row;
+  width: 100%;
+  height: ${props => props.height}%;
+`
+
+export const TableCellStyled = styled.div<{ height: number, theme: Theme }>`
+  display: table-cell;
   height: ${props => props.height}%;
 `
 

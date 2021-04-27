@@ -17,7 +17,6 @@ import {AerosetLogoContainer, SpaceBetween, TableRowStyled, TableStyled} from ".
 const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
     const loginRef = useRef();
-    const {path} = useRouteMatch();
 
     const [state, setState] = useState<{ errorText: string, email: string }>({errorText: "", email: ""});
     const {errorText, email} = state;
@@ -41,7 +40,8 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
             }
         }
 
-        ValidateEmail();
+        if (email && email !== "")
+            ValidateEmail();
     }, [email])
 
     const validateAsync = async (email: string): Promise<boolean> => {
@@ -86,69 +86,65 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     }
 
     return (
-        <Switch>
-            <Route exact path={path}>
-                <TableStyled>
-                    <TableRowStyled
-                        height={30}
-                        style={{
-                            textAlign: "left"
-                        }}>
-                        <AerosetLogoContainer>
-                            <AerosetLogo/>
-                        </AerosetLogoContainer>
-                    </TableRowStyled>
-                    <TableRowStyled height={20}>
-                        <Typography variant="h5">
-                            {t('enter')}
-                        </Typography>
-                    </TableRowStyled>
-                    <TableRowStyled height={30}>
-                        <div style={{display: "flex", marginLeft: 48, marginRight: 48}}>
-                            <TextField
-                                error={hasError}
-                                disabled={emailConnectionValidate}
-                                inputRef={loginRef}
-                                style={{flex: "1"}}
-                                id="outlined-error-helper-text"
-                                label={hasError ? t('error') : null}
-                                placeholder={t('enter_email')}
-                                helperText={errorText}
-                                variant="outlined"
-                                defaultValue={email !== "" ? email : undefined}
-                                inputProps={{
-                                    style: {
-                                        WebkitBoxShadow: "0 0 0 1000px white inset"
-                                    }
-                                }}
-                                InputProps={{
-                                    endAdornment: hasError ? <AppErrorIcon/> : null
-                                }}
-                            />
-                        </div>
-                    </TableRowStyled>
-                    <TableRowStyled height={20}>
-                        <SpaceBetween>
-                            <Button color="primary"
-                                    disabled={emailConnectionValidate}
-                                    onClick={handleCreateAccount}>
-                                {t('create_account')}
-                            </Button>
+        <TableStyled style={{height: 345}}>
+            <TableRowStyled
+                height={30}
+                style={{
+                    textAlign: "left"
+                }}>
+                <AerosetLogoContainer>
+                    <AerosetLogo/>
+                </AerosetLogoContainer>
+            </TableRowStyled>
+            <TableRowStyled height={20}>
+                <Typography variant="h5">
+                    {t('enter')}
+                </Typography>
+            </TableRowStyled>
+            <TableRowStyled height={30}>
+                <div style={{display: "flex", marginLeft: 48, marginRight: 48}}>
+                    <TextField
+                        error={hasError}
+                        disabled={emailConnectionValidate}
+                        inputRef={loginRef}
+                        style={{flex: "1"}}
+                        id="outlined-error-helper-text"
+                        label={hasError ? t('error') : null}
+                        placeholder={t('enter_email')}
+                        helperText={errorText}
+                        variant="outlined"
+                        defaultValue={email !== "" ? email : undefined}
+                        inputProps={{
+                            style: {
+                                WebkitBoxShadow: "0 0 0 1000px white inset"
+                            }
+                        }}
+                        InputProps={{
+                            endAdornment: hasError ? <AppErrorIcon/> : null
+                        }}
+                    />
+                </div>
+            </TableRowStyled>
+            <TableRowStyled height={20}>
+                <SpaceBetween>
+                    <Button color="primary"
+                            disabled={emailConnectionValidate}
+                            onClick={handleCreateAccount}>
+                        {t('create_account')}
+                    </Button>
 
-                            <CircularProgress size={30}
-                                              style={{visibility: (emailConnectionValidate ? "visible" : "collapse")}}/>
-                            <Button color="primary"
-                                    disabled={emailConnectionValidate}
-                                    disableElevation
-                                    variant="contained"
-                                    onClick={handleNext}>
-                                {t('next')}
-                            </Button>
-                        </SpaceBetween>
-                    </TableRowStyled>
-                </TableStyled>
-            </Route>
-        </Switch>
+                    <CircularProgress size={30}
+                                      style={{visibility: (emailConnectionValidate ? "visible" : "collapse")}}/>
+                    <Button color="primary"
+                            disabled={emailConnectionValidate}
+                            disableElevation
+                            variant="contained"
+                            onClick={handleNext}>
+                        {t('next')}
+                    </Button>
+                </SpaceBetween>
+            </TableRowStyled>
+        </TableStyled>
     )
 }
 

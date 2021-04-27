@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {withTheme} from "styled-components";
-import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 import EmailForm from "./email";
-import {SignInFormContainer} from "./style";
 import DebugRouter from "../../debug/DebugRouter";
 import PasswordForm from "./password";
 import SignUpForm from "../signup";
+import {AuthFormContainer} from "./style";
 
-const SignInForm: React.FC<{ theme: Theme }> = (props) => {
+const AuthForm: React.FC<{ theme: Theme }> = (props) => {
     const history = useHistory();
-    let {path, url} = useRouteMatch();
+    let {path} = useRouteMatch();
     const emailPath = `${path}/email`;
     const signupPath = `${path}/signup`;
     const passwordPath = `${path}/password`;
@@ -43,22 +43,22 @@ const SignInForm: React.FC<{ theme: Theme }> = (props) => {
     }
 
     return (
-        <SignInFormContainer>
+        <AuthFormContainer>
             <DebugRouter>
                 <Switch>
                     <Route path={emailPath}>
                         <EmailForm CreateAccount={handleCreateAccount} Next={handleEmailNext}/>
                     </Route>
-                    <Route exact path={'/signup'}>
+                    <Route exact path={signupPath}>
                         <SignUpForm SignIn={handleSignIn}/>
                     </Route>
-                    <Route exact path={`${path}/password`}>
+                    <Route exact path={passwordPath}>
                         <PasswordForm Back={handleBackFromPassword} email={email}/>
                     </Route>
                 </Switch>
             </DebugRouter>
-        </SignInFormContainer>
+        </AuthFormContainer>
     )
 }
 
-export default withTheme(SignInForm);
+export default withTheme(AuthForm);

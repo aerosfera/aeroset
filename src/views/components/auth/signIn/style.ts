@@ -5,7 +5,7 @@ import theme from "../../theme/theme";
 import {themeColor} from "../../theme/themeAccessors";
 import {ThemeColors} from "../../theme/ThemeColors";
 
-export const SignInFormContainer = styled.div<Theme>`
+export const AuthFormContainer = styled.div<Theme>`
   ${props => props.theme.breakpoints.up("sm")} {
     width: 448px;
   }
@@ -18,7 +18,6 @@ export const SignInFormContainer = styled.div<Theme>`
   text-align: center;
   background: #f7f7f7;
   border-radius: 4px;
-  height: 345px;
 `
 
 export const SubmitButton = styled(Button)<Theme>`

@@ -2,13 +2,13 @@ import {withTheme} from "styled-components";
 import {Theme} from "@material-ui/core/styles/createMuiTheme";
 import React from 'react';
 import {AuthBackground, AuthFormContainer, SignInContainer} from './style';
-import SignInForm from "./signIn";
+import AuthForm from "./signIn";
 
 const AuthPage: React.FC<{ theme: Theme }> = (props) => {
     return (
         <AuthFormContainer>
             <SignInContainer>
-                <SignInForm/>
+                <AuthForm/>
             </SignInContainer>
             <AuthBackground/>
         </AuthFormContainer>
