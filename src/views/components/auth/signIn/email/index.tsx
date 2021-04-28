@@ -109,7 +109,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
                         inputRef={loginRef}
                         style={{flex: "1"}}
                         id="outlined-error-helper-text"
-                        label={hasError ? t('error') : null}
+                        label={hasError ? t('error') : t('enter_email')}
                         placeholder={t('enter_email')}
                         helperText={errorText}
                         variant="outlined"

@@ -1,25 +1,19 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import createMuiTheme, {Theme} from "@material-ui/core/styles/createMuiTheme";
 import {useTranslation} from "react-i18next";
 import Typography from "@material-ui/core/Typography";
-import {CircularProgress, TableCell, TextField, ThemeProvider} from "@material-ui/core";
-import ErrorIcon from "@material-ui/icons/Error";
+import {CircularProgress, TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import withTheme from "@material-ui/core/styles/withTheme";
 import {AerosetLogoContainer, SpaceBetween, TableRowStyled, TableStyled, TableCellStyled} from "../shared/style";
 import AerosetLogo from "../shared/AerosetLogo";
 import {AppErrorIcon} from "../../shared/icons";
-
-
-const localTheme = createMuiTheme({
-    overrides: {
-        MuiTypography: {
-            body2: {
-                fontSize: [12, "!important"]
-            }
-        }
-    }
-});
+import {TypographySignUpStyled} from "./style";
+import {strict} from "assert";
+import i18next from "i18next";
+import IMask from "imask";
+import {ONLY_RUS_LETTER_MASK_OPTIONS} from "../../../../utilities/masks/mask";
+import * as EmailValidator from "email-validator";
 
 const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation();
@@ -37,11 +31,11 @@ const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
         password: string,
         passwordConfirm: string,
         processSignUp: boolean,
-        invalidName: boolean,
-        invalidSurname: boolean,
-        invalidEmail: boolean,
-        invalidPassword: boolean,
-        invalidPasswordConfirm: boolean
+        nameError: string,
+        surnameError: string,
+        emailError: string,
+        passwordError: string,
+        passwordConfirmError: string
     }>({
         name: "",
         surname: "",
@@ -49,11 +43,11 @@ const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
         password: "",
         passwordConfirm: "",
         processSignUp: false,
-        invalidName: false,
-        invalidSurname: false,
-        invalidEmail: false,
-        invalidPassword: false,
-        invalidPasswordConfirm: false
+        nameError: "",
+        surnameError: "",
+        emailError: "",
+        passwordError: "",
+        passwordConfirmError: ""
     })
 
     const {
@@ -62,12 +56,15 @@ const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
         email,
         password,
         passwordConfirm,
-        processSignUp,
-        invalidName,
-        invalidEmail,
-        invalidPassword,
-        invalidPasswordConfirm,
-        invalidSurname
+        processSignUp
+    } = state;
+
+    let {
+        nameError,
+        surnameError,
+        emailError,
+        passwordError,
+        passwordConfirmError
     } = state;
 
     const handleBack = (e: any) => {
@@ -75,12 +72,140 @@ const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
         props.SignIn();
     }
 
-    const handleSignUp = (e: any) => {
+    useEffect(() => {
+        let nameMask: any;
+        if (nameRef.current) {
+            // @ts-ignore
+            const nameEl = nameRef.current as HTMLInputElement;
+            nameMask = IMask(nameEl, ONLY_RUS_LETTER_MASK_OPTIONS);
+        }
 
+        let surnameMask: any;
+        if (surnameRef.current) {
+            // @ts-ignore
+            const surnameEl = surnameRef.current as HTMLInputElement;
+            surnameMask = IMask(surnameEl, ONLY_RUS_LETTER_MASK_OPTIONS);
+        }
+
+        return () => {
+            nameMask.destroy();
+            surnameMask.destroy();
+        }
+    });
+
+
+    const handleSignUp = (e: any) => {
+        //@ts-ignore
+        const nameValue = nameRef!.current.value;
+        //@ts-ignore
+        const surnameValue = surnameRef!.current.value;
+        //@ts-ignore
+        const emailValue = emailRef!.current.value;
+        //@ts-ignore
+        const passwordValue = passwordRef!.current.value;
+        //@ts-ignore
+        const passwordConfirmValue = passwordConfirmRef!.current.value;
+
+        const nameValidationError = validateName(nameValue);
+        const surnameValidationError = validateSurname(surnameValue);
+        const emailValidationError = validateEmail(emailValue);
+        const passwordValidationError = validatePassword(passwordValue);
+        const passwordConfirmValidationError = validatePasswordConfirm(passwordValue, passwordConfirmValue);
+
+        let hasError = false;
+        if (nameValidationError !== null) {
+            nameError = nameValidationError;
+            hasError = true;
+        }
+        if (surnameValidationError !== null) {
+            surnameError = surnameValidationError;
+            hasError = true;
+        }
+        if (emailValidationError !== null) {
+            emailError = emailValidationError;
+            hasError = true;
+        }
+        if (passwordValidationError !== null) {
+            passwordError = passwordValidationError;
+            hasError = true;
+        }
+        if (passwordConfirmValidationError !== null) {
+            passwordConfirmError = passwordConfirmValidationError;
+            hasError = true;
+        }
+
+        if (hasError) {
+            setState({...state, nameError, surnameError, emailError, passwordError, passwordConfirmError});
+        } else {
+            //Todo: create account
+        }
     }
 
+    const validateName = (name: string): string | null => {
+        if (!name || name === "") {
+            return i18next.t('enterName');
+        }
+
+        return null;
+    }
+
+    const validateSurname = (surname: string): string | null => {
+        if (!surname || surname === "") {
+            return i18next.t('enterSurname');
+        }
+
+        return null;
+    }
+
+    const validateEmail = (email: string): string | null => {
+        if (!email || email === "") {
+            return i18next.t('enterEmail');
+        }
+
+        const emailIsValid = EmailValidator.validate(email);
+        if (!emailIsValid) {
+            return i18next.t('emailNotValid');
+        }
+
+        return null;
+    }
+
+    const validatePassword = (password: string): string | null => {
+        if (!password || password === "") {
+            return i18next.t('enterPassword');
+        }
+
+        if (password.length < 8) {
+            return i18next.t('passwordTooShort');
+        }
+
+        if (!hasNumbers(password)) {
+            return i18next.t('passwordWithoutNumbers');
+        }
+
+        return null;
+    }
+
+    const hasNumbers = (str: string): boolean => {
+        const regex = /\d/g;
+        return regex.test(str);
+    }
+
+    const validatePasswordConfirm = (password: string, passwordConfirm: string): string | null => {
+        if (!passwordConfirm || passwordConfirm === "") {
+            return i18next.t('enterPasswordConfirm');
+        }
+
+        if (password !== passwordConfirm) {
+            return i18next.t('passwordConfirmationInvalid');
+        }
+
+        return null;
+    }
+
+
     return (
-        <TableStyled style={{height: 500}}>
+        <TableStyled style={{height: 550}}>
             <TableRowStyled
                 height={20}
                 style={{
@@ -99,138 +224,137 @@ const SignUpForm: React.FC<{ theme: Theme }> = (props) => {
                 <TableStyled style={{boxSizing: "border-box"}}>
                     <TableCellStyled>
                         <TextField
-                            error={invalidName}
+                            error={nameError}
                             disabled={processSignUp}
                             inputRef={nameRef}
                             style={{flex: "1", marginLeft: 48, marginRight: 12}}
                             id="outlined-error-helper-text"
-                            label={invalidName ? t('error') : null}
+                            label={nameError ? t('error') : t('name')}
                             placeholder={t('name')}
-                            helperText={invalidName}
+                            helperText={nameError}
                             variant="outlined"
                             defaultValue={name !== "" ? name : undefined}
                             inputProps={{
                                 style: {
                                     WebkitBoxShadow: "0 0 0 1000px white inset"
-                                }
+                                },
+                                maxLength: 18
                             }}
                             InputProps={{
-                                endAdornment: invalidName ? <AppErrorIcon/> : null
+                                endAdornment: nameError ? <AppErrorIcon/> : null
                             }}
                         />
                     </TableCellStyled>
                     <TableCellStyled>
                         <TextField
-                            error={invalidSurname}
+                            error={surnameError}
                             disabled={processSignUp}
                             inputRef={surnameRef}
                             style={{flex: "1", marginLeft: 12, marginRight: 48}}
                             id="outlined-error-helper-text"
-                            label={invalidSurname ? t('error') : null}
+                            label={surnameError ? t('error') : t('surname')}
                             placeholder={t('surname')}
-                            helperText={invalidSurname}
+                            helperText={surnameError}
                             variant="outlined"
                             defaultValue={surname !== "" ? surname : undefined}
                             inputProps={{
                                 style: {
                                     WebkitBoxShadow: "0 0 0 1000px white inset"
-                                }
+                                },
+                                maxLength: 18
                             }}
                             InputProps={{
-                                endAdornment: invalidSurname ? <AppErrorIcon/> : null
+                                endAdornment: surnameError ? <AppErrorIcon/> : null
                             }}/>
                     </TableCellStyled>
                 </TableStyled>
             </TableRowStyled>
             <TableRowStyled height={15}>
                 <TextField
-                    error={invalidEmail}
+                    error={emailError}
                     disabled={processSignUp}
                     inputRef={emailRef}
                     fullWidth
                     style={{maxWidth: 352}}
                     id="outlined-error-helper-text"
-                    label={invalidEmail ? t('error') : null}
+                    label={emailError ? t('error') : t('email')}
                     placeholder={t('email')}
-                    helperText={invalidEmail}
+                    helperText={emailError}
                     variant="outlined"
                     defaultValue={email !== "" ? email : undefined}
                     inputProps={{
                         style: {
                             WebkitBoxShadow: "0 0 0 1000px white inset"
-                        }
+                        },
+                        maxLength: 18
                     }}
                     InputProps={{
-                        endAdornment: invalidEmail ? <AppErrorIcon/> : null
+                        endAdornment: emailError ? <AppErrorIcon/> : null
                     }}
                 />
-                <Typography variant="body2"
-                    style={{marginLeft: 48, marginRight: 48,
-                    fontSize: 12}}>
+                <TypographySignUpStyled variant="body2">
                     {t('confirmEmail')}
-                </Typography>
+                </TypographySignUpStyled>
             </TableRowStyled>
-            <TableRowStyled height={15}>
+            <TableRowStyled height={10}>
                 <div>
                     <TableStyled style={{boxSizing: "border-box"}}>
                         <TableCellStyled>
                             <TextField
-                                error={invalidPassword}
+                                error={passwordError}
                                 disabled={processSignUp}
                                 inputRef={passwordRef}
                                 style={{flex: "1", marginLeft: 48, marginRight: 12}}
                                 id="outlined-error-helper-text"
-                                label={invalidPassword ? t('error') : null}
+                                label={passwordError ? t('error') : t('password')}
                                 placeholder={t('password')}
-                                helperText={invalidPassword}
+                                helperText={passwordError}
                                 variant="outlined"
                                 defaultValue={password !== "" ? password : undefined}
                                 inputProps={{
                                     style: {
                                         WebkitBoxShadow: "0 0 0 1000px white inset"
-                                    }
+                                    },
+                                    maxLength: 18
                                 }}
                                 InputProps={{
-                                    endAdornment: invalidPassword ? <AppErrorIcon/> : null
+                                    endAdornment: passwordError ? <AppErrorIcon/> : null
                                 }}
                             />
                         </TableCellStyled>
                         <TableCellStyled>
                             <TextField
-                                error={invalidPasswordConfirm}
+                                error={passwordConfirmError}
                                 disabled={processSignUp}
                                 inputRef={passwordConfirmRef}
                                 style={{flex: "1", marginLeft: 12, marginRight: 48}}
                                 id="outlined-error-helper-text"
-                                label={invalidPasswordConfirm ? t('error') : null}
+                                label={passwordConfirmError ? t('error') : t('confirm')}
                                 placeholder={t('confirm')}
-                                helperText={invalidPasswordConfirm}
+                                helperText={passwordConfirmError}
                                 variant="outlined"
                                 defaultValue={passwordConfirm !== "" ? passwordConfirm : undefined}
                                 inputProps={{
                                     style: {
                                         WebkitBoxShadow: "0 0 0 1000px white inset"
-                                    }
+                                    },
+                                    maxLength: 18
                                 }}
                                 InputProps={{
-                                    endAdornment: invalidPasswordConfirm ? <AppErrorIcon/> : null
+                                    endAdornment: passwordConfirmError ? <AppErrorIcon/> : null
                                 }}
                             />
                         </TableCellStyled>
                     </TableStyled>
-                    <Typography variant="body2"
-                                style={{marginLeft: 48,
-                                    marginRight: 48,
-                                    fontSize: 12,
-                                    color: "red"}}>
+                    <TypographySignUpStyled variant="body2">
                         {t('passwordText')}
-                    </Typography>
+                    </TypographySignUpStyled>
                 </div>
             </TableRowStyled>
-            <TableRowStyled height={15} style={{marginTop: 48}}>
+            <TableRowStyled height={15}>
                 <SpaceBetween>
-                    < Button onClick={handleBack}
-                             disabled={processSignUp}>
+                    <Button onClick={handleBack}
+                            disabled={processSignUp}>
                         {t('enter2')}
                     </Button>
                     <CircularProgress size={30}

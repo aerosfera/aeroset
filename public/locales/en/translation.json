@@ -66,5 +66,13 @@
   "email": "E-mail address",
   "confirm": "Confirm",
   "confirmEmail": "You will need to confirm that this is your email address",
-  "passwordText": "Password must be less than eight characters long, including letters, numbers and special characters"
+  "passwordText": "Password must be less than eight characters long, including letters, numbers and special characters",
+  "enterName": "Enter name",
+  "enterSurname": "Enter surname",
+  "enterEmail": "Enter email",
+  "enterPassword": "Enter password",
+  "enterPasswordConfirm": "Enter password confirmation",
+  "passwordTooShort": "Password contains less than 8 characters",
+  "passwordWithoutNumbers": "Password must be at least one digit",
+  "passwordConfirmationInvalid": "Password confirmation does not match"
 }

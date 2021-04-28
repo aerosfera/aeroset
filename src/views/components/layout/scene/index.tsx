@@ -40,7 +40,7 @@ const AppScene: React.FC<{ theme: Theme }> = (props) => {
             if (canvasEl.current)
                 canvasEl.current.onclick = null;
         }
-    }, [])
+    });
 
     const initialize = async (canvas: HTMLCanvasElement) => {
         if (!isCanvasSupported()) {
