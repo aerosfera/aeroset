@@ -6,13 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import {CircularProgress, TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import kcAdminClient from "../../../../../infrastructure/keycloak/keyCloakAdminClient";
-import {Route, Switch, useRouteMatch} from "react-router-dom";
 import {KEYCLOAK_CLIENT, KEYCLOAK_GRANT_TYPE} from "../../../../../config/connection";
 import i18next from "i18next";
 import {AppErrorIcon} from "../../../shared/icons";
 import * as EmailValidator from 'email-validator';
 import AerosetLogo from "../../shared/AerosetLogo";
 import {AerosetLogoContainer, SpaceBetween, TableRowStyled, TableStyled} from "../../shared/style";
+import checkEmailExistAsync from "../../../../../logic/common/checkEmailExistAsync";
 
 const EmailForm: React.FC<{ theme: Theme }> = (props) => {
     const {t} = useTranslation()
@@ -26,7 +26,7 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
 
     useEffect(() => {
         async function ValidateEmail() {
-            const validationResult = await validateAsync(email).catch(ex => {
+            const validationResult = await checkEmailExistAsync(email).catch(ex => {
                 if (ex.response && ex.response.status && ex.response.status === 401) {
                     setState({...state, errorText: i18next.t('emailNonExist'), email: ""});
                 } else {
@@ -43,21 +43,6 @@ const EmailForm: React.FC<{ theme: Theme }> = (props) => {
         if (email && email !== "")
             ValidateEmail();
     }, [email])
-
-    const validateAsync = async (email: string): Promise<boolean> => {
-        await kcAdminClient.auth({
-            username: "auth_client",
-            password: "auth",
-            grantType: KEYCLOAK_GRANT_TYPE,
-            clientId: KEYCLOAK_CLIENT
-        });
-
-        let hasUser;
-        const userWithEmail = await kcAdminClient.users.count({email: email});
-        hasUser = userWithEmail > 0;
-
-        return Promise.resolve(hasUser);
-    }
 
     const handleNext = async (e: any): Promise<void> => {
         console.log("email");

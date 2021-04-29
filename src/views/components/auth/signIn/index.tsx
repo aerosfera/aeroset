@@ -7,6 +7,8 @@ import DebugRouter from "../../debug/DebugRouter";
 import PasswordForm from "./password";
 import SignUpForm from "../signup";
 import {AuthFormContainer} from "./style";
+import {UserAccountInfo} from "./code/UserAccountInfo";
+import CreateAccount from "../signup/createAccount";
 
 const AuthForm: React.FC<{ theme: Theme }> = (props) => {
     const history = useHistory();
@@ -14,9 +16,13 @@ const AuthForm: React.FC<{ theme: Theme }> = (props) => {
     const emailPath = `${path}/email`;
     const signupPath = `${path}/signup`;
     const passwordPath = `${path}/password`;
+    const createAccountPath = `${path}/createAccount`;
 
-    const [state, setState] = useState<{ email: string }>({email: ""});
-    const {email} = state;
+    const [state, setState] = useState<{ email: string, accountInfo: UserAccountInfo | null }>({
+        email: "",
+        accountInfo: null
+    });
+    const {email, accountInfo} = state;
 
     useEffect(() => {
         if (email !== "") {
@@ -25,6 +31,12 @@ const AuthForm: React.FC<{ theme: Theme }> = (props) => {
             history.push(emailPath);
         }
     }, [email]);
+
+    useEffect(() => {
+        if (accountInfo !== null) {
+            history.push(createAccountPath);
+        }
+    }, [accountInfo])
 
     const handleCreateAccount = () => {
         history.push(signupPath);
@@ -35,11 +47,15 @@ const AuthForm: React.FC<{ theme: Theme }> = (props) => {
     }
 
     const handleBackFromPassword = (e: any) => {
-        setState({email: ""});
+        setState({...state, email: ""});
     }
 
     const handleEmailNext = (email: string) => {
-        setState({email: email});
+        setState({...state, email: email});
+    }
+
+    const handleCreateUserAccount = (accountInfo: UserAccountInfo) => {
+        setState({...state, accountInfo});
     }
 
     return (
@@ -50,10 +66,13 @@ const AuthForm: React.FC<{ theme: Theme }> = (props) => {
                         <EmailForm CreateAccount={handleCreateAccount} Next={handleEmailNext}/>
                     </Route>
                     <Route exact path={signupPath}>
-                        <SignUpForm SignIn={handleSignIn}/>
+                        <SignUpForm SignIn={handleSignIn} CreateUserAccount={handleCreateUserAccount}/>
                     </Route>
                     <Route exact path={passwordPath}>
                         <PasswordForm Back={handleBackFromPassword} email={email}/>
+                    </Route>
+                    <Route exact path={createAccountPath}>
+                        <CreateAccount accountInfo={accountInfo}/>
                     </Route>
                 </Switch>
             </DebugRouter>

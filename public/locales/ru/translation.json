@@ -74,5 +74,6 @@
   "enterPasswordConfirm": "Введите подтверждение пароля",
   "passwordTooShort": "Пароль содержит меньше 8 символов",
   "passwordWithoutNumbers": "Пароль должен содержать не менее одной цифры",
-  "passwordConfirmationInvalid": "Подтверждение пароля не совпадает"
+  "passwordConfirmationInvalid": "Подтверждение пароля не совпадает",
+  "emailExist": "Пользователь с таким email уже существует"
 }

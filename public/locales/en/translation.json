@@ -57,7 +57,7 @@
   "networkError": "Network error",
   "emailNotValid": "Email not valid",
   "wrongPassword": "Wrong password",
-  "connectionError": "Connection error",
+  "emailExist": "Connection error",
   "password": "Password",
   "emailEmpty": "Empty email",
   "passwordEmpty": "Empty password",
@@ -74,5 +74,6 @@
   "enterPasswordConfirm": "Enter password confirmation",
   "passwordTooShort": "Password contains less than 8 characters",
   "passwordWithoutNumbers": "Password must be at least one digit",
-  "passwordConfirmationInvalid": "Password confirmation does not match"
+  "passwordConfirmationInvalid": "Password confirmation does not match",
+  "emailExist": "User with this email already exists"
 }
